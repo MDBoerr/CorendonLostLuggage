@@ -5,22 +5,31 @@ import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
-
+import javafx.geometry.Rectangle2D;
 
 public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
-        
-        Scene scene = new Scene(root);
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/UserScene.fxml"));
+
+        Scene scene = new Scene(root, 1200, 800);
         scene.getStylesheets().add("/styles/Styles.css");
-        
+
         stage.setTitle("Corendon Lost Luggage");
         stage.setScene(scene);
+        //stage.show();
+
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX(primaryScreenBounds.getMinX());
+        stage.setY(primaryScreenBounds.getMinY());
+        stage.setWidth(primaryScreenBounds.getWidth());
+        stage.setHeight(primaryScreenBounds.getHeight());
+
         stage.show();
-        
+
     }
 
     /**

@@ -1,5 +1,6 @@
-package is103.lostluggage;
+package is103.lostluggage.Controllers;
 
+import is103.lostluggage.Model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,9 +12,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 //import javax.swing.text.TableView;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
+//import javafx.event.ActionEvent;
 
-public class FXMLController implements Initializable {
+public class OverviewUserController implements Initializable {
 
     @FXML
     private TableView<User> tableView;
