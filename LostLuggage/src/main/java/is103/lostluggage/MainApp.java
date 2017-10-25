@@ -20,7 +20,6 @@ public class MainApp extends Application {
 
         stage.setTitle("Corendon Lost Luggage");
         stage.setScene(scene);
-        //stage.show();
 
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         stage.setX(primaryScreenBounds.getMinX());
