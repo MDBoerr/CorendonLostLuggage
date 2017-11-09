@@ -1,4 +1,4 @@
-package is103.lostluggage;
+package is103.test;
 
 import java.net.URL;
 import java.util.ResourceBundle;
