@@ -1,6 +1,8 @@
 package is103.lostluggage.Controllers;
 
 import is103.lostluggage.Model.User;
+import java.awt.event.ActionEvent;
+import java.io.IOException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -54,4 +56,6 @@ public class OverviewUserController implements Initializable {
 
         return users;
     }
+    
+
 }
