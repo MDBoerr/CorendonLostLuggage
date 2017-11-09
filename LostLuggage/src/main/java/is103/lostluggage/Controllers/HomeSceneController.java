@@ -20,7 +20,7 @@ public class HomeSceneController implements Initializable {
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
+        System.out.println("You clicked me ggggggg!");
     }
 
     /**
