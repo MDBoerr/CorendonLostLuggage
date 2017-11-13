@@ -33,7 +33,7 @@ public class ServiceHomeViewController implements Initializable {
     @FXML 
     protected void naarInvoerScherm(ActionEvent event) throws IOException {
         try { 
-            Parent root1 = FXMLLoader.load(getClass().getResource("/fxml/ServiceInvoer.fxml"));
+            Parent root1 = FXMLLoader.load(getClass().getResource("/fxml/ServiceInvoerView.fxml"));
             //Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
@@ -48,7 +48,7 @@ public class ServiceHomeViewController implements Initializable {
     @FXML 
     protected void naarGevondenOverzichtScherm(ActionEvent event) throws IOException {
         try { 
-            Parent root1 = FXMLLoader.load(getClass().getResource("/fxml/ServiceGevondenOverzicht.fxml"));
+            Parent root1 = FXMLLoader.load(getClass().getResource("/fxml/ServiceGevondenOverzichtView.fxml"));
             //Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
@@ -63,7 +63,7 @@ public class ServiceHomeViewController implements Initializable {
     @FXML 
     protected void naarVermisteOverzichtScherm(ActionEvent event) throws IOException {
         try { 
-            Parent root1 = FXMLLoader.load(getClass().getResource("/fxml/ServiceVermisteOverzicht.fxml"));
+            Parent root1 = FXMLLoader.load(getClass().getResource("/fxml/ServiceVermisteOverzichtView.fxml"));
             //Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
@@ -78,7 +78,7 @@ public class ServiceHomeViewController implements Initializable {
     @FXML 
     protected void naarMatchingScherm(ActionEvent event) throws IOException {
         try { 
-            Parent root1 = FXMLLoader.load(getClass().getResource("/fxml/ServiceMatching.fxml"));
+            Parent root1 = FXMLLoader.load(getClass().getResource("/fxml/ServiceMatchingView.fxml"));
             //Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
