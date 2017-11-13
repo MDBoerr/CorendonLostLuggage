@@ -37,7 +37,7 @@ public class ServiceInvoerViewController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
             stage.show();
-            System.out.println("Works");
+            System.out.println("test service invoer");
         
         } catch (IOException ex) {
             Logger.getLogger(HomeViewController.class.getName()).log(Level.SEVERE, null, ex);
