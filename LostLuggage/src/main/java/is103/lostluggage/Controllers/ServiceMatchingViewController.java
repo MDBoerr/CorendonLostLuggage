@@ -31,7 +31,7 @@ public class ServiceMatchingViewController implements Initializable {
     @FXML 
     protected void backHomeButton(ActionEvent event) throws IOException {
         try { 
-            Parent root1 = FXMLLoader.load(getClass().getResource("/fxml/ServiceHome.fxml"));
+            Parent root1 = FXMLLoader.load(getClass().getResource("/fxml/ServiceHomeView.fxml"));
             //Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
