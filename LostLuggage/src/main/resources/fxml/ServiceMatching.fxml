@@ -15,8 +15,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.ServiceHomeController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.ServiceMatchingController">
    <left>
       <Pane prefHeight="217.0" prefWidth="122.0" style="-fx-background-color: #495057#495057 #495057#495057;" BorderPane.alignment="CENTER">
          <children>
@@ -47,7 +48,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="button" mnemonicParsing="false" onAction="#naarGevondenOverzichtScherm" prefHeight="65.0" prefWidth="245.0" styleClass=".button" stylesheets="@../styles/Styles.css" text="Overzicht gevonden" GridPane.rowIndex="1">
+            <Button fx:id="button" mnemonicParsing="false" onAction="#backHomeButton" prefHeight="65.0" prefWidth="245.0" styleClass=".button" stylesheets="@../styles/Styles.css" text="terug" textFill="#f51717" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="40.0" />
                </GridPane.margin>
@@ -58,39 +59,7 @@
                   <DropShadow />
                </effect>
             </Button>
-            <Button mnemonicParsing="false" onAction="#naarVermisteOverzichtScherm" prefHeight="65.0" prefWidth="245.0" styleClass=".button" stylesheets="@../styles/Styles.css" text="Overzicht vermist" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets left="40.0" />
-               </GridPane.margin>
-               <font>
-                  <Font size="20.0" />
-               </font>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#naarInvoerScherm" prefHeight="65.0" prefWidth="245.0" styleClass=".button" stylesheets="@../styles/Styles.css" text="invoer" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <font>
-                  <Font size="20.0" />
-               </font>
-               <effect>
-                  <DropShadow />
-               </effect>
-               <GridPane.margin>
-                  <Insets left="40.0" />
-               </GridPane.margin>
-            </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#naarMatchingScherm" prefHeight="65.0" prefWidth="245.0" styleClass=".button" stylesheets="@../styles/Styles.css" text="matching" textAlignment="CENTER" GridPane.rowIndex="2">
-               <font>
-                  <Font size="20.0" />
-               </font>
-               <effect>
-                  <DropShadow />
-               </effect>
-               <GridPane.margin>
-                  <Insets right="40.0" />
-               </GridPane.margin>
-            </Button>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="matching jajaa" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </center>
@@ -116,7 +85,7 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <Label fx:id="label1" alignment="CENTER" prefHeight="90.0" prefWidth="1211.0" text="Overzicht Service Medewerker">
+            <Label fx:id="label1" alignment="CENTER" prefHeight="90.0" prefWidth="1211.0" text="matching">
                <padding>
                   <Insets top="40.0" />
                </padding>
