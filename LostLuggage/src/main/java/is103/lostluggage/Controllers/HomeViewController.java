@@ -61,7 +61,10 @@ public class HomeViewController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
             stage.show();
-            System.out.println("Works");
+            System.out.println("blablabla");
+            
+            
+        
         
         } catch (IOException ex) {
             Logger.getLogger(HomeViewController.class.getName()).log(Level.SEVERE, null, ex);
