@@ -48,10 +48,8 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="button" mnemonicParsing="false" onAction="#backHomeButton" prefHeight="65.0" prefWidth="245.0" styleClass=".button" stylesheets="@../styles/Styles.css" text="terug" textFill="#f51717" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets right="40.0" />
-               </GridPane.margin>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="invoeren" GridPane.rowIndex="2" />
+            <Button fx:id="button" mnemonicParsing="false" onAction="#backHomeButton" prefHeight="65.0" prefWidth="196.0" styleClass=".button" stylesheets="@../styles/Styles.css" text="terug" textFill="#f51717">
                <font>
                   <Font size="20.0" />
                </font>
@@ -59,7 +57,6 @@
                   <DropShadow />
                </effect>
             </Button>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="lekker invoeren" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </center>
@@ -85,7 +82,7 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <Label fx:id="label1" alignment="CENTER" prefHeight="90.0" prefWidth="1211.0" text="Invoer pagina !">
+            <Label fx:id="label1" alignment="CENTER" prefHeight="90.0" prefWidth="1211.0" text="Invoer  bagage">
                <padding>
                   <Insets top="40.0" />
                </padding>
