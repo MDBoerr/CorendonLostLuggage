@@ -14,7 +14,8 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         //Parent root = FXMLLoader.load(getClass().getResource("/Views/HomeView.fxml"));    //Admin
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ServiceHomeView.fxml"));//Service medewerker
+        //Parent root = FXMLLoader.load(getClass().getResource("/fxml/ServiceHomeView.fxml"));//Service medewerker
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/ManagerHomeView.fxml"));//Service medewerker
         
 
         Scene scene = new Scene(root, 1200, 800);
