@@ -20,7 +20,7 @@ import javafx.stage.Stage;
  *
  * @author gebruiker
  */
-public class ServiceInvoerController implements Initializable {
+public class ServiceInvoerViewController implements Initializable {
 
     /**
      * Initializes the controller class.

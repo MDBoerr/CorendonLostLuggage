@@ -1,6 +1,5 @@
 package is103.lostluggage.Controllers;
 
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,7 +18,7 @@ import javafx.stage.Stage;
  *
  * @author gebruiker
  */
-public class ServiceGevondenOverzichtController implements Initializable {
+public class ServiceMatchingViewController implements Initializable {
 
     /**
      * Initializes the controller class.
@@ -27,7 +26,8 @@ public class ServiceGevondenOverzichtController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
+
     @FXML 
     protected void backHomeButton(ActionEvent event) throws IOException {
         try { 
@@ -41,5 +41,6 @@ public class ServiceGevondenOverzichtController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(HomeViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }    
+    
 }
