@@ -1,5 +1,8 @@
-package is103.lostluggage.Controllers;
+package is103.lostluggage.Controllers.Service;
 
+
+import is103.lostluggage.Controllers.HomeViewController;
+import is103.lostluggage.Controllers.HomeViewController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,7 +21,7 @@ import javafx.stage.Stage;
  *
  * @author gebruiker
  */
-public class ServiceMatchingViewController implements Initializable {
+public class ServiceInvoerViewController implements Initializable {
 
     /**
      * Initializes the controller class.
@@ -26,8 +29,7 @@ public class ServiceMatchingViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }
-
+    }    
     @FXML 
     protected void backHomeButton(ActionEvent event) throws IOException {
         try { 
@@ -36,11 +38,10 @@ public class ServiceMatchingViewController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
             stage.show();
-            System.out.println("Works");
+            System.out.println("test service invoer");
         
         } catch (IOException ex) {
             Logger.getLogger(HomeViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }    
-    
+    }
 }

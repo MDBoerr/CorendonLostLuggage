@@ -1,4 +1,4 @@
-package is103.lostluggage.Controllers;
+package is103.lostluggage.Controllers.Manager;
 
 import java.net.URL;
 import java.util.ResourceBundle;

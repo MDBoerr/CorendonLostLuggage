@@ -1,6 +1,7 @@
-package is103.lostluggage.Controllers;
+package is103.lostluggage.Controllers.Service;
 
 
+import is103.lostluggage.Controllers.HomeViewController;
 import is103.lostluggage.Controllers.HomeViewController;
 import java.io.IOException;
 import java.net.URL;

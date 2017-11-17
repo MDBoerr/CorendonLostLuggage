@@ -1,5 +1,6 @@
-package is103.lostluggage.Controllers;
+package is103.lostluggage.Controllers.Manager;
 
+import is103.lostluggage.Controllers.HomeViewController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,7 +19,7 @@ import javafx.stage.Stage;
  *
  * @author daron
  */
-public class ManagerTerugViewController implements Initializable {
+public class ManagerVerlorenViewController implements Initializable {
 
     /**
      * Initializes the controller class.
@@ -28,7 +29,7 @@ public class ManagerTerugViewController implements Initializable {
         // TODO
     }    
  
-                @FXML 
+            @FXML 
     protected void backHomeButton(ActionEvent event) throws IOException {
         try { 
             Parent root1 = FXMLLoader.load(getClass().getResource("/Views/ManagerHomeView.fxml"));

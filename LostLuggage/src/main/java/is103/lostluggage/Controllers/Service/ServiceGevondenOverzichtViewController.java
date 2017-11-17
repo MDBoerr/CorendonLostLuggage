@@ -1,4 +1,4 @@
-package is103.lostluggage.Controllers;
+package is103.lostluggage.Controllers.Service;
 
 
 import is103.lostluggage.Controllers.HomeViewController;
@@ -20,7 +20,7 @@ import javafx.stage.Stage;
  *
  * @author gebruiker
  */
-public class ServiceInvoerViewController implements Initializable {
+public class ServiceGevondenOverzichtViewController implements Initializable {
 
     /**
      * Initializes the controller class.
@@ -37,7 +37,7 @@ public class ServiceInvoerViewController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
             stage.show();
-            System.out.println("test service invoer");
+            System.out.println("Works");
         
         } catch (IOException ex) {
             Logger.getLogger(HomeViewController.class.getName()).log(Level.SEVERE, null, ex);
