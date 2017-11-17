@@ -1,4 +1,4 @@
-package is103.lostluggage.Controllers;
+package is103.lostluggage.Controllers.Admin;
 
 import is103.lostluggage.Model.User;
 import java.awt.event.ActionEvent;
