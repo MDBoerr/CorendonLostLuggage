@@ -62,27 +62,30 @@ public class ServiceVermisteOverzichtViewController implements Initializable {
     
     // Voor het toevoegen en verwijderen van rijen
     // Weggecommend omdat in onze applicatie dit niet bij het overzicht wordt gedaan
-    // maar bij de 'invoer' pagina.
+    // maar bij de 'invoer' pagina.         
     
-//    @FXML
-//    public void addRow(ActionEvent event) {
-//        System.out.println("Add");
-//        
-//        luggageList.add(new Luggage((id++), "label", "merk", "type", "vlucht", "luchthaven", "kenmerken", "reiziger"));
-//    }
-//    
-//    @FXML
-//    public void removeRow(ActionEvent event) {
-//        
-//        Object row = VermistTable.getSelectionModel().getSelectedItem();
-//        
-//        if (row == null) {
-//            System.out.println("Geen rij geselecteerd");
-//        } else {
-//            luggageList.remove(row);
-//            System.out.println("Verwijderd");
-//        }
-//    }
+    
+    //TOCH TESTEN!!
+    
+    @FXML
+    public void addRow(ActionEvent event) {
+        System.out.println("Add");
+        
+        luggageList.add(new Luggage((id++), "label", "merk", "type", "vlucht", "luchthaven", "kenmerken", "reiziger"));
+    }
+    
+    @FXML
+    public void removeRow(ActionEvent event) {
+        
+        Object row = VermistTable.getSelectionModel().getSelectedItem();
+        
+        if (row == null) {
+            System.out.println("Geen rij geselecteerd");
+        } else {
+            luggageList.remove(row);
+            System.out.println("Verwijderd");
+        }
+    }
     
   
 }
