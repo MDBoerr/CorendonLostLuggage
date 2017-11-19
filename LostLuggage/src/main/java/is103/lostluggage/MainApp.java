@@ -30,7 +30,8 @@ public class MainApp extends Application {
         
         
         //Na laden 'main view'   tijdelijke switch naar -> ServiceHomeView
-        switchView("/fxml/ServiceHomeView.fxml");
+        //switchView("/fxml/ServiceHomeView.fxml");
+        switchView("/fxml/SelectUserRoleView.fxml");
         
         Scene scene = new Scene(root, 1200, 800);
         scene.getStylesheets().add("/styles/Styles.css");
