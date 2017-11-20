@@ -1,6 +1,7 @@
 package is103.lostluggage.Controllers.Manager;
 
 import is103.lostluggage.Controllers.HomeUserViewController;
+import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,62 +30,25 @@ public class ManagerHomeViewController implements Initializable {
         // TODO
     }    
     
-    
+    //switch between screens from managerhome to others
     
     @FXML 
-    protected void rapportageView(ActionEvent event) throws IOException {
-        try { 
-            Parent root1 = FXMLLoader.load(getClass().getResource("/Views/ManagerRapportageView.fxml"));
-            //Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root1));
-            stage.show();
-
-        
-        } catch (IOException ex) {
-            Logger.getLogger(HomeUserViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    protected void toFoundView(ActionEvent event) throws IOException {
+        MainApp.switchView("/Views/ManagerGevondenView.fxml");
     }
     
-        @FXML 
-    protected void naarGevondenOverzichtScherm(ActionEvent event) throws IOException {
-        try { 
-            Parent root1 = FXMLLoader.load(getClass().getResource("/Views/ManagerGevondenView.fxml"));
-            //Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root1));
-            stage.show();
-        
-        } catch (IOException ex) {
-            Logger.getLogger(HomeUserViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    @FXML 
+    protected void reportView(ActionEvent event) throws IOException {
+        MainApp.switchView("/Views/ManagerRapportageView.fxml");
     }
     
-        @FXML 
-    protected void naarVermisteOverzichtScherm(ActionEvent event) throws IOException {
-        try { 
-            Parent root1 = FXMLLoader.load(getClass().getResource("/Views/ManagerVerlorenView.fxml"));
-            //Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root1));
-            stage.show();
-        
-        } catch (IOException ex) {
-            Logger.getLogger(HomeUserViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    @FXML 
+    protected void toLostView(ActionEvent event) throws IOException {
+        MainApp.switchView("/Views/ManagerVerlorenView.fxml");
     }
     
-        @FXML 
-    protected void naarTeruggebracht(ActionEvent event) throws IOException {
-        try { 
-            Parent root1 = FXMLLoader.load(getClass().getResource("/Views/ManagerTerugView.fxml"));
-            //Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root1));
-            stage.show();
-        
-        } catch (IOException ex) {
-            Logger.getLogger(HomeUserViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    @FXML 
+    protected void toRetrievedView(ActionEvent event) throws IOException {
+        MainApp.switchView("/Views/ManagerVerlorenView.fxml");
     }
 }
