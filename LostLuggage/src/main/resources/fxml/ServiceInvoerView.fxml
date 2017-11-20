@@ -102,7 +102,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="addLuggage" mnemonicParsing="false" text="voeg toe" GridPane.rowIndex="1" />
+                  <Button fx:id="addLuggage" onAction="#addLuggage" mnemonicParsing="false" text="voeg toe" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 20px;" text="Vermissing" textOrigin="CENTER" wrappingWidth="388.22161865234375" />
