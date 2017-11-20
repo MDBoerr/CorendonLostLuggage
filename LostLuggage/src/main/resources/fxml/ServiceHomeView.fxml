@@ -91,6 +91,7 @@
                   <Insets right="40.0" />
                </GridPane.margin>
             </Button>
+            <Button fx:id="loguit" mnemonicParsing="false" onAction="#loguit" text="Loguit" />
          </children>
       </GridPane>
    </center>
