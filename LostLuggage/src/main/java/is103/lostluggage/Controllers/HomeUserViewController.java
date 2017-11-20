@@ -6,6 +6,7 @@
 package is103.lostluggage.Controllers;
 
  
+import is103.lostluggage.MainApp;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
@@ -62,13 +63,15 @@ public class HomeUserViewController implements Initializable {
             stage.setScene(new Scene(root1));
             stage.show();
             System.out.println("blablabla");
-            
-            
-        
         
         } catch (IOException ex) {
             Logger.getLogger(HomeUserViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    @FXML 
+    protected void viewAddUserWindow(ActionEvent event) throws IOException {
+        MainApp.switchView("/fxml/AdminAddUserView.fxml");
     }
 
 }
