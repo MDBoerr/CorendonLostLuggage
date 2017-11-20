@@ -1,6 +1,6 @@
 package is103.lostluggage.Controllers.Manager;
 
-import is103.lostluggage.Controllers.HomeViewController;
+import is103.lostluggage.Controllers.HomeUserViewController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -38,7 +38,7 @@ public class ManagerGevondenViewController implements Initializable {
             stage.show();
         
         } catch (IOException ex) {
-            Logger.getLogger(HomeViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HomeUserViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

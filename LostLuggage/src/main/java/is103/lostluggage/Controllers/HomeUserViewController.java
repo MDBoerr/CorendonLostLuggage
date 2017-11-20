@@ -26,7 +26,7 @@ import javafx.stage.Stage;
  *
  * @author Mike
  */
-public class HomeViewController implements Initializable {
+public class HomeUserViewController implements Initializable {
     
     
     @FXML private Label label1;
@@ -67,7 +67,7 @@ public class HomeViewController implements Initializable {
         
         
         } catch (IOException ex) {
-            Logger.getLogger(HomeViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HomeUserViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
