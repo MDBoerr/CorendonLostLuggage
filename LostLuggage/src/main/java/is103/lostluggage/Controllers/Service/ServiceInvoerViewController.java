@@ -41,7 +41,7 @@ public class ServiceInvoerViewController implements Initializable {
         
         //Luggage list --> aangemaakt bij 'serviceInvoerViewController'      *vind hij nog niet!
         
-        luggageList.add(new Luggage(99, "label", "merk", "type", "vlucht", "luchthaven", "kenmerken", "reiziger"));
+        //luggageList.add(new Luggage(99, "label", "merk", "type", "vlucht", "luchthaven", "kenmerken", "reiziger"));
     }
     
     

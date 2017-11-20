@@ -24,6 +24,12 @@ public class ServiceHomeViewController implements Initializable {
         // TODO
     }    
     
+    
+    @FXML
+    protected void loguit(ActionEvent event) throws IOException {
+        MainApp.switchView("/fxml/SelectUserRoleView.fxml");
+    }
+    
     @FXML 
     protected void naarInvoerScherm(ActionEvent event) throws IOException {
         MainApp.switchView("/fxml/ServiceInvoerView.fxml");
