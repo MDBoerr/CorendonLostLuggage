@@ -15,73 +15,32 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Service.ServiceVermisteOverzichtViewController">
-   <left>
-      <Pane prefHeight="217.0" prefWidth="122.0" style="-fx-background-color: #495057#495057 #495057#495057;" BorderPane.alignment="CENTER">
-         <children>
-            <VBox prefHeight="200.0" prefWidth="114.0" />
-         </children>
-      </Pane>
-   </left>
-   <right>
-      <Pane prefHeight="217.0" prefWidth="129.0" style="-fx-background-color: #495057#495057 #495057#495057;" BorderPane.alignment="CENTER">
-         <children>
-            <VBox layoutX="-1.0" prefHeight="200.0" prefWidth="101.0" />
-         </children>
-      </Pane>
-   </right>
-   <bottom>
-      <HBox prefHeight="83.0" prefWidth="1157.0" style="-fx-background-color: #495057#495057 #495057#495057;" BorderPane.alignment="CENTER" />
-   </bottom>
-   <center>
-      <GridPane prefHeight="579.0" prefWidth="949.0" style="-fx-background-color: #868e96#868e96 #868e96#868e96;" BorderPane.alignment="CENTER">
-        <columnConstraints>
-          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="148.65740966796875" minHeight="10.0" prefHeight="81.10185241699219" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="265.3981475830078" minHeight="10.0" prefHeight="200.0" valignment="CENTER" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="316.0810241699219" minHeight="10.0" prefHeight="200.0" valignment="CENTER" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <TableView fx:id="VermistTable" prefHeight="414.0" prefWidth="721.0" GridPane.columnSpan="2" GridPane.rowSpan="4">
-              <columns>
+
+<GridPane prefHeight="579.0" prefWidth="949.0" style="-fx-background-color: #868e96#868e96 #868e96#868e96;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Service.ServiceVermisteOverzichtViewController">
+    <columnConstraints>
+        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="148.65740966796875" minHeight="10.0" prefHeight="81.10185241699219" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="265.3981475830078" minHeight="10.0" prefHeight="200.0" valignment="CENTER" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="316.0810241699219" minHeight="10.0" prefHeight="200.0" valignment="CENTER" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <TableView fx:id="VermistTable" prefHeight="414.0" prefWidth="721.0" GridPane.columnSpan="2" GridPane.rowSpan="4">
+            <columns>
                 <TableColumn fx:id="id" prefWidth="42.05970764160156" text="ID" />
-                  <TableColumn fx:id="label" prefWidth="115.17697143554688" text="Labelnummer" />
+                <TableColumn fx:id="label" prefWidth="115.17697143554688" text="Labelnummer" />
                 <TableColumn fx:id="merk" prefWidth="70.47128295898438" text="Merk" />
-                  <TableColumn fx:id="type" prefWidth="80.17697143554688" text="Type" />
-                  <TableColumn fx:id="vlucht" prefWidth="126.822998046875" text="Vluchtnummer" />
-                  <TableColumn minWidth="0.0" prefWidth="0.0" text="C2" />
-                  <TableColumn fx:id="luchthaven" prefWidth="95.4512939453125" text="Luchthaven" />
-                  <TableColumn fx:id="kenmerken" prefWidth="164.39166259765625" text="Kenmerken" />
-                  <TableColumn fx:id="reiziger" prefWidth="78.60833740234375" text="Reiziger" />
-              </columns>
-            </TableView>
-         </children>
-      </GridPane>
-   </center>
-   <top>
-      <VBox prefHeight="157.0" prefWidth="1024.0" style="-fx-background-color: #495057#495057 #495057#495057;" BorderPane.alignment="CENTER">
-         <children>
-            <Label fx:id="label1" alignment="CENTER" prefHeight="90.0" prefWidth="1211.0" text="Vermiste bagage overzicht">
-               <padding>
-                  <Insets top="40.0" />
-               </padding>
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Button fx:id="button" mnemonicParsing="false" onAction="#backHomeButton" prefHeight="34.0" prefWidth="115.0" styleClass=".button" stylesheets="@../styles/Styles.css" text="terug" textFill="#f51717">
-               <font>
-                  <Font size="20.0" />
-               </font>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </Button>
-         </children>
-      </VBox>
-   </top>
-</BorderPane>
+                <TableColumn fx:id="type" prefWidth="80.17697143554688" text="Type" />
+                <TableColumn fx:id="vlucht" prefWidth="126.822998046875" text="Vluchtnummer" />
+                <TableColumn minWidth="0.0" prefWidth="0.0" text="C2" />
+                <TableColumn fx:id="luchthaven" prefWidth="95.4512939453125" text="Luchthaven" />
+                <TableColumn fx:id="kenmerken" prefWidth="164.39166259765625" text="Kenmerken" />
+                <TableColumn fx:id="reiziger" prefWidth="78.60833740234375" text="Reiziger" />
+            </columns>
+        </TableView>
+    </children>
+</GridPane>
+   

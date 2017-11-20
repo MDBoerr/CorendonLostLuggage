@@ -5,7 +5,6 @@
  */
 package is103.lostluggage.Controllers;
 
- 
 import is103.lostluggage.MainApp;
 import javafx.event.ActionEvent;
 import java.io.IOException;
@@ -29,12 +28,14 @@ import javafx.stage.Stage;
  */
 public class HomeUserViewController implements Initializable {
     
-    
-    @FXML private Label label1;
-    @FXML private Button button;
+    @FXML
+    private Label label1;
+    @FXML
+    private Button button;
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -42,7 +43,7 @@ public class HomeUserViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-    
+
 //@FXML
 //    protected void handleButtonAction(ActionEvent event) {
 //        System.out.println("You clicked me!");
@@ -53,25 +54,14 @@ public class HomeUserViewController implements Initializable {
 //
 //        }
 //    }
-    
-    @FXML 
+    @FXML    
     protected void handleButtonAction(ActionEvent event) throws IOException {
-        try { 
-            Parent root1 = FXMLLoader.load(getClass().getResource("/Views/UserScene.fxml"));
-            //Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root1));
-            stage.show();
-            System.out.println("blablabla");
-        
-        } catch (IOException ex) {
-            Logger.getLogger(HomeUserViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        MainApp.switchView("/Views/UserScene.fxml");
     }
     
-    @FXML 
+    @FXML    
     protected void viewAddUserWindow(ActionEvent event) throws IOException {
         MainApp.switchView("/fxml/AdminAddUserView.fxml");
     }
-
+    
 }
