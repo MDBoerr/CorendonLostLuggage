@@ -22,11 +22,12 @@ public class ServiceVermisteOverzichtViewController implements Initializable {
     
     
     //luggage list
-    public ObservableList<Luggage> luggageList;
+    public static ObservableList<Luggage> luggageList;
     private int id = 0;
     
     @FXML
-    private TableView VermistTable;    
+    public TableView VermistTable;    
+    
     
     /**
      * Initializes the controller class.
