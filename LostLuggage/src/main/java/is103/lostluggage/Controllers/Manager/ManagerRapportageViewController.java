@@ -1,6 +1,7 @@
 package is103.lostluggage.Controllers.Manager;
 
 import is103.lostluggage.Controllers.HomeUserViewController;
+import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,18 +29,9 @@ public class ManagerRapportageViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-    
+
         @FXML 
-    protected void backHomeButton(ActionEvent event) throws IOException {
-        try { 
-            Parent root1 = FXMLLoader.load(getClass().getResource("/Views/ManagerHomeView.fxml"));
-            //Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root1));
-            stage.show();
-        
-        } catch (IOException ex) {
-            Logger.getLogger(HomeUserViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    protected void naarVermisteOverzichtScherm(ActionEvent event) throws IOException {
+        MainApp.switchView("/Views/ManagerHomeView.fxml");
     }
 }

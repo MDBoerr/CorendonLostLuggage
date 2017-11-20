@@ -47,7 +47,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="button" mnemonicParsing="false" onAction="#naarGevondenOverzichtScherm" prefHeight="65.0" prefWidth="245.0" styleClass=".button" stylesheets="@../styles/Styles.css" text="Overzicht gevonden" GridPane.rowIndex="1">
+            <Button fx:id="button" mnemonicParsing="false" onAction="#toFoundView" prefHeight="65.0" prefWidth="245.0" styleClass=".button" stylesheets="@../styles/Styles.css" text="Overzicht gevonden" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="40.0" />
                </GridPane.margin>
@@ -58,7 +58,7 @@
                   <DropShadow />
                </effect>
             </Button>
-            <Button mnemonicParsing="false" onAction="#naarVermisteOverzichtScherm" prefHeight="65.0" prefWidth="245.0" styleClass=".button" stylesheets="@../styles/Styles.css" text="Overzicht vermist" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button mnemonicParsing="false" onAction="#toLostView" prefHeight="65.0" prefWidth="245.0" styleClass=".button" stylesheets="@../styles/Styles.css" text="Overzicht vermist" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="40.0" />
                </GridPane.margin>
@@ -69,7 +69,7 @@
                   <DropShadow />
                </effect>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#rapportageView" prefHeight="65.0" prefWidth="245.0" styleClass=".button" stylesheets="@../styles/Styles.css" text="Rapportages" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#reportView" prefHeight="65.0" prefWidth="245.0" styleClass=".button" stylesheets="@../styles/Styles.css" text="Rapportages" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font size="20.0" />
                </font>
@@ -80,7 +80,7 @@
                   <Insets left="40.0" />
                </GridPane.margin>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#naarTeruggebracht" prefHeight="65.0" prefWidth="245.0" styleClass=".button" stylesheets="@../styles/Styles.css" text="Overzicht terug" textAlignment="CENTER" GridPane.rowIndex="2">
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toRetrievedView" prefHeight="65.0" prefWidth="245.0" styleClass=".button" stylesheets="@../styles/Styles.css" text="Overzicht terug" textAlignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font size="20.0" />
                </font>
