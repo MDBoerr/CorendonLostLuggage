@@ -1,6 +1,7 @@
 package is103.lostluggage.Controllers.Manager;
 
 import is103.lostluggage.Controllers.HomeUserViewController;
+import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
@@ -27,27 +28,28 @@ public class ManagerHomeViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
+
+        //To Previous Scene
+        MainViewController.previousView = "/fxml/SelectUserRoleView.fxml";
+    }
     //switch between screens from managerhome to others
-    
-    @FXML 
+
+    @FXML
     protected void toFoundView(ActionEvent event) throws IOException {
         MainApp.switchView("/Views/ManagerGevondenView.fxml");
     }
-    
-    @FXML 
+
+    @FXML
     protected void reportView(ActionEvent event) throws IOException {
         MainApp.switchView("/Views/ManagerRapportageView.fxml");
     }
-    
-    @FXML 
+
+    @FXML
     protected void toLostView(ActionEvent event) throws IOException {
         MainApp.switchView("/Views/ManagerVerlorenView.fxml");
     }
-    
-    @FXML 
+
+    @FXML
     protected void toRetrievedView(ActionEvent event) throws IOException {
         MainApp.switchView("/Views/ManagerTerugView.fxml");
     }

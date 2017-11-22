@@ -1,6 +1,7 @@
 package is103.lostluggage.Controllers.Manager;
 
 import is103.lostluggage.Controllers.HomeUserViewController;
+import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Controllers.Service.Luggage;
 import java.io.IOException;
 import java.net.URL;
@@ -39,6 +40,9 @@ public class ManagerGevondenViewController implements Initializable {
     public TableView LostTable;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        //To Previous Scene
+        MainViewController.previousView = "/Views/ManagerHomeView.fxml";
         
         luggageList = FXCollections.observableArrayList();
         LostTable.setItems(luggageList);

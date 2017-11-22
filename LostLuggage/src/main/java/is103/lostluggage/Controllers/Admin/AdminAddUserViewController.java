@@ -5,6 +5,7 @@
  */
 package is103.lostluggage.Controllers.Admin;
 
+import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
@@ -18,7 +19,7 @@ import javafx.scene.control.Button;
  * FXML Controller class
  *
  * @author Arthur
- * 
+ *
  */
 public class AdminAddUserViewController implements Initializable {
 
@@ -27,15 +28,17 @@ public class AdminAddUserViewController implements Initializable {
      */
     @FXML
     private Button backBtn;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
-    @FXML 
+
+        //To Previous Scene
+        MainViewController.previousView = "/Views/HomeUserView.fxml";
+    }
+
+    @FXML
     protected void backHomeUserView(ActionEvent event) throws IOException {
         MainApp.switchView("/Views/HomeUserView.fxml");
     }
-    
+
 }

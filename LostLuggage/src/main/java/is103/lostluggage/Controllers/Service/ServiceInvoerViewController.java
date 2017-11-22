@@ -1,5 +1,6 @@
 package is103.lostluggage.Controllers.Service;
 
+import is103.lostluggage.Controllers.MainViewController;
 import static is103.lostluggage.Controllers.Service.ServiceVermisteOverzichtViewController.luggageList;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
@@ -28,6 +29,9 @@ public class ServiceInvoerViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //To Previous Scene
+        MainViewController.previousView = "/fxml/ServiceHomeView.fxml";
+
 //        try {
 //            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/fxml/ServiceVermisteOverzichtView.fxml"));
 //            Parent root = (Parent) loader.load();
