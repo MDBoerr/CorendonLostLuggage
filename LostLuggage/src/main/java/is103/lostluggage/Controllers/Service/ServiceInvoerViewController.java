@@ -5,6 +5,7 @@ import static is103.lostluggage.Controllers.Service.ServiceVermisteOverzichtView
 import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -27,6 +29,10 @@ public class ServiceInvoerViewController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    
+    @FXML
+    private TextField airportTextField;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //To Previous Scene
@@ -49,24 +55,13 @@ public class ServiceInvoerViewController implements Initializable {
     @FXML
     public void addLuggage(ActionEvent event) {
         System.out.println("Add");
-
-        //Luggage list --> aangemaakt bij 'serviceVermistViewController'      *vind hij nog niet!
-        luggageList.add(new Luggage(99, "label", "merk", "type", "vlucht", "luchthaven", "kenmerken", "reiziger"));
-
-        //ServiceVermisteOverzichtViewController.VermistTable.refresh();
-        //controller.VermistTable.refresh();
-
-//        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/fxml/ServiceVermisteOverzichtView.fxml"));
-//        Parent root = (Parent) loader.load();
-//       
-//
-//
-//        ServiceVermisteOverzichtViewController controller = loader.getController();
-//        controller.VermistTable.refresh();
+        
+        String airport = airportTextField.getText(); 
+        
+        ServiceVermisteOverzichtViewController.addToList(99, "label", "merk", "type", "vlucht", airport, "kenmerken", "reiziger");
+ 
     }
 
-    public void assignProperties() {
 
-    }
 
 }

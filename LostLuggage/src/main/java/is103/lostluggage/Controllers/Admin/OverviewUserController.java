@@ -23,6 +23,10 @@ import javafx.event.ActionEvent;
 
 public class OverviewUserController implements Initializable {
 
+    
+    private String header = "Overzicht Gebruikers";
+    
+    
     @FXML
     private TableView<User> tableView;
 
@@ -54,6 +58,14 @@ public class OverviewUserController implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+    
+        try {
+            MainViewController.getInstance().getTitle(header);
+        } catch (IOException ex) {
+            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
         id.setCellValueFactory(new PropertyValueFactory<User, String>("Id"));
         lastName.setCellValueFactory(new PropertyValueFactory<User, String>("LastName"));
         firstName.setCellValueFactory(new PropertyValueFactory<User, String>("FirstName"));
@@ -64,6 +76,8 @@ public class OverviewUserController implements Initializable {
         
         //To Previous Scene
         MainViewController.previousView = "/Views/HomeUserView.fxml";
+        
+       
 
     }
 
