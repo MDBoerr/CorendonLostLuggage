@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * FXML Controller class
@@ -23,30 +25,32 @@ public class MainViewController implements Initializable {
     @FXML
     private Button backButton;
 
+    @FXML
+    private ImageView logoView;
+
     public static String previousView;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Image logo = new Image("Images/Logo.png");
+        logoView.setImage(logo);
 
     }
 
     @FXML
     private void goBackToPreviousScene(ActionEvent event) throws IOException {
 
+        if (previousView != null) {
+            System.out.println("Is not empty");
 
-            if (previousView != null) {
-                System.out.println("Is not empty");
+            MainApp.switchView(previousView);
 
-                MainApp.switchView(previousView);
+        } else {
+            System.out.println("Is empty");
+        }
 
-            } else {
-                System.out.println("Is empty");
-            }
-
-        
         //backButton.getScene().h
         //((Node)(event.getSource())).getScene().getWindow().hide();                      
-
     }
 
 }

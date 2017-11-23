@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
@@ -12,7 +13,10 @@
          </children></Pane>
    </left>
    <top>
-      <Pane prefHeight="144.0" prefWidth="1200.0" style="-fx-background-color: #adb5bd#adb5bd;" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="144.0" prefWidth="1200.0" style="-fx-background-color: #adb5bd#adb5bd;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="logoView" fitHeight="120.0" fitWidth="344.0" layoutX="90.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+         </children></Pane>
    </top>
    <right>
       <Pane prefHeight="657.0" prefWidth="126.0" style="-fx-background-color: #adb5bd#adb5bd;" BorderPane.alignment="CENTER" />
