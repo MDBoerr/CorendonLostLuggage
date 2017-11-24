@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 /**
@@ -31,7 +32,26 @@ public class ServiceInvoerViewController implements Initializable {
      */
     
     @FXML
-    private TextField airportTextField;
+    //All the fields in the form
+    private TextField labelField;
+    
+    @FXML
+    private TextField brandField;
+    
+    @FXML
+    private TextField typeField;
+    
+    @FXML
+    private TextField flightField;
+    
+    @FXML
+    private TextField airportField;
+    
+    @FXML
+    private TextField signaturesField;
+    
+    @FXML
+    private TextArea travellerInformationArea;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -48,18 +68,38 @@ public class ServiceInvoerViewController implements Initializable {
     }
 
     @FXML
+    //This method will return the user to the previous screen
     protected void backHomeButton(ActionEvent event) throws IOException {
         MainApp.switchView("/fxml/ServiceHomeView.fxml");
     }
 
     @FXML
+    //This method will catch the the data from the form and add it to the list
     public void addLuggage(ActionEvent event) {
-        System.out.println("Add");
         
-        String airport = airportTextField.getText(); 
+        //The label of the luggage "AS9948EA" for example
+        String label = labelField.getText();
         
-        ServiceVermisteOverzichtViewController.addToList(99, "label", "merk", "type", "vlucht", airport, "kenmerken", "reiziger");
- 
+        //The brand of the luggage "samsonite" for example
+        String brand = brandField.getText();
+        
+        //The type of luggage, suitcase, sportsbag for example
+        String type = typeField.getText();
+        
+        //flight flight QW9912 for example
+        String flight = flightField.getText();
+                
+        //airport?
+        String airport = airportField.getText();
+        
+        //signatures can be a long text such as "The briefcase has smiley stickers on it"
+        String signatures = signaturesField.getText();
+      
+        //Details of the owner of the luggage
+        String travellerInformation = travellerInformationArea.getText();
+
+        //add it to the list
+         ServiceVermisteOverzichtViewController.addToList(99, "label", "brand", "type", "flight", "airpoprt", "signatures", "travellerinfo");
     }
 
 
