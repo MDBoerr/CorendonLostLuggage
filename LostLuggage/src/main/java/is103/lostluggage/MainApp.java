@@ -22,7 +22,8 @@ public class MainApp extends Application {
         //Parent root = FXMLLoader.load(getClass().getResource("/fxml/ServiceHomeView.fxml"));  //Service medewerker
         //Parent root = FXMLLoader.load(getClass().getResource("/Views/ManagerHomeView.fxml"));   //Manager 
         
-        
+         //MyJDBC.createTestDatabase("AirlineDemo");
+
         //set root
         root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
         //root.setTop(headerFxml);          -> later nog een header invoeren!

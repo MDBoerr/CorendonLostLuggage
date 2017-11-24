@@ -2,6 +2,7 @@ package is103.lostluggage.Controllers.Admin;
 
 import is103.lostluggage.Controllers.HomeUserViewController;
 import is103.lostluggage.Controllers.MainViewController;
+import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.User;
 import java.io.IOException;
@@ -15,6 +16,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 //import javax.swing.text.TableView;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,10 +50,10 @@ public class OverviewUserController implements Initializable {
 //    }
     
     @FXML
-    private void goBackToPreviousScene(ActionEvent event) {
-        
+    private void goToAddView(ActionEvent event) {        
         try {
-            MainApp.switchView("/Views/HomeUserView.fxml");
+            MainApp.switchView("/fxml/AdminAddUserView.fxml");
+            
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -74,6 +77,8 @@ public class OverviewUserController implements Initializable {
 
         tableView.setItems(getThings());
         
+        
+        
         //To Previous Scene
         MainViewController.previousView = "/Views/HomeUserView.fxml";
         
@@ -84,8 +89,29 @@ public class OverviewUserController implements Initializable {
     public ObservableList<User> getThings() {
 
         ObservableList<User> users = FXCollections.observableArrayList();
-        users.add(new User("5555", "de Boer", "Mil", "Admin", "Active"));
-        users.add(new User("6666", "de Boer", "Michael", "Admin", "Active"));
+        
+        try {
+            MyJDBC db = new MyJDBC("AirlineDemo");
+
+            ResultSet resultSet;
+
+            resultSet = db.executeResultSetQuery("SELECT IATACode, Name, TimeZone FROM Airport");
+
+            while (resultSet.next()) {
+                String iATACode = resultSet.getString("IATACode");
+                String name = resultSet.getString("Name");
+                int timeZone = resultSet.getInt("TimeZone");
+                
+                System.out.println("IATACode: " + iATACode +"  Name: "+ name + " TimeZone: " + timeZone);
+                users.add(new User(iATACode, name, "Mil", "Admin", "Active"));
+
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //users.add(new User("6666", "de Boer", "Michael", "Admin", "Active"));
 
         return users;
     }
