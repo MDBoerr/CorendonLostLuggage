@@ -108,7 +108,7 @@ public class AdminAddUserViewController implements Initializable {
         String password = passwordField.getText();
 
         if (password.length() < 6) {
-            errorMessage += ("Password must contain atleast 6 charactersa ");
+            errorMessage += ("Password must contain atleast 6 characters ");
         }
         
         //Put the error message on the label
