@@ -1,6 +1,7 @@
 package is103.lostluggage.Controllers.Service;
 
 
+import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
@@ -21,7 +22,9 @@ public class ServiceGevondenOverzichtViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
+        //To Previous Scene
+        MainViewController.previousView = "/fxml/ServiceHomeView.fxml";
     }    
     @FXML 
     protected void backHomeButton(ActionEvent event) throws IOException {

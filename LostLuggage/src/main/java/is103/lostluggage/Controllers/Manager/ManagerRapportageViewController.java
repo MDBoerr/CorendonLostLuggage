@@ -1,6 +1,7 @@
 package is103.lostluggage.Controllers.Manager;
 
 import is103.lostluggage.Controllers.HomeUserViewController;
+import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
@@ -29,7 +30,8 @@ public class ManagerRapportageViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        //To Previous Scene
+        MainViewController.previousView = "/Views/ManagerHomeView.fxml";
     }    
 
       @FXML LineChart<String, Number>lineChart;

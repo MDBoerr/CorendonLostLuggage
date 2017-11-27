@@ -1,6 +1,6 @@
 package is103.lostluggage.Controllers.Service;
 
-
+import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
@@ -21,32 +21,35 @@ public class ServiceHomeViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
+        
+        //To Previous Scene
+        MainViewController.previousView = "/fxml/SelectUserRoleView.fxml";
+
+    }
+
     @FXML
     protected void loguit(ActionEvent event) throws IOException {
         MainApp.switchView("/fxml/SelectUserRoleView.fxml");
     }
-    
-    @FXML 
+
+    @FXML
     protected void naarInvoerScherm(ActionEvent event) throws IOException {
         MainApp.switchView("/fxml/ServiceInvoerView.fxml");
     }
-    
-    @FXML 
+
+    @FXML
     protected void naarGevondenOverzichtScherm(ActionEvent event) throws IOException {
         MainApp.switchView("/fxml/ServiceGevondenOverzichtView.fxml");
     }
-    
-    @FXML 
+
+    @FXML
     protected void naarVermisteOverzichtScherm(ActionEvent event) throws IOException {
         MainApp.switchView("/fxml/ServiceVermisteOverzichtView.fxml");
     }
-    
-    @FXML 
+
+    @FXML
     protected void naarMatchingScherm(ActionEvent event) throws IOException {
         MainApp.switchView("/fxml/ServiceMatchingView.fxml");
     }
-    
+
 }

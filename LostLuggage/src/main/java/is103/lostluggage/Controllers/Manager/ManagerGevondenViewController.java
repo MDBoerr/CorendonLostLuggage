@@ -1,6 +1,7 @@
 package is103.lostluggage.Controllers.Manager;
 
 import is103.lostluggage.Controllers.HomeUserViewController;
+import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Controllers.Service.Luggage;
 import java.io.IOException;
 import java.net.URL;
@@ -36,16 +37,19 @@ public class ManagerGevondenViewController implements Initializable {
     private int id = 0;
     
     @FXML
-    public TableView LostTable;
+    public TableView VermistTable;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        //To Previous Scene
+        MainViewController.previousView = "/Views/ManagerHomeView.fxml";
+        
         luggageList = FXCollections.observableArrayList();
-        LostTable.setItems(luggageList);
+        VermistTable.setItems(luggageList);
         
         //voor elke colum data vullen (bij verandering en initializatie
-        for (int i = 0; i < LostTable.getColumns().size(); i++  ) {
-            TableColumn tc = (TableColumn) LostTable.getColumns().get(i);
+        for (int i = 0; i < VermistTable.getColumns().size(); i++  ) {
+            TableColumn tc = (TableColumn) VermistTable.getColumns().get(i);
             
             tc.setCellValueFactory(new PropertyValueFactory<>(tc.getId()));
             

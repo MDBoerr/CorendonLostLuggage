@@ -27,7 +27,7 @@ import javafx.stage.Stage;
  * @author Mike
  */
 public class HomeUserViewController implements Initializable {
-    
+
     @FXML
     private Label label1;
     @FXML
@@ -41,27 +41,19 @@ public class HomeUserViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
+        MainViewController.previousView = "/fxml/SelectUserRoleView.fxml";
+
     }
 
-//@FXML
-//    protected void handleButtonAction(ActionEvent event) {
-//        System.out.println("You clicked me!");
-//        label1.setText("Hello World!");
-//        
-//        if (button.isPressed()) {
-//            System.out.println("You clicked me!");
-//
-//        }
-//    }
-    @FXML    
+    @FXML
     protected void handleButtonAction(ActionEvent event) throws IOException {
         MainApp.switchView("/Views/UserScene.fxml");
     }
-    
-    @FXML    
+
+    @FXML
     protected void viewAddUserWindow(ActionEvent event) throws IOException {
         MainApp.switchView("/fxml/AdminAddUserView.fxml");
     }
-    
+
 }
