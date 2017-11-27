@@ -1,11 +1,4 @@
-<<<<<<< HEAD
 
-/*To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-=======
->>>>>>> 52c6878ae54ed8220b3182b96e466da9fc204d66
 package is103.lostluggage.Controllers;
 
 import java.net.URL;
