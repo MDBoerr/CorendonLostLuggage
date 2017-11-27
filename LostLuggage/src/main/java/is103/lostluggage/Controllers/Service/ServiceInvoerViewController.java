@@ -104,13 +104,13 @@ public class ServiceInvoerViewController implements Initializable {
     //Main gridpane containing smaller gridpanes
     
     @FXML
-    private GridPane mainGridpane;
+    private GridPane mainGridPane;
         
     @FXML
-    private GridPane travellerInfoPane;
+    private GridPane travellerInfoGridPane;
     
     @FXML
-    private GridPane luggageInfoPane;
+    private GridPane luggageInfoGridPane;
     
     
     
@@ -147,7 +147,24 @@ public class ServiceInvoerViewController implements Initializable {
     @FXML
     //This method switches the form between found or missing
     public void foundOrMissing(){
-        System.out.println("Called");
+        
+      String value = missingFoundChoiceBox.getValue().toString();
+      
+        if(value == "Gevonden"){
+      
+            mainGridPane.getChildren().remove(travellerInfoGridPane);
+            mainGridPane.getChildren().remove(luggageInfoGridPane);
+            mainGridPane.add(luggageInfoGridPane, 0, 1);
+            mainGridPane.add(travellerInfoGridPane, 1, 1);
+        }
+        
+        if(value == "Vermist"){
+            
+            mainGridPane.getChildren().remove(travellerInfoGridPane);
+            mainGridPane.getChildren().remove(luggageInfoGridPane);
+            mainGridPane.add(travellerInfoGridPane, 0, 1);
+            mainGridPane.add(luggageInfoGridPane, 1, 1);
+        }
     }
  
 

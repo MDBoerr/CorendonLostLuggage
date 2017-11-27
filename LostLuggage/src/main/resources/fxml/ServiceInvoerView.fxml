@@ -24,7 +24,7 @@
         <RowConstraints maxHeight="159.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <GridPane prefHeight="0.0" prefWidth="443.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+        <GridPane fx:id="travellerInfoGridPane" prefHeight="0.0" prefWidth="443.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -91,7 +91,7 @@
             <TextField fx:id="timeField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <GridPane fx:id="luggageInfoGridPane" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -173,7 +173,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ChoiceBox fx:id="missingFoundChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+            <ChoiceBox fx:id="missingFoundChoiceBox" onMouseClicked="#foundOrMissing" onMouseEntered="#foundOrMissing" onMouseExited="#foundOrMissing" onMouseMoved="#foundOrMissing" onMousePressed="#foundOrMissing" onMouseReleased="#foundOrMissing" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
