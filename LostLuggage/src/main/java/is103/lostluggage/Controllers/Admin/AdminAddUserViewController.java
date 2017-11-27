@@ -9,6 +9,7 @@ import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,27 +35,38 @@ public class AdminAddUserViewController implements Initializable {
      * Initializes the controller class.
      */
     @FXML
-    private Label firstnameLbl;
-
-    @FXML
-    //This label displays an errors
+    //This label displays a errors
     private Label errorMessageLbl;
 
     @FXML
+    //Button to add the user to the system
     private Button addUserBtn;
+    
+    @FXML
+    //Field that contains the employeeId
+    private TextField employeeIdField;
 
     @FXML
+    //Field that contains the firstname
     private TextField firstnameField;
 
     @FXML
+    //Field that contains the surname
     private TextField surnameField;
 
     @FXML
-    private TextField passwordField;
+    //Field that contains the phonenumber
+    private TextField phoneField;
 
     @FXML
+    //Choicebox that contains the status of the employee
+    private ChoiceBox statusChoiceBox;
+
+    @FXML
+    //Choicebox that contains the role of the employee
     private ChoiceBox roleChoiceBox;
 
+    //Title of the view
     private String header = "Voeg een Gebruiker toe";
 
     @Override
@@ -71,8 +83,14 @@ public class AdminAddUserViewController implements Initializable {
         //Add options to choicebox
         roleChoiceBox.getItems().addAll("Administrator", "Manager", "Service Employee");
 
-        //Default value is set to Service Employee as Administrator will most likely add a user with that role.
+        //Default value of role is set to Service Employee as Administrator will most likely add a user with that role.
         roleChoiceBox.setValue("Service Employee");
+
+        //Add options to choicebox
+        statusChoiceBox.getItems().addAll("Active", "Inactive");
+
+        //Default value of role is set to Service Employee as Administrator will most likely add a user with that role.
+        statusChoiceBox.setValue("Active");
     }
 
     @FXML
@@ -95,28 +113,75 @@ public class AdminAddUserViewController implements Initializable {
 
         String firstname = firstnameField.getText();
 
-        if (firstname.length() < 4) {
-            errorMessage += "Firstname must contain atleast 4 characters\n";
+        if(firstname.isEmpty()){
+            errorMessage += "Firstname cannot be empty\n";
         }
 
         String surname = surnameField.getText();
 
-        if (surname.length() < 4) {
-            errorMessage += ("Surname must contain atleast 4 characters\n");
-        }
-
-        String password = passwordField.getText();
-
-        if (password.length() < 6) {
-            errorMessage += ("Password must contain atleast 6 characters ");
+        if(surname.isEmpty()) {
+            errorMessage += "Surname cannot be empty\n";
         }
         
+        String phone = phoneField.getText();
+        
+        if(phone.isEmpty()){
+            errorMessage += "Phone cannot be empty";
+        }
+
         //Put the error message on the label
         errorMessageLbl.setText(errorMessage);
 
-        
+        //The role of the added user
         String role = roleChoiceBox.getValue().toString();
+        
+        //The status of the added user
+        String status = statusChoiceBox.getValue().toString();
+        
+        //If the error message is empty it means there are no errors 
+        if(errorMessage.isEmpty()){
+            //add user to database with password hashed
+            
+        }else{
+            //Wait until the user solved all the errors
+        }
 
+    }
+
+    //function to generate the employeeid by using the first letter of the firstname
+    //and the first letter of the surname
+    public void generateEmployeeId() {
+                
+        //initialy the employee id field is empty
+        String employeeId = "";
+        
+        //array of characters in the employeeId
+        char[] employeeIdChars = new char[2];
+        
+        //Check whether the input string is empty or not
+        if(!firstnameField.getText().isEmpty()){
+            
+            //If its not empty, then the first letter of the string will be the first
+            //letter of the employeeId
+            employeeIdChars[0] = firstnameField.getText().charAt(0);
+        }
+            
+        if(!surnameField.getText().isEmpty()){
+            
+            employeeIdChars[1] = surnameField.getText().charAt(0);
+        }
+
+        //employeeId in string lowercase
+        employeeId = String.valueOf(employeeIdChars).toLowerCase();
+                
+        //Set the employeeId in the employeeId Field
+        employeeIdField.setText(employeeId);
+        
+        //check if the field contains characters, if it check in the database
+        //whether the employeeId already exists, if it does add a number to the id
+       //check how many ak's exist.. forexample ak, ak1, ak2 so make sure the id in this field
+       //will be ak3
+        
     }
 
 }

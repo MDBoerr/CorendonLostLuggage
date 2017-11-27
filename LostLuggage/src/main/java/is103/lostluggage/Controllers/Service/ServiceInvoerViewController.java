@@ -5,6 +5,7 @@ import static is103.lostluggage.Controllers.Service.ServiceVermisteOverzichtView
 import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -16,8 +17,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 
 /**
  * FXML Controller class
@@ -32,39 +36,100 @@ public class ServiceInvoerViewController implements Initializable {
      */
     
     @FXML
-    //All the fields in the form
-    private TextField labelField;
+    //Choicebox that determines whether the form should be for a missing or found
+    //luggage
+    private ChoiceBox missingFoundChoiceBox;
+    
+    
+    //Top left fields
     
     @FXML
-    private TextField brandField;
-    
-    @FXML
-    private TextField typeField;
-    
-    @FXML
-    private TextField flightField;
+    //Textfield that represents the time the form was filled in
+    private TextField timeField;
     
     @FXML
     private TextField airportField;
     
     @FXML
-    private TextField signaturesField;
+    private DatePicker dateDatepicker;
+    
+    
+    //Bottom left fields
     
     @FXML
-    private TextArea travellerInformationArea;
+    private TextField nameField;
     
+    @FXML
+    private TextField addressField;
+    
+    @FXML
+    private TextField residenceField;
+    
+    @FXML
+    private TextField postalcodeField;
+    
+    @FXML
+    private TextField countryField;
+    
+    @FXML
+    private TextField phoneField;
+    
+    @FXML
+    private TextField emailField;
+    
+    
+    //Fields on the right
+    
+    @FXML
+    private TextField labelnumberField;
+    
+    @FXML
+    private TextField flightnumberField;
+    
+    @FXML
+    private TextField destinationField;
+    
+    @FXML
+    private TextField typeField;
+    
+    @FXML
+    private TextField brandField;
+    
+    @FXML
+    private TextField colorField;
+    
+    @FXML
+    private TextArea signaturesField;
+    
+    //Main gridpane containing smaller gridpanes
+    
+    @FXML
+    private GridPane mainGridPane;
+        
+    @FXML
+    private GridPane travellerInfoGridPane;
+    
+    @FXML
+    private GridPane luggageInfoGridPane;
+    
+    
+    
+    
+    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //To Previous Scene
         MainViewController.previousView = "/fxml/ServiceHomeView.fxml";
 
-//        try {
-//            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/fxml/ServiceVermisteOverzichtView.fxml"));
-//            Parent root = (Parent) loader.load();
-//        } catch (IOException ex) {
-//            Logger.getLogger(ServiceInvoerViewController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        ServiceVermisteOverzichtViewController controller = loader.getController();
+        //Add options to choicebox
+        missingFoundChoiceBox.getItems().addAll("Gevonden", "Vermist");
+
+        //Default value is set to Service Employee as Administrator will most likely add a user with that role.
+        missingFoundChoiceBox.setValue("Vermist");
+        
+        //Set the current time in the timefield
+        timeField.setText(LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute());
     }
 
     @FXML
@@ -72,36 +137,35 @@ public class ServiceInvoerViewController implements Initializable {
     protected void backHomeButton(ActionEvent event) throws IOException {
         MainApp.switchView("/fxml/ServiceHomeView.fxml");
     }
-
+    
     @FXML
-    //This method will catch the the data from the form and add it to the list
-    public void addLuggage(ActionEvent event) {
+    //This method adds the missing or found luggage to the system
+    public void addLuggage(ActionEvent event){
         
-        //The label of the luggage "AS9948EA" for example
-        String label = labelField.getText();
-        
-        //The brand of the luggage "samsonite" for example
-        String brand = brandField.getText();
-        
-        //The type of luggage, suitcase, sportsbag for example
-        String type = typeField.getText();
-        
-        //flight flight QW9912 for example
-        String flight = flightField.getText();
-                
-        //airport?
-        String airport = airportField.getText();
-        
-        //signatures can be a long text such as "The briefcase has smiley stickers on it"
-        String signatures = signaturesField.getText();
-      
-        //Details of the owner of the luggage
-        String travellerInformation = travellerInformationArea.getText();
-
-        //add it to the list
-         ServiceVermisteOverzichtViewController.addToList(99, "label", "brand", "type", "flight", "airpoprt", "signatures", "travellerinfo");
     }
-
-
+    
+    @FXML
+    //This method switches the form between found or missing
+    public void foundOrMissing(){
+        
+      String value = missingFoundChoiceBox.getValue().toString();
+      
+        if(value == "Gevonden"){
+      
+            mainGridPane.getChildren().remove(travellerInfoGridPane);
+            mainGridPane.getChildren().remove(luggageInfoGridPane);
+            mainGridPane.add(luggageInfoGridPane, 0, 1);
+            mainGridPane.add(travellerInfoGridPane, 1, 1);
+        }
+        
+        if(value == "Vermist"){
+            
+            mainGridPane.getChildren().remove(travellerInfoGridPane);
+            mainGridPane.getChildren().remove(luggageInfoGridPane);
+            mainGridPane.add(travellerInfoGridPane, 0, 1);
+            mainGridPane.add(luggageInfoGridPane, 1, 1);
+        }
+    }
+ 
 
 }
