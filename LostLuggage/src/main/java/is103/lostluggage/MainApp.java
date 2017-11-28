@@ -18,7 +18,6 @@ import javafx.scene.layout.Pane;
 public class MainApp extends Application {
 
     private static BorderPane root;
-    private static Pane pane;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -56,16 +55,17 @@ public class MainApp extends Application {
         //parent vanuit MainApp laden
         Parent fxmlView = FXMLLoader.load(MainApp.class.getResource(view));
 
-        //scene zetten ( in het midden )
+        //scene zetten ( in Center van BorderPane )
         //fxmlView.
         root.setCenter(fxmlView);
         
         //Tried to bring top to front and center to Back.
-        root.toBack();
+        //root.toBack();
+        Node center = root.getCenter();
+        center.toBack();
         Node top = root.getTop();
         //top.toFront();
-                //root.s
-;
+
     }
 
     /**

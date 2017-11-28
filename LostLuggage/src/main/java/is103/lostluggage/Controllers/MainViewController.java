@@ -61,6 +61,7 @@ public class MainViewController implements Initializable {
 //            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
 //        }
         instance = this;
+        
 
     }
 
