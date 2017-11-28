@@ -62,7 +62,7 @@ public class MainApp extends Application {
         //Tried to bring top to front and center to Back.
         //root.toBack();
         Node center = root.getCenter();
-        center.toBack();
+      // --->  center.toBack();
         Node top = root.getTop();
         //top.toFront();
 
