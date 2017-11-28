@@ -59,10 +59,11 @@ public class MainApp extends Application {
         //scene zetten ( in het midden )
         //fxmlView.
         root.setCenter(fxmlView);
-        MainViewController.toFront();
-        root.toFront();
+        
+        //Tried to bring top to front and center to Back.
+        root.toBack();
         Node top = root.getTop();
-        top.toBack();
+        //top.toFront();
                 //root.s
 ;
     }

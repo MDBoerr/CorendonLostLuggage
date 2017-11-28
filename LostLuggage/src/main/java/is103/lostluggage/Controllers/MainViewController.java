@@ -80,12 +80,6 @@ public class MainViewController implements Initializable {
     private void setTitle(String header) {
         title.setText(header);
     }
-    public static void toFront() {
-        getInstance().bringToFront();
-    }
-    private void bringToFront(){
-        topHBox.toFront();
-    }
   
     
 
