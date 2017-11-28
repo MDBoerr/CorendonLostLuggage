@@ -6,14 +6,23 @@
     <artifactId>LostLuggage</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
-        <dependencies>
+    <dependencies>
+        <!-- sql connector plugin -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.42</version>
             <type>jar</type>
         </dependency>
+        
+        <!-- Material design plugin -->
+        <dependency>
+            <groupId>com.jfoenix</groupId>
+            <artifactId>jfoenix</artifactId>
+            <version>1.10.0</version>
+        </dependency>
     </dependencies>
+    
 
     <name>LostLuggage</name>
 
@@ -24,7 +33,7 @@
 
     <organization>
         <!-- Used as the 'Vendor' for JNLP generation -->
-        <name>Your Organisation</name>
+        <name>IS103-3</name>
     </organization>
 
     <build>

@@ -36,6 +36,7 @@ public class MainApp extends Application {
         
         Scene scene = new Scene(root, 1200, 800);
         scene.getStylesheets().add("/styles/Styles.css");
+        scene.getStylesheets().add("/styles/materialDesign.css");
 
         stage.setTitle("Corendon Lost Luggage");
         stage.setScene(scene);
