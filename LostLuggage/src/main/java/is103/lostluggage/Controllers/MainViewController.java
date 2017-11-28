@@ -16,6 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 
 /**
  * FXML Controller class
@@ -35,6 +37,9 @@ public class MainViewController implements Initializable {
 
     @FXML
     private ImageView logoView;
+    
+    @FXML
+    private HBox topHBox;
 
     public static String previousView;
 
@@ -48,7 +53,7 @@ public class MainViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Image logo = new Image("Images/Logo.png");
         logoView.setImage(logo);
-        
+        topHBox.toFront();
         //title.setText("Chooooooosseee rolee");
 //        try {
 //            setTitle(header);
@@ -75,7 +80,13 @@ public class MainViewController implements Initializable {
     private void setTitle(String header) {
         title.setText(header);
     }
-    //private void 
+    public static void toFront() {
+        getInstance().bringToFront();
+    }
+    private void bringToFront(){
+        topHBox.toFront();
+    }
+  
     
 
     @FXML

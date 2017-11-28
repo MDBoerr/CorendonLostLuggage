@@ -23,13 +23,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.Node;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.TableRow;
+import javafx.scene.input.MouseEvent;
 
 public class OverviewUserController implements Initializable {
 
-    
     private String header = "Overzicht Gebruikers";
-    
-    
+
     @FXML
     private TableView<User> tableView;
 
@@ -48,26 +49,25 @@ public class OverviewUserController implements Initializable {
 //    private void handleButtonAction(ActionEvent event) {
 //        System.out.println("You clicked me!");
 //    }
-    
     @FXML
-    private void goToAddView(ActionEvent event) {        
+    private void goToAddView(ActionEvent event) {
         try {
             MainApp.switchView("/fxml/AdminAddUserView.fxml");
-            
+
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    
+
         try {
             MainViewController.getInstance().getTitle(header);
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
 
         id.setCellValueFactory(new PropertyValueFactory<User, String>("Id"));
         lastName.setCellValueFactory(new PropertyValueFactory<User, String>("LastName"));
@@ -76,20 +76,39 @@ public class OverviewUserController implements Initializable {
         status.setCellValueFactory(new PropertyValueFactory<User, String>("Status"));
 
         tableView.setItems(getThings());
-        
-        
-        
+
+        tableView.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                    Node node = ((Node) event.getTarget()).getParent();
+                    TableRow row;
+                    if (node instanceof TableRow) {
+                        row = (TableRow) node;
+                    } else {
+                        // clicking on text part
+                        row = (TableRow) node.getParent();
+                    }
+                    System.out.println(row.getItem());
+                    try {
+                        MainApp.switchView("/fxml/AdminAddUserView.fxml");
+                    } catch (IOException ex) {
+                        Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+            }
+        });
+
         //To Previous Scene
         MainViewController.previousView = "/Views/HomeUserView.fxml";
-        
-       
 
     }
 
     public ObservableList<User> getThings() {
 
         ObservableList<User> users = FXCollections.observableArrayList();
-        
+
         try {
             MyJDBC db = new MyJDBC("AirlineDemo");
 
@@ -101,10 +120,9 @@ public class OverviewUserController implements Initializable {
                 String iATACode = resultSet.getString("IATACode");
                 String name = resultSet.getString("Name");
                 int timeZone = resultSet.getInt("TimeZone");
-                
-                System.out.println("IATACode: " + iATACode +"  Name: "+ name + " TimeZone: " + timeZone);
-                users.add(new User(iATACode, name, "Mil", "Admin", "Active"));
 
+                System.out.println("IATACode: " + iATACode + "  Name: " + name + " TimeZone: " + timeZone);
+                users.add(new User(iATACode, name, "Mil", "Admin", "Active"));
 
             }
 
@@ -115,6 +133,5 @@ public class OverviewUserController implements Initializable {
 
         return users;
     }
-    
 
 }
