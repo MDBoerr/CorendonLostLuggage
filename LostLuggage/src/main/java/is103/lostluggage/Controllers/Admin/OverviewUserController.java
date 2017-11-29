@@ -62,8 +62,6 @@ public class OverviewUserController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     
-        
-        
         try {
             MainViewController.getInstance().getTitle(header);
         } catch (IOException ex) {
@@ -71,13 +69,6 @@ public class OverviewUserController implements Initializable {
         }
 
 
-        
-        
-        //  LET OP:  BEN HIER AL MEE VERDER GEGAAN
-        //  in branch: origin/thijs/feauturs/service/vermistOverzicht
-        
-        //merg hem (zodra hij werkt) met dit bestand!
-        
         id.setCellValueFactory(new PropertyValueFactory<User, String>("Id"));
         lastName.setCellValueFactory(new PropertyValueFactory<User, String>("LastName"));
         firstName.setCellValueFactory(new PropertyValueFactory<User, String>("FirstName"));

@@ -44,8 +44,8 @@ public class ServiceGevondenOverzichtViewController implements Initializable {
             luggageList = FXCollections.observableArrayList();
 
             //dummy data invoeren in de tabel 
-            luggageList.add(new Luggage((id++), "A392D4K", "Tomos", "Trolley", "D383D", "Amsterdam Airport", "rode sticker", "reiziger (id?) "));
-            luggageList.add(new Luggage((id++), "C38DKE3", "East Pack", "Rugzak", "A74D0", "Antalya Aiport", "zonder handvat", "reiziger"));
+            //luggageList.add(new Luggage((id++), "A392D4K", "Tomos", "Trolley", "D383D", "Amsterdam Airport", "rode sticker", "reiziger (id?) "));
+            //luggageList.add(new Luggage((id++), "C38DKE3", "East Pack", "Rugzak", "A74D0", "Antalya Aiport", "zonder handvat", "reiziger"));
         }
 
     }
