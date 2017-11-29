@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -42,7 +43,7 @@ public class ManagerGevondenViewController implements Initializable {
     private int id = 0;
 
     @FXML
-    public TableView VermistTable;
+    private TableView vermistTable;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -51,15 +52,39 @@ public class ManagerGevondenViewController implements Initializable {
         MainViewController.previousView = "/Views/ManagerHomeView.fxml";
 
         luggageList = FXCollections.observableArrayList();
-        VermistTable.setItems(luggageList);
+        vermistTable.setItems(luggageList);
 
         //voor elke colum data vullen (bij verandering en initializatie
-        for (int i = 0; i < VermistTable.getColumns().size(); i++) {
-            TableColumn tc = (TableColumn) VermistTable.getColumns().get(i);
+        for (int i = 0; i < vermistTable.getColumns().size(); i++) {
+            TableColumn tc = (TableColumn) vermistTable.getColumns().get(i);
 
             tc.setCellValueFactory(new PropertyValueFactory<>(tc.getId()));
 
         }
+
+        vermistTable.setOnMousePressed((MouseEvent event) -> {
+            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                Node node = ((Node) event.getTarget()).getParent();
+                TableRow row;
+                //Get the info from the object that is selected
+                if (node instanceof TableRow) {
+                    row = (TableRow) node;
+                } else {
+                    // clicking on text part
+                    row = (TableRow) node.getParent();
+                }
+                //This will print the object
+                System.out.println(row.getItem());
+                
+                // Add the File that needs to be loaded here
+                try {
+                    MainApp.switchView("/fxml/AdminAddUserView.fxml");
+                } catch (IOException ex) {
+                    Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        });
 
         //dummy data invoeren in de tabel 
         luggageList.add(new Luggage((id++), "A392D4K", "Tomos", "Trolley", "D383D", "Amsterdam Airport", "rode sticker", "reiziger"));
@@ -70,34 +95,4 @@ public class ManagerGevondenViewController implements Initializable {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-        VermistTable.setOnMousePressed ( 
-        new EventHandler<MouseEvent>() {
-
-        public void handle
-        (MouseEvent event
-        
-            ) {
-if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                Node node = ((Node) event.getTarget()).getParent();
-                TableRow row;
-                if (node instanceof TableRow) {
-                    row = (TableRow) node;
-                } else {
-// clicking on text part
-                    row = (TableRow) node.getParent();
-                }
-                System.out.println(row.getItem());
-                try {
-                    MainApp.switchView("/fxml/ManagerPassengerInfoView.fxml");
-                } catch (IOException ex) {
-                    Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-    }
-
-);
 }
-   
-    
-
