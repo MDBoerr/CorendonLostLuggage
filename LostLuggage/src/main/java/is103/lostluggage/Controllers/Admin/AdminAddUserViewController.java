@@ -13,13 +13,20 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -27,6 +34,9 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.util.Duration;
@@ -45,12 +55,18 @@ public class AdminAddUserViewController implements Initializable {
 
     public static UUID uid;
 
-    @FXML
-    private AnchorPane navList;
+    private double navListPrefHeight = 70.0d;
 
+    @FXML
+    private BorderPane mainBorderPane;
+    @FXML
+    private HBox errorMessageHBox;
+    @FXML
+    private AnchorPane errorMessageView;
+    @FXML
+    private AnchorPane whiteAnchorPane;
     @FXML
     private JFXComboBox statusComboBox;
-
     @FXML
     private JFXComboBox roleComboBox;
 
@@ -76,29 +92,20 @@ public class AdminAddUserViewController implements Initializable {
 
     @FXML
     //Field that contains the phonenumber
-    private TextField locationField;
-
-    @FXML
-    //Choicebox that contains the status of the employee
-    private ChoiceBox statusChoiceBox;
-
-    @FXML
-    //Choicebox that contains the role of the employee
-    private ChoiceBox roleChoiceBox;
+    private JFXTextField locationField;
 
     //Title of the view
     private String header = "Voeg een Gebruiker toe";
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         try {
             MainViewController.getInstance().getTitle(header);
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //navList.toBack();
-        //activateSlideErrorMessageAnimation(false);
-        //navList.setTranslateY(-(navList.getHeight()));
+
         //Set which view was previous
         MainViewController.previousView = "/Views/HomeUserView.fxml";
 
@@ -117,14 +124,14 @@ public class AdminAddUserViewController implements Initializable {
         roleComboBox.setItems(roleList);
         statusComboBox.setItems(statusList);
 
-        //Default value of role is set to Service Employee as Administrator will most likely add a user with that role.
-        //statusChoiceBox.setValue("Active");
+        mainBorderPane.setTop(null);
+
     }
 
     @FXML
     protected void backToHomeUserView(ActionEvent event) throws IOException {
-        //MainApp.switchView("/Views/HomeUserView.fxml");
-        activateSlideErrorMessageAnimation(false);
+        MainApp.switchView("/Views/HomeUserView.fxml");
+
     }
 
     @FXML
@@ -132,70 +139,161 @@ public class AdminAddUserViewController implements Initializable {
 
         //default error message is empty
         String errorMessage = "";
-        activateSlideErrorMessageAnimation(true);
         String firstname = firstnameField.getText();
-
-        if (firstname.isEmpty()) {
-            errorMessage += "Firstname cannot be empty\n";
-        }
-
         String lastname = lastnameField.getText();
-
-        if (lastname.isEmpty()) {
-            errorMessage += "Surname cannot be empty\n";
-        }
-
         String location = locationField.getText();
+        int amount = 0;
+        String[] fields = {"Firstname", "Lastname", "Aiport / City", "Status", "Role"};
+        String[] emptyfields = new String[amount];
 
-        if (location.isEmpty()) {
-            errorMessage += "Phone cannot be empty";
-        }
+        if (firstname.isEmpty() || lastname.isEmpty() || location.isEmpty() || statusComboBox.getValue() == null
+                || statusComboBox.getValue().toString().isEmpty() || roleComboBox.getValue() == null
+                || roleComboBox.getValue().toString().isEmpty()) {
 
-        if (statusComboBox.getValue() != null
-                && !statusComboBox.getValue().toString().isEmpty()) {
-            String statusChoice = statusComboBox.getValue().toString();
-            System.out.println(statusChoice);
-        } else {
-            errorMessage += "You have not selected a recipient!";
-        }
-        if (roleComboBox.getValue() != null
-                && !roleComboBox.getValue().toString().isEmpty()) {
-            String roleChoice = roleComboBox.getValue().toString();
-            System.out.println(roleChoice);
-        }
+            emptyfields = new String[fields.length];
 
-        //Put the error message on the label
-        errorMessageLbl.setText(errorMessage);
+            if (firstname.isEmpty()) {
+                //startAnimation();
+                emptyfields[amount] = fields[0];
+                firstnameField.setUnFocusColor(Paint.valueOf("#f03e3e"));
+                amount++;
+                //errorMessage += "Firstname cannot be empty\n";
+            } else {
+                firstnameField.setUnFocusColor(Paint.valueOf("#4d4d4d"));
+                //dismissAnimation();
+            }
 
-//        //The role of the added user
-//        String role = roleChoiceBox.getValue().toString();
-//
-//        //The status of the added user
+            if (lastname.isEmpty()) {
+                //errorMessage += "Surname cannot be empty\n";
+                emptyfields[amount] = fields[1];
+                amount++;
+                lastnameField.setUnFocusColor(Paint.valueOf("#f03e3e"));
+            } else {
+                lastnameField.setUnFocusColor(Paint.valueOf("#4d4d4d"));
+            }
+
+            if (location.isEmpty()) {
+                //errorMessage += "Phone cannot be empty";
+                emptyfields[amount] = fields[2];
+                amount++;
+                locationField.setUnFocusColor(Paint.valueOf("#f03e3e"));
+
+            } else {
+                locationField.setUnFocusColor(Paint.valueOf("#4d4d4d"));
+            }
+
+            if (statusComboBox.getValue() != null
+                    && !statusComboBox.getValue().toString().isEmpty()) {
+                String statusChoice = statusComboBox.getValue().toString();
+                System.out.println(statusChoice);
+
+            } else {
+                //errorMessage += "You have not selected a recipient!";
+                emptyfields[amount] = fields[3];
+                amount++;
+                statusComboBox.setUnFocusColor(Paint.valueOf("#f03e3e"));
+
+            }
+            if (roleComboBox.getValue() != null
+                    && !roleComboBox.getValue().toString().isEmpty()) {
+                String roleChoice = roleComboBox.getValue().toString();
+                System.out.println(roleChoice);
+            } else {
+                emptyfields[amount] = fields[4];
+                amount++;
+                roleComboBox.setUnFocusColor(Paint.valueOf("#f03e3e"));
+
+            }
+            errorMessage = "The following fields can't be empty:  ";
+
+            //int counter = 0;
+
+            for (int i = 0; i < emptyfields.length - 1; i++) {
+                if (emptyfields[i] != null) {
+                    errorMessage += emptyfields[i];
+
+                    if (i < (amount-1)) {
+                        errorMessage += ", ";
+
+                    }
+                }
+
+            }
+            //errorMessage = "The following fields are can't be empty:  " + emptyfields;
+            startAnimation();
+
+            //Put the error message on the label
+            errorMessageLbl.setText(errorMessage);
+
 //        String status = statusChoiceBox.getValue().toString();
-        //If the error message is empty it means there are no errors 
-        if (errorMessage.isEmpty()) {
-            //add user to database with password hashed
+            //If the error message is empty it means there are no errors 
+            if (errorMessage.isEmpty()) {
+                //add user to database with password hashed
 
-        } else {
-            //Wait until the user solved all the errors
+            } else {
+                //Wait until the user solved all the errors
+            }
+            System.out.println(uid.randomUUID());
+
         }
-        System.out.println(uid.randomUUID());
-
     }
 
     public void activateSlideErrorMessageAnimation(Boolean showError) {
-        TranslateTransition openNav = new TranslateTransition(new Duration(350), navList);
+        TranslateTransition openNav = new TranslateTransition(new Duration(350), errorMessageView);
         //openNav.setToY(0);
-        TranslateTransition closeNav = new TranslateTransition(new Duration(350), navList);
+        TranslateTransition closeNav = new TranslateTransition(new Duration(350), errorMessageView);
         if (showError == true) {
             openNav.setToY(0);
+            //navList.visibleProperty().setValue(true);
+
             openNav.play();
 
         } else {
             // System.out.println(navList.getHeight());
-            closeNav.setToY(-(navList.getHeight()));
+            closeNav.setToY(-(errorMessageView.getHeight()));
             closeNav.play();
         }
+
+    }
+
+    public void startAnimation() {
+        errorMessageView.prefHeight(0.0d);
+        mainBorderPane.setTop(errorMessageView);
+        errorMessageHBox.getChildren().add(errorMessageLbl);
+        errorMessageLbl.setVisible(true);
+
+        Timeline timeline = new Timeline();
+        timeline.getKeyFrames().addAll(new KeyFrame(Duration.ZERO,
+                new KeyValue(errorMessageView.prefHeightProperty(), 0)
+        ),
+                new KeyFrame(Duration.millis(300.0d),
+                        new KeyValue(errorMessageView.prefHeightProperty(), navListPrefHeight)
+                )
+        );
+        timeline.play();
+
+        PauseTransition wait = new PauseTransition(Duration.seconds(4));
+        wait.setOnFinished((e) -> {
+            dismissAnimation();
+        });
+        wait.play();
+
+    }
+
+    public void dismissAnimation() {
+        errorMessageView.prefHeight(0.0d);
+        mainBorderPane.setTop(errorMessageView);
+        errorMessageHBox.getChildren().remove(errorMessageLbl);
+
+        Timeline timeline = new Timeline();
+        timeline.getKeyFrames().addAll(new KeyFrame(Duration.ZERO,
+                new KeyValue(errorMessageView.prefHeightProperty(), navListPrefHeight)
+        ),
+                new KeyFrame(Duration.millis(300.0d),
+                        new KeyValue(errorMessageView.prefHeightProperty(), 0)
+                )
+        );
+        timeline.play();
 
     }
 
@@ -233,9 +331,4 @@ public class AdminAddUserViewController implements Initializable {
         //check how many ak's exist.. forexample ak, ak1, ak2 so make sure the id in this field
         //will be ak3
     }
-
-//    public static UUID randomUUID() {
-//            UUID id = new UUID();
-//            return id;
-//    }
 }
