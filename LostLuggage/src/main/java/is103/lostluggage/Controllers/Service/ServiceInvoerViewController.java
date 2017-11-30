@@ -1,7 +1,6 @@
 package is103.lostluggage.Controllers.Service;
 
 import is103.lostluggage.Controllers.MainViewController;
-import static is103.lostluggage.Controllers.Service.ServiceVermisteOverzichtViewController.luggageList;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
@@ -22,6 +21,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import static is103.lostluggage.Controllers.Service.ServiceVermisteOverzichtViewController.MissedLuggageList;
 
 /**
  * FXML Controller class

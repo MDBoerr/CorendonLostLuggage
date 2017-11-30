@@ -1,44 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<GridPane prefHeight="565.0" prefWidth="1178.0" style="-fx-background-color: #868e96#868e96 #868e96#868e96;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Service.ServiceVermisteOverzichtViewController">
+<GridPane prefHeight="586.0" prefWidth="1179.0" style="-fx-background-color: fff;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Service.ServiceVermisteOverzichtViewController">
     <columnConstraints>
-        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="957.3544311523438" minWidth="10.0" prefWidth="472.0338439941406" />
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="777.9694519042969" minWidth="10.0" prefWidth="707.4661560058594" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints maxHeight="148.65740966796875" minHeight="10.0" prefHeight="81.10185241699219" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="265.3981475830078" minHeight="10.0" prefHeight="200.0" valignment="CENTER" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="316.0810241699219" minHeight="10.0" prefHeight="200.0" valignment="CENTER" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="33.31011962890625" minHeight="100.0" prefHeight="9.034820556640625" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <TableView fx:id="vermistTable" prefHeight="628.0" prefWidth="1172.0" GridPane.columnSpan="2" GridPane.rowSpan="4">
+        <TableView fx:id="missedLuggageTable" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowSpan="3">
             <columns>
-                <TableColumn fx:id="idmissedLuggage" prefWidth="42.05970764160156" text="ID" />
-                <TableColumn fx:id="timeField" prefWidth="65.0" text="Time" />
-                <TableColumn fx:id="aiportField" prefWidth="61.319122314453125" text="Airport" />
-                <TableColumn fx:id="dateDatepicker" prefWidth="54.84834289550781" text="Date" />
-                <TableColumn fx:id="nameField" prefWidth="57.72200012207031" text="Name" />
-                <TableColumn fx:id="adressField" prefWidth="54.671478271484375" text="Adres" />
-                <TableColumn fx:id="residenceField" prefWidth="71.00393676757812" text="Residence" />
-                <TableColumn fx:id="postalcodeField" prefWidth="84.48635864257812" text="Postal Code" />
-            <TableColumn fx:id="countryField" prefWidth="75.15951538085938" text="Country" />
-            <TableColumn fx:id="emailField" prefWidth="66.99609375" text="Email" />
-            <TableColumn fx:id="labelnumberField" prefWidth="69.98828125" text="Label num." />
-            <TableColumn fx:id="flightnumberField" prefWidth="86.01171875" text="Flight num." />
-            <TableColumn fx:id="destinationField" prefWidth="81.86956787109375" text="Destination" />
-            <TableColumn fx:id="typeField" prefWidth="82.486328125" text="Type Luggage" />
-            <TableColumn fx:id="brandField" prefWidth="65.984375" text="Brand" />
-            <TableColumn fx:id="colorField" prefWidth="60.482421875" text="Color" />
-            <TableColumn fx:id="signaturesField" prefWidth="96.517578125" text="Signatures" />
+                <TableColumn fx:id="idMissedLuggageColumn" prefWidth="42.05970764160156" text="ID" />
+                <TableColumn fx:id="timeColumn" prefWidth="65.0" text="Time" />
+                <TableColumn fx:id="airportColumn" prefWidth="61.319122314453125" text="Airport" />
+                <TableColumn fx:id="dateColumn" prefWidth="54.84834289550781" text="Date" />
+                <TableColumn fx:id="nameColumn" prefWidth="57.72200012207031" text="Name" />
+                <TableColumn fx:id="addressColumn" prefWidth="54.671478271484375" text="Adres" />
+                <TableColumn fx:id="residenceColumn" prefWidth="71.00393676757812" text="Residence" />
+                <TableColumn fx:id="postalcodeColumn" prefWidth="84.48635864257812" text="Postal Code" />
+            <TableColumn fx:id="countryColumn" prefWidth="75.15951538085938" text="Country" />
+            <TableColumn fx:id="emailColumn" prefWidth="66.99609375" text="Email" />
+            <TableColumn fx:id="labelnumberColumn" prefWidth="69.98828125" text="Label num." />
+            <TableColumn fx:id="flightnumberColumn" prefWidth="86.01171875" text="Flight num." />
+            <TableColumn fx:id="destinationColumn" prefWidth="81.86956787109375" text="Destination" />
+            <TableColumn fx:id="typeColumn" prefWidth="82.486328125" text="Type Luggage" />
+            <TableColumn fx:id="brandColumn" prefWidth="65.984375" text="Brand" />
+            <TableColumn fx:id="colorColumn" prefWidth="60.482421875" text="Color" />
+            <TableColumn fx:id="signaturesColumn" prefWidth="96.517578125" text="Signatures" />
             </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
         </TableView>
+      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <children>
+            <VBox minWidth="150.0" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Separator opacity="0.0" prefHeight="8.0" prefWidth="237.0" />
+                  <JFXButton buttonType="RAISED" onAction="#switchToInput" prefHeight="27.0" prefWidth="115.0" ripplerFill="#1b5e20" style="-fx-background-color: #4CAF50#4CAF50;" text="Add Luggage +" textAlignment="CENTER" textFill="WHITE" />
+                  <Separator opacity="0.0" prefHeight="14.0" prefWidth="237.0" />
+                  <JFXButton buttonType="RAISED" onAction="#switchToMatching" prefHeight="27.0" prefWidth="115.0" ripplerFill="#0d47a1" style="-fx-background-color: #2196F3#2196F3;" text="Find Match &gt;" textAlignment="CENTER" textFill="WHITE" />
+                  <Separator opacity="0.0" prefHeight="8.0" prefWidth="237.0" />
+               </children>
+            </VBox>
+            <Separator opacity="0.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="75.0" />
+         </children>
+      </HBox>
     </children>
 </GridPane>

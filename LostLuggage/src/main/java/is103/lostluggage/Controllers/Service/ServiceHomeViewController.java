@@ -1,10 +1,13 @@
 package is103.lostluggage.Controllers.Service;
 
+import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +19,11 @@ import javafx.fxml.Initializable;
  */
 public class ServiceHomeViewController implements Initializable {
 
+    
+    //view title
+    private final String title = "Service Home";
+    
+    
     /**
      * Initializes the controller class.
      */
@@ -24,7 +32,13 @@ public class ServiceHomeViewController implements Initializable {
         
         //To Previous Scene
         MainViewController.previousView = "/fxml/SelectUserRoleView.fxml";
-
+        
+        //titel boven de pagina zetten
+        try {
+            MainViewController.getInstance().getTitle(title);
+        } catch (IOException ex) {
+            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
 
     @FXML
