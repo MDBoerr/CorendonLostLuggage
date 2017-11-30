@@ -2,7 +2,7 @@ package is103.lostluggage.Controllers.Manager;
 
 import is103.lostluggage.Controllers.HomeUserViewController;
 import is103.lostluggage.Controllers.MainViewController;
-import is103.lostluggage.Controllers.Service.Luggage;
+//import is103.lostluggage.Controllers.Service.Luggage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,7 +33,7 @@ public class ManagerGevondenViewController implements Initializable {
      */
 
  //luggage list
-    public static ObservableList<Luggage> luggageList;
+    //public static ObservableList<Luggage> luggageList;
     private int id = 0;
     
     @FXML
@@ -44,8 +44,8 @@ public class ManagerGevondenViewController implements Initializable {
         //To Previous Scene
         MainViewController.previousView = "/Views/ManagerHomeView.fxml";
         
-        luggageList = FXCollections.observableArrayList();
-        VermistTable.setItems(luggageList);
+        //luggageList = FXCollections.observableArrayList();
+        //VermistTable.setItems(luggageList);
         
         //voor elke colum data vullen (bij verandering en initializatie
         for (int i = 0; i < VermistTable.getColumns().size(); i++  ) {
