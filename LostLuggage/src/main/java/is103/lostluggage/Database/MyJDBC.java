@@ -17,7 +17,7 @@ public class MyJDBC {
     private static final String DB_DEFAULT_DATABASE = "sys";
     private static final String DB_DEFAULT_SERVER_URL = "localhost:3306";
     private static final String DB_DEFAULT_ACCOUNT = "root";
-    private static final String DB_DEFAULT_PASSWORD = "root"; //ajax1234
+    private static final String DB_DEFAULT_PASSWORD = "ajax1234";
 
     private final static String DB_DRIVER_URL = "com.mysql.jdbc.Driver";
     private final static String DB_DRIVER_PREFIX = "jdbc:mysql://";
@@ -118,7 +118,7 @@ public class MyJDBC {
      */
     public int executeUpdateQuery(String sql) {
         try {
-            Statement s = this.connection.createStatement();
+             Statement s = this.connection.createStatement();
             log(sql);
             int n = s.executeUpdate(sql);
             s.close();
@@ -304,14 +304,14 @@ public class MyJDBC {
         sysJDBC.executeUpdateQuery("CREATE DATABASE IF NOT EXISTS " + dbName);
         sysJDBC.close();
 
-        // create or truncate Airport table in the Airline database
+        // create or truncate User table in the Airline database
         System.out.println("Creating the User table...");
         MyJDBC myJDBC = new MyJDBC(dbName);
         myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS User ("
                 + " ID VARCHAR(6) NOT NULL PRIMARY KEY,"
                 + " Firstname VARCHAR(45),"
                 + " Lastname VARCHAR(45),"
-                + " Airport / Building VARCHAR(45),"
+                + " Location VARCHAR(45),"
                 + " Status VARCHAR(10),"
                 + " Role VARCHAR(20) )");
 
