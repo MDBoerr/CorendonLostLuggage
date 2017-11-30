@@ -11,10 +11,7 @@ import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,25 +23,21 @@ import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 
 /**
  * FXML Controller class
  *
- * @author Arthur
+ * @author Michael de Boer 
+ * GenerateId() Arthur & Michael
  *
  */
 public class AdminAddUserViewController implements Initializable {
@@ -99,7 +92,7 @@ public class AdminAddUserViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        //Set Header
         try {
             MainViewController.getInstance().getTitle(header);
         } catch (IOException ex) {
@@ -139,13 +132,19 @@ public class AdminAddUserViewController implements Initializable {
 
         //default error message is empty
         String errorMessage = "";
+        
+        //Get values from TextFields
         String firstname = firstnameField.getText();
         String lastname = lastnameField.getText();
         String location = locationField.getText();
+        
+        //Counter for empty fields
         int amount = 0;
+        //Array of input fields & array of fields that are empty
         String[] fields = {"Firstname", "Lastname", "Aiport / City", "Status", "Role"};
         String[] emptyfields = new String[amount];
-
+        
+        //If one or more fields are empty show errorMessageView, setFocusColor to red 
         if (firstname.isEmpty() || lastname.isEmpty() || location.isEmpty() || statusComboBox.getValue() == null
                 || statusComboBox.getValue().toString().isEmpty() || roleComboBox.getValue() == null
                 || roleComboBox.getValue().toString().isEmpty()) {
@@ -153,18 +152,14 @@ public class AdminAddUserViewController implements Initializable {
             emptyfields = new String[fields.length];
 
             if (firstname.isEmpty()) {
-                //startAnimation();
                 emptyfields[amount] = fields[0];
                 firstnameField.setUnFocusColor(Paint.valueOf("#f03e3e"));
                 amount++;
-                //errorMessage += "Firstname cannot be empty\n";
             } else {
                 firstnameField.setUnFocusColor(Paint.valueOf("#4d4d4d"));
-                //dismissAnimation();
             }
 
             if (lastname.isEmpty()) {
-                //errorMessage += "Surname cannot be empty\n";
                 emptyfields[amount] = fields[1];
                 amount++;
                 lastnameField.setUnFocusColor(Paint.valueOf("#f03e3e"));
@@ -173,7 +168,6 @@ public class AdminAddUserViewController implements Initializable {
             }
 
             if (location.isEmpty()) {
-                //errorMessage += "Phone cannot be empty";
                 emptyfields[amount] = fields[2];
                 amount++;
                 locationField.setUnFocusColor(Paint.valueOf("#f03e3e"));
@@ -188,7 +182,6 @@ public class AdminAddUserViewController implements Initializable {
                 System.out.println(statusChoice);
 
             } else {
-                //errorMessage += "You have not selected a recipient!";
                 emptyfields[amount] = fields[3];
                 amount++;
                 statusComboBox.setUnFocusColor(Paint.valueOf("#f03e3e"));
@@ -204,11 +197,11 @@ public class AdminAddUserViewController implements Initializable {
                 roleComboBox.setUnFocusColor(Paint.valueOf("#f03e3e"));
 
             }
+            //Main Error message
             errorMessage = "The following fields can't be empty:  ";
 
-            //int counter = 0;
-
-            for (int i = 0; i < emptyfields.length - 1; i++) {
+            //Add empty fields to Error Message
+            for (int i = 0; i <= emptyfields.length - 1; i++) {
                 if (emptyfields[i] != null) {
                     errorMessage += emptyfields[i];
 
@@ -216,44 +209,23 @@ public class AdminAddUserViewController implements Initializable {
                         errorMessage += ", ";
 
                     }
+                    System.out.print(emptyfields[i]);
                 }
 
             }
-            //errorMessage = "The following fields are can't be empty:  " + emptyfields;
+            //Start errorMessageView animation after error message contains all empty fields
             startAnimation();
 
             //Put the error message on the label
             errorMessageLbl.setText(errorMessage);
 
-//        String status = statusChoiceBox.getValue().toString();
-            //If the error message is empty it means there are no errors 
-            if (errorMessage.isEmpty()) {
-                //add user to database with password hashed
-
-            } else {
-                //Wait until the user solved all the errors
-            }
             System.out.println(uid.randomUUID());
 
+        } 
+        //All fields are valid, there are no errors
+        else {
+            
         }
-    }
-
-    public void activateSlideErrorMessageAnimation(Boolean showError) {
-        TranslateTransition openNav = new TranslateTransition(new Duration(350), errorMessageView);
-        //openNav.setToY(0);
-        TranslateTransition closeNav = new TranslateTransition(new Duration(350), errorMessageView);
-        if (showError == true) {
-            openNav.setToY(0);
-            //navList.visibleProperty().setValue(true);
-
-            openNav.play();
-
-        } else {
-            // System.out.println(navList.getHeight());
-            closeNav.setToY(-(errorMessageView.getHeight()));
-            closeNav.play();
-        }
-
     }
 
     public void startAnimation() {

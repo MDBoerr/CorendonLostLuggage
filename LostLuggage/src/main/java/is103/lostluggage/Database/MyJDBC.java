@@ -295,6 +295,57 @@ public class MyJDBC {
         myJDBC.close();
     }
 
+    public static void createLostLuggageDatabase(String dbName) {
+
+        System.out.println("Creating the " + dbName + " database...");
+
+        // use the sys schema for creating another db
+        MyJDBC sysJDBC = new MyJDBC("sys");
+        sysJDBC.executeUpdateQuery("CREATE DATABASE IF NOT EXISTS " + dbName);
+        sysJDBC.close();
+
+        // create or truncate Airport table in the Airline database
+        System.out.println("Creating the User table...");
+        MyJDBC myJDBC = new MyJDBC(dbName);
+        myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS User ("
+                + " ID VARCHAR(6) NOT NULL PRIMARY KEY,"
+                + " Firstname VARCHAR(45),"
+                + " Lastname VARCHAR(45),"
+                + " Airport / Building VARCHAR(45),"
+                + " Status VARCHAR(10),"
+                + " Role VARCHAR(20) )");
+
+        // truncate Airport, in case some data was already there
+        myJDBC.executeUpdateQuery("TRUNCATE TABLE User");
+
+        // Populate the Airport table in the Airline database        
+        System.out.println("Populating with User Account...");
+        myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
+                + "'MB1', 'Michael', 'Boer de', 'Schiphol Amsterdam', 'Active', 'Adminstrator' )");
+
+
+        // echo all airports in timezone 1
+        System.out.println("Known User in time zone 1:");
+        try {
+            ResultSet rs = myJDBC.executeResultSetQuery(
+                    "SELECT ID, Firstname FROM User WHERE Status='Active'");
+            while (rs.next()) {
+                // echo the info of the next airport found
+                System.out.println(
+                        rs.getString("ID")
+                        + " " + rs.getString("Firstname"));
+            }
+            // close and release the resources
+            rs.close();
+
+        } catch (SQLException ex) {
+            myJDBC.error(ex);
+        }
+
+        // close the connection with the database
+        myJDBC.close();
+    }
+
     public boolean isVerbose() {
         return verbose;
     }

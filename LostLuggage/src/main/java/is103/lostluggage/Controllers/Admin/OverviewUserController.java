@@ -23,6 +23,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.Node;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.TableRow;
+import javafx.scene.input.MouseEvent;
 
 public class OverviewUserController implements Initializable {
 
@@ -63,20 +66,15 @@ public class OverviewUserController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
     
         
-        
+        //Error in creating database User
+        MyJDBC.createLostLuggageDatabase("LostLuggage");
+             
         try {
             MainViewController.getInstance().getTitle(header);
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-
-        
-        
-        //  LET OP:  BEN HIER AL MEE VERDER GEGAAN
-        //  in branch: origin/thijs/feauturs/service/vermistOverzicht
-        
-        //merg hem (zodra hij werkt) met dit bestand!
         
         id.setCellValueFactory(new PropertyValueFactory<User, String>("Id"));
         lastName.setCellValueFactory(new PropertyValueFactory<User, String>("LastName"));
@@ -86,7 +84,7 @@ public class OverviewUserController implements Initializable {
 
         tableView.setItems(getThings());
         
-        
+        mouseClickedOnRow();
         
         //To Previous Scene
         MainViewController.previousView = "/Views/HomeUserView.fxml";
@@ -123,6 +121,28 @@ public class OverviewUserController implements Initializable {
         //users.add(new User("6666", "de Boer", "Michael", "Admin", "Active"));
 
         return users;
+    }
+    
+    public void mouseClickedOnRow() {
+        tableView.setOnMousePressed((MouseEvent event) -> {
+            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                Node node = ((Node) event.getTarget()).getParent();
+                TableRow row;
+                if (node instanceof TableRow) {
+                    row = (TableRow) node;
+                } else {
+                    // clicking on text part
+                    row = (TableRow) node.getParent();
+                }
+                System.out.println(row.getItem());
+                try {
+                    MainApp.switchView("/fxml/AdminAddUserView.fxml");
+                } catch (IOException ex) {
+                    Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+        });
     }
     
 
