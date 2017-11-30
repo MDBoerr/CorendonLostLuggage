@@ -10,65 +10,65 @@ import javafx.beans.property.SimpleStringProperty;
 public class Luggage {
     private String  
             idmissedLuggage, 
-            timeField, 
-            airportField, 
-            dateDatepicker;
+            obj_time, 
+            obj_airport, 
+            obj_date;
     
     private String 
-            nameField, 
-            addressField, 
-            residenceField, 
-            postalcodeField, 
-            countryField, 
-            emailField;
+            obj_name, 
+            obj_address, 
+            obj_residence, 
+            obj_postalcode, 
+            obj_country, 
+            obj_email;
     
     private String 
-            labelnumberField, 
-            flightnumberField, 
-            destinationField;
+            obj_labelnumber, 
+            obj_flightnumber, 
+            obj_destination;
     
 
     private String 
-            typeField,
-            brandField,
-            colorField,
-            signaturesField;
+            obj_type,
+            obj_brand,
+            obj_color,
+            obj_signatures;
 
     public Luggage(
-            String idmissedLuggage, 
-            String timeField, 
-            String airportField, 
-            String dateDatepicker, 
-            String nameField, 
-            String addressField, 
-            String residenceField, 
-            String postalcodeField, 
-            String countryField, 
-            String emailField, 
-            String labelnumberField, 
-            String flightnumberField, 
-            String destinationField, 
-            String typeField, 
-            String brandField, 
-            String colorField, 
-            String signaturesField) {
-        this.idmissedLuggage =  idmissedLuggage;
-        this.timeField =        timeField;
-        this.airportField =     airportField;
-        this.dateDatepicker =   dateDatepicker;
-        this.nameField =        nameField;
-        this.addressField =     addressField;
-        this.residenceField =   residenceField;
-        this.postalcodeField =  postalcodeField;
-        this.countryField =     countryField;
-        this.emailField =       emailField;
-        this.labelnumberField = labelnumberField;
-        this.flightnumberField = flightnumberField;
-        this.destinationField = destinationField;
-        this.typeField =        typeField;
-        this.brandField =       brandField;
-        this.colorField =       colorField;
-        this.signaturesField =  signaturesField;
+            String data_idMissedLuggage, 
+            String data_time, 
+            String data_airport, 
+            String data_date, 
+            String data_name, 
+            String data_address, 
+            String data_residence, 
+            String data_postalcode, 
+            String data_country, 
+            String data_email, 
+            String data_labelnumber, 
+            String data_flightnumber, 
+            String data_destination, 
+            String data_type, 
+            String data_brand, 
+            String data_color, 
+            String data_signatures) {
+        this.idmissedLuggage = data_idMissedLuggage;
+        this.obj_time =        data_time;
+        this.obj_airport =     data_airport;
+        this.obj_date =        data_date;
+        this.obj_name =        data_name;
+        this.obj_address =     data_address;
+        this.obj_residence =   data_residence;
+        this.obj_postalcode =  data_postalcode;
+        this.obj_country =     data_country;
+        this.obj_email =       data_email;
+        this.obj_labelnumber = data_labelnumber;
+        this.obj_flightnumber =data_flightnumber;
+        this.obj_destination = data_destination;
+        this.obj_type =        data_type;
+        this.obj_brand =       data_brand;
+        this.obj_color =       data_color;
+        this.obj_signatures =  data_signatures;
     }
 
     /**
@@ -86,227 +86,227 @@ public class Luggage {
     }
 
     /**
-     * @return the timeField
+     * @return the obj_time
      */
-    public String getTimeField() {
-        return timeField;
+    public String getObj_time() {
+        return obj_time;
     }
 
     /**
-     * @param timeField the timeField to set
+     * @param obj_time the obj_time to set
      */
-    public void setTimeField(String timeField) {
-        this.timeField = timeField;
+    public void setObj_time(String obj_time) {
+        this.obj_time = obj_time;
     }
 
     /**
-     * @return the airportField
+     * @return the obj_airport
      */
-    public String getAirportField() {
-        return airportField;
+    public String getObj_airport() {
+        return obj_airport;
     }
 
     /**
-     * @param airportField the airportField to set
+     * @param obj_airport the obj_airport to set
      */
-    public void setAirportField(String airportField) {
-        this.airportField = airportField;
+    public void setObj_airport(String obj_airport) {
+        this.obj_airport = obj_airport;
     }
 
     /**
-     * @return the dateDatepicker
+     * @return the obj_date
      */
-    public String getDateDatepicker() {
-        return dateDatepicker;
+    public String getObj_date() {
+        return obj_date;
     }
 
     /**
-     * @param dateDatepicker the dateDatepicker to set
+     * @param obj_date the obj_date to set
      */
-    public void setDateDatepicker(String dateDatepicker) {
-        this.dateDatepicker = dateDatepicker;
+    public void setObj_date(String obj_date) {
+        this.obj_date = obj_date;
     }
 
     /**
-     * @return the nameField
+     * @return the obj_name
      */
-    public String getNameField() {
-        return nameField;
+    public String getObj_name() {
+        return obj_name;
     }
 
     /**
-     * @param nameField the nameField to set
+     * @param obj_name the obj_name to set
      */
-    public void setNameField(String nameField) {
-        this.nameField = nameField;
+    public void setObj_name(String obj_name) {
+        this.obj_name = obj_name;
     }
 
     /**
-     * @return the addressField
+     * @return the obj_address
      */
-    public String getAddressField() {
-        return addressField;
+    public String getObj_address() {
+        return obj_address;
     }
 
     /**
-     * @param addressField the addressField to set
+     * @param obj_address the obj_address to set
      */
-    public void setAddressField(String addressField) {
-        this.addressField = addressField;
+    public void setObj_address(String obj_address) {
+        this.obj_address = obj_address;
     }
 
     /**
-     * @return the residenceField
+     * @return the obj_residence
      */
-    public String getResidenceField() {
-        return residenceField;
+    public String getObj_residence() {
+        return obj_residence;
     }
 
     /**
-     * @param residenceField the residenceField to set
+     * @param obj_residence the obj_residence to set
      */
-    public void setResidenceField(String residenceField) {
-        this.residenceField = residenceField;
+    public void setObj_residence(String obj_residence) {
+        this.obj_residence = obj_residence;
     }
 
     /**
-     * @return the postalcodeField
+     * @return the obj_postalcode
      */
-    public String getPostalcodeField() {
-        return postalcodeField;
+    public String getObj_postalcode() {
+        return obj_postalcode;
     }
 
     /**
-     * @param postalcodeField the postalcodeField to set
+     * @param obj_postalcode the obj_postalcode to set
      */
-    public void setPostalcodeField(String postalcodeField) {
-        this.postalcodeField = postalcodeField;
+    public void setObj_postalcode(String obj_postalcode) {
+        this.obj_postalcode = obj_postalcode;
     }
 
     /**
-     * @return the countryField
+     * @return the obj_country
      */
-    public String getCountryField() {
-        return countryField;
+    public String getObj_country() {
+        return obj_country;
     }
 
     /**
-     * @param countryField the countryField to set
+     * @param obj_country the obj_country to set
      */
-    public void setCountryField(String countryField) {
-        this.countryField = countryField;
+    public void setObj_country(String obj_country) {
+        this.obj_country = obj_country;
     }
 
     /**
-     * @return the emailField
+     * @return the obj_email
      */
-    public String getEmailField() {
-        return emailField;
+    public String getObj_email() {
+        return obj_email;
     }
 
     /**
-     * @param emailField the emailField to set
+     * @param obj_email the obj_email to set
      */
-    public void setEmailField(String emailField) {
-        this.emailField = emailField;
+    public void setObj_email(String obj_email) {
+        this.obj_email = obj_email;
     }
 
     /**
-     * @return the labelnumberField
+     * @return the obj_labelnumber
      */
-    public String getLabelnumberField() {
-        return labelnumberField;
+    public String getObj_labelnumber() {
+        return obj_labelnumber;
     }
 
     /**
-     * @param labelnumberField the labelnumberField to set
+     * @param obj_labelnumber the obj_labelnumber to set
      */
-    public void setLabelnumberField(String labelnumberField) {
-        this.labelnumberField = labelnumberField;
+    public void setObj_labelnumber(String obj_labelnumber) {
+        this.obj_labelnumber = obj_labelnumber;
     }
 
     /**
-     * @return the flightnumberField
+     * @return the obj_flightnumber
      */
-    public String getFlightnumberField() {
-        return flightnumberField;
+    public String getObj_flightnumber() {
+        return obj_flightnumber;
     }
 
     /**
-     * @param flightnumberField the flightnumberField to set
+     * @param obj_flightnumber the obj_flightnumber to set
      */
-    public void setFlightnumberField(String flightnumberField) {
-        this.flightnumberField = flightnumberField;
+    public void setObj_flightnumber(String obj_flightnumber) {
+        this.obj_flightnumber = obj_flightnumber;
     }
 
     /**
-     * @return the destinationField
+     * @return the obj_destination
      */
-    public String getDestinationField() {
-        return destinationField;
+    public String getObj_destination() {
+        return obj_destination;
     }
 
     /**
-     * @param destinationField the destinationField to set
+     * @param obj_destination the obj_destination to set
      */
-    public void setDestinationField(String destinationField) {
-        this.destinationField = destinationField;
+    public void setObj_destination(String obj_destination) {
+        this.obj_destination = obj_destination;
     }
 
     /**
-     * @return the typeField
+     * @return the obj_type
      */
-    public String getTypeField() {
-        return typeField;
+    public String getObj_type() {
+        return obj_type;
     }
 
     /**
-     * @param typeField the typeField to set
+     * @param obj_type the obj_type to set
      */
-    public void setTypeField(String typeField) {
-        this.typeField = typeField;
+    public void setObj_type(String obj_type) {
+        this.obj_type = obj_type;
     }
 
     /**
-     * @return the brandField
+     * @return the obj_brand
      */
-    public String getBrandField() {
-        return brandField;
+    public String getObj_brand() {
+        return obj_brand;
     }
 
     /**
-     * @param brandField the brandField to set
+     * @param obj_brand the obj_brand to set
      */
-    public void setBrandField(String brandField) {
-        this.brandField = brandField;
+    public void setObj_brand(String obj_brand) {
+        this.obj_brand = obj_brand;
     }
 
     /**
-     * @return the colorField
+     * @return the obj_color
      */
-    public String getColorField() {
-        return colorField;
+    public String getObj_color() {
+        return obj_color;
     }
 
     /**
-     * @param colorField the colorField to set
+     * @param obj_color the obj_color to set
      */
-    public void setColorField(String colorField) {
-        this.colorField = colorField;
+    public void setObj_color(String obj_color) {
+        this.obj_color = obj_color;
     }
 
     /**
-     * @return the signaturesField
+     * @return the obj_signatures
      */
-    public String getSignaturesField() {
-        return signaturesField;
+    public String getObj_signatures() {
+        return obj_signatures;
     }
 
     /**
-     * @param signaturesField the signaturesField to set
+     * @param obj_signatures the obj_signatures to set
      */
-    public void setSignaturesField(String signaturesField) {
-        this.signaturesField = signaturesField;
+    public void setObj_signatures(String obj_signatures) {
+        this.obj_signatures = obj_signatures;
     }
     
 }
