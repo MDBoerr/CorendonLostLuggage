@@ -41,7 +41,7 @@ public class ManagerHomeViewController implements Initializable {
 
     @FXML
     protected void reportView(ActionEvent event) throws IOException {
-        MainApp.switchView("/Views/ManagerRapportageView.fxml");
+        MainApp.switchView("/Views/ManagerReportView.fxml");
     }
 
     @FXML
