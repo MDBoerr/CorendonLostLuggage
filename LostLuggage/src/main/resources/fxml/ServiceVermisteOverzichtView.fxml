@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-
-<GridPane prefHeight="579.0" prefWidth="949.0" style="-fx-background-color: #868e96#868e96 #868e96#868e96;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Service.ServiceVermisteOverzichtViewController">
+<GridPane prefHeight="565.0" prefWidth="1178.0" style="-fx-background-color: #868e96#868e96 #868e96#868e96;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Service.ServiceVermisteOverzichtViewController">
     <columnConstraints>
         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -28,19 +19,26 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <TableView fx:id="VermistTable" prefHeight="414.0" prefWidth="721.0" GridPane.columnSpan="2" GridPane.rowSpan="4">
+        <TableView fx:id="vermistTable" prefHeight="628.0" prefWidth="1172.0" GridPane.columnSpan="2" GridPane.rowSpan="4">
             <columns>
-                <TableColumn fx:id="id" prefWidth="42.05970764160156" text="ID" />
-                <TableColumn fx:id="label" prefWidth="115.17697143554688" text="Labelnummer" />
-                <TableColumn fx:id="merk" prefWidth="70.47128295898438" text="Merk" />
-                <TableColumn fx:id="type" prefWidth="80.17697143554688" text="Type" />
-                <TableColumn fx:id="vlucht" prefWidth="126.822998046875" text="Vluchtnummer" />
-                <TableColumn minWidth="0.0" prefWidth="0.0" text="C2" />
-                <TableColumn fx:id="luchthaven" prefWidth="95.4512939453125" text="Luchthaven" />
-                <TableColumn fx:id="kenmerken" prefWidth="164.39166259765625" text="Kenmerken" />
-                <TableColumn fx:id="reiziger" prefWidth="78.60833740234375" text="Reiziger" />
+                <TableColumn fx:id="idmissedLuggage" prefWidth="42.05970764160156" text="ID" />
+                <TableColumn fx:id="timeField" prefWidth="65.0" text="Time" />
+                <TableColumn fx:id="aiportField" prefWidth="61.319122314453125" text="Airport" />
+                <TableColumn fx:id="dateDatepicker" prefWidth="54.84834289550781" text="Date" />
+                <TableColumn fx:id="nameField" prefWidth="57.72200012207031" text="Name" />
+                <TableColumn fx:id="adressField" prefWidth="54.671478271484375" text="Adres" />
+                <TableColumn fx:id="residenceField" prefWidth="71.00393676757812" text="Residence" />
+                <TableColumn fx:id="postalcodeField" prefWidth="84.48635864257812" text="Postal Code" />
+            <TableColumn fx:id="countryField" prefWidth="75.15951538085938" text="Country" />
+            <TableColumn fx:id="emailField" prefWidth="66.99609375" text="Email" />
+            <TableColumn fx:id="labelnumberField" prefWidth="69.98828125" text="Label num." />
+            <TableColumn fx:id="flightnumberField" prefWidth="86.01171875" text="Flight num." />
+            <TableColumn fx:id="destinationField" prefWidth="81.86956787109375" text="Destination" />
+            <TableColumn fx:id="typeField" prefWidth="82.486328125" text="Type Luggage" />
+            <TableColumn fx:id="brandField" prefWidth="65.984375" text="Brand" />
+            <TableColumn fx:id="colorField" prefWidth="60.482421875" text="Color" />
+            <TableColumn fx:id="signaturesField" prefWidth="96.517578125" text="Signatures" />
             </columns>
         </TableView>
     </children>
 </GridPane>
-   

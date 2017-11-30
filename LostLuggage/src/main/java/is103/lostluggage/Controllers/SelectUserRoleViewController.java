@@ -61,13 +61,6 @@ public class SelectUserRoleViewController implements Initializable {
         MainApp.switchView("/Views/ManagerHomeView.fxml");
     }
     
-    
-    @FXML 
-    protected void toMaterialDesign(ActionEvent event) throws IOException {
-        MainApp.switchView("/fxml/MaterialDesign.fxml");
-    }
-    
-    
     @Override
     public void initialize(URL url, ResourceBundle rb
     ) {
