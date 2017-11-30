@@ -1,13 +1,13 @@
 
-package is103.lostluggage.Controllers.Service;
+package is103.lostluggage.Model;
 
 import javafx.beans.property.SimpleStringProperty;
 
 /**
  * Doel:
- * @author gebruiker
+ * @author Thijs Zijdel
  */
-public class Luggage {
+public class MissedLuggage {
     private String  
             idmissedLuggage, 
             obj_time, 
@@ -34,7 +34,7 @@ public class Luggage {
             obj_color,
             obj_signatures;
 
-    public Luggage(
+    public MissedLuggage(
             String data_idMissedLuggage, 
             String data_time, 
             String data_airport, 

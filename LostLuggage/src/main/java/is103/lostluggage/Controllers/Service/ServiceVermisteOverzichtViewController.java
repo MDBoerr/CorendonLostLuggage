@@ -1,5 +1,6 @@
 package is103.lostluggage.Controllers.Service;
 
+import is103.lostluggage.Model.MissedLuggage;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
@@ -31,52 +32,52 @@ public class ServiceVermisteOverzichtViewController implements Initializable {
         //view title
     private final String title = "Overzicht Vermiste Bagage";
     
-    public static ObservableList<Luggage> luggageList;
+    public static ObservableList<MissedLuggage> MissedLuggageList;
     
     /* -----------------------------------------
          TableView missed luggage's colommen
     ----------------------------------------- */
     
     @FXML
-    private TableView<Luggage> missedLuggageTable;
+    private TableView<MissedLuggage> missedLuggageTable;
 
     @FXML
-    private TableColumn<Luggage, String> idMissedLuggageColumn;
+    private TableColumn<MissedLuggage, String> idMissedLuggageColumn;
     @FXML
-    private TableColumn<Luggage, String> timeColumn;
+    private TableColumn<MissedLuggage, String> timeColumn;
     @FXML
-    private TableColumn<Luggage, String> airportColumn;
+    private TableColumn<MissedLuggage, String> airportColumn;
     @FXML
-    private TableColumn<Luggage, String> dateColumn;
+    private TableColumn<MissedLuggage, String> dateColumn;
     
     @FXML
-    private TableColumn<Luggage, String> nameColumn;
+    private TableColumn<MissedLuggage, String> nameColumn;
     @FXML
-    private TableColumn<Luggage, String> addressColumn;
+    private TableColumn<MissedLuggage, String> addressColumn;
     @FXML
-    private TableColumn<Luggage, String> residenceColumn;
+    private TableColumn<MissedLuggage, String> residenceColumn;
     @FXML
-    private TableColumn<Luggage, String> postalcodeColumn;
+    private TableColumn<MissedLuggage, String> postalcodeColumn;
     @FXML
-    private TableColumn<Luggage, String> countryColumn;
+    private TableColumn<MissedLuggage, String> countryColumn;
     @FXML
-    private TableColumn<Luggage, String> emailColumn;
+    private TableColumn<MissedLuggage, String> emailColumn;
     
     @FXML
-    private TableColumn<Luggage, String> labelnumberColumn;
+    private TableColumn<MissedLuggage, String> labelnumberColumn;
     @FXML
-    private TableColumn<Luggage, String> flightnumberColumn;
+    private TableColumn<MissedLuggage, String> flightnumberColumn;
     @FXML
-    private TableColumn<Luggage, String> destinationColumn;
+    private TableColumn<MissedLuggage, String> destinationColumn;
     
     @FXML
-    private TableColumn<Luggage, String> typeColumn;
+    private TableColumn<MissedLuggage, String> typeColumn;
     @FXML
-    private TableColumn<Luggage, String> brandColumn;
+    private TableColumn<MissedLuggage, String> brandColumn;
     @FXML
-    private TableColumn<Luggage, String> colorColumn;
+    private TableColumn<MissedLuggage, String> colorColumn;
     @FXML
-    private TableColumn<Luggage, String> signaturesColumn;
+    private TableColumn<MissedLuggage, String> signaturesColumn;
 
                         
     /**
@@ -100,7 +101,7 @@ public class ServiceVermisteOverzichtViewController implements Initializable {
      * @return data vanuit database in tabel.
     /*----------------------------------------- */       
         
-            //-> colum id (fxml)                                    <Luggage, String>        //-> 
+            //-> colum id (fxml)                                    <LostLuggage, String>        //-> 
         idMissedLuggageColumn.setCellValueFactory(new PropertyValueFactory<>("idmissedLuggage"));
         timeColumn.setCellValueFactory(         new PropertyValueFactory<>("obj_time"));
         airportColumn.setCellValueFactory(      new PropertyValueFactory<>("obj_airport"));
@@ -127,19 +128,19 @@ public class ServiceVermisteOverzichtViewController implements Initializable {
         
     }
 
-    /** -----------------------------------------
+    /** *  -----------------------------------------
      * Vermiste bagage uit de database tabel -> missedLuggage halen
-     * Deze gegevens vervolgens (tijdelijk) in variabelen opslaan
-     * Deze gegevens in object (Luggage) plaatsen
-     * 
-     * Resultaten per resultaat (koffer) -> (voor check) uiprinten (console)
+        Deze gegevens vervolgens (tijdelijk) in variabelen opslaan
+        Deze gegevens in object (MissedLuggage) plaatsen
+ 
+        Resultaten per resultaat (koffer) -> (voor check) uiprinten (console)
      * 
      * 
      * @return luggages --> lijst met data van vermiste koffers
      /*----------------------------------------- */
-    public ObservableList<Luggage> getLostLuggage() {
+    public ObservableList<MissedLuggage> getLostLuggage() {
 
-        ObservableList<Luggage> lostLuggageList = FXCollections.observableArrayList();
+        ObservableList<MissedLuggage> lostLuggageList = FXCollections.observableArrayList();
         
         try {
             MyJDBC db = new MyJDBC("AirlineDemo");
@@ -178,8 +179,8 @@ public class ServiceVermisteOverzichtViewController implements Initializable {
 
 
                 //Per result -> toevoegen aan Luggages  (observable list) 
-                lostLuggageList.add(new Luggage(get_idmissedLuggage, get_time, get_airport, get_date, get_name, get_adress, get_residence, get_postalcode, get_country, get_email, get_labelnumber, get_flightnumber, get_destination, get_type, get_brand, get_color, get_signatures));
-                //luggages.add(new Luggage(get_idmissedLuggage, get_timeField, get_airportField, get_dateDatepicker, get_nameField, get_adressField, get_residenceField, get_postalcodeField, get_countryField, get_emailField, get_labelnumberField, get_flightnumberField, get_destinationField, get_typeField, get_brandField, get_colorField, get_signaturesField));
+                lostLuggageList.add(new MissedLuggage(get_idmissedLuggage, get_time, get_airport, get_date, get_name, get_adress, get_residence, get_postalcode, get_country, get_email, get_labelnumber, get_flightnumber, get_destination, get_type, get_brand, get_color, get_signatures));
+                //luggages.add(new MissedLuggage(get_idmissedLuggage, get_timeField, get_airportField, get_dateDatepicker, get_nameField, get_adressField, get_residenceField, get_postalcodeField, get_countryField, get_emailField, get_labelnumberField, get_flightnumberField, get_destinationField, get_typeField, get_brandField, get_colorField, get_signaturesField));
                 
                 
                 
@@ -235,13 +236,13 @@ public class ServiceVermisteOverzichtViewController implements Initializable {
     ----------------------------------------- */
     
 //    public static List addToList(int id, String label, String merk, String type, String vlucht, String luchthaven, String kenmerken, String reiziger) {
-//        luggageList.add(new Luggage(id, label, merk, type, vlucht, luchthaven, kenmerken, reiziger));
+//        MissedLuggageList.add(new MissedLuggage(id, label, merk, type, vlucht, luchthaven, kenmerken, reiziger));
 //
-//        //System.out.println(luggageList);
-//        return luggageList;
+//        //System.out.println(MissedLuggageList);
+//        return MissedLuggageList;
 //    
 //    INSERT INTO `AirlineDemo`.`missedLuggage` (`idmissedLuggage`, `timeField`, `airportField`, `dateDatepicker`, `nameField`, `adressField`, `residenceField`, `postalcodeField`, `countryField`, `emailField`, `labelnumberField`, `flightnumberField`, `destinationField`, `typeField`, `brandField`, `colorField`) VALUES ('13', '13:32', 'ANT', '12-02-2017', 'Henk Astrid', 'Julianalaan 4', 'Amstelveen', '1932 SA', 'Nederland', 'Henk.Astrid@mail.com', '2983DLO932', 'ANT9389AMD', 'AMD', 'Rugtas', 'Eastpak', 'Zwart');
-//        luggages.add(new Luggage("......,.....,...."));
+//        luggages.add(new MissedLuggage("......,.....,...."));
 //
 //    }
 
@@ -254,7 +255,7 @@ public class ServiceVermisteOverzichtViewController implements Initializable {
 //        if (row == null) {
 //            System.out.println("Geen rij geselecteerd");
 //        } else {
-//            luggageList.remove(row);
+//            MissedLuggageList.remove(row);
 //            System.out.println("Verwijderd");
 //        }
 //    }
