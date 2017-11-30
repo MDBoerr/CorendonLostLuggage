@@ -8,13 +8,13 @@ import javafx.beans.property.SimpleStringProperty;
  * @author gebruiker
  */
 public class Luggage {
-private SimpleStringProperty 
+    private String  
             idmissedLuggage, 
             timeField, 
             airportField, 
             dateDatepicker;
     
-    private SimpleStringProperty 
+    private String 
             nameField, 
             addressField, 
             residenceField, 
@@ -22,38 +22,18 @@ private SimpleStringProperty
             countryField, 
             emailField;
     
-    private SimpleStringProperty 
+    private String 
             labelnumberField, 
             flightnumberField, 
             destinationField;
     
 
-    private SimpleStringProperty 
+    private String 
             typeField,
             brandField,
             colorField,
             signaturesField;
 
-    /**
-     *
-     * @param idmissedLuggage
-     * @param timeField
-     * @param airportField
-     * @param dateDatepicker
-     * @param nameField
-     * @param addressField
-     * @param residenceField
-     * @param postalcodeField
-     * @param countryField
-     * @param emailField
-     * @param labelnumberField
-     * @param flightnumberField
-     * @param destinationField
-     * @param typeField
-     * @param brandField
-     * @param colorField
-     * @param signaturesField
-     */
     public Luggage(
             String idmissedLuggage, 
             String timeField, 
@@ -72,267 +52,261 @@ private SimpleStringProperty
             String brandField, 
             String colorField, 
             String signaturesField) {
-        this.idmissedLuggage =  new SimpleStringProperty(idmissedLuggage);
-        this.timeField =        new SimpleStringProperty(timeField);
-        this.airportField =     new SimpleStringProperty(airportField);
-        this.dateDatepicker =   new SimpleStringProperty(dateDatepicker);
-        this.nameField =        new SimpleStringProperty(nameField);
-        this.addressField =     new SimpleStringProperty(addressField);
-        this.residenceField =   new SimpleStringProperty(residenceField);
-        this.postalcodeField =  new SimpleStringProperty(postalcodeField);
-        this.countryField =     new SimpleStringProperty(countryField);
-        this.emailField =       new SimpleStringProperty(emailField);
-        this.labelnumberField = new SimpleStringProperty(labelnumberField);
-        this.flightnumberField = new SimpleStringProperty(flightnumberField);
-        this.destinationField = new SimpleStringProperty(destinationField);
-        this.typeField =        new SimpleStringProperty(typeField);
-        this.brandField =       new SimpleStringProperty(brandField);
-        this.colorField =       new SimpleStringProperty(colorField);
-        this.signaturesField =  new SimpleStringProperty(signaturesField);
+        this.idmissedLuggage =  idmissedLuggage;
+        this.timeField =        timeField;
+        this.airportField =     airportField;
+        this.dateDatepicker =   dateDatepicker;
+        this.nameField =        nameField;
+        this.addressField =     addressField;
+        this.residenceField =   residenceField;
+        this.postalcodeField =  postalcodeField;
+        this.countryField =     countryField;
+        this.emailField =       emailField;
+        this.labelnumberField = labelnumberField;
+        this.flightnumberField = flightnumberField;
+        this.destinationField = destinationField;
+        this.typeField =        typeField;
+        this.brandField =       brandField;
+        this.colorField =       colorField;
+        this.signaturesField =  signaturesField;
     }
 
     /**
      * @return the idmissedLuggage
      */
-    public SimpleStringProperty getIdmissedLuggage() {
+    public String getIdmissedLuggage() {
         return idmissedLuggage;
     }
 
     /**
      * @param idmissedLuggage the idmissedLuggage to set
      */
-    public void setIdmissedLuggage(SimpleStringProperty idmissedLuggage) {
+    public void setIdmissedLuggage(String idmissedLuggage) {
         this.idmissedLuggage = idmissedLuggage;
     }
 
     /**
      * @return the timeField
      */
-    public SimpleStringProperty getTimeField() {
+    public String getTimeField() {
         return timeField;
     }
 
     /**
      * @param timeField the timeField to set
      */
-    public void setTimeField(SimpleStringProperty timeField) {
+    public void setTimeField(String timeField) {
         this.timeField = timeField;
     }
 
     /**
      * @return the airportField
      */
-    public SimpleStringProperty getAirportField() {
+    public String getAirportField() {
         return airportField;
     }
 
     /**
      * @param airportField the airportField to set
      */
-    public void setAirportField(SimpleStringProperty airportField) {
+    public void setAirportField(String airportField) {
         this.airportField = airportField;
     }
 
     /**
      * @return the dateDatepicker
      */
-    public SimpleStringProperty getDateDatepicker() {
+    public String getDateDatepicker() {
         return dateDatepicker;
     }
 
     /**
      * @param dateDatepicker the dateDatepicker to set
      */
-    public void setDateDatepicker(SimpleStringProperty dateDatepicker) {
+    public void setDateDatepicker(String dateDatepicker) {
         this.dateDatepicker = dateDatepicker;
     }
 
     /**
      * @return the nameField
      */
-    public SimpleStringProperty getNameField() {
+    public String getNameField() {
         return nameField;
     }
 
     /**
      * @param nameField the nameField to set
      */
-    public void setNameField(SimpleStringProperty nameField) {
+    public void setNameField(String nameField) {
         this.nameField = nameField;
     }
 
     /**
      * @return the addressField
      */
-    public SimpleStringProperty getAddressField() {
+    public String getAddressField() {
         return addressField;
     }
 
     /**
      * @param addressField the addressField to set
      */
-    public void setAddressField(SimpleStringProperty addressField) {
+    public void setAddressField(String addressField) {
         this.addressField = addressField;
     }
 
     /**
      * @return the residenceField
      */
-    public SimpleStringProperty getResidenceField() {
+    public String getResidenceField() {
         return residenceField;
     }
 
     /**
      * @param residenceField the residenceField to set
      */
-    public void setResidenceField(SimpleStringProperty residenceField) {
+    public void setResidenceField(String residenceField) {
         this.residenceField = residenceField;
     }
 
     /**
      * @return the postalcodeField
      */
-    public SimpleStringProperty getPostalcodeField() {
+    public String getPostalcodeField() {
         return postalcodeField;
     }
 
     /**
      * @param postalcodeField the postalcodeField to set
      */
-    public void setPostalcodeField(SimpleStringProperty postalcodeField) {
+    public void setPostalcodeField(String postalcodeField) {
         this.postalcodeField = postalcodeField;
     }
 
     /**
      * @return the countryField
      */
-    public SimpleStringProperty getCountryField() {
+    public String getCountryField() {
         return countryField;
     }
 
     /**
      * @param countryField the countryField to set
      */
-    public void setCountryField(SimpleStringProperty countryField) {
+    public void setCountryField(String countryField) {
         this.countryField = countryField;
     }
 
     /**
      * @return the emailField
      */
-    public SimpleStringProperty getEmailField() {
+    public String getEmailField() {
         return emailField;
     }
 
     /**
      * @param emailField the emailField to set
      */
-    public void setEmailField(SimpleStringProperty emailField) {
+    public void setEmailField(String emailField) {
         this.emailField = emailField;
     }
 
     /**
      * @return the labelnumberField
      */
-    public SimpleStringProperty getLabelnumberField() {
+    public String getLabelnumberField() {
         return labelnumberField;
     }
 
     /**
      * @param labelnumberField the labelnumberField to set
      */
-    public void setLabelnumberField(SimpleStringProperty labelnumberField) {
+    public void setLabelnumberField(String labelnumberField) {
         this.labelnumberField = labelnumberField;
     }
 
     /**
      * @return the flightnumberField
      */
-    public SimpleStringProperty getFlightnumberField() {
+    public String getFlightnumberField() {
         return flightnumberField;
     }
 
     /**
      * @param flightnumberField the flightnumberField to set
      */
-    public void setFlightnumberField(SimpleStringProperty flightnumberField) {
+    public void setFlightnumberField(String flightnumberField) {
         this.flightnumberField = flightnumberField;
     }
 
     /**
      * @return the destinationField
      */
-    public SimpleStringProperty getDestinationField() {
+    public String getDestinationField() {
         return destinationField;
     }
 
     /**
      * @param destinationField the destinationField to set
      */
-    public void setDestinationField(SimpleStringProperty destinationField) {
+    public void setDestinationField(String destinationField) {
         this.destinationField = destinationField;
     }
 
     /**
      * @return the typeField
      */
-    public SimpleStringProperty getTypeField() {
+    public String getTypeField() {
         return typeField;
     }
 
     /**
      * @param typeField the typeField to set
      */
-    public void setTypeField(SimpleStringProperty typeField) {
+    public void setTypeField(String typeField) {
         this.typeField = typeField;
     }
 
     /**
      * @return the brandField
      */
-    public SimpleStringProperty getBrandField() {
+    public String getBrandField() {
         return brandField;
     }
 
     /**
      * @param brandField the brandField to set
      */
-    public void setBrandField(SimpleStringProperty brandField) {
+    public void setBrandField(String brandField) {
         this.brandField = brandField;
     }
 
     /**
      * @return the colorField
      */
-    public SimpleStringProperty getColorField() {
+    public String getColorField() {
         return colorField;
     }
 
     /**
      * @param colorField the colorField to set
      */
-    public void setColorField(SimpleStringProperty colorField) {
+    public void setColorField(String colorField) {
         this.colorField = colorField;
     }
 
     /**
      * @return the signaturesField
      */
-    public SimpleStringProperty getSignaturesField() {
+    public String getSignaturesField() {
         return signaturesField;
     }
 
     /**
      * @param signaturesField the signaturesField to set
      */
-    public void setSignaturesField(SimpleStringProperty signaturesField) {
+    public void setSignaturesField(String signaturesField) {
         this.signaturesField = signaturesField;
     }
-
-
-
-    
-    
-
     
 }

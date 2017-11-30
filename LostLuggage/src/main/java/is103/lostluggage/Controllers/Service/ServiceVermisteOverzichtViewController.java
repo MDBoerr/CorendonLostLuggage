@@ -53,7 +53,7 @@ public class ServiceVermisteOverzichtViewController implements Initializable {
     @FXML
     private TableColumn<Luggage, String> timeField;
     @FXML
-    private TableColumn<Luggage, String> airportField;
+    private TableColumn<Luggage, String> aiportField;
     @FXML
     private TableColumn<Luggage, String> dateDatepicker;
     
@@ -61,7 +61,7 @@ public class ServiceVermisteOverzichtViewController implements Initializable {
     @FXML
     private TableColumn<Luggage, String> nameField;
     @FXML
-    private TableColumn<Luggage, String> adressField;
+    private TableColumn<Luggage, String> addressField;
     @FXML
     private TableColumn<Luggage, String> residenceField;
     @FXML
@@ -105,7 +105,6 @@ public class ServiceVermisteOverzichtViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         MainViewController.previousView = "/fxml/ServiceHomeView.fxml";
-        
         
         //titel boven de pagina zetten
         try {
@@ -167,28 +166,28 @@ public class ServiceVermisteOverzichtViewController implements Initializable {
      * @return data vanuit database in tabel.
     /*----------------------------------------- */       
         
-     /*
-        idmissedLuggage.setCellValueFactory(new PropertyValueFactory<Luggage, String>("idmissedLuggage"));
-        timeField.setCellValueFactory(      new PropertyValueFactory<Luggage, String>("timeField"));
-        airportField.setCellValueFactory(   new PropertyValueFactory<Luggage, String>("airportField"));
-        dateDatepicker.setCellValueFactory( new PropertyValueFactory<Luggage, String>("dateDatepicker"));
+            //-> colum id (fxml)                                    <Luggage, String>        //-> 
+        idmissedLuggage.setCellValueFactory(new PropertyValueFactory<>("idmissedLuggage"));
+        timeField.setCellValueFactory(      new PropertyValueFactory<>("timeField"));
+        aiportField.setCellValueFactory(    new PropertyValueFactory<>("airportField"));
+        dateDatepicker.setCellValueFactory( new PropertyValueFactory<>("dateDatepicker"));
         
-        nameField.setCellValueFactory(      new PropertyValueFactory<Luggage, String>("nameField"));
-        adressField.setCellValueFactory(    new PropertyValueFactory<Luggage, String>("adressField"));
-        residenceField.setCellValueFactory( new PropertyValueFactory<Luggage, String>("residenceField"));
-        postalcodeField.setCellValueFactory(new PropertyValueFactory<Luggage, String>("postalcodeField"));
-        countryField.setCellValueFactory(   new PropertyValueFactory<Luggage, String>("countryField"));
-        emailField.setCellValueFactory(     new PropertyValueFactory<Luggage, String>("emailField"));
+        nameField.setCellValueFactory(      new PropertyValueFactory<>("nameField"));
+        addressField.setCellValueFactory(    new PropertyValueFactory<>("addressField"));
+        residenceField.setCellValueFactory( new PropertyValueFactory<>("residenceField"));
+        postalcodeField.setCellValueFactory(new PropertyValueFactory<>("postalcodeField"));
+        countryField.setCellValueFactory(   new PropertyValueFactory<>("countryField"));
+        emailField.setCellValueFactory(     new PropertyValueFactory<>("emailField"));
 
-        labelnumberField.setCellValueFactory(   new PropertyValueFactory<Luggage, String>("labelnumberField"));
-        flightnumberField.setCellValueFactory(  new PropertyValueFactory<Luggage, String>("flightnumberField"));
-        destinationField.setCellValueFactory(   new PropertyValueFactory<Luggage, String>("destinationField"));
+        labelnumberField.setCellValueFactory(   new PropertyValueFactory<>("labelnumberField"));
+        flightnumberField.setCellValueFactory(  new PropertyValueFactory<>("flightnumberField"));
+        destinationField.setCellValueFactory(   new PropertyValueFactory<>("destinationField"));
             
-        typeField.setCellValueFactory(      new PropertyValueFactory<Luggage, String>("typeField"));
-        brandField.setCellValueFactory(     new PropertyValueFactory<Luggage, String>("brandField"));
-        colorField.setCellValueFactory(     new PropertyValueFactory<Luggage, String>("colorField"));
-        signaturesField.setCellValueFactory(new PropertyValueFactory<Luggage, String>("signaturesField"));
-    */
+        typeField.setCellValueFactory(      new PropertyValueFactory<>("typeField"));
+        brandField.setCellValueFactory(     new PropertyValueFactory<>("brandField"));
+        colorField.setCellValueFactory(     new PropertyValueFactory<>("colorField"));
+        signaturesField.setCellValueFactory(new PropertyValueFactory<>("signaturesField"));
+    
         
         vermistTable.setItems(getLuggage());
         
@@ -256,8 +255,8 @@ public class ServiceVermisteOverzichtViewController implements Initializable {
                 // Alle gegevens per result (koffer) ->  printen
                 System.out.println("Gegevens voor koffer id: "+get_idmissedLuggage);
                 System.out.println("Time: "+ get_timeField + " Airport: " + get_airportField+" Datum:"+get_dateDatepicker);
-                System.out.println("Naam: "+ get_nameField + " Adress: "+get_adressField+" "
-                        + "Plaats: "+get_residenceField+" Postcode: "+get_postalcodeField+" Land: "+ get_countryField+" Email: "+get_emailField);
+                System.out.println("Naam: "+ get_nameField + " Adress: "+get_adressField+"Plaats: "+get_residenceField);
+                System.out.println("Postcode: "+get_postalcodeField+" Land: "+ get_countryField+" Email: "+get_emailField);
                 System.out.println("Labelnum: "+get_labelnumberField+" Vlucht: "+get_flightnumberField+" Bestemming: "+get_destinationField);
                 System.out.println("Type bagage: "+get_typeField+" Merk: "+get_brandField+" Kleur: "+get_colorField+" Kenmerken: "+get_signaturesField);
                 System.out.println(" ---------------------------------------------------------------------");
