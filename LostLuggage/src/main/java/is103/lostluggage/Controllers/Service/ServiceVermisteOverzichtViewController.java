@@ -215,7 +215,15 @@ public class ServiceVermisteOverzichtViewController implements Initializable {
 
     
     
+    @FXML
+    protected void switchToInput(ActionEvent event) throws IOException {
+        MainApp.switchView("/fxml/ServiceInvoerView.fxml");
+    }
     
+@   FXML
+    protected void switchToMatching(ActionEvent event) throws IOException {
+        MainApp.switchView("/fxml/ServiceMatchingView.fxml");
+    }
     
     
     
