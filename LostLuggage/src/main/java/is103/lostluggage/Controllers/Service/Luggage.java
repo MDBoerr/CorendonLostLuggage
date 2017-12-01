@@ -91,6 +91,10 @@ private SimpleStringProperty
         this.signaturesField =  new SimpleStringProperty(signaturesField);
     }
 
+    public Luggage(int i, String a392D4K, String tomos, String trolley, String d383D, String amsterdam_Airport, String rode_sticker, String reiziger) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     /**
      * @return the idmissedLuggage
      */

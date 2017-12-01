@@ -19,7 +19,7 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <TableView fx:id="VermistTable" prefHeight="414.0" prefWidth="721.0" GridPane.columnSpan="2" GridPane.rowSpan="4">
+        <TableView fx:id="vermistTable" prefHeight="414.0" prefWidth="721.0" GridPane.columnSpan="2" GridPane.rowSpan="4">
             <columns>
                 <TableColumn fx:id="id" prefWidth="42.05970764160156" text="ID" />
                 <TableColumn fx:id="label" prefWidth="115.17697143554688" text="Labelnummer" />

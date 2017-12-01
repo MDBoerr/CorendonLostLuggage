@@ -1,6 +1,7 @@
 package is103.lostluggage.Controllers.Manager;
 
 
+import is103.lostluggage.Controllers.MainViewController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -17,7 +18,7 @@ public class ManagerPassengerInfoViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        MainViewController.previousView = "/Views/ManagerTerugView.fxml";
     }    
     
 }
