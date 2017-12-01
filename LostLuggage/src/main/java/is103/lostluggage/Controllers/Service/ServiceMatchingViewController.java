@@ -351,18 +351,20 @@ public class ServiceMatchingViewController implements Initializable {
                     // als op de tekst is geklikt -> pak parent van text
                     found_row = (TableRow) node_data.getParent();
                 }
-                System.out.println("row: item");
-                FoundLuggage a = (FoundLuggage) found_row.getItem();
-                System.out.println("a: "+a);
-                System.out.println("Adress of object: "+ a.getObj_address());
-                System.out.println("Label of object: "+ a.getObj_labelnumber());
-                System.out.println("type of object: "+ a.getObj_type());
+                System.out.println("Set het goede object");
+                FoundLuggage getDetailObj = (FoundLuggage) found_row.getItem();
                 
+                //get row item
                 System.out.println("row item; " +found_row.getItem());
                 
                 
+                //Methode oproepen die de gedetaileerde informatie van het aangeklikte obj
+                //Oproept en deze in de view, ServiceDetailedLuggage zet. 
+                ServiceDetailedLuggageController.setDetailedInfoFoundLuggage(getDetailObj);
+                
+                //Switchen naar de detailed view
                 try {
-                    MainApp.switchView("/fxml/ServiceInvoerView.fxml");
+                    MainApp.switchView("/fxml/ServiceDetailedLuggage.fxml");
                 } catch (IOException ex) {
                     Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
                 }
