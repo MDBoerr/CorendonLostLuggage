@@ -40,12 +40,12 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <JFXButton prefHeight="35.0" prefWidth="75.0" ripplerFill="WHITE" style="-fx-background-color: #4dadf7#4dadf7 #4dadf7#4dadf7;" text="Edit" textFill="WHITE" GridPane.rowIndex="7" />
+            <JFXButton prefHeight="35.0" prefWidth="75.0" ripplerFill="WHITE" style="-fx-background-color: #4dadf7#4dadf7 #4dadf7#4dadf7;" text="Edit" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <JFXTextField fx:id="lastnameField" focusColor="#4dadf7" promptText="Last name" text="0234" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <JFXTextField fx:id="lastnameField2" focusColor="#4dadf7" promptText="Last name" text="Arthur Krom" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <JFXTextField fx:id="lastnameField3" focusColor="#4dadf7" promptText="l" text="0" GridPane.columnIndex="1" />
             <JFXTextField fx:id="lastnameField4" focusColor="#4dadf7" promptText="Last name" text="DHL" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <JFXTextField fx:id="lastnameField5" focusColor="#4dadf7" promptText="Last name" text="Poek Lighthart" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <JFXTextField fx:id="lastnameField5" focusColor="#4dadf7" promptText="Last name" text="Poek93ligthart@hotmail.com" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <JFXDatePicker prefHeight="28.0" prefWidth="245.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID" textAlignment="RIGHT" wrappingWidth="167.03643226623535">
                <font>
@@ -67,7 +67,7 @@
                   <Font size="17.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Employee" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="4">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="4">
                <font>
                   <Font size="17.0" />
                </font>
@@ -77,6 +77,12 @@
                   <Font size="17.0" />
                </font>
             </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Address" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="6">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
+            <JFXTextField fx:id="lastnameField51" focusColor="#4dadf7" promptText="Last name" text="Amsterdam, Netherlands" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          </children>
       </GridPane>
       <Label fx:id="errorMessageLbl" prefHeight="69.0" prefWidth="297.0" text="Overview retrieved luggage" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
