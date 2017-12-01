@@ -36,8 +36,7 @@ import javafx.util.Duration;
 /**
  * FXML Controller class
  *
- * @author Michael de Boer 
- * GenerateId() Arthur & Michael
+ * @author Michael de Boer GenerateId() Arthur & Michael
  *
  */
 public class AdminAddUserViewController implements Initializable {
@@ -132,18 +131,18 @@ public class AdminAddUserViewController implements Initializable {
 
         //default error message is empty
         String errorMessage = "";
-        
+
         //Get values from TextFields
         String firstname = firstnameField.getText();
         String lastname = lastnameField.getText();
         String location = locationField.getText();
-        
+
         //Counter for empty fields
         int amount = 0;
         //Array of input fields & array of fields that are empty
         String[] fields = {"Firstname", "Lastname", "Aiport / City", "Status", "Role"};
         String[] emptyfields = new String[amount];
-        
+
         //If one or more fields are empty show errorMessageView, setFocusColor to red 
         if (firstname.isEmpty() || lastname.isEmpty() || location.isEmpty() || statusComboBox.getValue() == null
                 || statusComboBox.getValue().toString().isEmpty() || roleComboBox.getValue() == null
@@ -205,7 +204,7 @@ public class AdminAddUserViewController implements Initializable {
                 if (emptyfields[i] != null) {
                     errorMessage += emptyfields[i];
 
-                    if (i < (amount-1)) {
+                    if (i < (amount - 1)) {
                         errorMessage += ", ";
 
                     }
@@ -221,10 +220,9 @@ public class AdminAddUserViewController implements Initializable {
 
             System.out.println(uid.randomUUID());
 
-        } 
-        //All fields are valid, there are no errors
+        } //All fields are valid, there are no errors
         else {
-            
+
         }
     }
 
@@ -258,9 +256,10 @@ public class AdminAddUserViewController implements Initializable {
         errorMessageHBox.getChildren().remove(errorMessageLbl);
 
         Timeline timeline = new Timeline();
-        timeline.getKeyFrames().addAll(new KeyFrame(Duration.ZERO,
-                new KeyValue(errorMessageView.prefHeightProperty(), navListPrefHeight)
-        ),
+        timeline.getKeyFrames().addAll(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(errorMessageView.prefHeightProperty(), navListPrefHeight)
+                ),
                 new KeyFrame(Duration.millis(300.0d),
                         new KeyValue(errorMessageView.prefHeightProperty(), 0)
                 )
