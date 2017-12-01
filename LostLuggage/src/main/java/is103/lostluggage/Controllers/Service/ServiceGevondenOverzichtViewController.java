@@ -27,7 +27,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 /**
  * FXML Controller class
  *
- * @author gebruiker
+ * @author Thijs Zijdel
  */
 public class ServiceGevondenOverzichtViewController implements Initializable {
 
@@ -39,7 +39,7 @@ public class ServiceGevondenOverzichtViewController implements Initializable {
     public static ObservableList<FoundLuggage> foundLuggageList;
     
     /* -----------------------------------------
-         TableView missed luggage's colommen
+         TableView found luggage's colommen
     ----------------------------------------- */
     
     @FXML
@@ -152,7 +152,7 @@ public class ServiceGevondenOverzichtViewController implements Initializable {
         ObservableList<FoundLuggage> foundLuggageList = FXCollections.observableArrayList();
         
         try {
-            MyJDBC db = new MyJDBC("AirlineDemo");
+            MyJDBC db = new MyJDBC("LostLuggage");
 
             ResultSet resultSet;
 

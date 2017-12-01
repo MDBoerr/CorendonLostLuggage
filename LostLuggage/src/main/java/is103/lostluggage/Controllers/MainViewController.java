@@ -88,12 +88,12 @@ public class MainViewController implements Initializable {
     private void goBackToPreviousScene(ActionEvent event) throws IOException {
 
         if (previousView != null) {
-            System.out.println("Is not empty");
+            System.out.println("-Back: Previous view/scene");
 
             MainApp.switchView(previousView);
 
         } else {
-            System.out.println("Is empty");
+            System.out.println("-Back: No previous view/scene");
         }
 
         //backButton.getScene().h

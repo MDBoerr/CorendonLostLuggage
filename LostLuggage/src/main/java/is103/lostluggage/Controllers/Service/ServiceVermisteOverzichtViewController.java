@@ -143,7 +143,7 @@ public class ServiceVermisteOverzichtViewController implements Initializable {
         ObservableList<MissedLuggage> lostLuggageList = FXCollections.observableArrayList();
         
         try {
-            MyJDBC db = new MyJDBC("AirlineDemo");
+            MyJDBC db = new MyJDBC("LostLuggage");
 
             ResultSet resultSet;
 
