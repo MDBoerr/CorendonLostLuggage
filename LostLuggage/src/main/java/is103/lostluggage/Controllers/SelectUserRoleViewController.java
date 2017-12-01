@@ -5,6 +5,7 @@
  */
 package is103.lostluggage.Controllers;
 
+import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
@@ -62,9 +63,10 @@ public class SelectUserRoleViewController implements Initializable {
     }
     
     @Override
-    public void initialize(URL url, ResourceBundle rb
-    ) {
-        // TODO
+    public void initialize(URL url, ResourceBundle rb) {
+        //database aanmaken 
+        //(zodat hij niet bij elke switch naar service home weer word aangemaakt)
+        MyJDBC.createLostLuggageDatabase("LostLuggage");
     }
 
 }

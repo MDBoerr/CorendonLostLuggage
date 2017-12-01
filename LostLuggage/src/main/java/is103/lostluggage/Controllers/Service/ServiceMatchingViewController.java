@@ -220,7 +220,7 @@ public class ServiceMatchingViewController implements Initializable {
         ObservableList<MissedLuggage> lostLuggageList = FXCollections.observableArrayList();
         
         try {
-            MyJDBC db = new MyJDBC("AirlineDemo");
+            MyJDBC db = new MyJDBC("LostLuggage");
 
             ResultSet resultSet;
 
@@ -281,7 +281,7 @@ public class ServiceMatchingViewController implements Initializable {
         ObservableList<FoundLuggage> foundLuggageList = FXCollections.observableArrayList();
         
         try {
-            MyJDBC db = new MyJDBC("AirlineDemo");
+            MyJDBC db = new MyJDBC("LostLuggage");
 
             ResultSet resultSet;
 
@@ -343,8 +343,13 @@ public class ServiceMatchingViewController implements Initializable {
     }
     
 @   FXML
-    protected void switchToMatching(ActionEvent event) throws IOException {
-        MainApp.switchView("/fxml/ServiceMatchingView.fxml");
+    protected void switchToFound(ActionEvent event) throws IOException {
+        MainApp.switchView("/fxml/ServiceGevondenOverzichtView.fxml");
+    }
+    
+    @FXML
+    protected void switchToMissed(ActionEvent event) throws IOException {
+        MainApp.switchView("/fxml/ServiceVermisteOverzichtView.fxml");
     }
     
     

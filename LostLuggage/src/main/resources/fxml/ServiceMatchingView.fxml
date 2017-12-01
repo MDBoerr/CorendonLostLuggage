@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <GridPane prefHeight="586.0" prefWidth="1179.0" style="-fx-background-color: fff;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Service.ServiceMatchingViewController">
     <columnConstraints>
@@ -17,18 +21,19 @@
         <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="777.9694519042969" minWidth="10.0" prefWidth="707.4661560058594" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="148.65740966796875" minHeight="10.0" prefHeight="66.0318832397461" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="265.3981475830078" minHeight="10.0" prefHeight="38.080352783203125" valignment="CENTER" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="316.0810241699219" minHeight="3.595653533935547" prefHeight="50.419647216796875" valignment="CENTER" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="148.65740966796875" minHeight="10.0" prefHeight="32.5" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="148.65740966796875" minHeight="10.0" prefHeight="62.5" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="265.3981475830078" minHeight="10.0" prefHeight="43.5" valignment="CENTER" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="316.0810241699219" minHeight="3.595653533935547" prefHeight="35.5" valignment="CENTER" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="94.90306091308594" minHeight="28.789535522460938" prefHeight="50.806121826171875" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="96.59823608398438" minHeight="51.579071044921875" prefHeight="54.3214111328125" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="94.90306091308594" minHeight="55.401763916015625" prefHeight="55.401763916015625" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="121.6619873046875" minHeight="100.0" prefHeight="121.6619873046875" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="96.59823608398438" minHeight="51.579071044921875" prefHeight="66.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="94.90306091308594" minHeight="32.5" prefHeight="32.5" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="129.0" minHeight="100.0" prefHeight="129.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="94.903076171875" minHeight="78.3380126953125" prefHeight="78.3380126953125" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="94.903076171875" minHeight="78.3380126953125" prefHeight="78.3380126953125" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <TableView fx:id="foundLuggageTable" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowSpan="2">
+        <TableView fx:id="foundLuggageTable" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
             <columns>
                 <TableColumn fx:id="idFoundLuggageColumn" prefWidth="42.05970764160156" text="ID" />
                 <TableColumn fx:id="found_timeColumn" prefWidth="65.0" text="Time" />
@@ -52,7 +57,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
         </TableView>
-      <TableView fx:id="missedLuggageTable" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.rowSpan="2">
+      <TableView fx:id="missedLuggageTable" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="2">
          <columns>
             <TableColumn fx:id="idMissedLuggageColumn" prefWidth="42.05970764160156" text="ID" />
             <TableColumn fx:id="missed_timeColumn" prefWidth="65.0" text="Time" />
@@ -76,7 +81,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TableView fx:id="foundLuggageTable11" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowIndex="6" GridPane.rowSpan="2">
+      <TableView fx:id="foundLuggageTable11" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowIndex="7" GridPane.rowSpan="2">
          <columns>
             <TableColumn fx:id="idLuggageColumn" prefWidth="42.05970764160156" text="ID" />
             <TableColumn fx:id="timeColumn" prefWidth="65.0" text="Time" />
@@ -100,7 +105,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <HBox alignment="CENTER_RIGHT" prefHeight="77.0" prefWidth="708.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+      <HBox alignment="CENTER_RIGHT" prefHeight="77.0" prefWidth="708.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
          <children>
             <VBox minWidth="150.0" prefHeight="200.0" prefWidth="100.0">
                <children>
@@ -112,29 +117,58 @@
             <Separator opacity="0.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="75.0" />
          </children>
       </HBox>
-      <HBox alignment="CENTER_RIGHT" prefHeight="77.0" prefWidth="708.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <HBox alignment="CENTER_RIGHT" prefHeight="77.0" prefWidth="708.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <children>
             <VBox minWidth="150.0" prefHeight="200.0" prefWidth="100.0">
                <children>
                   <Separator opacity="0.0" prefHeight="8.0" prefWidth="237.0" />
-                  <JFXButton buttonType="RAISED" onAction="#switchToMatching" prefHeight="35.0" prefWidth="150.0" ripplerFill="#0d47a1" style="-fx-background-color: #2196F3#2196F3;" text="Full Overview &gt;" textAlignment="CENTER" textFill="WHITE" />
+                  <JFXButton onAction="#switchToFound" prefHeight="20.0" prefWidth="120.0" ripplerFill="#0d47a1" style="-fx-background-color: #2196F3#2196F3;" text="Full Overview &gt;" textAlignment="CENTER" textFill="WHITE" />
                   <Separator opacity="0.0" prefHeight="8.0" prefWidth="237.0" />
                </children>
             </VBox>
             <Separator opacity="0.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="75.0" />
          </children>
       </HBox>
-      <HBox alignment="CENTER_RIGHT" prefHeight="77.0" prefWidth="708.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+      <HBox alignment="CENTER_RIGHT" prefHeight="77.0" prefWidth="708.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
          <children>
             <VBox minWidth="150.0" prefHeight="200.0" prefWidth="100.0">
                <children>
                   <Separator opacity="0.0" prefHeight="8.0" prefWidth="237.0" />
-                  <JFXButton buttonType="RAISED" onAction="#switchToMatching" prefHeight="35.0" prefWidth="150.0" ripplerFill="#0d47a1" style="-fx-background-color: #2196F3#2196F3;" text="Full Overview &gt;" textAlignment="CENTER" textFill="WHITE" />
+                  <JFXButton onAction="#switchToMissed" prefHeight="27.0" prefWidth="116.0" ripplerFill="#0d47a1" style="-fx-background-color: #2196F3#2196F3;" text="Full Overview &gt;" textAlignment="CENTER" textFill="WHITE" />
                   <Separator opacity="0.0" prefHeight="8.0" prefWidth="237.0" />
                </children>
             </VBox>
             <Separator opacity="0.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="75.0" />
          </children>
       </HBox>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Found Luggage" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin>
+      </Text>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lost Luggage" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin>
+      </Text>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Matches" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin>
+      </Text>
+      <TextArea prefHeight="200.0" prefWidth="200.0" text="De volgende aanpassingen moeten nog gemaakt worden:&#10;-Matching !  (tabel is nog alleen geplaatst)&#10;-Handmatige matching d.m.v. -&gt; Dubbeklik opties -&gt; Selectie&#10;-Stijl  -&gt; locatie van knoppen etc." GridPane.rowIndex="9">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </TextArea>
     </children>
 </GridPane>

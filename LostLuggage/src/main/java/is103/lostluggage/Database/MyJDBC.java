@@ -17,7 +17,7 @@ public class MyJDBC {
     private static final String DB_DEFAULT_DATABASE = "sys";
     private static final String DB_DEFAULT_SERVER_URL = "localhost:3306";
     private static final String DB_DEFAULT_ACCOUNT = "root";
-    private static final String DB_DEFAULT_PASSWORD = "ajax1234";
+    private static final String DB_DEFAULT_PASSWORD = "root";//ajax1234
 
     private final static String DB_DRIVER_URL = "com.mysql.jdbc.Driver";
     private final static String DB_DRIVER_PREFIX = "jdbc:mysql://";
@@ -303,10 +303,51 @@ public class MyJDBC {
         MyJDBC sysJDBC = new MyJDBC("sys");
         sysJDBC.executeUpdateQuery("CREATE DATABASE IF NOT EXISTS " + dbName);
         sysJDBC.close();
-
+        
+        
         // create or truncate User table in the Airline database
-        System.out.println("Creating the User table...");
+        System.out.println("Creating the User, missedLuggage and foundLuggage table...");
         MyJDBC myJDBC = new MyJDBC(dbName);
+        
+        myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS missedLuggage ("
+                + " idmissedLuggage VARCHAR(10) NOT NULL PRIMARY KEY,"
+                + " time VARCHAR(8),"
+                + " airport VARCHAR(45),"
+                + " date VARCHAR(45),"
+                + " name VARCHAR(45),"
+                + " adress VARCHAR(45),"
+                + " residence VARCHAR(40),"
+                + " postalcode VARCHAR(40),"
+                + " country VARCHAR(40),"
+                + " email VARCHAR(40),"
+                + " labelnumber VARCHAR(40),"
+                + " flightnumber VARCHAR(40),"
+                + " type VARCHAR(40),"
+                + " destination VARCHAR(40),"
+                + " brand VARCHAR(40),"
+                + " color VARCHAR(40),"
+                + " signatures VARCHAR(40) )");
+        
+        myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS foundLuggage ("
+                + " idfoundLuggage VARCHAR(10) NOT NULL PRIMARY KEY,"
+                + " time VARCHAR(8),"
+                + " airport VARCHAR(45),"
+                + " date VARCHAR(45),"
+                + " name VARCHAR(45),"
+                + " adress VARCHAR(45),"
+                + " residence VARCHAR(40),"
+                + " postalcode VARCHAR(40),"
+                + " country VARCHAR(40),"
+                + " email VARCHAR(40),"
+                + " labelnumber VARCHAR(40),"
+                + " flightnumber VARCHAR(40),"
+                + " type VARCHAR(40),"
+                + " destination VARCHAR(40),"
+                + " brand VARCHAR(40),"
+                + " color VARCHAR(40),"
+                + " signatures VARCHAR(40) )");
+                
+                
         myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS User ("
                 + " ID VARCHAR(6) NOT NULL PRIMARY KEY,"
                 + " Firstname VARCHAR(45),"
@@ -314,14 +355,27 @@ public class MyJDBC {
                 + " Location VARCHAR(45),"
                 + " Status VARCHAR(10),"
                 + " Role VARCHAR(20) )");
-
-        // truncate Airport, in case some data was already there
+        
+        // truncate Tables, in case some data was already there
         myJDBC.executeUpdateQuery("TRUNCATE TABLE User");
+        myJDBC.executeUpdateQuery("TRUNCATE TABLE foundLuggage");
+        myJDBC.executeUpdateQuery("TRUNCATE TABLE missedLuggage");
 
-        // Populate the Airport table in the Airline database        
-        System.out.println("Populating with User Account...");
+        // Populate the tables in the Airline database        
+        System.out.println("Populating with User Account, Found and Missed Luggage...");
+        
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
                 + "'MB1', 'Michael', 'Boer de', 'Schiphol Amsterdam', 'Active', 'Adminstrator' )");
+        
+        
+        myJDBC.executeUpdateQuery("INSERT INTO foundLuggage VALUES ("
+                + "'170', '09:21', 'AMS', '05-07-2017', 'Unknown', 'Unknown', 'Unknown', 'Unknown', 'Unknown', 'Unknown', '298438738AB', 'AMS328LON', 'Trolley', 'LON', 'Nomad', 'Silver', 'Steel, red dot' )");
+        
+        
+        myJDBC.executeUpdateQuery("INSERT INTO missedLuggage VALUES ("
+                + "'123', '12:00', 'AKE', '01-02-2015', 'Dave', 'Streename 3', 'Amsterdam', '1432 AD', 'Netherlands', 'Dave@mail.com', '298438738AB', 'AMS328LON', 'Trolley', 'LON', 'Nomad', 'Silver', 'Steel, dot' )");
+        myJDBC.executeUpdateQuery("INSERT INTO missedLuggage VALUES ("
+                + "'192', '10:02', 'SDA', '05-03-2017', 'Lenart', 'Wibautsat 2', 'Amsterdam', '1932 AM', 'Netherlands', 'Lenny@hva.nl', '26374738KE', 'AES128LEP', 'Badpack', 'EKL', 'TULU', 'Blue', 'Expensive laptop' )");
 
 
         // echo all airports in timezone 1
