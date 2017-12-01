@@ -18,9 +18,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 
 /**
@@ -334,15 +337,50 @@ public class ServiceMatchingViewController implements Initializable {
     }
     
     
+    public void mouseClickedOnRowFound() {
+        foundLuggageTable.setOnMousePressed((MouseEvent event) -> {
+                                //--> event         //--> double click
+            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                //obj hash code vinden
+                Node node_data = ((Node) event.getTarget() ).getParent();
+                TableRow found_row;
+                
+                if (node_data instanceof TableRow) {
+                    found_row = (TableRow) node_data;
+                } else {
+                    // als op de tekst is geklikt -> pak parent van text
+                    found_row = (TableRow) node_data.getParent();
+                }
+                System.out.println("row: item");
+                FoundLuggage a = (FoundLuggage) found_row.getItem();
+                System.out.println("a: "+a);
+                System.out.println("Adress of object: "+ a.getObj_address());
+                System.out.println("Label of object: "+ a.getObj_labelnumber());
+                System.out.println("type of object: "+ a.getObj_type());
+                
+                System.out.println("row item; " +found_row.getItem());
+                
+                
+                try {
+                    MainApp.switchView("/fxml/ServiceInvoerView.fxml");
+                } catch (IOException ex) {
+                    Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                
+                
+                
+            }
+        });
+    }
     
     
-    
-        @FXML
+    @FXML
     protected void switchToInput(ActionEvent event) throws IOException {
         MainApp.switchView("/fxml/ServiceInvoerView.fxml");
     }
     
-@   FXML
+    @FXML
     protected void switchToFound(ActionEvent event) throws IOException {
         MainApp.switchView("/fxml/ServiceGevondenOverzichtView.fxml");
     }
