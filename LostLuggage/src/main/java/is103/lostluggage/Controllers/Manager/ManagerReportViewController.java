@@ -23,7 +23,7 @@ import javafx.stage.Stage;
  *
  * @author daron
  */
-public class ManagerRapportageViewController implements Initializable {
+public class ManagerReportViewController implements Initializable {
 
     /**
      * Initializes the controller class.

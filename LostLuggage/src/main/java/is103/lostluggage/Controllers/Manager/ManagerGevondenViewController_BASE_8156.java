@@ -2,7 +2,7 @@ package is103.lostluggage.Controllers.Manager;
 
 import is103.lostluggage.Controllers.HomeUserViewController;
 import is103.lostluggage.Controllers.MainViewController;
-//import is103.lostluggage.Controllers.Service.Luggage;
+import is103.lostluggage.Controllers.Service.Luggage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,26 +26,30 @@ import javafx.stage.Stage;
  *
  * @author daron
  */
-public class ManagerTerugViewController implements Initializable {
+public class ManagerGevondenViewController implements Initializable {
+
+    /**
+     * Initializes the controller class.
+     */
 
  //luggage list
-    public static ObservableList<RetrievedLuggage> retrievedLuggage;
+    public static ObservableList<Luggage> luggageList;
     private int id = 0;
     
     @FXML
-    public TableView RetrievedTable;
+    public TableView VermistTable;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
         //To Previous Scene
         MainViewController.previousView = "/Views/ManagerHomeView.fxml";
         
-        retrievedLuggage = FXCollections.observableArrayList();
-        RetrievedTable.setItems(retrievedLuggage);
+        luggageList = FXCollections.observableArrayList();
+        VermistTable.setItems(luggageList);
         
         //voor elke colum data vullen (bij verandering en initializatie
-        for (int i = 0; i < RetrievedTable.getColumns().size(); i++  ) {
-            TableColumn tc = (TableColumn) RetrievedTable.getColumns().get(i);
+        for (int i = 0; i < VermistTable.getColumns().size(); i++  ) {
+            TableColumn tc = (TableColumn) VermistTable.getColumns().get(i);
             
             tc.setCellValueFactory(new PropertyValueFactory<>(tc.getId()));
             
@@ -53,7 +57,9 @@ public class ManagerTerugViewController implements Initializable {
         
         
         //dummy data invoeren in de tabel 
-        retrievedLuggage.add(new RetrievedLuggage((id++), "0234", "04-11-2018", "Arthur", "Poek", "DHL"));
-        retrievedLuggage.add(new RetrievedLuggage((id++), "0323", "05-11-2018", "Henry", "Poek", "Locale bezorger"));
-    }
+        //luggageList.add(new Luggage((id++), "A392D4K", "Tomos", "Trolley", "D383D", "Amsterdam Airport", "rode sticker", "reiziger"));
+        //luggageList.add(new Luggage((id++), "C38DKE3", "East Pack", "Rugzak", "A74D0", "Antalya Aiport", "zonder handvat", "reiziger"));
+    }      
+ 
+            
 }

@@ -2,8 +2,8 @@ package is103.lostluggage.Controllers.Manager;
 
 import is103.lostluggage.Controllers.HomeUserViewController;
 import is103.lostluggage.Controllers.MainViewController;
-import is103.lostluggage.Controllers.Service.Luggage;
-import static is103.lostluggage.Controllers.Service.ServiceVermisteOverzichtViewController.luggageList;
+//import is103.lostluggage.Controllers.Service.Luggage;
+//import static is103.lostluggage.Controllers.Service.ServiceVermisteOverzichtViewController.luggageList;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,7 +30,7 @@ import javafx.stage.Stage;
 public class ManagerVerlorenViewController implements Initializable {
 
  //luggage list
-    public static ObservableList<Luggage> luggageList;
+//    public static ObservableList<Luggage> luggageList;
     private int id = 0;
     
     @FXML
@@ -41,8 +41,8 @@ public class ManagerVerlorenViewController implements Initializable {
         //To Previous Scene
         MainViewController.previousView = "/Views/ManagerHomeView.fxml";
         
-        luggageList = FXCollections.observableArrayList();
-        LostTable.setItems(luggageList);
+//        luggageList = FXCollections.observableArrayList();
+  //      LostTable.setItems(luggageList);
         
         //voor elke colum data vullen (bij verandering en initializatie
         for (int i = 0; i < LostTable.getColumns().size(); i++  ) {
