@@ -66,7 +66,7 @@ public class SelectUserRoleViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         //database aanmaken 
         //(zodat hij niet bij elke switch naar service home weer word aangemaakt)
-        MyJDBC.createLostLuggageDatabase("LostLuggage");
+        ///MyJDBC.createLostLuggageDatabase("LostLuggage");
     }
 
 }
