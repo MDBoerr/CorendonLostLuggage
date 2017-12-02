@@ -204,14 +204,18 @@ public class ServiceVermisteOverzichtViewController implements Initializable {
                 
                 
                 
-                // Alle gegevens per result (koffer) ->  printen
-                System.out.println("Gegevens voor koffer id: "+get_idmissedLuggage);
-                System.out.println("Time: "+ get_time + " Airport: " + get_airport+" Datum:"+get_date);
-                System.out.println("Naam: "+ get_name + " Adress: "+get_adress+"Plaats: "+get_residence);
-                System.out.println("Postcode: "+get_postalcode+" Land: "+ get_country+" Email: "+get_email);
-                System.out.println("Labelnum: "+get_labelnumber+" Vlucht: "+get_flightnumber+" Bestemming: "+get_destination);
-                System.out.println("Type bagage: "+get_type+" Merk: "+get_brand+" Kleur: "+get_color+" Kenmerken: "+get_signatures);
-                System.out.println(" ---------------------------------------------------------------------");
+                // Alle gegevens per result (koffer) (alleen id) om spam te voorkomen) ->  printen
+                System.out.println("Gegevens voor koffer id: "+get_idmissedLuggage+" |       Zijn: Correct");
+                System.out.println("---------------------------------------------------------------------");
+                
+                // Alle gegevens per result (koffer) ->  printen  --> volledig overzicht
+//                System.out.println("Gegevens voor koffer id: "+get_idmissedLuggage);
+//                System.out.println("Time: "+ get_time + " Airport: " + get_airport+" Datum:"+get_date);
+//                System.out.println("Naam: "+ get_name + " Adress: "+get_adress+"Plaats: "+get_residence);
+//                System.out.println("Postcode: "+get_postalcode+" Land: "+ get_country+" Email: "+get_email);
+//                System.out.println("Labelnum: "+get_labelnumber+" Vlucht: "+get_flightnumber+" Bestemming: "+get_destination);
+//                System.out.println("Type bagage: "+get_type+" Merk: "+get_brand+" Kleur: "+get_color+" Kenmerken: "+get_signatures);
+//                System.out.println(" ---------------------------------------------------------------------");
             
             }//-> stop als er geen resultaten meer zijn!
 

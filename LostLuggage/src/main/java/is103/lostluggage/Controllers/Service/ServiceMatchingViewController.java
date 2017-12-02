@@ -17,13 +17,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 /**
@@ -92,7 +100,7 @@ public class ServiceMatchingViewController implements Initializable {
     
     
     
-    
+    public Stage popupStage = new Stage();
     
     public static ObservableList<MissedLuggage> MissedLuggageList;
     
@@ -362,11 +370,21 @@ public class ServiceMatchingViewController implements Initializable {
                 //Oproept en deze in de view, ServiceDetailedLuggage zet. 
                 ServiceDetailedLuggageController.setDetailedInfoFoundLuggage(getDetailObj);
                 
+                ServiceMatchingViewController method = new ServiceMatchingViewController();
+                method.nonstatic(getDetailObj);
+        
                 //Switchen naar de detailed view
+//                try {
+//                    MainApp.switchView("/fxml/ServiceDetailedLuggage.fxml");
+//                } catch (IOException ex) {
+//                    Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+                
+                //switchen naar detailed viw dmv: popup
                 try {
-                    MainApp.switchView("/fxml/ServiceDetailedLuggage.fxml");
+                    popUpDetails(popupStage);
                 } catch (IOException ex) {
-                    Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
                 
@@ -390,6 +408,38 @@ public class ServiceMatchingViewController implements Initializable {
     @FXML
     protected void switchToMissed(ActionEvent event) throws IOException {
         MainApp.switchView("/fxml/ServiceVermisteOverzichtView.fxml");
+    }
+    
+    public void popUpDetails(Stage stage) throws IOException {
+        try { 
+            
+            
+            if (stage.isShowing()){
+                System.out.println("already a stage openend");
+                System.out.println("Reloaden data!");
+                
+            } else {
+                Parent popup = FXMLLoader.load(getClass().getResource("/fxml/ServiceDetailedLuggage.fxml"));
+                
+                stage.setScene(new Scene(popup));
+                
+                //no functies -> close / fullscreen/ topbar
+                //stage.initStyle(StageStyle.TRANSPARENT);
+                stage.setAlwaysOnTop(true);
+                stage.show();
+                System.out.println("Popup opend");
+            }
+            
+        
+        } catch (IOException ex) {
+            Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    private void nonstatic(FoundLuggage detailObj) {
+        
+    
     }
     
     

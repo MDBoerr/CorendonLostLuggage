@@ -191,15 +191,18 @@ public class ServiceGevondenOverzichtViewController implements Initializable {
                 foundLuggageList.add(new FoundLuggage(get_idfoundLuggage, get_time, get_airport, get_date, get_name, get_adress, get_residence, get_postalcode, get_country, get_email, get_labelnumber, get_flightnumber, get_destination, get_type, get_brand, get_color, get_signatures));
                 
                 
+                // Alle gegevens per result (koffer) (alleen id) om spam te voorkomen) ->  printen
+                System.out.println("Gegevens voor koffer id: "+get_idfoundLuggage+" |       Zijn: Correct");
+                System.out.println("---------------------------------------------------------------------");
                 
-                // Alle gegevens per result (koffer) ->  printen
-                System.out.println("Gegevens voor koffer id: "+get_idfoundLuggage);
-                System.out.println("Time: "+ get_time + " Airport: " + get_airport+" Datum:"+get_date);
-                System.out.println("Naam: "+ get_name + " Adress: "+get_adress+"Plaats: "+get_residence);
-                System.out.println("Postcode: "+get_postalcode+" Land: "+ get_country+" Email: "+get_email);
-                System.out.println("Labelnum: "+get_labelnumber+" Vlucht: "+get_flightnumber+" Bestemming: "+get_destination);
-                System.out.println("Type bagage: "+get_type+" Merk: "+get_brand+" Kleur: "+get_color+" Kenmerken: "+get_signatures);
-                System.out.println(" ---------------------------------------------------------------------");
+                // Alle gegevens per result (koffer) ->  printen  --> volledig overzicht
+//                System.out.println("Gegevens voor koffer id: "+get_idfoundLuggage);
+//                System.out.println("Time: "+ get_time + " Airport: " + get_airport+" Datum:"+get_date);
+//                System.out.println("Naam: "+ get_name + " Adress: "+get_adress+"Plaats: "+get_residence);
+//                System.out.println("Postcode: "+get_postalcode+" Land: "+ get_country+" Email: "+get_email);
+//                System.out.println("Labelnum: "+get_labelnumber+" Vlucht: "+get_flightnumber+" Bestemming: "+get_destination);
+//                System.out.println("Type bagage: "+get_type+" Merk: "+get_brand+" Kleur: "+get_color+" Kenmerken: "+get_signatures);
+//                System.out.println(" ---------------------------------------------------------------------");
             
             }//-> stop als er geen resultaten meer zijn!
 

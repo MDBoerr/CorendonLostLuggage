@@ -73,6 +73,10 @@ public class FoundLuggage {
         this.obj_signatures =  data_signatures;
     }
 
+    public FoundLuggage() {
+        
+    }
+
     /**
      * @return the idfoundLuggage
      */
