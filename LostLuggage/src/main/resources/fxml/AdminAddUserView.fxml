@@ -71,7 +71,7 @@
                                 <children>
                                     <JFXButton onAction="#backToHomeUserView" prefHeight="35.0" prefWidth="75.0" style="-fx-background-color: #adb5bd#adb5bd;" text="Cancel" textFill="WHITE" />
                                     <Separator orientation="VERTICAL" prefHeight="63.0" prefWidth="35.0" visible="false" />
-                                    <JFXButton onAction="#addUser" prefHeight="35.0" prefWidth="75.0" ripplerFill="WHITE" style="-fx-background-color: #4dadf7#4dadf7 #4dadf7#4dadf7;" text="Done" textFill="WHITE" />
+                                    <JFXButton fx:id="addUserBtn" onAction="#addUser" prefHeight="35.0" prefWidth="75.0" ripplerFill="WHITE" style="-fx-background-color: #4dadf7#4dadf7 #4dadf7#4dadf7;" text="Done" textFill="WHITE" />
                                     <Separator orientation="VERTICAL" prefHeight="63.0" prefWidth="21.0" visible="false" />
                                 </children>
                             </HBox>

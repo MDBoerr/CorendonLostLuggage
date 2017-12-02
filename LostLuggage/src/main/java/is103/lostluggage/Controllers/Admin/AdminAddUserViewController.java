@@ -8,6 +8,7 @@ package is103.lostluggage.Controllers.Admin;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.MainViewController;
+import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
@@ -44,8 +45,6 @@ public class AdminAddUserViewController implements Initializable {
     public static ObservableList<String> roleList;
 
     public static ObservableList<String> statusList;
-
-    public static UUID uid;
 
     private double navListPrefHeight = 70.0d;
 
@@ -136,6 +135,8 @@ public class AdminAddUserViewController implements Initializable {
         String firstname = firstnameField.getText();
         String lastname = lastnameField.getText();
         String location = locationField.getText();
+        String status = statusComboBox.getValue().toString();
+        String role = roleComboBox.getValue().toString();
 
         //Counter for empty fields
         int amount = 0;
@@ -150,15 +151,16 @@ public class AdminAddUserViewController implements Initializable {
 
             emptyfields = new String[fields.length];
 
-            if (firstname.isEmpty()) {
+            if (firstnameField.getText().isEmpty()) {
                 emptyfields[amount] = fields[0];
                 firstnameField.setUnFocusColor(Paint.valueOf("#f03e3e"));
                 amount++;
             } else {
                 firstnameField.setUnFocusColor(Paint.valueOf("#4d4d4d"));
+
             }
 
-            if (lastname.isEmpty()) {
+            if (lastnameField.getText().isEmpty()) {
                 emptyfields[amount] = fields[1];
                 amount++;
                 lastnameField.setUnFocusColor(Paint.valueOf("#f03e3e"));
@@ -212,17 +214,26 @@ public class AdminAddUserViewController implements Initializable {
                 }
 
             }
-            //Start errorMessageView animation after error message contains all empty fields
-            startAnimation();
-
             //Put the error message on the label
             errorMessageLbl.setText(errorMessage);
 
-            System.out.println(uid.randomUUID());
+            //Start errorMessageView animation after error message contains all empty fields
+            startAnimation();
+
+            System.out.println(UUID.randomUUID());
 
         } //All fields are valid, there are no errors
         else {
-
+            //Temporary id
+            String id = UUID.randomUUID().toString().substring(0, 8);
+            
+            MyJDBC db = MainApp.connectToDatabase();
+            
+            String query = String.format("INSERT INTO User VALUES ('%s', '%s', '%s', '%s', '%s', '%s')", id, firstname, lastname, location, status, role);
+            
+            int result = db.executeUpdateQuery(query);
+            System.out.println(" This is the result:  " + result);
+            
         }
     }
 
@@ -240,6 +251,7 @@ public class AdminAddUserViewController implements Initializable {
                         new KeyValue(errorMessageView.prefHeightProperty(), navListPrefHeight)
                 )
         );
+        addUserBtn.setDisable(true);
         timeline.play();
 
         PauseTransition wait = new PauseTransition(Duration.seconds(4));
@@ -265,6 +277,7 @@ public class AdminAddUserViewController implements Initializable {
                 )
         );
         timeline.play();
+        addUserBtn.setDisable(false);
 
     }
 

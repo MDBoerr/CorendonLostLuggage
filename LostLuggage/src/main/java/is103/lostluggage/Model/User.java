@@ -12,15 +12,16 @@ import javafx.beans.property.SimpleStringProperty;
  * @author Mike
  */
 public class User {
-    
-    private SimpleStringProperty id, lastName, firstName, level, status;
 
-    public User(String id, String lastName, String firstName, String level, String status) {
+    private SimpleStringProperty id, lastName, firstName, location, role, status;
+
+    public User(String id, String lastName, String firstName, String location, String role, String status) {
 
         this.id = new SimpleStringProperty(id);
         this.lastName = new SimpleStringProperty(lastName);
         this.firstName = new SimpleStringProperty(firstName);
-        this.level = new SimpleStringProperty(level);
+        this.location = new SimpleStringProperty(location);
+        this.role = new SimpleStringProperty(role);
         this.status = new SimpleStringProperty(status);
 
     }
@@ -28,7 +29,6 @@ public class User {
     public String getId() {
         return id.get();
     }
-
 
     public void setId(SimpleStringProperty id) {
         this.id = id;
@@ -46,27 +46,32 @@ public class User {
         return firstName.get();
     }
 
-
     public void setFirstName(SimpleStringProperty firstName) {
         this.firstName = firstName;
     }
 
-    public String getLevel() {
-        return level.get();
+    public String getLocation() {
+        return location.get();
     }
 
+    public void setLocation(SimpleStringProperty id) {
+        this.location = id;
+    }
 
-    public void setLevel(SimpleStringProperty level) {
-        this.level = level;
+    public String getRole() {
+        return role.get();
+    }
+
+    public void setRole(SimpleStringProperty role) {
+        this.role = role;
     }
 
     public String getStatus() {
         return status.get();
     }
 
-
     public void setStatus(SimpleStringProperty status) {
         this.status = status;
     }
-    
+
 }

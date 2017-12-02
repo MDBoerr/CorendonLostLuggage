@@ -17,7 +17,7 @@ public class MyJDBC {
     private static final String DB_DEFAULT_DATABASE = "sys";
     private static final String DB_DEFAULT_SERVER_URL = "localhost:3306";
     private static final String DB_DEFAULT_ACCOUNT = "root";
-    private static final String DB_DEFAULT_PASSWORD = "root";//ajax1234
+    private static final String DB_DEFAULT_PASSWORD = "ajax1234";
 
     private final static String DB_DRIVER_URL = "com.mysql.jdbc.Driver";
     private final static String DB_DRIVER_PREFIX = "jdbc:mysql://";
@@ -349,7 +349,7 @@ public class MyJDBC {
                 
                 
         myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS User ("
-                + " ID VARCHAR(6) NOT NULL PRIMARY KEY,"
+                + " ID VARCHAR(10) NOT NULL PRIMARY KEY,"
                 + " Firstname VARCHAR(45),"
                 + " Lastname VARCHAR(45),"
                 + " Location VARCHAR(45),"
@@ -365,8 +365,11 @@ public class MyJDBC {
         System.out.println("Populating with User Account, Found and Missed Luggage...");
         
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
-                + "'MB1', 'Michael', 'Boer de', 'Schiphol Amsterdam', 'Active', 'Adminstrator' )");
-        
+                + "'MB1', 'Michael', 'Boer de', 'Amsterdam', 'Active', 'Adminstrator' )");
+        myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
+                + "'AA1', 'Ahmet', 'Boer de', 'Amsterdam', 'Active', 'Adminstrator' )");
+        myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
+                + "'MB2', 'Arthur', 'Krom', 'Amsterdam', 'Active', 'Adminstrator' )");
         
         myJDBC.executeUpdateQuery("INSERT INTO foundLuggage VALUES ("
                 + "'170', '09:21', 'AMS', '05-07-2017', 'Unknown', 'Unknown', 'Unknown', 'Unknown', 'Unknown', 'Unknown', '298438738AB', 'AMS328LON', 'Trolley', 'LON', 'Nomad', 'Silver', 'Steel, red dot' )");
