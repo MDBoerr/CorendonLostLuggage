@@ -27,7 +27,7 @@ import javafx.stage.Stage;
  *
  * @author daron
  */
-public class ManagerVerlorenViewController implements Initializable {
+public class ManagerLostViewController implements Initializable {
 
  //luggage list
 //    public static ObservableList<Luggage> luggageList;

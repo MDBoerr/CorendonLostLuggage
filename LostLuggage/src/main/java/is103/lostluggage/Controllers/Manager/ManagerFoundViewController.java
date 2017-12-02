@@ -26,7 +26,7 @@ import javafx.stage.Stage;
  *
  * @author daron
  */
-public class ManagerGevondenViewController implements Initializable {
+public class ManagerFoundViewController implements Initializable {
 
     /**
      * Initializes the controller class.

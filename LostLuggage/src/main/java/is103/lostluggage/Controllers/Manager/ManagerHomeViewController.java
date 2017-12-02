@@ -36,7 +36,7 @@ public class ManagerHomeViewController implements Initializable {
 
     @FXML
     protected void toFoundView(ActionEvent event) throws IOException {
-        MainApp.switchView("/Views/ManagerGevondenView.fxml");
+        MainApp.switchView("/Views/ManagerFoundView.fxml");
     }
 
     @FXML
@@ -46,11 +46,11 @@ public class ManagerHomeViewController implements Initializable {
 
     @FXML
     protected void toLostView(ActionEvent event) throws IOException {
-        MainApp.switchView("/Views/ManagerVerlorenView.fxml");
+        MainApp.switchView("/Views/ManagerLostView.fxml");
     }
 
     @FXML
     protected void toRetrievedView(ActionEvent event) throws IOException {
-        MainApp.switchView("/Views/ManagerTerugView.fxml");
+        MainApp.switchView("/Views/ManagerRetrievedView.fxml");
     }
 }

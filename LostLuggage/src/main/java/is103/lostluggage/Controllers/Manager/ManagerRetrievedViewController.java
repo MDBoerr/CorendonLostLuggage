@@ -31,7 +31,7 @@ import javafx.stage.Stage;
  *
  * @author daron
  */
-public class ManagerTerugViewController implements Initializable {
+public class ManagerRetrievedViewController implements Initializable {
 
     //luggage list
     public static ObservableList<RetrievedLuggage> retrievedLuggage;
@@ -80,7 +80,7 @@ public class ManagerTerugViewController implements Initializable {
 
                     } catch (IOException ex) {
 
-                        Logger.getLogger(ManagerTerugViewController.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(ManagerRetrievedViewController.class.getName()).log(Level.SEVERE, null, ex);
 
                     }
 
