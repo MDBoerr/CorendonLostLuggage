@@ -28,93 +28,92 @@ import javafx.scene.control.TableRow;
 import javafx.scene.input.MouseEvent;
 
 public class OverviewUserController implements Initializable {
-
     
     private String header = "Overzicht Gebruikers";
     
-    
     @FXML
     private TableView<User> tableView;
-
+    
     @FXML
-    private TableColumn<User, String> id;
+    private TableColumn<User, String> idColumn;
     @FXML
-    private TableColumn<User, String> lastName;
+    private TableColumn<User, String> lastNameColumn;
     @FXML
-    private TableColumn<User, String> firstName;
+    private TableColumn<User, String> firstNameColumn;
     @FXML
-    private TableColumn<User, String> level;
+    private TableColumn<User, String> locationColumn;
     @FXML
-    private TableColumn<User, String> status;
+    private TableColumn<User, String> roleColumn;
+    @FXML
+    private TableColumn<User, String> statusColumn;
 
 //    @FXML
 //    private void handleButtonAction(ActionEvent event) {
 //        System.out.println("You clicked me!");
 //    }
-    
     @FXML
-    private void goToAddView(ActionEvent event) {        
+    private void goToAddView(ActionEvent event) {
         try {
             MainApp.switchView("/fxml/AdminAddUserView.fxml");
             
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    
-        
+
         //Error in creating database User
-        MyJDBC.createLostLuggageDatabase("LostLuggage");
-             
+        //MyJDBC.createLostLuggageDatabase("LostLuggage");
+        
         try {
             MainViewController.getInstance().getTitle(header);
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         
-        id.setCellValueFactory(new PropertyValueFactory<User, String>("Id"));
-        lastName.setCellValueFactory(new PropertyValueFactory<User, String>("LastName"));
-        firstName.setCellValueFactory(new PropertyValueFactory<User, String>("FirstName"));
-        level.setCellValueFactory(new PropertyValueFactory<User, String>("Level"));
-        status.setCellValueFactory(new PropertyValueFactory<User, String>("Status"));
-
-        tableView.setItems(getThings());
+        idColumn.setCellValueFactory(new PropertyValueFactory<User, String>("Id"));
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("LastName"));
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("FirstName"));
+        locationColumn.setCellValueFactory(new PropertyValueFactory<User, String>("Location"));
+        roleColumn.setCellValueFactory(new PropertyValueFactory<User, String>("Role"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<User, String>("Status"));
+        
+        tableView.setItems(getUsers());
         
         mouseClickedOnRow();
-        
+
         //To Previous Scene
         MainViewController.previousView = "/Views/HomeUserView.fxml";
         
-       
-
     }
-
-    public ObservableList<User> getThings() {
-
+    
+    public ObservableList<User> getUsers() {
+        
         ObservableList<User> users = FXCollections.observableArrayList();
         
         try {
-            MyJDBC db = new MyJDBC("AirlineDemo");
-
+            MyJDBC db = MainApp.connectToDatabase();
+            
             ResultSet resultSet;
-
-            resultSet = db.executeResultSetQuery("SELECT IATACode, Name, TimeZone FROM Airport");
-
+            
+            resultSet = db.executeResultSetQuery("SELECT ID, Firstname, Lastname, Location, Status, Role FROM User");
+            
             while (resultSet.next()) {
-                String iATACode = resultSet.getString("IATACode");
-                String name = resultSet.getString("Name");
-                int timeZone = resultSet.getInt("TimeZone");
+                String id = resultSet.getString("ID");
+                String firstName = resultSet.getString("Firstname");
+                String lastName = resultSet.getString("Lastname");
+                String location = resultSet.getString("Location");
+                String status = resultSet.getString("Status");
+                String role = resultSet.getString("Role");
                 
-                System.out.println("IATACode: " + iATACode +"  Name: "+ name + " TimeZone: " + timeZone);
-                users.add(new User(iATACode, name, "Mil", "Admin", "Active"));
-
-
+                System.out.println("ID: " + id + "  Firstname: " + firstName + " Lastname: " + lastName + " Location: " + location + " Status: " + status + " Role: " + role);
+                users.add(new User(id, lastName, firstName, location, role, status));
+                
             }
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -145,5 +144,4 @@ public class OverviewUserController implements Initializable {
         });
     }
     
-
 }

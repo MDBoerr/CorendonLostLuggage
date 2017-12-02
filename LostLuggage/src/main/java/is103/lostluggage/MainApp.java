@@ -1,6 +1,7 @@
 package is103.lostluggage;
 
 import is103.lostluggage.Controllers.MainViewController;
+import is103.lostluggage.Database.MyJDBC;
 import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -18,6 +19,8 @@ import javafx.scene.layout.Pane;
 public class MainApp extends Application {
 
     private static BorderPane root;
+    
+    private static String dbName = "CorendonLostLuggage";
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -26,7 +29,6 @@ public class MainApp extends Application {
         //Parent root = FXMLLoader.load(getClass().getResource("/fxml/ServiceHomeView.fxml"));  //Service medewerker
         //Parent root = FXMLLoader.load(getClass().getResource("/Views/ManagerHomeView.fxml"));   //Manager 
 
-        //MyJDBC.createTestDatabase("AirlineDemo");
         //set root
         root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
         //root.setTop(headerFxml);          -> later nog een header invoeren!
@@ -48,6 +50,9 @@ public class MainApp extends Application {
         stage.setHeight(primaryScreenBounds.getHeight());
 
         stage.show();
+        
+        //Uncomment line below to create a local SQL Server 
+        MyJDBC.createLostLuggageDatabase(dbName);
 
     }
 
@@ -59,14 +64,14 @@ public class MainApp extends Application {
         //scene zetten ( in Center van BorderPane )
         //fxmlView.
         root.setCenter(fxmlView);
-        
-        //Tried to bring top to front and center to Back.
-        //root.toBack();
-        Node center = root.getCenter();
-      // --->  center.toBack();
-        Node top = root.getTop();
-        //top.toFront();
 
+    }
+
+    public static MyJDBC connectToDatabase() {
+
+        MyJDBC db = new MyJDBC(dbName);
+        
+        return  db;
     }
 
     /**

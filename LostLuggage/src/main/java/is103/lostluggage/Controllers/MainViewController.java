@@ -22,7 +22,7 @@ import javafx.scene.layout.Pane;
 /**
  * FXML Controller class
  *
- * @author gebruiker
+ * @author Michael de Boer
  */
 public class MainViewController implements Initializable {
 
@@ -61,6 +61,7 @@ public class MainViewController implements Initializable {
 //            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
 //        }
         instance = this;
+        
         
 
     }
