@@ -52,7 +52,7 @@ public class MainApp extends Application {
         stage.show();
         
         //Uncomment line below to create a local SQL Server 
-        MyJDBC.createLostLuggageDatabase(dbName);
+        //MyJDBC.createLostLuggageDatabase(dbName);
 
     }
 
