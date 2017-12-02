@@ -1,5 +1,7 @@
 package is103.lostluggage.Controllers.Service;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Model.MissedLuggage;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.MainViewController;
@@ -20,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Paint;
 
 /**
  * FXML Controller class voor vermiste bagage overzicht
@@ -79,13 +82,25 @@ public class ServiceVermisteOverzichtViewController implements Initializable {
     @FXML
     private TableColumn<MissedLuggage, String> signaturesColumn;
 
-                        
+    
+    
+    
+    @FXML
+    private JFXButton searchButton;
+    @FXML  
+    private JFXTextField searchField;
+    
+    //value of input
+    private String searchInput; 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        
+
+
         MainViewController.previousView = "/fxml/ServiceHomeView.fxml";
         
         //titel boven de pagina zetten
@@ -127,6 +142,11 @@ public class ServiceVermisteOverzichtViewController implements Initializable {
         missedLuggageTable.setItems(getLostLuggage());
         
     }
+    
+    
+    
+    
+    
 
     /** *  -----------------------------------------
      * Vermiste bagage uit de database tabel -> missedLuggage halen
@@ -218,17 +238,40 @@ public class ServiceVermisteOverzichtViewController implements Initializable {
     
     @FXML
     protected void switchToInput(ActionEvent event) throws IOException {
-        MainApp.switchView("/fxml/ServiceInvoerView.fxml");
+        try {
+            MainApp.switchView("/fxml/ServiceInvoerView.fxml");
+        } catch (IOException ex) {
+            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
-@   FXML
+    @FXML
     protected void switchToMatching(ActionEvent event) throws IOException {
-        MainApp.switchView("/fxml/ServiceMatchingView.fxml");
+        try {
+            MainApp.switchView("/fxml/ServiceMatchingView.fxml");
+        } catch (IOException ex) {
+            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     
     
     
+    @FXML
+    protected void searchStarted(ActionEvent event) throws IOException {
+        if (searchField.getText().isEmpty()) {
+            System.out.println("Pleas fill something in the search box");
+            searchField.setUnFocusColor(Paint.valueOf("#f03e3e"));
+            searchField.setFocusColor(Paint.valueOf("#f03e3e"));
+        } else {
+            searchInput = searchField.getText();
+            System.out.println("Search for: "+searchInput);
+            searchField.setUnFocusColor(Paint.valueOf("#4d4d4d"));
+            searchField.setFocusColor(Paint.valueOf("#4d4d4d"));
+        }
+        
+        
+    }
     
     /* -----------------------------------------
                 Komt later..! 

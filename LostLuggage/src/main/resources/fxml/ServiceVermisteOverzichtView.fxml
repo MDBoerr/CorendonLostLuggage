@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.Separator?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 
 <GridPane prefHeight="586.0" prefWidth="1179.0" style="-fx-background-color: fff;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Service.ServiceVermisteOverzichtViewController">
     <columnConstraints>
-        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="957.3544311523438" minWidth="10.0" prefWidth="472.0338439941406" />
-        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="777.9694519042969" minWidth="10.0" prefWidth="707.4661560058594" />
+        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="957.3544311523438" minWidth="10.0" prefWidth="579.3277587890625" />
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="777.9694519042969" minWidth="10.0" prefWidth="600.1722412109375" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints maxHeight="148.65740966796875" minHeight="10.0" prefHeight="81.10185241699219" vgrow="SOMETIMES" />
@@ -47,19 +46,37 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
         </TableView>
-      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <GridPane GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+        <columnConstraints>
+          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <VBox minWidth="150.0" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Separator opacity="0.0" prefHeight="8.0" prefWidth="237.0" />
-                  <JFXButton buttonType="RAISED" onAction="#switchToInput" prefHeight="27.0" prefWidth="115.0" ripplerFill="#1b5e20" style="-fx-background-color: #4CAF50#4CAF50;" text="Add Luggage +" textAlignment="CENTER" textFill="WHITE" />
-                  <Separator opacity="0.0" prefHeight="14.0" prefWidth="237.0" />
-                  <JFXButton buttonType="RAISED" onAction="#switchToMatching" prefHeight="27.0" prefWidth="115.0" ripplerFill="#0d47a1" style="-fx-background-color: #2196F3#2196F3;" text="Find Match &gt;" textAlignment="CENTER" textFill="WHITE" />
-                  <Separator opacity="0.0" prefHeight="8.0" prefWidth="237.0" />
-               </children>
-            </VBox>
-            <Separator opacity="0.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="75.0" />
+            <JFXButton buttonType="RAISED" onAction="#switchToInput" prefHeight="27.0" prefWidth="115.0" ripplerFill="#1b5e20" style="-fx-background-color: #4CAF50#4CAF50;" text="Add Luggage +" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="25.0" right="30.0" />
+               </GridPane.margin>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" onAction="#switchToMatching" prefHeight="27.0" prefWidth="115.0" ripplerFill="#0d47a1" style="-fx-background-color: #2196F3#2196F3;" text="Find Match &gt;" textAlignment="CENTER" textFill="WHITE">
+               <GridPane.margin>
+                  <Insets right="30.0" top="25.0" />
+               </GridPane.margin>
+            </JFXButton>
          </children>
-      </HBox>
+      </GridPane>
+      <JFXTextField fx:id="searchField" prefHeight="27.0" prefWidth="427.0" promptText="Search a specific property..." GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="25.0" left="25.0" />
+         </GridPane.margin>
+      </JFXTextField>
+      <JFXButton fx:id="searchButton" onAction="#searchStarted" prefHeight="27.0" prefWidth="64.0" ripplerFill="#4059a9" text="search" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="24.0" />
+         </GridPane.margin>
+      </JFXButton>
     </children>
 </GridPane>
