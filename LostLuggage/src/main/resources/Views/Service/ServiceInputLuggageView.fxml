@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="mainGridPane" prefHeight="579.0" prefWidth="949.0" style="-fx-background-color: #868e96#868e96 #868e96#868e96;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Service.ServiceInvoerViewController">
+<GridPane fx:id="mainGridPane" prefHeight="579.0" prefWidth="949.0" style="-fx-background-color: #868e96#868e96 #868e96#868e96;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Service.ServiceInputLuggageViewController">
     <columnConstraints>
         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="443.0" minWidth="10.0" prefWidth="443.0" />
         <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="689.0" minWidth="10.0" prefWidth="372.0" />

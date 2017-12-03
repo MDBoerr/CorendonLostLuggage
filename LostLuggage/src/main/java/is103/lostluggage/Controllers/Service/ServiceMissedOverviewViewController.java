@@ -29,7 +29,7 @@ import javafx.scene.paint.Paint;
  *
  * @author Thijs Zijdel
  */
-public class ServiceVermisteOverzichtViewController implements Initializable {
+public class ServiceMissedOverviewViewController implements Initializable {
 
     
         //view title
@@ -101,7 +101,7 @@ public class ServiceVermisteOverzichtViewController implements Initializable {
         
 
 
-        MainViewController.previousView = "/fxml/ServiceHomeView.fxml";
+        MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
         
         //titel boven de pagina zetten
         try {

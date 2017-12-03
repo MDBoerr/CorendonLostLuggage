@@ -1,5 +1,5 @@
 
-package is103.lostluggage.Controllers.Service;
+package is103.lostluggage.Model;
 
 import javafx.beans.property.SimpleStringProperty;
 

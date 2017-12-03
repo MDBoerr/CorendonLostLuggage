@@ -36,7 +36,7 @@ public class SelectUserRoleViewController implements Initializable {
     public void buttonPressed(ActionEvent event) throws IOException {
 
         if (event.getSource() == btnService) {
-            MainApp.switchView("/fxml/ServiceHomeView.fxml");
+            MainApp.switchView("/Views/Service/ServiceHomeView.fxml");
             
         }
         if (event.getSource() == btnAdmin) {
@@ -51,7 +51,7 @@ public class SelectUserRoleViewController implements Initializable {
     
     @FXML 
     protected void toServiceView(ActionEvent event) throws IOException {
-        MainApp.switchView("/fxml/ServiceHomeView.fxml");
+        MainApp.switchView("/Views/Service/ServiceHomeView.fxml");
     }
     @FXML 
     protected void toAdminView(ActionEvent event) throws IOException {

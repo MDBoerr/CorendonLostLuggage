@@ -62,22 +62,22 @@ public class ServiceHomeViewController implements Initializable {
 
     @FXML
     protected void toInputView(ActionEvent event) throws IOException {
-        MainApp.switchView("/fxml/ServiceInvoerView.fxml");
+        MainApp.switchView("/Views/Service/ServiceInputLuggageView.fxml");
     }
 
     @FXML
     protected void toFoundLuggageView(ActionEvent event) throws IOException {
-        MainApp.switchView("/fxml/ServiceGevondenOverzichtView.fxml");
+        MainApp.switchView("/Views/Service/ServiceFoundOverviewView.fxml");
     }
 
     @FXML
     protected void toMissedLuggageView(ActionEvent event) throws IOException {
-        MainApp.switchView("/fxml/ServiceVermisteOverzichtView.fxml");
+        MainApp.switchView("/Views/Service/ServiceMissedOverviewView.fxml");
     }
 
     @FXML
     protected void toMatchingView(ActionEvent event) throws IOException {
-        MainApp.switchView("/fxml/ServiceMatchingView.fxml");
+        MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
     }
 
 }

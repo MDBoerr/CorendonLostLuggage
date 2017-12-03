@@ -159,7 +159,7 @@ public class ServiceMatchingViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        MainViewController.previousView = "/fxml/ServiceHomeView.fxml";
+        MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
         
         //titel boven de pagina zetten
         try {
@@ -419,7 +419,7 @@ public class ServiceMatchingViewController implements Initializable {
                 System.out.println("Reloaden data!");
                 
             } else {
-                Parent popup = FXMLLoader.load(getClass().getResource("/fxml/ServiceDetailedLuggage.fxml"));
+                Parent popup = FXMLLoader.load(getClass().getResource("/Views/Service/ServiceDetailedLuggage.fxml"));
                 
                 stage.setScene(new Scene(popup));
                 

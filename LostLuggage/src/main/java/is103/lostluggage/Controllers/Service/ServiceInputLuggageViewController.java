@@ -21,16 +21,16 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import static is103.lostluggage.Controllers.Service.ServiceVermisteOverzichtViewController.MissedLuggageList;
+import static is103.lostluggage.Controllers.Service.ServiceMissedOverviewViewController.MissedLuggageList;
 
 /**
  * FXML Controller class
  *
  * @author gebruiker
  */
-public class ServiceInvoerViewController implements Initializable {
+public class ServiceInputLuggageViewController implements Initializable {
 
-    //public static ServiceVermisteOverzichtViewController serviceHomeView;
+    //public static ServiceMissedOverviewViewController serviceHomeView;
     /**
      * Initializes the controller class.
      */
@@ -120,7 +120,7 @@ public class ServiceInvoerViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //To Previous Scene
-        MainViewController.previousView = "/fxml/ServiceHomeView.fxml";
+        MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
 
         //Add options to choicebox
         missingFoundChoiceBox.getItems().addAll("Gevonden", "Vermist");

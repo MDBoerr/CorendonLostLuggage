@@ -15,7 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import static is103.lostluggage.Controllers.Service.ServiceVermisteOverzichtViewController.MissedLuggageList;
+import static is103.lostluggage.Controllers.Service.ServiceMissedOverviewViewController.MissedLuggageList;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.Model.FoundLuggage;
 import java.sql.ResultSet;
@@ -29,7 +29,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
  *
  * @author Thijs Zijdel
  */
-public class ServiceGevondenOverzichtViewController implements Initializable {
+public class ServiceFoundOverviewViewController implements Initializable {
 
     
     
@@ -90,7 +90,7 @@ public class ServiceGevondenOverzichtViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        MainViewController.previousView = "/fxml/ServiceHomeView.fxml";
+        MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
         
         //titel boven de pagina zetten
         try {
