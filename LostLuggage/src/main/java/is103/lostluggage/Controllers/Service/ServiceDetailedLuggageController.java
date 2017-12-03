@@ -22,12 +22,16 @@ import javafx.scene.paint.Paint;
 
 
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
+import is103.lostluggage.Model.LuggageDetails;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.UUID;
@@ -65,22 +69,26 @@ public class ServiceDetailedLuggageController implements Initializable {
     public Label id_field;
     
     @FXML
-    private static Label brand_field;
+    private JFXTextField idField;
     
     @FXML
-    private static Label type_field;
+    private JFXTextField typeField;
 
     @FXML  
-    private JFXTextField searchField;
+    private JFXTextField brandField;
     
+    @FXML  
+    private JFXTextField colorField;
+    
+    @FXML  
+    private JFXTextArea signaturesField;
     
     @FXML
     //Field that contains the employeeId
     private JFXTextField employeeIdField;
     
     
-    @FXML
-    private JFXTextField kofferField;
+
     
     /**
      * Initializes the controller class.
@@ -90,36 +98,12 @@ public class ServiceDetailedLuggageController implements Initializable {
         System.out.println("switched!!");
         
 //        kofferField.setText(getDetailObj.getObj_address());
-        zet();
-
+        initializeFoundFields();
+  
     }   
     
     
-    public static void setDetailedInfoFoundLuggage(FoundLuggage getDetailObj){
-        
-        System.out.println("a: "+getDetailObj);
-        System.out.println("Adress of object: "+ getDetailObj.getObj_address());
-        System.out.println("Label of object: "+ getDetailObj.getObj_labelnumber());
-        System.out.println("type of object: "+ getDetailObj.getObj_type());
-        
-        System.out.println("yes: labe number");
-        
-        
-        ServiceDetailedLuggageController method = new ServiceDetailedLuggageController();
-        method.showDetails(getDetailObj);
-        
-        
-        System.out.println(getDetailObj.getObj_labelnumber());
-        
-        
-//        id_field.setText(getDetailObj.getObj_labelnumber());
-//        
-//        brand_field.setText(getDetailObj.getObj_address());
-//        
-//        type_field.setText(getDetailObj.getObj_type());
-        
-        
-    }
+
     
     @FXML
     private void showDetails(FoundLuggage getDetailObj) {
@@ -145,8 +129,41 @@ public class ServiceDetailedLuggageController implements Initializable {
     }
     
     
-    private void zet(){
-        kofferField.setText("  ddd   ");
+    private void initializeFoundFields(){
+        String id = LuggageDetails.getInstance().currentLuggage().getIdfoundLuggage();
+        String type = LuggageDetails.getInstance().currentLuggage().getObj_type();
+        String brand = LuggageDetails.getInstance().currentLuggage().getObj_brand();
+        String color = LuggageDetails.getInstance().currentLuggage().getObj_color();
+        String signatures = LuggageDetails.getInstance().currentLuggage().getObj_signatures();
+        
+        idField.setText(id);
+        typeField.setText(type);
+        brandField.setText(brand);
+        colorField.setText(color);
+        signaturesField.setText(signatures);
+      
     }
+    
+    @FXML
+    protected void saveLuggageChanges(ActionEvent event) throws SQLException {
+        String luggageId = idField.getText();
+        String luggageType = typeField.getText();
+        String luggageBrand = brandField.getText();
+        String luggageColor = colorField.getText();
+        String luggageSignatures = signaturesField.getText();
+        
+        
+        MyJDBC db = new MyJDBC("LostLuggage");
+        ResultSet resultSet;
+        resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage WHERE idfoundLuggage='"+luggageId+"'");
+        System.out.println("result is:"+resultSet);
+        
+        
+        db.executeUpdateQuery("UPDATE `LostLuggage`.`foundLuggage` SET `type`='"+luggageType+"', `brand`='"+luggageBrand+"', `color`='"+luggageColor+"', `signatures`='"+luggageSignatures+"' WHERE `idfoundLuggage`='"+luggageId+"'");
+        System.out.println("DB row is updated!");
+        
+        
+    }
+        
     
 }

@@ -5,6 +5,7 @@ import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.FoundLuggage;
+import is103.lostluggage.Model.LuggageDetails;
 import is103.lostluggage.Model.MissedLuggage;
 import java.io.IOException;
 import java.net.URL;
@@ -359,23 +360,25 @@ public class ServiceMatchingViewController implements Initializable {
                     // als op de tekst is geklikt -> pak parent van text
                     found_row = (TableRow) node_data.getParent();
                 }
-                System.out.println("Set het goede object");
+                
+                //get het goede found luggage object -> plaats in getDetailObj
                 FoundLuggage getDetailObj = (FoundLuggage) found_row.getItem();
                 
                 //get row item
                 System.out.println("row item; " +found_row.getItem());
                 
+                     
                 
-                //Methode oproepen die de gedetaileerde informatie van het aangeklikte obj
-                //Oproept en deze in de view, ServiceDetailedLuggage zet. 
-                ServiceDetailedLuggageController.setDetailedInfoFoundLuggage(getDetailObj);
-                
-                ServiceMatchingViewController method = new ServiceMatchingViewController();
-                method.nonstatic(getDetailObj);
+                //Detail object zetten -> zodat hij in volgende view te openen is
+                LuggageDetails.getInstance().currentLuggage().setIdfoundLuggage(getDetailObj.getIdfoundLuggage());
+                LuggageDetails.getInstance().currentLuggage().setObj_type(getDetailObj.getObj_type());
+                LuggageDetails.getInstance().currentLuggage().setObj_brand(getDetailObj.getObj_brand());
+                LuggageDetails.getInstance().currentLuggage().setObj_color(getDetailObj.getObj_color());
+                LuggageDetails.getInstance().currentLuggage().setObj_signatures(getDetailObj.getObj_signatures());
         
                 //Switchen naar de detailed view
 //                try {
-//                    MainApp.switchView("/fxml/ServiceDetailedLuggage.fxml");
+//                    MainApp.switchView("/Views/Service/ServiceDetailedLuggageView.fxml");
 //                } catch (IOException ex) {
 //                    Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
 //                }
@@ -412,35 +415,33 @@ public class ServiceMatchingViewController implements Initializable {
     
     public void popUpDetails(Stage stage) throws IOException {
         try { 
+            //get popup fxml resource   
+            Parent popup = FXMLLoader.load(getClass().getResource("/Views/Service/ServiceDetailedLuggageView.fxml"));
+            stage.setScene(new Scene(popup));
+                
+            //no functies -> close / fullscreen/ topbar
+            //stage.initStyle(StageStyle.TRANSPARENT);
             
+            //stage altijd on top
+            stage.setAlwaysOnTop(true);
             
             if (stage.isShowing()){
-                System.out.println("already a stage openend");
-                System.out.println("Reloaden data!");
-                
+                //Stage was open -> refresh
+                stage.close();
+                stage.show();
             } else {
-                Parent popup = FXMLLoader.load(getClass().getResource("/Views/Service/ServiceDetailedLuggage.fxml"));
-                
-                stage.setScene(new Scene(popup));
-                
-                //no functies -> close / fullscreen/ topbar
-                //stage.initStyle(StageStyle.TRANSPARENT);
-                stage.setAlwaysOnTop(true);
+                //Stage was gesloten -> alleen openen
                 stage.show();
                 System.out.println("Popup opend");
             }
-            
-        
+
         } catch (IOException ex) {
             Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
 
-    private void nonstatic(FoundLuggage detailObj) {
-        
-    
-    }
+
     
     
     

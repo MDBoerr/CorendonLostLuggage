@@ -314,4 +314,5 @@ public class FoundLuggage {
     public void setObj_signatures(String obj_signatures) {
         this.obj_signatures = obj_signatures;
     }
+    
 }
