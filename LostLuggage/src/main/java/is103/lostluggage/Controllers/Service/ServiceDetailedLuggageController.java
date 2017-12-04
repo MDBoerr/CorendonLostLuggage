@@ -97,6 +97,7 @@ public class ServiceDetailedLuggageController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println("switched!!");
         
+        //try to load initialize methode
         try {
             initializeFoundFields();
         } catch (SQLException ex) {
@@ -108,73 +109,58 @@ public class ServiceDetailedLuggageController implements Initializable {
     
 
     
-    @FXML
-    private void showDetails(FoundLuggage getDetailObj) {
-        System.out.println("-------------------------- show details");
-        System.out.println("yess good methode");
-        //System.out.println(getDetailObj.getObj_type());
-            id_field = new Label();
-            
-            
-            //--> niet de bedoeling maar werkt wel, althans geen error meer
-            //kofferField = new JFXTextField();
-            
-            
-            
-            // --> facking bug 
-            //kofferField.setText("test :D ----");
-            
-            
-            
-            System.out.println("-------------- show details");
-            
-            //kofferField.setText(getDetailObj.getObj_address());
-    }
     
     
     private void initializeFoundFields() throws SQLException{
         String id = LuggageDetails.getInstance().currentLuggage().getRegistrationNr();
-
+        System.out.println("iD: "+id);
             MyJDBC db = new MyJDBC("LostLuggage");
-
+            
             ResultSet resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage WHERE registrationNr='"+id+"'");
-                String registrationNr =     resultSet.getString("registrationNr");
-                String dateFound =          resultSet.getString("dateFound");
-                String timeFound =          resultSet.getString("timeFound");
                 
-                String luggageTag =         resultSet.getString("luggageTag");
+            while (resultSet.next()) {
+                //String registrationNr =     resultSet.getString("registrationNr");
+                //String dateFound =          resultSet.getString("dateFound");
+                //String timeFound =          resultSet.getString("timeFound");
+                
+                //String luggageTag =         resultSet.getString("luggageTag");
                 int luggageType =           resultSet.getInt("luggageType");
                 String brand =              resultSet.getString("brand");
                 int mainColor =             resultSet.getInt("mainColor");
-                int secondColor =           resultSet.getInt("secondColor");
-                int size =                  resultSet.getInt("size");
-                int weight =                resultSet.getInt("weight");   
+                //int secondColor =           resultSet.getInt("secondColor");
+                //int size =                  resultSet.getInt("size");
+                //int weight =                resultSet.getInt("weight");   
                 String otherCharacteristics=resultSet.getString("otherCharacteristics");
-                int passengerId =           resultSet.getInt("passengerId");
+                //int passengerId =           resultSet.getInt("passengerId");
                 
-                String arrivedWithFlight =  resultSet.getString("arrivedWithFlight"); 
-                int locationFound =         resultSet.getInt("locationFound");
-                String employeeId =         resultSet.getString("employeeId");
-                int matchedId =              resultSet.getInt("matchedId");
-           
-          idField.setText(registrationNr);  
-           
-//            ResultSet result_type = db.executeResultSetQuery("SELECT * FROM luggagetype WHERE luggageTypeId='"+luggageType+"'");
-//            String type = result_type.getString("english");
-        //typeField.setText(type);
+                //String arrivedWithFlight =  resultSet.getString("arrivedWithFlight"); 
+                //int locationFound =         resultSet.getInt("locationFound");
+                //String employeeId =         resultSet.getString("employeeId");
+                //int matchedId =              resultSet.getInt("matchedId");
+ 
+            idField.setText(id);  
+            brandField.setText(brand);
+            signaturesField.setText(otherCharacteristics);
             
-        brandField.setText(brand);
-        
-        signaturesField.setText(otherCharacteristics);
-        setColor(db, mainColor); 
-        
+            setColor(db, mainColor); 
+            setType(db,luggageType);
+            }
         
     }
     
     private void setColor(MyJDBC db, int colorD) throws SQLException {
         ResultSet result_color = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+colorD+"'");
+        while (result_color.next()) {    
             String color = result_color.getString("english");
-        colorField.setText(color);
+            colorField.setText(color);
+        }
+    }
+    private void setType(MyJDBC db, int luggageType) throws SQLException {
+        ResultSet result_type = db.executeResultSetQuery("SELECT * FROM luggagetype WHERE luggageTypeId='"+luggageType+"'");
+        while (result_type.next()) {    
+            String type = result_type.getString("english");
+            typeField.setText(type);
+        }
     }
     
     @FXML
@@ -200,11 +186,7 @@ public class ServiceDetailedLuggageController implements Initializable {
             db.executeUpdateQuery("UPDATE `LostLuggage`.`foundLuggage` SET `type`='"+luggageType+"', `brand`='"+luggageBrand+"', `color`='"+luggageColor+"', `signatures`='"+luggageSignatures+"' WHERE `idfoundLuggage`='"+luggageId+"'");
             System.out.println("DB row is updated!");
         }
-        
-        
-        
-        
+   
     }
-        
-    
+   
 }
