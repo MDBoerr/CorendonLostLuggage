@@ -27,6 +27,7 @@ import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
+import static is103.lostluggage.MainApp.connectToDatabase;
 import is103.lostluggage.Model.LuggageDetails;
 import java.io.IOException;
 import java.net.URL;
@@ -114,7 +115,7 @@ public class ServiceDetailedLuggageController implements Initializable {
     private void initializeFoundFields() throws SQLException{
         String id = LuggageDetails.getInstance().currentLuggage().getRegistrationNr();
         System.out.println("iD: "+id);
-            MyJDBC db = new MyJDBC("LostLuggage");
+            MyJDBC db = connectToDatabase();
             
             ResultSet resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage WHERE registrationNr='"+id+"'");
                 

@@ -4,6 +4,7 @@ import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
+import static is103.lostluggage.MainApp.connectToDatabase;
 import is103.lostluggage.Model.FoundLuggage;
 import is103.lostluggage.Model.LuggageDetails;
 import is103.lostluggage.Model.MissedLuggage;
@@ -170,7 +171,7 @@ public class ServiceMatchingViewController implements Initializable {
         found_arrivedWithFlight.setCellValueFactory(    new PropertyValueFactory<>("arrivedWithFlight"));
         found_locationFound.setCellValueFactory(        new PropertyValueFactory<>("locationFound"));
         found_employeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
-        found_matchedId.setCellValueFactory(             new PropertyValueFactory<>("matchedId"));
+        found_matchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId"));
 
         foundLuggageTable.setItems(getFoundLuggage());
         
@@ -211,7 +212,7 @@ public class ServiceMatchingViewController implements Initializable {
         ObservableList<MissedLuggage> lostLuggageList = FXCollections.observableArrayList();
         
         try {
-            MyJDBC db = new MyJDBC("LostLuggage");
+            MyJDBC db = connectToDatabase();
 
             ResultSet resultSet;
 
@@ -272,7 +273,7 @@ public class ServiceMatchingViewController implements Initializable {
         ObservableList<FoundLuggage> foundLuggageList = FXCollections.observableArrayList();
         
         try {
-            MyJDBC db = new MyJDBC("LostLuggage");
+            MyJDBC db = connectToDatabase();;
 
             ResultSet resultSet;
 
@@ -379,7 +380,7 @@ public class ServiceMatchingViewController implements Initializable {
                 
                 //switchen naar detailed viw dmv: popup
                 try {
-                    popUpDetails(popupStage);
+                    popUpDetails(popupStage, "/Views/Service/ServiceDetailedLuggageView.fxml");
                 } catch (IOException ex) {
                     Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -407,10 +408,10 @@ public class ServiceMatchingViewController implements Initializable {
         MainApp.switchView("/fxml/ServiceVermisteOverzichtView.fxml");
     }
     
-    public void popUpDetails(Stage stage) throws IOException {
+    public void popUpDetails(Stage stage, String viewLink) throws IOException {
         try { 
             //get popup fxml resource   
-            Parent popup = FXMLLoader.load(getClass().getResource("/Views/Service/ServiceDetailedLuggageView.fxml"));
+            Parent popup = FXMLLoader.load(getClass().getResource(viewLink));
             stage.setScene(new Scene(popup));
                 
             //no functies -> close / fullscreen/ topbar
