@@ -1,6 +1,8 @@
 package is103.lostluggage.Controllers.Service;
 
 
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Model.FoundLuggage;
 import is103.lostluggage.Controllers.MainViewController;
@@ -38,6 +40,10 @@ public class ServiceFoundOverviewViewController implements Initializable {
     private final String title = "Overzicht Gevonden Bagage";
     
     public static ObservableList<FoundLuggage> foundLuggageList;
+    public static ObservableList<FoundLuggage> foundLuggageListSearchResults;
+    
+    @FXML JFXTextField searchField;
+    @FXML JFXComboBox searchTypeComboBox;
     
     /* -----------------------------------------
          TableView found luggage's colommen
@@ -81,11 +87,126 @@ public class ServiceFoundOverviewViewController implements Initializable {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         } 
         
-
+        
+        searchTypeComboBox.getItems().addAll(
+                "All fields",
+                "RegistrationNr", 
+                "LuggageTag", 
+                "Brand",
+                "Color",
+                "Characteristics");
+        searchTypeComboBox.setValue("All fields");
+        
+        
+        
         initializeFoundLuggageTable();
         
         
         
+    }
+    
+    @FXML
+    public void search(){
+        String query = searchType();
+        System.out.println(query);
+        
+        String search = searchField.getText();
+        
+        
+        String finalQuery = query.replaceAll("replace", search);
+        
+        System.out.println("Query: " +finalQuery);
+        
+        
+        
+        
+
+        try {
+            MyJDBC db = MainApp.connectToDatabase();
+            ResultSet resultSet;
+            resultSet = db.executeResultSetQuery(finalQuery);
+            
+            System.out.println("Resultset:   "+resultSet);
+            while (resultSet.next()) {
+                String registrationNr =     resultSet.getString("registrationNr");
+                String dateFound =          resultSet.getString("dateFound");
+                String timeFound =          resultSet.getString("timeFound");
+                
+                String luggageTag =         resultSet.getString("luggageTag");
+                int luggageType =           resultSet.getInt("luggageType");
+                String brand =              resultSet.getString("brand");
+                int mainColor =             resultSet.getInt("mainColor");
+                int secondColor =           resultSet.getInt("secondColor");
+                int size =                  resultSet.getInt("size");
+                int weight =                resultSet.getInt("weight");   
+                String otherCharacteristics=resultSet.getString("otherCharacteristics");
+                int passengerId =           resultSet.getInt("passengerId");
+                
+                String arrivedWithFlight =  resultSet.getString("arrivedWithFlight"); 
+                int locationFound =         resultSet.getInt("locationFound");
+                String employeeId =         resultSet.getString("employeeId");
+                int matchedId =             resultSet.getInt("matchedId");
+
+                foundLuggageListSearchResults.add(
+                        new FoundLuggage(
+                                registrationNr, 
+                                dateFound, 
+                                timeFound, 
+                                
+                                luggageTag, 
+                                luggageType, 
+                                brand, 
+                                mainColor, 
+                                secondColor, 
+                                size, 
+                                weight, 
+                                otherCharacteristics, 
+                                passengerId, 
+                                
+                                arrivedWithFlight, 
+                                locationFound, 
+                                employeeId, 
+                                matchedId
+                            ));
+            }
+            foundLuggageTable.setItems(foundLuggageListSearchResults);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceFoundOverviewViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+         
+    }
+    
+    public String searchType(){
+        
+      String value = searchTypeComboBox.getValue().toString();
+      
+        if("All fields".equals(value)){
+            return "SELECT * FROM foundluggage WHERE * LIKE '%replace%'";
+        }
+        
+        if("RegistrationNr".equals(value)){
+            return "SELECT * FROM foundluggage WHERE registrationNr LIKE '%replace%'";
+        }
+        
+        if ("LuggageTag".equals(value)){
+            return "SELECT * FROM foundluggage WHERE luggageTag LIKE '%replace%'";
+        }
+        
+        if ("Brand".equals(value)){
+            return "SELECT * FROM foundluggage WHERE brand LIKE '%replace%'";
+        }
+        
+        if ("Color".equals(value)){
+            return "SELECT * FROM foundluggage WHERE mainColor LIKE '%replace%'";
+        }
+        
+        if ("Characteristics".equals(value)){
+            return "SELECT * FROM foundluggage WHERE otherCharacteristics LIKE '%replace%'";
+        }
+        
+        return "NonSelected - failed";
     }
     
     /**  
