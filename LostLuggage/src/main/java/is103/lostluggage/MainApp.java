@@ -13,30 +13,25 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 public class MainApp extends Application {
 
     private static BorderPane root;
-    
+
     private static String dbName = "LostLuggage";
 
     @Override
     public void start(Stage stage) throws Exception {
-        //Oude manier:
-        //Parent root = FXMLLoader.load(getClass().getResource("/Views/HomeView.fxml"));        //Admin
-        //Parent root = FXMLLoader.load(getClass().getResource("/fxml/ServiceHomeView.fxml"));  //Service medewerker
-        //Parent root = FXMLLoader.load(getClass().getResource("/Views/ManagerHomeView.fxml"));   //Manager 
 
         //set root
         root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
-        //root.setTop(headerFxml);          -> later nog een header invoeren!
-        //Na laden 'main view'   tijdelijke switch naar -> ServiceHomeView
-        //switchView("/fxml/ServiceHomeView.fxml");
+
         switchView("/fxml/SelectUserRoleView.fxml");
 
-        Scene scene = new Scene(root, 1200, 800);
+        Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
         //scene.getStylesheets().add("/styles/MaterialDesign.css");
 
@@ -48,12 +43,15 @@ public class MainApp extends Application {
         stage.setY(primaryScreenBounds.getMinY());
         stage.setWidth(primaryScreenBounds.getWidth());
         stage.setHeight(primaryScreenBounds.getHeight());
+        
+        Image logo = new Image("Images/Stage logo@3x.png");
+        //Image applicationIcon = new Image(getClass().getResourceAsStream("Images/Logo.png"));
+        stage.getIcons().add(logo);
 
         stage.show();
-        
+
         //Uncomment line below to create a local SQL Server 
         //MyJDBC.createLostLuggageDatabase(dbName);
-
     }
 
     //methode voor het switchen van schermen
@@ -70,8 +68,8 @@ public class MainApp extends Application {
     public static MyJDBC connectToDatabase() {
 
         MyJDBC db = new MyJDBC(dbName);
-        
-        return  db;
+
+        return db;
     }
 
     /**
