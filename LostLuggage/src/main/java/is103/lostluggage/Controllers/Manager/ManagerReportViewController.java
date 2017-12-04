@@ -68,9 +68,7 @@ public class ManagerReportViewController implements Initializable {
             while (resultSet.next()) {
                 int countfound = resultSet.getInt("quantityfound");
                 int month = resultSet.getInt("months");
-               
 
-              
                 switch (month) {
                     case 1:
                         mon = "januari";
@@ -110,16 +108,14 @@ public class ManagerReportViewController implements Initializable {
 
                 }
                 seriesfound.getData().add(new XYChart.Data<>(mon, countfound));
-                
 
             }
-            
-                        while (lostSet.next()) {
-                
+
+            while (lostSet.next()) {
+
                 int month = lostSet.getInt("months");
                 int countlost = lostSet.getInt("quantitylost");
 
-              
                 switch (month) {
                     case 1:
                         mon = "januari";
@@ -158,12 +154,15 @@ public class ManagerReportViewController implements Initializable {
                         mon = "december";
 
                 }
+                
                 serieslost.getData().add(new XYChart.Data<>(mon, countlost));
-                        }
+            }
 
         } catch (SQLException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        seriesfound.setName("Found Luggage");
+        serieslost.setName("Lost Luggage");
         lineChart.getData().add(seriesfound);
         lineChart.getData().add(serieslost);
 
