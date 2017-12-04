@@ -18,7 +18,7 @@ public class ManagerPassengerInfoViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        MainViewController.previousView = "/Views/ManagerTerugView.fxml";
+        MainViewController.previousView = "/Views/ManagerFoundView.fxml";
     }    
     
 }
