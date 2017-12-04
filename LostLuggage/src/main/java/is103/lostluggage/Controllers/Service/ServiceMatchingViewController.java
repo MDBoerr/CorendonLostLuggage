@@ -4,7 +4,6 @@ import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
-import static is103.lostluggage.MainApp.connectToDatabase;
 import is103.lostluggage.Model.FoundLuggage;
 import is103.lostluggage.Model.LuggageDetails;
 import is103.lostluggage.Model.MissedLuggage;
@@ -29,11 +28,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 
 /**
@@ -54,13 +49,10 @@ public class ServiceMatchingViewController implements Initializable {
     
     public static ObservableList<FoundLuggage> foundLuggageList;
     public static ObservableList<MissedLuggage> missedLuggageList;
-    
-    
-    
+
     /* -----------------------------------------
          TableView found luggage's colommen
     ----------------------------------------- */
-    
     @FXML private TableView<FoundLuggage> foundLuggageTable;
 
     @FXML private TableColumn<FoundLuggage, String>  foundRegistrationNr;
@@ -82,13 +74,7 @@ public class ServiceMatchingViewController implements Initializable {
 //    @FXML private TableColumn<FoundLuggage, String>  foundEmployeeId;
 //    @FXML private TableColumn<FoundLuggage, Integer> foundMatchedId;
     
-    
-    
-    
- 
-    
 
-    
     /* -----------------------------------------
          TableView missed luggage's colommen
     ----------------------------------------- */
@@ -113,16 +99,13 @@ public class ServiceMatchingViewController implements Initializable {
     //@FXML private TableColumn<MissedLuggage, String>  missedEmployeeId;
     //@FXML private TableColumn<MissedLuggage, Integer> missedMatchedId;
     
-    
-    
-    
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        //switch to prev view.
         MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
         
         //titel boven de pagina zetten
@@ -132,36 +115,17 @@ public class ServiceMatchingViewController implements Initializable {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         } 
         
-        
-        
-        
-        foundRegistrationNr.setCellValueFactory(       new PropertyValueFactory<>("registrationNr"));
-        foundDateFound.setCellValueFactory(            new PropertyValueFactory<>("dateFound"));
-        foundTimeFound.setCellValueFactory(            new PropertyValueFactory<>("timeFound"));
-        
-        foundLuggageTag.setCellValueFactory(           new PropertyValueFactory<>("luggageTag"));
-        foundLuggageType.setCellValueFactory(          new PropertyValueFactory<>("luggageType"));
-        foundBrand.setCellValueFactory(                new PropertyValueFactory<>("brand"));
-        foundMainColor.setCellValueFactory(            new PropertyValueFactory<>("mainColor"));
-        foundSecondColor.setCellValueFactory(          new PropertyValueFactory<>("secondColor"));
-        foundSize.setCellValueFactory(                 new PropertyValueFactory<>("size"));
-        foundWeight.setCellValueFactory(               new PropertyValueFactory<>("weight"));
 
-        foundOtherCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
-        foundPassengerId.setCellValueFactory(          new PropertyValueFactory<>("passengerId"));
+        initializeMissedLuggageTable();
+        initializeFoundLuggageTable();
         
-        foundArrivedWithFlight.setCellValueFactory(    new PropertyValueFactory<>("arrivedWithFlight"));
-        foundLocationFound.setCellValueFactory(        new PropertyValueFactory<>("locationFound"));
-//        foundEmployeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
-//        foundMatchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId"));
+    }
 
-        foundLuggageTable.setItems(getFoundLuggage());
-        
-        
-        
-        
-        
-        missedRegistrationNr.setCellValueFactory(       new PropertyValueFactory<>("registrationNr"));
+    /**  
+     * @void 
+     */
+    public void initializeMissedLuggageTable(){
+        missedRegistrationNr.setCellValueFactory(      new PropertyValueFactory<>("registrationNr"));
         missedDateLost.setCellValueFactory(            new PropertyValueFactory<>("dateFound"));
         missedTimeLost.setCellValueFactory(            new PropertyValueFactory<>("timeFound"));
         
@@ -176,17 +140,18 @@ public class ServiceMatchingViewController implements Initializable {
         missedOtherCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
         missedPassengerId.setCellValueFactory(          new PropertyValueFactory<>("passengerId"));
         
-        missedFlight.setCellValueFactory(    new PropertyValueFactory<>("flight"));
+        missedFlight.setCellValueFactory(               new PropertyValueFactory<>("flight"));
         
 //        missedEmployeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
 //        missedMatchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId"));    
         
-        missedLuggageTable.setItems(getMissedLuggage());
-        
-        
-        
+        missedLuggageTable.setItems(getMissedLuggage());   
     }
-
+    
+    
+    /**  
+     * @return missedLuggages
+     */
     public ObservableList<MissedLuggage> getMissedLuggage() {
 
         ObservableList<MissedLuggage> missedLuggageList = FXCollections.observableArrayList();
@@ -218,7 +183,7 @@ public class ServiceMatchingViewController implements Initializable {
                 String otherCharacteristics=resultSet.getString("otherCharacteristics");
                 int passengerId =           resultSet.getInt("passengerId");
                 
-                String flight =  resultSet.getString("flight"); 
+                String flight =             resultSet.getString("flight"); 
                 String employeeId =         resultSet.getString("employeeId");
                 int matchedId =             resultSet.getInt("matchedId");
 
@@ -259,8 +224,37 @@ public class ServiceMatchingViewController implements Initializable {
     } 
     
     
+    /**  
+     * @void
+     */
+    public void initializeFoundLuggageTable(){
+        foundRegistrationNr.setCellValueFactory(       new PropertyValueFactory<>("registrationNr"));
+        foundDateFound.setCellValueFactory(            new PropertyValueFactory<>("dateFound"));
+        foundTimeFound.setCellValueFactory(            new PropertyValueFactory<>("timeFound"));
+        
+        foundLuggageTag.setCellValueFactory(           new PropertyValueFactory<>("luggageTag"));
+        foundLuggageType.setCellValueFactory(          new PropertyValueFactory<>("luggageType"));
+        foundBrand.setCellValueFactory(                new PropertyValueFactory<>("brand"));
+        foundMainColor.setCellValueFactory(            new PropertyValueFactory<>("mainColor"));
+        foundSecondColor.setCellValueFactory(          new PropertyValueFactory<>("secondColor"));
+        foundSize.setCellValueFactory(                 new PropertyValueFactory<>("size"));
+        foundWeight.setCellValueFactory(               new PropertyValueFactory<>("weight"));
+
+        foundOtherCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
+        foundPassengerId.setCellValueFactory(          new PropertyValueFactory<>("passengerId"));
+        
+        foundArrivedWithFlight.setCellValueFactory(    new PropertyValueFactory<>("arrivedWithFlight"));
+        foundLocationFound.setCellValueFactory(        new PropertyValueFactory<>("locationFound"));
+//        foundEmployeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
+//        foundMatchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId"));
+
+        foundLuggageTable.setItems(getFoundLuggage());
+    }
     
     
+    /**  
+     * @return foundLuggages
+     */
     public ObservableList<FoundLuggage> getFoundLuggage() {
 
         ObservableList<FoundLuggage> foundLuggageList = FXCollections.observableArrayList();
@@ -338,6 +332,9 @@ public class ServiceMatchingViewController implements Initializable {
     }
     
     
+    /**  
+     * @void doubleClickFoundRow
+     */
     public void foundRowClicked() {
         foundLuggageTable.setOnMousePressed((MouseEvent event) -> {
                                 //--> event         //--> double click
@@ -359,17 +356,8 @@ public class ServiceMatchingViewController implements Initializable {
                 //get row item
                 System.out.println("row item; " +found_row.getItem());
                 
-                     
-                
                 //Detail object zetten -> zodat hij in volgende view te openen is
                 LuggageDetails.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNr());
-
-                //Switchen naar de detailed view
-//                try {
-//                    MainApp.switchView("/Views/Service/ServiceDetailedLuggageView.fxml");
-//                } catch (IOException ex) {
-//                    Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
-//                }
                 
                 //switchen naar detailed viw dmv: popup
                 try {
@@ -377,30 +365,14 @@ public class ServiceMatchingViewController implements Initializable {
                 } catch (IOException ex) {
                     Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-                
-                
-                
+   
             }
         });
     }
     
-    
-    @FXML
-    protected void switchToInput(ActionEvent event) throws IOException {
-        MainApp.switchView("/fxml/ServiceInvoerView.fxml");
-    }
-    
-    @FXML
-    protected void switchToFound(ActionEvent event) throws IOException {
-        MainApp.switchView("/fxml/ServiceGevondenOverzichtView.fxml");
-    }
-    
-    @FXML
-    protected void switchToMissed(ActionEvent event) throws IOException {
-        MainApp.switchView("/fxml/ServiceVermisteOverzichtView.fxml");
-    }
-    
+    /**  
+     * @void popupDetails 
+     */
     public void popUpDetails(Stage stage, String viewLink) throws IOException {
         try { 
             //get popup fxml resource   
@@ -430,8 +402,22 @@ public class ServiceMatchingViewController implements Initializable {
         
     }
 
-
     
+    
+    @FXML
+    protected void switchToInput(ActionEvent event) throws IOException {
+        MainApp.switchView("/fxml/ServiceInvoerView.fxml");
+    }
+    
+    @FXML
+    protected void switchToFound(ActionEvent event) throws IOException {
+        MainApp.switchView("/fxml/ServiceGevondenOverzichtView.fxml");
+    }
+    
+    @FXML
+    protected void switchToMissed(ActionEvent event) throws IOException {
+        MainApp.switchView("/fxml/ServiceVermisteOverzichtView.fxml");
+    }
     
     
 }

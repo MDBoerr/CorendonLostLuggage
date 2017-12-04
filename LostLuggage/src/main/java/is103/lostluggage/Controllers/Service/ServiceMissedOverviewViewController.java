@@ -1,13 +1,11 @@
 package is103.lostluggage.Controllers.Service;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Model.MissedLuggage;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
-import static is103.lostluggage.MainApp.connectToDatabase;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -38,6 +36,12 @@ public class ServiceMissedOverviewViewController implements Initializable {
     
     public static ObservableList<MissedLuggage> MissedLuggageList;
     
+    @FXML  
+    private JFXTextField searchField;
+    
+    //value of input
+    private String searchInput; 
+    
     /* -----------------------------------------
          TableView missed luggage's colommen
     ----------------------------------------- */
@@ -62,24 +66,15 @@ public class ServiceMissedOverviewViewController implements Initializable {
     @FXML private TableColumn<MissedLuggage, String>  missedEmployeeId;
     @FXML private TableColumn<MissedLuggage, Integer> missedMatchedId;
     
+   
+
     
-    
-    @FXML
-    private JFXButton searchButton;
-    @FXML  
-    private JFXTextField searchField;
-    
-    //value of input
-    private String searchInput; 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        
-
-
+        //switch to previous view
         MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
         
         //titel boven de pagina zetten
@@ -89,13 +84,13 @@ public class ServiceMissedOverviewViewController implements Initializable {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
            
-    /** -----------------------------------------
-     *    DATA vanuit database in tabel plaatsen
-     * 
-     * @return data vanuit database in tabel.
-    /*----------------------------------------- */       
-        
-            //-> colum id (fxml)                                    <LostLuggage, String>        //-> 
+
+        initializeMissedLuggageTable();
+    }
+    
+    
+    
+    public void initializeMissedLuggageTable(){
         missedRegistrationNr.setCellValueFactory(       new PropertyValueFactory<>("registrationNr"));
         missedDateLost.setCellValueFactory(            new PropertyValueFactory<>("dateFound"));
         missedTimeLost.setCellValueFactory(            new PropertyValueFactory<>("timeFound"));
@@ -118,21 +113,10 @@ public class ServiceMissedOverviewViewController implements Initializable {
         missedLuggageTable.setItems(getMissedLuggage());
     }
     
-    
-    
-    
-    
 
-    /** *  -----------------------------------------
-     * Vermiste bagage uit de database tabel -> missedLuggage halen
-        Deze gegevens vervolgens (tijdelijk) in variabelen opslaan
-        Deze gegevens in object (MissedLuggage) plaatsen
- 
-        Resultaten per resultaat (koffer) -> (voor check) uiprinten (console)
-     * 
-     * 
-     * @return luggages --> lijst met data van vermiste koffers
-     /*----------------------------------------- */
+    /**  
+     * @return missedLuggages
+     */
     public ObservableList<MissedLuggage> getMissedLuggage() {
 
         ObservableList<MissedLuggage> missedLuggageList = FXCollections.observableArrayList();
@@ -205,9 +189,7 @@ public class ServiceMissedOverviewViewController implements Initializable {
     }
     
 
-     /* -----------------------------------------
-                terug knop 
-    ----------------------------------------- */
+
     @FXML
     protected void backHomeButton(ActionEvent event) throws IOException {
         try {
@@ -217,8 +199,7 @@ public class ServiceMissedOverviewViewController implements Initializable {
         }
     }
 
-    
-    
+
     @FXML
     protected void switchToInput(ActionEvent event) throws IOException {
         try {
@@ -228,6 +209,7 @@ public class ServiceMissedOverviewViewController implements Initializable {
         }
     }
     
+    
     @FXML
     protected void switchToMatching(ActionEvent event) throws IOException {
         try {
@@ -236,9 +218,7 @@ public class ServiceMissedOverviewViewController implements Initializable {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
-    
+
     
     @FXML
     protected void searchStarted(ActionEvent event) throws IOException {
@@ -256,36 +236,6 @@ public class ServiceMissedOverviewViewController implements Initializable {
         
     }
     
-    /* -----------------------------------------
-                Komt later..! 
-                Is voor het invoeren..
-    ----------------------------------------- */
-    
-//    public static List addToList(int id, String label, String merk, String type, String vlucht, String luchthaven, String kenmerken, String reiziger) {
-//        MissedLuggageList.add(new MissedLuggage(id, label, merk, type, vlucht, luchthaven, kenmerken, reiziger));
-//
-//        //System.out.println(MissedLuggageList);
-//        return MissedLuggageList;
-//    
-//    INSERT INTO `AirlineDemo`.`missedLuggage` (`idmissedLuggage`, `timeField`, `airportField`, `dateDatepicker`, `nameField`, `adressField`, `residenceField`, `postalcodeField`, `countryField`, `emailField`, `labelnumberField`, `flightnumberField`, `destinationField`, `typeField`, `brandField`, `colorField`) VALUES ('13', '13:32', 'ANT', '12-02-2017', 'Henk Astrid', 'Julianalaan 4', 'Amstelveen', '1932 SA', 'Nederland', 'Henk.Astrid@mail.com', '2983DLO932', 'ANT9389AMD', 'AMD', 'Rugtas', 'Eastpak', 'Zwart');
-//        luggages.add(new MissedLuggage("......,.....,...."));
-//
-//    }
-
    
-//    @FXML
-//    public void removeRow(ActionEvent event) {
-//        
-//        Object row = VermistTable.getSelectionModel().getSelectedItem();
-//        
-//        if (row == null) {
-//            System.out.println("Geen rij geselecteerd");
-//        } else {
-//            MissedLuggageList.remove(row);
-//            System.out.println("Verwijderd");
-//        }
-//    }
-
-
 
 }

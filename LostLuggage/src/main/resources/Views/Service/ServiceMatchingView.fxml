@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -11,9 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -25,99 +21,40 @@
     <rowConstraints>
       <RowConstraints maxHeight="148.65740966796875" minHeight="10.0" prefHeight="27.5" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="148.65740966796875" minHeight="10.0" prefHeight="57.5" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="265.3981475830078" minHeight="10.0" prefHeight="43.5" valignment="CENTER" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="316.0810241699219" minHeight="3.595653533935547" prefHeight="35.5" valignment="CENTER" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="94.90306091308594" minHeight="28.789535522460938" prefHeight="50.806121826171875" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="96.59823608398438" minHeight="51.579071044921875" prefHeight="66.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="94.90306091308594" minHeight="32.5" prefHeight="32.5" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="129.0" minHeight="100.0" prefHeight="129.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="94.903076171875" minHeight="78.3380126953125" prefHeight="78.3380126953125" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="265.3981475830078" minHeight="10.0" prefHeight="153.5" valignment="CENTER" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="316.0810241699219" minHeight="3.595653533935547" prefHeight="49.5" valignment="CENTER" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="124.0" minHeight="28.789535522460938" prefHeight="45.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="114.0" minHeight="18.0" prefHeight="44.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="94.90306091308594" minHeight="0.0" prefHeight="37.5" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="129.0" minHeight="42.0" prefHeight="49.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="94.903076171875" minHeight="49.5" prefHeight="49.5" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="94.903076171875" minHeight="78.3380126953125" prefHeight="78.3380126953125" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-      <HBox alignment="CENTER_RIGHT" prefHeight="77.0" prefWidth="708.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
-         <children>
-            <VBox minWidth="150.0" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Separator opacity="0.0" prefHeight="8.0" prefWidth="237.0" />
-                  <JFXButton buttonType="RAISED" onAction="#switchToInput" prefHeight="37.0" prefWidth="115.0" ripplerFill="#1b5e20" style="-fx-background-color: #4CAF50#4CAF50;" text="Add Luggage +" textAlignment="CENTER" textFill="WHITE" />
-                  <Separator opacity="0.0" prefHeight="8.0" prefWidth="237.0" />
-               </children>
-            </VBox>
-            <Separator opacity="0.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="75.0" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER_RIGHT" prefHeight="77.0" prefWidth="708.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-         <children>
-            <VBox minWidth="150.0" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Separator opacity="0.0" prefHeight="8.0" prefWidth="237.0" />
-                  <JFXButton onAction="#switchToFound" prefHeight="20.0" prefWidth="120.0" ripplerFill="#0d47a1" style="-fx-background-color: #2196F3#2196F3;" text="Full Overview &gt;" textAlignment="CENTER" textFill="WHITE" />
-                  <Separator opacity="0.0" prefHeight="8.0" prefWidth="237.0" />
-               </children>
-            </VBox>
-            <Separator opacity="0.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="75.0" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER_RIGHT" prefHeight="77.0" prefWidth="708.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
-         <children>
-            <VBox minWidth="150.0" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Separator opacity="0.0" prefHeight="8.0" prefWidth="237.0" />
-                  <JFXButton onAction="#switchToMissed" prefHeight="27.0" prefWidth="116.0" ripplerFill="#0d47a1" style="-fx-background-color: #2196F3#2196F3;" text="Full Overview &gt;" textAlignment="CENTER" textFill="WHITE" />
-                  <Separator opacity="0.0" prefHeight="8.0" prefWidth="237.0" />
-               </children>
-            </VBox>
-            <Separator opacity="0.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="75.0" />
-         </children>
-      </HBox>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Found Luggage" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
-         <font>
-            <Font size="18.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="10.0" />
-         </GridPane.margin>
-      </Text>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lost Luggage" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
-         <font>
-            <Font size="18.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="10.0" />
-         </GridPane.margin>
-      </Text>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Matches" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="10.0" />
-         </GridPane.margin>
-      </Text>
-      <TableView fx:id="foundLuggageTable" onMouseClicked="#foundRowClicked" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
-         <columns>
-            <TableColumn fx:id="foundRegistrationNr" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="ID" />
-            <TableColumn fx:id="foundDateFound" minWidth="80.0" text="Date Found" />
-            <TableColumn fx:id="foundTimeFound" minWidth="65.0" prefWidth="114.00006103515625" text="Time" />
-            <TableColumn fx:id="foundLuggageTag" minWidth="15.999969482421875" prefWidth="60.0" text="Tag" />
-            <TableColumn fx:id="foundLuggageType" minWidth="21.0" prefWidth="49.0" text="Type" />
-            <TableColumn fx:id="foundBrand" minWidth="37.0" prefWidth="68.0" text="Brand" />
-            <TableColumn fx:id="foundMainColor" minWidth="39.0" prefWidth="61.0" text="Color" />
-            <TableColumn fx:id="foundSecondColor" minWidth="78.0" prefWidth="94.0" text="Secondcolor" />
-            <TableColumn fx:id="foundSize" minWidth="49.0" prefWidth="58.0" text="Size" />
-            <TableColumn fx:id="foundWeight" minWidth="56.0" prefWidth="76.0" text="Weight" />
-            <TableColumn fx:id="foundOtherCharacteristics" minWidth="100.0" prefWidth="176.0" text="Characteristics" />
-            <TableColumn fx:id="foundPassengerId" minWidth="57.0" prefWidth="82.0" text="Passenger" />
-            <TableColumn fx:id="foundArrivedWithFlight" minWidth="50.0" prefWidth="84.0" text="Flight" />
-            <TableColumn fx:id="foundLocationFound" minWidth="60.0" prefWidth="119.0" text="Location" />
-         </columns>
-      </TableView>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" GridPane.columnSpan="2" GridPane.rowIndex="7" GridPane.rowSpan="2">
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" GridPane.columnSpan="2" GridPane.rowSpan="3">
         <tabs>
           <Tab text="Possible Matches">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="missedLuggageTable1" onMouseClicked="#foundRowClicked" prefHeight="207.0" prefWidth="1178.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <columns>
+                              <TableColumn fx:id="missedRegistrationNr1" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="ID" />
+                              <TableColumn fx:id="missedDateLost1" minWidth="80.0" text="Date Found" />
+                              <TableColumn fx:id="missedTimeLost1" minWidth="65.0" prefWidth="114.00006103515625" text="Time" />
+                              <TableColumn fx:id="missedLuggageTag1" minWidth="15.999969482421875" prefWidth="60.0" text="Tag" />
+                              <TableColumn fx:id="missedLuggageType1" minWidth="21.0" prefWidth="49.0" text="Type" />
+                              <TableColumn fx:id="missedBrand1" minWidth="37.0" prefWidth="68.0" text="Brand" />
+                              <TableColumn fx:id="missedMainColor1" minWidth="39.0" prefWidth="61.0" text="Color" />
+                              <TableColumn fx:id="missedSecondColor1" minWidth="78.0" prefWidth="94.0" text="Secondcolor" />
+                              <TableColumn fx:id="missedSize1" minWidth="49.0" prefWidth="58.0" text="Size" />
+                              <TableColumn fx:id="missedWeight1" minWidth="56.0" prefWidth="76.0" text="Weight" />
+                              <TableColumn fx:id="missedOtherCharacteristics1" minWidth="100.0" prefWidth="176.0" text="Characteristics" />
+                              <TableColumn fx:id="missedPassengerId1" minWidth="57.0" prefWidth="82.0" text="Passenger" />
+                              <TableColumn fx:id="missedFlight1" minWidth="50.0" prefWidth="84.0" text="Flight" />
+                           </columns>
+                        </TableView>
+                     </children></AnchorPane>
             </content>
           </Tab>
           <Tab text="Manuel Matches">
@@ -127,6 +64,14 @@
           </Tab>
         </tabs>
       </TabPane>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Missed Luggage" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin>
+      </Text>
       <TableView fx:id="missedLuggageTable" onMouseClicked="#foundRowClicked" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="2">
          <columns>
             <TableColumn fx:id="missedRegistrationNr" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="ID" />
@@ -142,6 +87,32 @@
             <TableColumn fx:id="missedOtherCharacteristics" minWidth="100.0" prefWidth="176.0" text="Characteristics" />
             <TableColumn fx:id="missedPassengerId" minWidth="57.0" prefWidth="82.0" text="Passenger" />
             <TableColumn fx:id="missedFlight" minWidth="50.0" prefWidth="84.0" text="Flight" />
+         </columns>
+      </TableView>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Found Luggage" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin>
+      </Text>
+      <TableView fx:id="foundLuggageTable" onMouseClicked="#foundRowClicked" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowIndex="7" GridPane.rowSpan="2">
+         <columns>
+            <TableColumn fx:id="foundRegistrationNr" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="ID" />
+            <TableColumn fx:id="foundDateFound" minWidth="80.0" text="Date Found" />
+            <TableColumn fx:id="foundTimeFound" minWidth="65.0" prefWidth="114.00006103515625" text="Time" />
+            <TableColumn fx:id="foundLuggageTag" minWidth="15.999969482421875" prefWidth="60.0" text="Tag" />
+            <TableColumn fx:id="foundLuggageType" minWidth="21.0" prefWidth="49.0" text="Type" />
+            <TableColumn fx:id="foundBrand" minWidth="37.0" prefWidth="68.0" text="Brand" />
+            <TableColumn fx:id="foundMainColor" minWidth="39.0" prefWidth="61.0" text="Color" />
+            <TableColumn fx:id="foundSecondColor" minWidth="78.0" prefWidth="94.0" text="Secondcolor" />
+            <TableColumn fx:id="foundSize" minWidth="49.0" prefWidth="58.0" text="Size" />
+            <TableColumn fx:id="foundWeight" minWidth="56.0" prefWidth="76.0" text="Weight" />
+            <TableColumn fx:id="foundOtherCharacteristics" minWidth="100.0" prefWidth="176.0" text="Characteristics" />
+            <TableColumn fx:id="foundPassengerId" minWidth="57.0" prefWidth="82.0" text="Passenger" />
+            <TableColumn fx:id="foundArrivedWithFlight" minWidth="50.0" prefWidth="84.0" text="Flight" />
+            <TableColumn fx:id="foundLocationFound" minWidth="60.0" prefWidth="119.0" text="Location" />
          </columns>
       </TableView>
     </children>

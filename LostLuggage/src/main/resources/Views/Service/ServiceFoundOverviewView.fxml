@@ -23,29 +23,6 @@
         <RowConstraints maxHeight="33.31011962890625" minHeight="100.0" prefHeight="9.034820556640625" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <TableView fx:id="foundLuggageTable" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowSpan="3">
-            <columns>
-                <TableColumn fx:id="found_registrationNr" maxWidth="2000.0" prefWidth="30.0" text="ID" />
-                <TableColumn fx:id="found_dateFound" prefWidth="30.0" text="dateFound" />
-                <TableColumn fx:id="found_timeFound" prefWidth="96.0" text="timeFound" />
-                <TableColumn fx:id="found_luggageTag" prefWidth="57.72200012207031" text="tag" />
-                <TableColumn fx:id="found_luggageType" prefWidth="54.84834289550781" text="type" />
-                <TableColumn fx:id="found_brand" prefWidth="54.671478271484375" text="brand" />
-                <TableColumn fx:id="found_mainColor" prefWidth="71.00393676757812" text="mainColor" />
-                <TableColumn fx:id="found_secondColor" prefWidth="84.48635864257812" text="secondColor" />
-            <TableColumn fx:id="found_size" prefWidth="57.0" text="size" />
-            <TableColumn fx:id="found_weight" prefWidth="95.0" text="weight" />
-            <TableColumn fx:id="found_otherCharacteristics" prefWidth="69.98828125" text="Characteristics" />
-            <TableColumn fx:id="found_passengerId" prefWidth="86.01171875" text="passangerId" />
-            <TableColumn fx:id="found_arrivedWithFlight" prefWidth="81.86956787109375" text="flight" />
-            <TableColumn fx:id="found_locationFound" prefWidth="82.486328125" text="locationFound" />
-            <TableColumn fx:id="found_employeeId" prefWidth="65.984375" text="employeeId" />
-            <TableColumn fx:id="found_matchedId" prefWidth="60.482421875" text="matcheId" />
-            </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-        </TableView>
       <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <children>
             <VBox minWidth="150.0" prefHeight="200.0" prefWidth="100.0">
@@ -60,5 +37,25 @@
             <Separator opacity="0.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="75.0" />
          </children>
       </HBox>
+      <TableView fx:id="foundLuggageTable" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowSpan="3">
+         <columns>
+            <TableColumn fx:id="foundRegistrationNr" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="ID" />
+            <TableColumn fx:id="foundDateFound" minWidth="80.0" text="Date Found" />
+            <TableColumn fx:id="foundTimeFound" minWidth="65.0" prefWidth="114.00006103515625" text="Time" />
+            <TableColumn fx:id="foundLuggageTag" minWidth="15.999969482421875" prefWidth="60.0" text="Tag" />
+            <TableColumn fx:id="foundLuggageType" minWidth="21.0" prefWidth="49.0" text="Type" />
+            <TableColumn fx:id="foundBrand" minWidth="37.0" prefWidth="68.0" text="Brand" />
+            <TableColumn fx:id="foundMainColor" minWidth="39.0" prefWidth="61.0" text="Color" />
+            <TableColumn fx:id="foundSecondColor" minWidth="78.0" prefWidth="94.0" text="Secondcolor" />
+            <TableColumn fx:id="foundSize" minWidth="49.0" prefWidth="58.0" text="Size" />
+            <TableColumn fx:id="foundWeight" minWidth="56.0" prefWidth="76.0" text="Weight" />
+            <TableColumn fx:id="foundOtherCharacteristics" minWidth="100.0" prefWidth="176.0" text="Characteristics" />
+            <TableColumn fx:id="foundPassengerId" minWidth="57.0" prefWidth="82.0" text="Passenger" />
+            <TableColumn fx:id="foundArrivedWithFlight" minWidth="50.0" prefWidth="84.0" text="Flight" />
+            <TableColumn fx:id="foundLocationFound" minWidth="60.0" prefWidth="119.0" text="Location" />
+            <TableColumn fx:id="foundEmployeeId" minWidth="60.0" prefWidth="119.0" text="Employee" />
+            <TableColumn fx:id="foundMatchedId" minWidth="60.0" prefWidth="119.0" text="Match" />
+         </columns>
+      </TableView>
     </children>
 </GridPane>
