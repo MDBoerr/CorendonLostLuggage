@@ -17,6 +17,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import static is103.lostluggage.Controllers.Service.ServiceMissedOverviewViewController.MissedLuggageList;
 import is103.lostluggage.Database.MyJDBC;
+import static is103.lostluggage.MainApp.connectToDatabase;
 import is103.lostluggage.Model.FoundLuggage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -134,7 +135,7 @@ public class ServiceFoundOverviewViewController implements Initializable {
         ObservableList<FoundLuggage> foundLuggageList = FXCollections.observableArrayList();
         
         try {
-            MyJDBC db = new MyJDBC("LostLuggage");
+            MyJDBC db = connectToDatabase();
 
             ResultSet resultSet;
 
