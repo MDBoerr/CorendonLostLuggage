@@ -7,6 +7,7 @@ import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
+import static is103.lostluggage.MainApp.connectToDatabase;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -163,7 +164,7 @@ public class ServiceMissedOverviewViewController implements Initializable {
         ObservableList<MissedLuggage> lostLuggageList = FXCollections.observableArrayList();
         
         try {
-            MyJDBC db = new MyJDBC("LostLuggage");
+            MyJDBC db = connectToDatabase();
 
             ResultSet resultSet;
 

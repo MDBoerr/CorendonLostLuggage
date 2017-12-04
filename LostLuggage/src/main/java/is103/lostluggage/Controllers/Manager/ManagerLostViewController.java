@@ -1,11 +1,18 @@
 package is103.lostluggage.Controllers.Manager;
 
+import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.HomeUserViewController;
 import is103.lostluggage.Controllers.MainViewController;
+import static is103.lostluggage.Controllers.Manager.ManagerRetrievedViewController.retrievedLuggage;
+import is103.lostluggage.Database.MyJDBC;
+import is103.lostluggage.MainApp;
+import is103.lostluggage.Model.User;
 //import is103.lostluggage.Controllers.Service.Luggage;
 //import static is103.lostluggage.Controllers.Service.ServiceVermisteOverzichtViewController.luggageList;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,34 +36,38 @@ import javafx.stage.Stage;
  */
 public class ManagerLostViewController implements Initializable {
 
- //luggage list
+    //luggage list
 //    public static ObservableList<Luggage> luggageList;
     private int id = 0;
-    
+
     @FXML
     public TableView LostTable;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         //To Previous Scene
         MainViewController.previousView = "/Views/ManagerHomeView.fxml";
         
-//        luggageList = FXCollections.observableArrayList();
-  //      LostTable.setItems(luggageList);
         
-        //voor elke colum data vullen (bij verandering en initializatie
-        for (int i = 0; i < LostTable.getColumns().size(); i++  ) {
-            TableColumn tc = (TableColumn) LostTable.getColumns().get(i);
             
-            tc.setCellValueFactory(new PropertyValueFactory<>(tc.getId()));
-            
-        }
+
         
+
         
-        //dummy data invoeren in de tabel 
-        //luggageList.add(new Luggage((id++), "A392D4K", "Tomos", "Trolley", "D383D", "Amsterdam Airport", "rode sticker", "reiziger"));
-       // luggageList.add(new Luggage((id++), "C38DKE3", "East Pack", "Rugzak", "A74D0", "Antalya Aiport", "zonder handvat", "reiziger"));
-    }      
- 
+
             
-}
+
+            
+
+               
+
+                
+
+            }
+
+
+    }
+
+    
+
