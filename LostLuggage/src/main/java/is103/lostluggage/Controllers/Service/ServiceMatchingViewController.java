@@ -200,7 +200,7 @@ public class ServiceMatchingViewController implements Initializable {
         missed_signaturesColumn.setCellValueFactory(   new PropertyValueFactory<>("obj_signatures"));
     
         
-        missedLuggageTable.setItems(getLostLuggage());
+        //missedLuggageTable.setItems(getLostLuggage());
         
         
         
@@ -344,7 +344,7 @@ public class ServiceMatchingViewController implements Initializable {
     }
     
     
-    public void mouseClickedOnRowFound() {
+    public void foundRowClicked() {
         foundLuggageTable.setOnMousePressed((MouseEvent event) -> {
                                 //--> event         //--> double click
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
@@ -368,12 +368,8 @@ public class ServiceMatchingViewController implements Initializable {
                      
                 
                 //Detail object zetten -> zodat hij in volgende view te openen is
-//                LuggageDetails.getInstance().currentLuggage().setIdfoundLuggage(getDetailObj.getIdfoundLuggage());
-//                LuggageDetails.getInstance().currentLuggage().setObj_type(getDetailObj.getObj_type());
-//                LuggageDetails.getInstance().currentLuggage().setObj_brand(getDetailObj.getObj_brand());
-//                LuggageDetails.getInstance().currentLuggage().setObj_color(getDetailObj.getObj_color());
-//                LuggageDetails.getInstance().currentLuggage().setObj_signatures(getDetailObj.getObj_signatures());
-//        
+                LuggageDetails.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNr());
+
                 //Switchen naar de detailed view
 //                try {
 //                    MainApp.switchView("/Views/Service/ServiceDetailedLuggageView.fxml");

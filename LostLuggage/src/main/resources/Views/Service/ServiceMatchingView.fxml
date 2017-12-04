@@ -142,7 +142,7 @@
             <Insets left="10.0" />
          </GridPane.margin>
       </Text>
-      <TableView fx:id="foundLuggageTable" prefHeight="328.0" prefWidth="1178.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+      <TableView fx:id="foundLuggageTable" onMouseClicked="#foundRowClicked" prefHeight="328.0" prefWidth="1178.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
          <columns>
             <TableColumn fx:id="found_registrationNr" maxWidth="2000.0" prefWidth="30.0" text="ID" />
             <TableColumn fx:id="found_dateFound" prefWidth="30.0" text="dateFound" />
