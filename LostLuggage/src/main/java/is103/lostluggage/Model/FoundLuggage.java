@@ -11,308 +11,308 @@ package is103.lostluggage.Model;
  */
 public class FoundLuggage {
     private String  
-            idfoundLuggage, 
-            obj_time, 
-            obj_airport, 
-            obj_date;
+            registrationNr, 
+            dateFound, 
+            timeFound, 
+            luggageTag;
     
-    private String 
-            obj_name, 
-            obj_address, 
-            obj_residence, 
-            obj_postalcode, 
-            obj_country, 
-            obj_email;
+    private int 
+            luggageType;
     
-    private String 
-            obj_labelnumber, 
-            obj_flightnumber, 
-            obj_destination;
+    private String
+            brand;
     
-
+    private int 
+            mainColor,
+            secondColor,
+            size,
+            weight;
+    
+    private String
+            otherCharaccteristics;
+    
+    private int 
+            passengerId;
+            
     private String 
-            obj_type,
-            obj_brand,
-            obj_color,
-            obj_signatures;
+            arrivedWithFlight;
+    
+    private int 
+            locationFound;
+    
+    private String
+            employeeId;
+    
+    private int
+            matchedId;
 
     public FoundLuggage(
-            String data_idFoundLuggage, 
-            String data_time, 
-            String data_airport, 
-            String data_date, 
-            String data_name, 
-            String data_address, 
-            String data_residence, 
-            String data_postalcode, 
-            String data_country, 
-            String data_email, 
-            String data_labelnumber, 
-            String data_flightnumber, 
-            String data_destination, 
-            String data_type, 
-            String data_brand, 
-            String data_color, 
-            String data_signatures) {
-        this.idfoundLuggage = data_idFoundLuggage;
-        this.obj_time =        data_time;
-        this.obj_airport =     data_airport;
-        this.obj_date =        data_date;
-        this.obj_name =        data_name;
-        this.obj_address =     data_address;
-        this.obj_residence =   data_residence;
-        this.obj_postalcode =  data_postalcode;
-        this.obj_country =     data_country;
-        this.obj_email =       data_email;
-        this.obj_labelnumber = data_labelnumber;
-        this.obj_flightnumber =data_flightnumber;
-        this.obj_destination = data_destination;
-        this.obj_type =        data_type;
-        this.obj_brand =       data_brand;
-        this.obj_color =       data_color;
-        this.obj_signatures =  data_signatures;
+            String registrationNr, 
+            String dateFound, 
+            String timeFound, 
+            String luggageTag, 
+            int luggageType, 
+            String brand, 
+            int mainColor, 
+            int secondColor, 
+            int size, 
+            int weight, 
+            String otherCharaccteristics, 
+            int passengerId, 
+            String arrivedWithFlight, 
+            int locationFound, 
+            String employeeId, 
+            int matchedId) {
+        this.registrationNr = registrationNr;
+        this.dateFound = dateFound;
+        this.timeFound = timeFound;
+        this.luggageTag = luggageTag;
+        this.luggageType = luggageType;
+        this.brand = brand;
+        this.mainColor = mainColor;
+        this.secondColor = secondColor;
+        this.size = size;
+        this.weight = weight;
+        this.otherCharaccteristics = otherCharaccteristics;
+        this.passengerId = passengerId;
+        this.arrivedWithFlight = arrivedWithFlight;
+        this.locationFound = locationFound;
+        this.employeeId = employeeId;
+        this.matchedId = matchedId;
     }
+
+
+    
 
     public FoundLuggage() {
         
     }
 
     /**
-     * @return the idfoundLuggage
+     * @return the registrationNr
      */
-    public String getIdfoundLuggage() {
-        return idfoundLuggage;
+    public String getRegistrationNr() {
+        return registrationNr;
     }
 
     /**
-     * @param idfoundLuggage the idfoundLuggage to set
+     * @param registrationNr the registrationNr to set
      */
-    public void setIdfoundLuggage(String idfoundLuggage) {
-        this.idfoundLuggage = idfoundLuggage;
+    public void setRegistrationNr(String registrationNr) {
+        this.registrationNr = registrationNr;
     }
 
     /**
-     * @return the obj_time
+     * @return the dateFound
      */
-    public String getObj_time() {
-        return obj_time;
+    public String getDateFound() {
+        return dateFound;
     }
 
     /**
-     * @param obj_time the obj_time to set
+     * @param dateFound the dateFound to set
      */
-    public void setObj_time(String obj_time) {
-        this.obj_time = obj_time;
+    public void setDateFound(String dateFound) {
+        this.dateFound = dateFound;
     }
 
     /**
-     * @return the obj_airport
+     * @return the timeFound
      */
-    public String getObj_airport() {
-        return obj_airport;
+    public String getTimeFound() {
+        return timeFound;
     }
 
     /**
-     * @param obj_airport the obj_airport to set
+     * @param timeFound the timeFound to set
      */
-    public void setObj_airport(String obj_airport) {
-        this.obj_airport = obj_airport;
+    public void setTimeFound(String timeFound) {
+        this.timeFound = timeFound;
     }
 
     /**
-     * @return the obj_date
+     * @return the luggageTag
      */
-    public String getObj_date() {
-        return obj_date;
+    public String getLuggageTag() {
+        return luggageTag;
     }
 
     /**
-     * @param obj_date the obj_date to set
+     * @param luggageTag the luggageTag to set
      */
-    public void setObj_date(String obj_date) {
-        this.obj_date = obj_date;
+    public void setLuggageTag(String luggageTag) {
+        this.luggageTag = luggageTag;
     }
 
     /**
-     * @return the obj_name
+     * @return the luggageType
      */
-    public String getObj_name() {
-        return obj_name;
+    public int getLuggageType() {
+        return luggageType;
     }
 
     /**
-     * @param obj_name the obj_name to set
+     * @param luggageType the luggageType to set
      */
-    public void setObj_name(String obj_name) {
-        this.obj_name = obj_name;
+    public void setLuggageType(int luggageType) {
+        this.luggageType = luggageType;
     }
 
     /**
-     * @return the obj_address
+     * @return the brand
      */
-    public String getObj_address() {
-        return obj_address;
+    public String getBrand() {
+        return brand;
     }
 
     /**
-     * @param obj_address the obj_address to set
+     * @param brand the brand to set
      */
-    public void setObj_address(String obj_address) {
-        this.obj_address = obj_address;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     /**
-     * @return the obj_residence
+     * @return the mainColor
      */
-    public String getObj_residence() {
-        return obj_residence;
+    public int getMainColor() {
+        return mainColor;
     }
 
     /**
-     * @param obj_residence the obj_residence to set
+     * @param mainColor the mainColor to set
      */
-    public void setObj_residence(String obj_residence) {
-        this.obj_residence = obj_residence;
+    public void setMainColor(int mainColor) {
+        this.mainColor = mainColor;
     }
 
     /**
-     * @return the obj_postalcode
+     * @return the secondColor
      */
-    public String getObj_postalcode() {
-        return obj_postalcode;
+    public int getSecondColor() {
+        return secondColor;
     }
 
     /**
-     * @param obj_postalcode the obj_postalcode to set
+     * @param secondColor the secondColor to set
      */
-    public void setObj_postalcode(String obj_postalcode) {
-        this.obj_postalcode = obj_postalcode;
+    public void setSecondColor(int secondColor) {
+        this.secondColor = secondColor;
     }
 
     /**
-     * @return the obj_country
+     * @return the size
      */
-    public String getObj_country() {
-        return obj_country;
+    public int getSize() {
+        return size;
     }
 
     /**
-     * @param obj_country the obj_country to set
+     * @param size the size to set
      */
-    public void setObj_country(String obj_country) {
-        this.obj_country = obj_country;
+    public void setSize(int size) {
+        this.size = size;
     }
 
     /**
-     * @return the obj_email
+     * @return the weight
      */
-    public String getObj_email() {
-        return obj_email;
+    public int getWeight() {
+        return weight;
     }
 
     /**
-     * @param obj_email the obj_email to set
+     * @param weight the weight to set
      */
-    public void setObj_email(String obj_email) {
-        this.obj_email = obj_email;
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
     /**
-     * @return the obj_labelnumber
+     * @return the otherCharaccteristics
      */
-    public String getObj_labelnumber() {
-        return obj_labelnumber;
+    public String getOtherCharaccteristics() {
+        return otherCharaccteristics;
     }
 
     /**
-     * @param obj_labelnumber the obj_labelnumber to set
+     * @param otherCharaccteristics the otherCharaccteristics to set
      */
-    public void setObj_labelnumber(String obj_labelnumber) {
-        this.obj_labelnumber = obj_labelnumber;
+    public void setOtherCharaccteristics(String otherCharaccteristics) {
+        this.otherCharaccteristics = otherCharaccteristics;
     }
 
     /**
-     * @return the obj_flightnumber
+     * @return the passengerId
      */
-    public String getObj_flightnumber() {
-        return obj_flightnumber;
+    public int getPassengerId() {
+        return passengerId;
     }
 
     /**
-     * @param obj_flightnumber the obj_flightnumber to set
+     * @param passengerId the passengerId to set
      */
-    public void setObj_flightnumber(String obj_flightnumber) {
-        this.obj_flightnumber = obj_flightnumber;
+    public void setPassengerId(int passengerId) {
+        this.passengerId = passengerId;
     }
 
     /**
-     * @return the obj_destination
+     * @return the arrivedWithFlight
      */
-    public String getObj_destination() {
-        return obj_destination;
+    public String getArrivedWithFlight() {
+        return arrivedWithFlight;
     }
 
     /**
-     * @param obj_destination the obj_destination to set
+     * @param arrivedWithFlight the arrivedWithFlight to set
      */
-    public void setObj_destination(String obj_destination) {
-        this.obj_destination = obj_destination;
+    public void setArrivedWithFlight(String arrivedWithFlight) {
+        this.arrivedWithFlight = arrivedWithFlight;
     }
 
     /**
-     * @return the obj_type
+     * @return the locationFound
      */
-    public String getObj_type() {
-        return obj_type;
+    public int getLocationFound() {
+        return locationFound;
     }
 
     /**
-     * @param obj_type the obj_type to set
+     * @param locationFound the locationFound to set
      */
-    public void setObj_type(String obj_type) {
-        this.obj_type = obj_type;
+    public void setLocationFound(int locationFound) {
+        this.locationFound = locationFound;
     }
 
     /**
-     * @return the obj_brand
+     * @return the employeeId
      */
-    public String getObj_brand() {
-        return obj_brand;
+    public String getEmployeeId() {
+        return employeeId;
     }
 
     /**
-     * @param obj_brand the obj_brand to set
+     * @param employeeId the employeeId to set
      */
-    public void setObj_brand(String obj_brand) {
-        this.obj_brand = obj_brand;
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
     }
 
     /**
-     * @return the obj_color
+     * @return the matchedId
      */
-    public String getObj_color() {
-        return obj_color;
+    public int getMatchedId() {
+        return matchedId;
     }
 
     /**
-     * @param obj_color the obj_color to set
+     * @param matchedId the matchedId to set
      */
-    public void setObj_color(String obj_color) {
-        this.obj_color = obj_color;
-    }
-
-    /**
-     * @return the obj_signatures
-     */
-    public String getObj_signatures() {
-        return obj_signatures;
-    }
-
-    /**
-     * @param obj_signatures the obj_signatures to set
-     */
-    public void setObj_signatures(String obj_signatures) {
-        this.obj_signatures = obj_signatures;
+    public void setMatchedId(int matchedId) {
+        this.matchedId = matchedId;
     }
     
+    
+
+
 }

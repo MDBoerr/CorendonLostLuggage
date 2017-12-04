@@ -98,7 +98,7 @@ public class ServiceDetailedLuggageController implements Initializable {
         System.out.println("switched!!");
         
 //        kofferField.setText(getDetailObj.getObj_address());
-        initializeFoundFields();
+        //initializeFoundFields();
   
     }   
     
@@ -109,7 +109,7 @@ public class ServiceDetailedLuggageController implements Initializable {
     private void showDetails(FoundLuggage getDetailObj) {
         System.out.println("-------------------------- show details");
         System.out.println("yess good methode");
-        System.out.println(getDetailObj.getObj_type());
+        //System.out.println(getDetailObj.getObj_type());
             id_field = new Label();
             
             
@@ -130,18 +130,18 @@ public class ServiceDetailedLuggageController implements Initializable {
     
     
     private void initializeFoundFields(){
-        String id = LuggageDetails.getInstance().currentLuggage().getIdfoundLuggage();
-        String type = LuggageDetails.getInstance().currentLuggage().getObj_type();
-        String brand = LuggageDetails.getInstance().currentLuggage().getObj_brand();
-        String color = LuggageDetails.getInstance().currentLuggage().getObj_color();
-        String signatures = LuggageDetails.getInstance().currentLuggage().getObj_signatures();
-        
-        idField.setText(id);
-        typeField.setText(type);
-        brandField.setText(brand);
-        colorField.setText(color);
-        signaturesField.setText(signatures);
-      
+//        String id = LuggageDetails.getInstance().currentLuggage().getIdfoundLuggage();
+//        String type = LuggageDetails.getInstance().currentLuggage().getObj_type();
+//        String brand = LuggageDetails.getInstance().currentLuggage().getObj_brand();
+//        String color = LuggageDetails.getInstance().currentLuggage().getObj_color();
+//        String signatures = LuggageDetails.getInstance().currentLuggage().getObj_signatures();
+//        
+//        idField.setText(id);
+//        typeField.setText(type);
+//        brandField.setText(brand);
+//        colorField.setText(color);
+//        signaturesField.setText(signatures);
+//      
     }
     
     @FXML
@@ -157,10 +157,18 @@ public class ServiceDetailedLuggageController implements Initializable {
         ResultSet resultSet;
         resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage WHERE idfoundLuggage='"+luggageId+"'");
         System.out.println("result is:"+resultSet);
+        if (    luggageType == null || "".equals(luggageType) ||
+                luggageBrand == null || "".equals(luggageBrand) ||
+                luggageColor == null || "".equals(luggageColor) ||
+                luggageSignatures == null || "".equals(luggageSignatures)
+                ) {
+            System.out.println("Een van de velden is leeg of null");
+        } else {
+            db.executeUpdateQuery("UPDATE `LostLuggage`.`foundLuggage` SET `type`='"+luggageType+"', `brand`='"+luggageBrand+"', `color`='"+luggageColor+"', `signatures`='"+luggageSignatures+"' WHERE `idfoundLuggage`='"+luggageId+"'");
+            System.out.println("DB row is updated!");
+        }
         
         
-        db.executeUpdateQuery("UPDATE `LostLuggage`.`foundLuggage` SET `type`='"+luggageType+"', `brand`='"+luggageBrand+"', `color`='"+luggageColor+"', `signatures`='"+luggageSignatures+"' WHERE `idfoundLuggage`='"+luggageId+"'");
-        System.out.println("DB row is updated!");
         
         
     }

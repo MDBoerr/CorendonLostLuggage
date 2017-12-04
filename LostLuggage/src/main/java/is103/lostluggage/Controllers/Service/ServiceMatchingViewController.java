@@ -57,46 +57,26 @@ public class ServiceMatchingViewController implements Initializable {
          TableView found luggage's colommen
     ----------------------------------------- */
     
-    @FXML
-    private TableView<FoundLuggage> foundLuggageTable;
+    @FXML private TableView<FoundLuggage> foundLuggageTable;
 
-    @FXML
-    private TableColumn<FoundLuggage, String> idFoundLuggageColumn;
-    @FXML
-    private TableColumn<FoundLuggage, String> found_timeColumn;
-    @FXML
-    private TableColumn<FoundLuggage, String> found_airportColumn;
-    @FXML
-    private TableColumn<FoundLuggage, String> found_dateColumn;
+    @FXML private TableColumn<FoundLuggage, String>  found_registrationNr;
+    @FXML private TableColumn<FoundLuggage, String>  found_dateFound;
+    @FXML private TableColumn<FoundLuggage, String>  found_timeFound;
     
-    @FXML
-    private TableColumn<FoundLuggage, String> found_nameColumn;
-    @FXML
-    private TableColumn<FoundLuggage, String> found_addressColumn;
-    @FXML
-    private TableColumn<FoundLuggage, String> found_residenceColumn;
-    @FXML
-    private TableColumn<FoundLuggage, String> found_postalcodeColumn;
-    @FXML
-    private TableColumn<FoundLuggage, String> found_countryColumn;
-    @FXML
-    private TableColumn<FoundLuggage, String> found_emailColumn;
+    @FXML private TableColumn<FoundLuggage, String>  found_luggageTag;
+    @FXML private TableColumn<FoundLuggage, String>  found_luggageType;
+    @FXML private TableColumn<FoundLuggage, String>  found_brand;
+    @FXML private TableColumn<FoundLuggage, Integer> found_mainColor;
+    @FXML private TableColumn<FoundLuggage, String>  found_secondColor;
+    @FXML private TableColumn<FoundLuggage, Integer> found_size;
+    @FXML private TableColumn<FoundLuggage, String>  found_weight;
+    @FXML private TableColumn<FoundLuggage, String>  found_otherCharacteristics;
+    @FXML private TableColumn<FoundLuggage, Integer> found_passengerId;
     
-    @FXML
-    private TableColumn<FoundLuggage, String> found_labelnumberColumn;
-    @FXML
-    private TableColumn<FoundLuggage, String> found_flightnumberColumn;
-    @FXML
-    private TableColumn<FoundLuggage, String> found_destinationColumn;
-    
-    @FXML
-    private TableColumn<FoundLuggage, String> found_typeColumn;
-    @FXML
-    private TableColumn<FoundLuggage, String> found_brandColumn;
-    @FXML
-    private TableColumn<FoundLuggage, String> found_colorColumn;
-    @FXML
-    private TableColumn<FoundLuggage, String> found_signaturesColumn;
+    @FXML private TableColumn<FoundLuggage, String> found_arrivedWithFlight;
+    @FXML private TableColumn<FoundLuggage, Integer> found_locationFound;
+    @FXML private TableColumn<FoundLuggage, String> found_employeeId;
+    @FXML private TableColumn<FoundLuggage, Integer> found_matchedId;
     
     
     
@@ -172,27 +152,26 @@ public class ServiceMatchingViewController implements Initializable {
         
         
         
-        idFoundLuggageColumn.setCellValueFactory(new PropertyValueFactory<>("idfoundLuggage"));
-        found_timeColumn.setCellValueFactory(         new PropertyValueFactory<>("obj_time"));
-        found_airportColumn.setCellValueFactory(      new PropertyValueFactory<>("obj_airport"));
-        found_dateColumn.setCellValueFactory(         new PropertyValueFactory<>("obj_date"));
+        found_registrationNr.setCellValueFactory(       new PropertyValueFactory<>("registrationNr"));
+        found_dateFound.setCellValueFactory(            new PropertyValueFactory<>("dateFound"));
+        found_timeFound.setCellValueFactory(            new PropertyValueFactory<>("timeFound"));
         
-        found_nameColumn.setCellValueFactory(         new PropertyValueFactory<>("obj_name"));
-        found_addressColumn.setCellValueFactory(      new PropertyValueFactory<>("obj_address"));
-        found_residenceColumn.setCellValueFactory(    new PropertyValueFactory<>("obj_residence"));
-        found_postalcodeColumn.setCellValueFactory(   new PropertyValueFactory<>("obj_postalcode"));
-        found_countryColumn.setCellValueFactory(      new PropertyValueFactory<>("obj_country"));
-        found_emailColumn.setCellValueFactory(        new PropertyValueFactory<>("obj_email"));
+        found_luggageTag.setCellValueFactory(           new PropertyValueFactory<>("luggageTag"));
+        found_luggageType.setCellValueFactory(          new PropertyValueFactory<>("luggageType"));
+        found_brand.setCellValueFactory(                new PropertyValueFactory<>("brand"));
+        found_mainColor.setCellValueFactory(            new PropertyValueFactory<>("mainColor"));
+        found_secondColor.setCellValueFactory(          new PropertyValueFactory<>("secondColor"));
+        found_size.setCellValueFactory(                 new PropertyValueFactory<>("size"));
+        found_weight.setCellValueFactory(               new PropertyValueFactory<>("weight"));
 
-        found_labelnumberColumn.setCellValueFactory(  new PropertyValueFactory<>("obj_labelnumber"));
-        found_flightnumberColumn.setCellValueFactory( new PropertyValueFactory<>("obj_flightnumber"));
-        found_destinationColumn.setCellValueFactory(  new PropertyValueFactory<>("obj_destination"));
-            
-        found_typeColumn.setCellValueFactory(         new PropertyValueFactory<>("obj_type"));
-        found_brandColumn.setCellValueFactory(        new PropertyValueFactory<>("obj_brand"));
-        found_colorColumn.setCellValueFactory(        new PropertyValueFactory<>("obj_color"));
-        found_signaturesColumn.setCellValueFactory(   new PropertyValueFactory<>("obj_signatures"));
-    
+        found_otherCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
+        found_passengerId.setCellValueFactory(          new PropertyValueFactory<>("passengerId"));
+        
+        found_arrivedWithFlight.setCellValueFactory(    new PropertyValueFactory<>("arrivedWithFlight"));
+        found_locationFound.setCellValueFactory(        new PropertyValueFactory<>("locationFound"));
+        found_employeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
+        found_matchedId.setCellValueFactory(             new PropertyValueFactory<>("matchedId"));
+
         foundLuggageTable.setItems(getFoundLuggage());
         
         
@@ -304,39 +283,58 @@ public class ServiceMatchingViewController implements Initializable {
             
             
             while (resultSet.next()) {
-                //Alle gegevens van de database (foundLuggage tabel) in variabelen plaatsen
-                String get_idfoundLuggage =    resultSet.getString("idfoundLuggage");
-                String f_get_time =          resultSet.getString("time");
-                String f_get_airport =       resultSet.getString("airport");
-                String f_get_date =          resultSet.getString("date");
+        //Alle gegevens van de database (foundLuggage tabel) in variabelen plaatsen
+                String registrationNr =     resultSet.getString("registrationNr");
+                String dateFound =          resultSet.getString("dateFound");
+                String timeFound =          resultSet.getString("timeFound");
                 
-                String f_get_name =          resultSet.getString("name");
-                String f_get_adress =        resultSet.getString("adress");
-                String f_get_residence =     resultSet.getString("residence");
-                String f_get_postalcode =    resultSet.getString("postalcode");
-                String f_get_country =       resultSet.getString("country");
-                String f_get_email =         resultSet.getString("email");
+                String luggageTag =         resultSet.getString("luggageTag");
+                int luggageType =           resultSet.getInt("luggageType");
+                String brand =              resultSet.getString("brand");
+                int mainColor =             resultSet.getInt("mainColor");
+                int secondColor =           resultSet.getInt("secondColor");
+                int size =                  resultSet.getInt("size");
+                int weight =                resultSet.getInt("weight");   
+                String otherCharacteristics=resultSet.getString("otherCharacteristics");
+                int passengerId =           resultSet.getInt("passengerId");
                 
-                String f_get_labelnumber =   resultSet.getString("labelnumber");
-                String f_get_flightnumber =  resultSet.getString("flightnumber");
-                String f_get_destination =   resultSet.getString("destination");
-                
-                String f_get_type =          resultSet.getString("type");
-                String f_get_brand =         resultSet.getString("brand");
-                String f_get_color =         resultSet.getString("color");
-                String f_get_signatures =    resultSet.getString("signatures");
+                String arrivedWithFlight =  resultSet.getString("arrivedWithFlight"); 
+                int locationFound =         resultSet.getInt("locationFound");
+                String employeeId =         resultSet.getString("employeeId");
+                int matchedId =             resultSet.getInt("matchedId");
+
                 
 
 
                 //Per result -> toevoegen aan Luggages  (observable list) 
-                foundLuggageList.add(new FoundLuggage(get_idfoundLuggage, f_get_time, f_get_airport, f_get_date, f_get_name, f_get_adress, f_get_residence, f_get_postalcode, f_get_country, f_get_email, f_get_labelnumber, f_get_flightnumber, f_get_destination, f_get_type, f_get_brand, f_get_color, f_get_signatures));
+                foundLuggageList.add(
+                        new FoundLuggage(
+                                registrationNr, 
+                                dateFound, 
+                                timeFound, 
+                                
+                                luggageTag, 
+                                luggageType, 
+                                brand, 
+                                mainColor, 
+                                secondColor, 
+                                size, 
+                                weight, 
+                                otherCharacteristics, 
+                                passengerId, 
+                                
+                                arrivedWithFlight, 
+                                locationFound, 
+                                employeeId, 
+                                matchedId
+                            ));
                 
                 
-                
-                // Alle gegevens per result (koffer) ->  printen
-                System.out.println("Gegevens voor koffer id: "+get_idfoundLuggage+" |       Zijn: Correct");
+                // Alle gegevens per result (koffer) (alleen id) om spam te voorkomen) ->  printen
+                System.out.println("Gegevens voor koffer id: "+registrationNr+" |       Zijn: Correct");
                 System.out.println("---------------------------------------------------------------------");
-            
+                      
+
             }//-> stop als er geen resultaten meer zijn!
 
         } catch (SQLException ex) {
@@ -370,12 +368,12 @@ public class ServiceMatchingViewController implements Initializable {
                      
                 
                 //Detail object zetten -> zodat hij in volgende view te openen is
-                LuggageDetails.getInstance().currentLuggage().setIdfoundLuggage(getDetailObj.getIdfoundLuggage());
-                LuggageDetails.getInstance().currentLuggage().setObj_type(getDetailObj.getObj_type());
-                LuggageDetails.getInstance().currentLuggage().setObj_brand(getDetailObj.getObj_brand());
-                LuggageDetails.getInstance().currentLuggage().setObj_color(getDetailObj.getObj_color());
-                LuggageDetails.getInstance().currentLuggage().setObj_signatures(getDetailObj.getObj_signatures());
-        
+//                LuggageDetails.getInstance().currentLuggage().setIdfoundLuggage(getDetailObj.getIdfoundLuggage());
+//                LuggageDetails.getInstance().currentLuggage().setObj_type(getDetailObj.getObj_type());
+//                LuggageDetails.getInstance().currentLuggage().setObj_brand(getDetailObj.getObj_brand());
+//                LuggageDetails.getInstance().currentLuggage().setObj_color(getDetailObj.getObj_color());
+//                LuggageDetails.getInstance().currentLuggage().setObj_signatures(getDetailObj.getObj_signatures());
+//        
                 //Switchen naar de detailed view
 //                try {
 //                    MainApp.switchView("/Views/Service/ServiceDetailedLuggageView.fxml");
@@ -434,7 +432,8 @@ public class ServiceMatchingViewController implements Initializable {
                 stage.show();
                 System.out.println("Popup opend");
             }
-
+            
+            
         } catch (IOException ex) {
             Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
