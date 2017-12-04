@@ -135,7 +135,7 @@ public class ServiceFoundOverviewViewController implements Initializable {
         ObservableList<FoundLuggage> foundLuggageList = FXCollections.observableArrayList();
         
         try {
-            MyJDBC db = connectToDatabase();
+            MyJDBC db = MainApp.connectToDatabase();
 
             ResultSet resultSet;
 

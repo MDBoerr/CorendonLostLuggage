@@ -164,7 +164,7 @@ public class ServiceMissedOverviewViewController implements Initializable {
         ObservableList<MissedLuggage> lostLuggageList = FXCollections.observableArrayList();
         
         try {
-            MyJDBC db = connectToDatabase();
+            MyJDBC db = MainApp.connectToDatabase();
 
             ResultSet resultSet;
 
