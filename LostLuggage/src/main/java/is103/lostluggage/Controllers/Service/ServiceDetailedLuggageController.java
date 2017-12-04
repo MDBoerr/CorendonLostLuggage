@@ -140,19 +140,19 @@ public class ServiceDetailedLuggageController implements Initializable {
                 //int matchedId =              resultSet.getInt("matchedId");
  
             idField.setText(id);  
-            setType(db,luggageType);
+//            setType(db,luggageType);
             brandField.setText(brand);
             
             
             
-            setColor(db, mainColor); 
-            setSecondColor(db, secondColor);
+//            setColor(db, mainColor); 
+//            setSecondColor(db, secondColor);
             
             signaturesField.setText(otherCharacteristics);
             
-            setPassenger(db, passengerId);
-            
-            setLocation(db, locationFound);
+//            setPassenger(db, passengerId);
+//            
+//            setLocation(db, locationFound);
             }
         
     }
