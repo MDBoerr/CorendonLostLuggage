@@ -20,7 +20,7 @@ public class MainApp extends Application {
 
     private static BorderPane root;
     
-    private static String dbName = "CorendonLostLuggage";
+    private static String dbName = "LostLuggage";
 
     @Override
     public void start(Stage stage) throws Exception {

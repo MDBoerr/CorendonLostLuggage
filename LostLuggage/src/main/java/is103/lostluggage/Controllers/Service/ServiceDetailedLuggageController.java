@@ -115,7 +115,7 @@ public class ServiceDetailedLuggageController implements Initializable {
     private void initializeFoundFields() throws SQLException{
         String id = LuggageDetails.getInstance().currentLuggage().getRegistrationNr();
         System.out.println("iD: "+id);
-            MyJDBC db = connectToDatabase();
+            MyJDBC db = MainApp.connectToDatabase();
             
             ResultSet resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage WHERE registrationNr='"+id+"'");
                 
@@ -128,23 +128,31 @@ public class ServiceDetailedLuggageController implements Initializable {
                 int luggageType =           resultSet.getInt("luggageType");
                 String brand =              resultSet.getString("brand");
                 int mainColor =             resultSet.getInt("mainColor");
-                //int secondColor =           resultSet.getInt("secondColor");
+                int secondColor =           resultSet.getInt("secondColor");
                 //int size =                  resultSet.getInt("size");
                 //int weight =                resultSet.getInt("weight");   
                 String otherCharacteristics=resultSet.getString("otherCharacteristics");
-                //int passengerId =           resultSet.getInt("passengerId");
+                int passengerId =           resultSet.getInt("passengerId");
                 
                 //String arrivedWithFlight =  resultSet.getString("arrivedWithFlight"); 
-                //int locationFound =         resultSet.getInt("locationFound");
+                int locationFound =         resultSet.getInt("locationFound");
                 //String employeeId =         resultSet.getString("employeeId");
                 //int matchedId =              resultSet.getInt("matchedId");
  
             idField.setText(id);  
+            setType(db,luggageType);
             brandField.setText(brand);
-            signaturesField.setText(otherCharacteristics);
+            
+            
             
             setColor(db, mainColor); 
-            setType(db,luggageType);
+            setSecondColor(db, secondColor);
+            
+            signaturesField.setText(otherCharacteristics);
+            
+            setPassenger(db, passengerId);
+            
+            setLocation(db, locationFound);
             }
         
     }
@@ -164,6 +172,22 @@ public class ServiceDetailedLuggageController implements Initializable {
         }
     }
     
+    private void setSecondColor(MyJDBC db, int secondColor) {
+//        ResultSet result_second = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+secondColor+"'");
+//        while (result_second.next()) {    
+//            String color = result_second.getString("english");
+//            colorField2.setText(color);
+//        }
+    }     
+
+    private void setPassenger(MyJDBC db, int passengerId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void setLocation(MyJDBC db, int locationFound) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+   
     @FXML
     protected void saveLuggageChanges(ActionEvent event) throws SQLException {
         String luggageId = idField.getText();
@@ -173,7 +197,7 @@ public class ServiceDetailedLuggageController implements Initializable {
         String luggageSignatures = signaturesField.getText();
         
         
-        MyJDBC db = new MyJDBC("LostLuggage");
+        MyJDBC db = MainApp.connectToDatabase();
         ResultSet resultSet;
         resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage WHERE idfoundLuggage='"+luggageId+"'");
         System.out.println("result is:"+resultSet);
@@ -189,5 +213,6 @@ public class ServiceDetailedLuggageController implements Initializable {
         }
    
     }
-   
+
+    
 }

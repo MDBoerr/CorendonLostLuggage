@@ -74,9 +74,9 @@ public class ServiceMatchingViewController implements Initializable {
     @FXML private TableColumn<FoundLuggage, String>  found_otherCharacteristics;
     @FXML private TableColumn<FoundLuggage, Integer> found_passengerId;
     
-    @FXML private TableColumn<FoundLuggage, String> found_arrivedWithFlight;
+    @FXML private TableColumn<FoundLuggage, String>  found_arrivedWithFlight;
     @FXML private TableColumn<FoundLuggage, Integer> found_locationFound;
-    @FXML private TableColumn<FoundLuggage, String> found_employeeId;
+    @FXML private TableColumn<FoundLuggage, String>  found_employeeId;
     @FXML private TableColumn<FoundLuggage, Integer> found_matchedId;
     
     
@@ -212,7 +212,7 @@ public class ServiceMatchingViewController implements Initializable {
         ObservableList<MissedLuggage> lostLuggageList = FXCollections.observableArrayList();
         
         try {
-            MyJDBC db = connectToDatabase();
+            MyJDBC db = MainApp.connectToDatabase();
 
             ResultSet resultSet;
 
@@ -273,7 +273,7 @@ public class ServiceMatchingViewController implements Initializable {
         ObservableList<FoundLuggage> foundLuggageList = FXCollections.observableArrayList();
         
         try {
-            MyJDBC db = connectToDatabase();;
+            MyJDBC db = MainApp.connectToDatabase();;
 
             ResultSet resultSet;
 
