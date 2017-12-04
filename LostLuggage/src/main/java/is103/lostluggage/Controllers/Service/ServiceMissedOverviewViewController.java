@@ -42,47 +42,25 @@ public class ServiceMissedOverviewViewController implements Initializable {
          TableView missed luggage's colommen
     ----------------------------------------- */
     
-    @FXML
-    private TableView<MissedLuggage> missedLuggageTable;
+    @FXML private TableView<MissedLuggage> missedLuggageTable;
 
-    @FXML
-    private TableColumn<MissedLuggage, String> idMissedLuggageColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> timeColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> airportColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> dateColumn;
+    @FXML private TableColumn<MissedLuggage, String>  missedRegistrationNr;
+    @FXML private TableColumn<MissedLuggage, String>  missedDateLost;
+    @FXML private TableColumn<MissedLuggage, String>  missedTimeLost;
     
-    @FXML
-    private TableColumn<MissedLuggage, String> nameColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> addressColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> residenceColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> postalcodeColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> countryColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> emailColumn;
+    @FXML private TableColumn<MissedLuggage, String>  missedLuggageTag;
+    @FXML private TableColumn<MissedLuggage, String>  missedLuggageType;
+    @FXML private TableColumn<MissedLuggage, String>  missedBrand;
+    @FXML private TableColumn<MissedLuggage, Integer> missedMainColor;
+    @FXML private TableColumn<MissedLuggage, String>  missedSecondColor;
+    @FXML private TableColumn<MissedLuggage, Integer> missedSize;
+    @FXML private TableColumn<MissedLuggage, String>  missedWeight;
+    @FXML private TableColumn<MissedLuggage, String>  missedOtherCharacteristics;
+    @FXML private TableColumn<MissedLuggage, Integer> missedPassengerId;
     
-    @FXML
-    private TableColumn<MissedLuggage, String> labelnumberColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> flightnumberColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> destinationColumn;
-    
-    @FXML
-    private TableColumn<MissedLuggage, String> typeColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> brandColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> colorColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> signaturesColumn;
-
+    @FXML private TableColumn<MissedLuggage, String>  missedFlight;
+    @FXML private TableColumn<MissedLuggage, String>  missedEmployeeId;
+    @FXML private TableColumn<MissedLuggage, Integer> missedMatchedId;
     
     
     
@@ -118,30 +96,26 @@ public class ServiceMissedOverviewViewController implements Initializable {
     /*----------------------------------------- */       
         
             //-> colum id (fxml)                                    <LostLuggage, String>        //-> 
-        idMissedLuggageColumn.setCellValueFactory(new PropertyValueFactory<>("idmissedLuggage"));
-        timeColumn.setCellValueFactory(         new PropertyValueFactory<>("obj_time"));
-        airportColumn.setCellValueFactory(      new PropertyValueFactory<>("obj_airport"));
-        dateColumn.setCellValueFactory(         new PropertyValueFactory<>("obj_date"));
+        missedRegistrationNr.setCellValueFactory(       new PropertyValueFactory<>("registrationNr"));
+        missedDateLost.setCellValueFactory(            new PropertyValueFactory<>("dateFound"));
+        missedTimeLost.setCellValueFactory(            new PropertyValueFactory<>("timeFound"));
         
-        nameColumn.setCellValueFactory(         new PropertyValueFactory<>("obj_name"));
-        addressColumn.setCellValueFactory(      new PropertyValueFactory<>("obj_address"));
-        residenceColumn.setCellValueFactory(    new PropertyValueFactory<>("obj_residence"));
-        postalcodeColumn.setCellValueFactory(   new PropertyValueFactory<>("obj_postalcode"));
-        countryColumn.setCellValueFactory(      new PropertyValueFactory<>("obj_country"));
-        emailColumn.setCellValueFactory(        new PropertyValueFactory<>("obj_email"));
+        missedLuggageTag.setCellValueFactory(           new PropertyValueFactory<>("luggageTag"));
+        missedLuggageType.setCellValueFactory(          new PropertyValueFactory<>("luggageType"));
+        missedBrand.setCellValueFactory(                new PropertyValueFactory<>("brand"));
+        missedMainColor.setCellValueFactory(            new PropertyValueFactory<>("mainColor"));
+        missedSecondColor.setCellValueFactory(          new PropertyValueFactory<>("secondColor"));
+        missedSize.setCellValueFactory(                 new PropertyValueFactory<>("size"));
+        missedWeight.setCellValueFactory(               new PropertyValueFactory<>("weight"));
 
-        labelnumberColumn.setCellValueFactory(  new PropertyValueFactory<>("obj_labelnumber"));
-        flightnumberColumn.setCellValueFactory( new PropertyValueFactory<>("obj_flightnumber"));
-        destinationColumn.setCellValueFactory(  new PropertyValueFactory<>("obj_destination"));
-            
-        typeColumn.setCellValueFactory(         new PropertyValueFactory<>("obj_type"));
-        brandColumn.setCellValueFactory(        new PropertyValueFactory<>("obj_brand"));
-        colorColumn.setCellValueFactory(        new PropertyValueFactory<>("obj_color"));
-        signaturesColumn.setCellValueFactory(   new PropertyValueFactory<>("obj_signatures"));
-    
+        missedOtherCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
+        missedPassengerId.setCellValueFactory(          new PropertyValueFactory<>("passengerId"));
         
-        missedLuggageTable.setItems(getLostLuggage());
-        
+        missedFlight.setCellValueFactory(    new PropertyValueFactory<>("flight"));
+        missedEmployeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
+        missedMatchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId")); 
+
+        missedLuggageTable.setItems(getMissedLuggage());
     }
     
     
@@ -159,16 +133,16 @@ public class ServiceMissedOverviewViewController implements Initializable {
      * 
      * @return luggages --> lijst met data van vermiste koffers
      /*----------------------------------------- */
-    public ObservableList<MissedLuggage> getLostLuggage() {
+    public ObservableList<MissedLuggage> getMissedLuggage() {
 
-        ObservableList<MissedLuggage> lostLuggageList = FXCollections.observableArrayList();
+        ObservableList<MissedLuggage> missedLuggageList = FXCollections.observableArrayList();
         
         try {
             MyJDBC db = MainApp.connectToDatabase();
 
             ResultSet resultSet;
 
-            resultSet = db.executeResultSetQuery("SELECT * FROM missedLuggage");
+            resultSet = db.executeResultSetQuery("SELECT * FROM lostLuggage");
             System.out.println(" ---------------------------------------------------------------------");
             System.out.println("               alles geselecteerd van missed luggage tabel            ");
             System.out.println(" ---------------------------------------------------------------------");
@@ -176,54 +150,58 @@ public class ServiceMissedOverviewViewController implements Initializable {
             
             while (resultSet.next()) {
                 //Alle gegevens van de database (missedLuggage tabel) in variabelen plaatsen
-                String get_idmissedLuggage =    resultSet.getString("idmissedLuggage");
-                String get_time =          resultSet.getString("time");
-                String get_airport =       resultSet.getString("airport");
-                String get_date =          resultSet.getString("date");
+                String registrationNr =     resultSet.getString("registrationNr");
+                String dateFound =          resultSet.getString("dateLost");
+                String timeFound =          resultSet.getString("timeLost");
                 
-                String get_name =          resultSet.getString("name");
-                String get_adress =        resultSet.getString("adress");
-                String get_residence =     resultSet.getString("residence");
-                String get_postalcode =    resultSet.getString("postalcode");
-                String get_country =       resultSet.getString("country");
-                String get_email =         resultSet.getString("email");
+                String luggageTag =         resultSet.getString("luggageTag");
+                int luggageType =           resultSet.getInt("luggageType");
+                String brand =              resultSet.getString("brand");
+                int mainColor =             resultSet.getInt("mainColor");
+                int secondColor =           resultSet.getInt("secondColor");
+                int size =                  resultSet.getInt("size");
+                int weight =                resultSet.getInt("weight");   
+                String otherCharacteristics=resultSet.getString("otherCharacteristics");
+                int passengerId =           resultSet.getInt("passengerId");
                 
-                String get_labelnumber =   resultSet.getString("labelnumber");
-                String get_flightnumber =  resultSet.getString("flightnumber");
-                String get_destination =   resultSet.getString("destination");
-                
-                String get_type =          resultSet.getString("type");
-                String get_brand =         resultSet.getString("brand");
-                String get_color =         resultSet.getString("color");
-                String get_signatures =    resultSet.getString("signatures");
-                
+                String flight =  resultSet.getString("flight"); 
+                String employeeId =         resultSet.getString("employeeId");
+                int matchedId =             resultSet.getInt("matchedId");
 
 
                 //Per result -> toevoegen aan Luggages  (observable list) 
-                lostLuggageList.add(new MissedLuggage(get_idmissedLuggage, get_time, get_airport, get_date, get_name, get_adress, get_residence, get_postalcode, get_country, get_email, get_labelnumber, get_flightnumber, get_destination, get_type, get_brand, get_color, get_signatures));
-                //luggages.add(new MissedLuggage(get_idmissedLuggage, get_timeField, get_airportField, get_dateDatepicker, get_nameField, get_adressField, get_residenceField, get_postalcodeField, get_countryField, get_emailField, get_labelnumberField, get_flightnumberField, get_destinationField, get_typeField, get_brandField, get_colorField, get_signaturesField));
-                
+                missedLuggageList.add(
+                        new MissedLuggage(
+                                registrationNr, 
+                                dateFound, 
+                                timeFound, 
+                                
+                                luggageTag, 
+                                luggageType, 
+                                brand, 
+                                mainColor, 
+                                secondColor, 
+                                size, 
+                                weight, 
+                                otherCharacteristics, 
+                                passengerId, 
+                                
+                                flight, 
+                                employeeId, 
+                                matchedId
+                            ));
                 
                 
                 // Alle gegevens per result (koffer) (alleen id) om spam te voorkomen) ->  printen
-                System.out.println("Gegevens voor koffer id: "+get_idmissedLuggage+" |       Zijn: Correct");
+                System.out.println("Gegevens voor koffer id: "+registrationNr+" |       Zijn: Correct");
                 System.out.println("---------------------------------------------------------------------");
-                
-                // Alle gegevens per result (koffer) ->  printen  --> volledig overzicht
-//                System.out.println("Gegevens voor koffer id: "+get_idmissedLuggage);
-//                System.out.println("Time: "+ get_time + " Airport: " + get_airport+" Datum:"+get_date);
-//                System.out.println("Naam: "+ get_name + " Adress: "+get_adress+"Plaats: "+get_residence);
-//                System.out.println("Postcode: "+get_postalcode+" Land: "+ get_country+" Email: "+get_email);
-//                System.out.println("Labelnum: "+get_labelnumber+" Vlucht: "+get_flightnumber+" Bestemming: "+get_destination);
-//                System.out.println("Type bagage: "+get_type+" Merk: "+get_brand+" Kleur: "+get_color+" Kenmerken: "+get_signatures);
-//                System.out.println(" ---------------------------------------------------------------------");
-            
+                      
             }//-> stop als er geen resultaten meer zijn!
 
         } catch (SQLException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return lostLuggageList;
+        return missedLuggageList;
     }
     
 

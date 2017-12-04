@@ -46,13 +46,16 @@ public class ServiceMatchingViewController implements Initializable {
             //view title
     private final String title = "Matching";
     
-    
+    public Stage popupStage = new Stage();    
     
     
     
     
     
     public static ObservableList<FoundLuggage> foundLuggageList;
+    public static ObservableList<MissedLuggage> missedLuggageList;
+    
+    
     
     /* -----------------------------------------
          TableView found luggage's colommen
@@ -60,76 +63,55 @@ public class ServiceMatchingViewController implements Initializable {
     
     @FXML private TableView<FoundLuggage> foundLuggageTable;
 
-    @FXML private TableColumn<FoundLuggage, String>  found_registrationNr;
-    @FXML private TableColumn<FoundLuggage, String>  found_dateFound;
-    @FXML private TableColumn<FoundLuggage, String>  found_timeFound;
+    @FXML private TableColumn<FoundLuggage, String>  foundRegistrationNr;
+    @FXML private TableColumn<FoundLuggage, String>  foundDateFound;
+    @FXML private TableColumn<FoundLuggage, String>  foundTimeFound;
     
-    @FXML private TableColumn<FoundLuggage, String>  found_luggageTag;
-    @FXML private TableColumn<FoundLuggage, String>  found_luggageType;
-    @FXML private TableColumn<FoundLuggage, String>  found_brand;
-    @FXML private TableColumn<FoundLuggage, Integer> found_mainColor;
-    @FXML private TableColumn<FoundLuggage, String>  found_secondColor;
-    @FXML private TableColumn<FoundLuggage, Integer> found_size;
-    @FXML private TableColumn<FoundLuggage, String>  found_weight;
-    @FXML private TableColumn<FoundLuggage, String>  found_otherCharacteristics;
-    @FXML private TableColumn<FoundLuggage, Integer> found_passengerId;
+    @FXML private TableColumn<FoundLuggage, String>  foundLuggageTag;
+    @FXML private TableColumn<FoundLuggage, String>  foundLuggageType;
+    @FXML private TableColumn<FoundLuggage, String>  foundBrand;
+    @FXML private TableColumn<FoundLuggage, Integer> foundMainColor;
+    @FXML private TableColumn<FoundLuggage, String>  foundSecondColor;
+    @FXML private TableColumn<FoundLuggage, Integer> foundSize;
+    @FXML private TableColumn<FoundLuggage, String>  foundWeight;
+    @FXML private TableColumn<FoundLuggage, String>  foundOtherCharacteristics;
+    @FXML private TableColumn<FoundLuggage, Integer> foundPassengerId;
     
-    @FXML private TableColumn<FoundLuggage, String>  found_arrivedWithFlight;
-    @FXML private TableColumn<FoundLuggage, Integer> found_locationFound;
-    @FXML private TableColumn<FoundLuggage, String>  found_employeeId;
-    @FXML private TableColumn<FoundLuggage, Integer> found_matchedId;
-    
-    
+    @FXML private TableColumn<FoundLuggage, String>  foundArrivedWithFlight;
+    @FXML private TableColumn<FoundLuggage, Integer> foundLocationFound;
+//    @FXML private TableColumn<FoundLuggage, String>  foundEmployeeId;
+//    @FXML private TableColumn<FoundLuggage, Integer> foundMatchedId;
     
     
-    public Stage popupStage = new Stage();
     
-    public static ObservableList<MissedLuggage> MissedLuggageList;
+    
+ 
+    
+
     
     /* -----------------------------------------
          TableView missed luggage's colommen
     ----------------------------------------- */
     
-    @FXML
-    private TableView<MissedLuggage> missedLuggageTable;
+    @FXML private TableView<MissedLuggage> missedLuggageTable;
 
-    @FXML
-    private TableColumn<MissedLuggage, String> idMissedLuggageColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> missed_timeColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> missed_airportColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> missed_dateColumn;
+    @FXML private TableColumn<MissedLuggage, String>  missedRegistrationNr;
+    @FXML private TableColumn<MissedLuggage, String>  missedDateLost;
+    @FXML private TableColumn<MissedLuggage, String>  missedTimeLost;
     
-    @FXML
-    private TableColumn<MissedLuggage, String> missed_nameColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> missed_addressColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> missed_residenceColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> missed_postalcodeColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> missed_countryColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> missed_emailColumn;
+    @FXML private TableColumn<MissedLuggage, String>  missedLuggageTag;
+    @FXML private TableColumn<MissedLuggage, String>  missedLuggageType;
+    @FXML private TableColumn<MissedLuggage, String>  missedBrand;
+    @FXML private TableColumn<MissedLuggage, Integer> missedMainColor;
+    @FXML private TableColumn<MissedLuggage, String>  missedSecondColor;
+    @FXML private TableColumn<MissedLuggage, Integer> missedSize;
+    @FXML private TableColumn<MissedLuggage, String>  missedWeight;
+    @FXML private TableColumn<MissedLuggage, String>  missedOtherCharacteristics;
+    @FXML private TableColumn<MissedLuggage, Integer> missedPassengerId;
     
-    @FXML
-    private TableColumn<MissedLuggage, String> missed_labelnumberColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> missed_flightnumberColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> missed_destinationColumn;
-    
-    @FXML
-    private TableColumn<MissedLuggage, String> missed_typeColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> missed_brandColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> missed_colorColumn;
-    @FXML
-    private TableColumn<MissedLuggage, String> missed_signaturesColumn;
+    @FXML private TableColumn<MissedLuggage, String>  missedFlight;
+    //@FXML private TableColumn<MissedLuggage, String>  missedEmployeeId;
+    //@FXML private TableColumn<MissedLuggage, Integer> missedMatchedId;
     
     
     
@@ -153,25 +135,25 @@ public class ServiceMatchingViewController implements Initializable {
         
         
         
-        found_registrationNr.setCellValueFactory(       new PropertyValueFactory<>("registrationNr"));
-        found_dateFound.setCellValueFactory(            new PropertyValueFactory<>("dateFound"));
-        found_timeFound.setCellValueFactory(            new PropertyValueFactory<>("timeFound"));
+        foundRegistrationNr.setCellValueFactory(       new PropertyValueFactory<>("registrationNr"));
+        foundDateFound.setCellValueFactory(            new PropertyValueFactory<>("dateFound"));
+        foundTimeFound.setCellValueFactory(            new PropertyValueFactory<>("timeFound"));
         
-        found_luggageTag.setCellValueFactory(           new PropertyValueFactory<>("luggageTag"));
-        found_luggageType.setCellValueFactory(          new PropertyValueFactory<>("luggageType"));
-        found_brand.setCellValueFactory(                new PropertyValueFactory<>("brand"));
-        found_mainColor.setCellValueFactory(            new PropertyValueFactory<>("mainColor"));
-        found_secondColor.setCellValueFactory(          new PropertyValueFactory<>("secondColor"));
-        found_size.setCellValueFactory(                 new PropertyValueFactory<>("size"));
-        found_weight.setCellValueFactory(               new PropertyValueFactory<>("weight"));
+        foundLuggageTag.setCellValueFactory(           new PropertyValueFactory<>("luggageTag"));
+        foundLuggageType.setCellValueFactory(          new PropertyValueFactory<>("luggageType"));
+        foundBrand.setCellValueFactory(                new PropertyValueFactory<>("brand"));
+        foundMainColor.setCellValueFactory(            new PropertyValueFactory<>("mainColor"));
+        foundSecondColor.setCellValueFactory(          new PropertyValueFactory<>("secondColor"));
+        foundSize.setCellValueFactory(                 new PropertyValueFactory<>("size"));
+        foundWeight.setCellValueFactory(               new PropertyValueFactory<>("weight"));
 
-        found_otherCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
-        found_passengerId.setCellValueFactory(          new PropertyValueFactory<>("passengerId"));
+        foundOtherCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
+        foundPassengerId.setCellValueFactory(          new PropertyValueFactory<>("passengerId"));
         
-        found_arrivedWithFlight.setCellValueFactory(    new PropertyValueFactory<>("arrivedWithFlight"));
-        found_locationFound.setCellValueFactory(        new PropertyValueFactory<>("locationFound"));
-        found_employeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
-        found_matchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId"));
+        foundArrivedWithFlight.setCellValueFactory(    new PropertyValueFactory<>("arrivedWithFlight"));
+        foundLocationFound.setCellValueFactory(        new PropertyValueFactory<>("locationFound"));
+//        foundEmployeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
+//        foundMatchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId"));
 
         foundLuggageTable.setItems(getFoundLuggage());
         
@@ -179,44 +161,42 @@ public class ServiceMatchingViewController implements Initializable {
         
         
         
-        idMissedLuggageColumn.setCellValueFactory(new PropertyValueFactory<>("idmissedLuggage"));
-        missed_timeColumn.setCellValueFactory(    new PropertyValueFactory<>("obj_time"));
-        missed_airportColumn.setCellValueFactory(      new PropertyValueFactory<>("obj_airport"));
-        missed_dateColumn.setCellValueFactory(         new PropertyValueFactory<>("obj_date"));
+        missedRegistrationNr.setCellValueFactory(       new PropertyValueFactory<>("registrationNr"));
+        missedDateLost.setCellValueFactory(            new PropertyValueFactory<>("dateFound"));
+        missedTimeLost.setCellValueFactory(            new PropertyValueFactory<>("timeFound"));
         
-        missed_nameColumn.setCellValueFactory(         new PropertyValueFactory<>("obj_name"));
-        missed_addressColumn.setCellValueFactory(      new PropertyValueFactory<>("obj_address"));
-        missed_residenceColumn.setCellValueFactory(    new PropertyValueFactory<>("obj_residence"));
-        missed_postalcodeColumn.setCellValueFactory(   new PropertyValueFactory<>("obj_postalcode"));
-        missed_countryColumn.setCellValueFactory(      new PropertyValueFactory<>("obj_country"));
-        missed_emailColumn.setCellValueFactory(        new PropertyValueFactory<>("obj_email"));
+        missedLuggageTag.setCellValueFactory(           new PropertyValueFactory<>("luggageTag"));
+        missedLuggageType.setCellValueFactory(          new PropertyValueFactory<>("luggageType"));
+        missedBrand.setCellValueFactory(                new PropertyValueFactory<>("brand"));
+        missedMainColor.setCellValueFactory(            new PropertyValueFactory<>("mainColor"));
+        missedSecondColor.setCellValueFactory(          new PropertyValueFactory<>("secondColor"));
+        missedSize.setCellValueFactory(                 new PropertyValueFactory<>("size"));
+        missedWeight.setCellValueFactory(               new PropertyValueFactory<>("weight"));
 
-        missed_labelnumberColumn.setCellValueFactory(  new PropertyValueFactory<>("obj_labelnumber"));
-        missed_flightnumberColumn.setCellValueFactory( new PropertyValueFactory<>("obj_flightnumber"));
-        missed_destinationColumn.setCellValueFactory(  new PropertyValueFactory<>("obj_destination"));
-            
-        missed_typeColumn.setCellValueFactory(         new PropertyValueFactory<>("obj_type"));
-        missed_brandColumn.setCellValueFactory(        new PropertyValueFactory<>("obj_brand"));
-        missed_colorColumn.setCellValueFactory(        new PropertyValueFactory<>("obj_color"));
-        missed_signaturesColumn.setCellValueFactory(   new PropertyValueFactory<>("obj_signatures"));
-    
+        missedOtherCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
+        missedPassengerId.setCellValueFactory(          new PropertyValueFactory<>("passengerId"));
         
-        //missedLuggageTable.setItems(getLostLuggage());
+        missedFlight.setCellValueFactory(    new PropertyValueFactory<>("flight"));
+        
+//        missedEmployeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
+//        missedMatchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId"));    
+        
+        missedLuggageTable.setItems(getMissedLuggage());
         
         
         
     }
 
-    public ObservableList<MissedLuggage> getLostLuggage() {
+    public ObservableList<MissedLuggage> getMissedLuggage() {
 
-        ObservableList<MissedLuggage> lostLuggageList = FXCollections.observableArrayList();
+        ObservableList<MissedLuggage> missedLuggageList = FXCollections.observableArrayList();
         
         try {
             MyJDBC db = MainApp.connectToDatabase();
 
             ResultSet resultSet;
 
-            resultSet = db.executeResultSetQuery("SELECT * FROM missedLuggage");
+            resultSet = db.executeResultSetQuery("SELECT * FROM lostLuggage");
             System.out.println(" ---------------------------------------------------------------------");
             System.out.println("               alles geselecteerd van missed luggage tabel            ");
             System.out.println(" ---------------------------------------------------------------------");
@@ -224,45 +204,58 @@ public class ServiceMatchingViewController implements Initializable {
             
             while (resultSet.next()) {
                 //Alle gegevens van de database (missedLuggage tabel) in variabelen plaatsen
-                String get_idmissedLuggage =    resultSet.getString("idmissedLuggage");
-                String m_get_time =          resultSet.getString("time");
-                String m_get_airport =       resultSet.getString("airport");
-                String m_get_date =          resultSet.getString("date");
+                String registrationNr =     resultSet.getString("registrationNr");
+                String dateFound =          resultSet.getString("dateLost");
+                String timeFound =          resultSet.getString("timeLost");
                 
-                String m_get_name =          resultSet.getString("name");
-                String m_get_adress =        resultSet.getString("adress");
-                String m_get_residence =     resultSet.getString("residence");
-                String m_get_postalcode =    resultSet.getString("postalcode");
-                String m_get_country =       resultSet.getString("country");
-                String m_get_email =         resultSet.getString("email");
+                String luggageTag =         resultSet.getString("luggageTag");
+                int luggageType =           resultSet.getInt("luggageType");
+                String brand =              resultSet.getString("brand");
+                int mainColor =             resultSet.getInt("mainColor");
+                int secondColor =           resultSet.getInt("secondColor");
+                int size =                  resultSet.getInt("size");
+                int weight =                resultSet.getInt("weight");   
+                String otherCharacteristics=resultSet.getString("otherCharacteristics");
+                int passengerId =           resultSet.getInt("passengerId");
                 
-                String m_get_labelnumber =   resultSet.getString("labelnumber");
-                String m_get_flightnumber =  resultSet.getString("flightnumber");
-                String m_get_destination =   resultSet.getString("destination");
-                
-                String m_get_type =          resultSet.getString("type");
-                String m_get_brand =         resultSet.getString("brand");
-                String m_get_color =         resultSet.getString("color");
-                String m_get_signatures =    resultSet.getString("signatures");
-                
+                String flight =  resultSet.getString("flight"); 
+                String employeeId =         resultSet.getString("employeeId");
+                int matchedId =             resultSet.getInt("matchedId");
 
 
                 //Per result -> toevoegen aan Luggages  (observable list) 
-                lostLuggageList.add(new MissedLuggage(get_idmissedLuggage, m_get_time, m_get_airport, m_get_date, m_get_name, m_get_adress, m_get_residence, m_get_postalcode, m_get_country, m_get_email, m_get_labelnumber, m_get_flightnumber, m_get_destination, m_get_type, m_get_brand, m_get_color, m_get_signatures));
-                //luggages.add(new MissedLuggage(get_idmissedLuggage, get_timeField, get_airportField, get_dateDatepicker, get_nameField, get_adressField, get_residenceField, get_postalcodeField, get_countryField, get_emailField, get_labelnumberField, get_flightnumberField, get_destinationField, get_typeField, get_brandField, get_colorField, get_signaturesField));
+                missedLuggageList.add(
+                        new MissedLuggage(
+                                registrationNr, 
+                                dateFound, 
+                                timeFound, 
+                                
+                                luggageTag, 
+                                luggageType, 
+                                brand, 
+                                mainColor, 
+                                secondColor, 
+                                size, 
+                                weight, 
+                                otherCharacteristics, 
+                                passengerId, 
+                                
+                                flight, 
+                                employeeId, 
+                                matchedId
+                            ));
                 
                 
-                
-                // Alle gegevens per result (koffer) ->  printen
-                System.out.println("Gegevens voor koffer id: "+get_idmissedLuggage+" |       Zijn: Correct");
-                System.out.println("----------------------------------------------------------------------");
-            
+                // Alle gegevens per result (koffer) (alleen id) om spam te voorkomen) ->  printen
+                System.out.println("Gegevens voor koffer id: "+registrationNr+" |       Zijn: Correct");
+                System.out.println("---------------------------------------------------------------------");
+                      
             }//-> stop als er geen resultaten meer zijn!
 
         } catch (SQLException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return lostLuggageList;
+        return missedLuggageList;
     } 
     
     
