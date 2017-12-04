@@ -1,5 +1,6 @@
 package is103.lostluggage.Controllers.Service;
 
+import com.jfoenix.controls.JFXComboBox;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
@@ -38,7 +39,7 @@ public class ServiceInputLuggageViewController implements Initializable {
     @FXML
     //Choicebox that determines whether the form should be for a missing or found
     //luggage
-    private ChoiceBox missingFoundChoiceBox;
+    private JFXComboBox missingFoundComboBox;
     
     
     //Top left fields
@@ -123,10 +124,10 @@ public class ServiceInputLuggageViewController implements Initializable {
         MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
 
         //Add options to choicebox
-        missingFoundChoiceBox.getItems().addAll("Gevonden", "Vermist");
+        missingFoundComboBox.getItems().addAll("Gevonden", "Vermist");
 
         //Default value is set to Service Employee as Administrator will most likely add a user with that role.
-        missingFoundChoiceBox.setValue("Vermist");
+        missingFoundComboBox.setValue("Vermist");
         
         //Set the current time in the timefield
         timeField.setText(LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute());
@@ -148,7 +149,7 @@ public class ServiceInputLuggageViewController implements Initializable {
     //This method switches the form between found or missing
     public void foundOrMissing(){
         
-      String value = missingFoundChoiceBox.getValue().toString();
+      String value = missingFoundComboBox.getValue().toString();
       
         if(value == "Gevonden"){
       
