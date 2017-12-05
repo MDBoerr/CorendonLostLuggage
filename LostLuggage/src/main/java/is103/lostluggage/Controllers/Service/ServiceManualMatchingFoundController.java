@@ -9,7 +9,6 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
-import is103.lostluggage.Model.FoundLuggage;
 import is103.lostluggage.Model.LuggageDetails;
 import is103.lostluggage.Model.LuggageManualMatchFound;
 import java.net.URL;
@@ -18,22 +17,18 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
-
-
 
 /**
  * FXML Controller class
  *
  * @author thijszijdel
  */
-public class ServiceDetailedLuggageController implements Initializable {
+public class ServiceManualMatchingFoundController implements Initializable {
     
     
-    public String language = "English";
+        public String language = "English";
     
     @FXML private JFXTextField registrationNr;
     @FXML private JFXTextField luggageTag;
@@ -59,16 +54,12 @@ public class ServiceDetailedLuggageController implements Initializable {
     @FXML private JFXTextField locationFound;
     @FXML private JFXTextField flight;
     
-
-    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println("switched!!");
-        
-        //try to load initialize methode
+                //try to load initialize methode
         try {
             initializeFoundFields();
         } catch (SQLException ex) {
@@ -77,16 +68,14 @@ public class ServiceDetailedLuggageController implements Initializable {
         
         
         checkFields();
-  
-    }   
+    }  
     
     
-
     
-    
+        
     @FXML
     private void initializeFoundFields() throws SQLException{
-        String id = LuggageDetails.getInstance().currentLuggage().getRegistrationNr();
+        String id = LuggageManualMatchFound.getInstance().currentLuggage().getRegistrationNr();
         System.out.println("iD: "+id);
             MyJDBC db = MainApp.connectToDatabase();
             
@@ -245,55 +234,5 @@ public class ServiceDetailedLuggageController implements Initializable {
         
         if (locationFound.getText().equals("")){locationFound.setText("Unknown");}
     }
-   
-    @FXML
-    protected void saveLuggageChanges(ActionEvent event) throws SQLException {
-//        String luggageId = idField.getText();
-//        String luggageType = typeField.getText();
-//        String luggageBrand = brandField.getText();
-//        String luggageColor = colorField.getText();
-//        String luggageSignatures = signaturesField.getText();
-//        
-//        
-//        MyJDBC db = MainApp.connectToDatabase();
-//        ResultSet resultSet;
-//        resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage WHERE idfoundLuggage='"+luggageId+"'");
-//        System.out.println("result is:"+resultSet);
-//        if (    luggageType == null || "".equals(luggageType) ||
-//                luggageBrand == null || "".equals(luggageBrand) ||
-//                luggageColor == null || "".equals(luggageColor) ||
-//                luggageSignatures == null || "".equals(luggageSignatures)
-//                ) {
-//            System.out.println("Een van de velden is leeg of null");
-//        } else {
-//            db.executeUpdateQuery("UPDATE `LostLuggage`.`foundLuggage` SET `type`='"+luggageType+"', `brand`='"+luggageBrand+"', `color`='"+luggageColor+"', `signatures`='"+luggageSignatures+"' WHERE `idfoundLuggage`='"+luggageId+"'");
-//            System.out.println("DB row is updated!");
-//        }
-   
-    }
-    
-    @FXML
-    protected void viewPotentials(ActionEvent event){
-        
-    }
-    
-    @FXML
-    protected void editLuggage(ActionEvent event){
-        
-    }
-    
-    @FXML
-    protected void manualMatching(ActionEvent event){
-        System.out.println("manual matched");
-        FoundLuggage passObject =  LuggageDetails.getInstance().currentLuggage();
-        LuggageManualMatchFound.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());
-        
-        
-        
-    }
-
-    
-    
-
     
 }
