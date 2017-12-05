@@ -377,17 +377,17 @@ public class MyJDBC {
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
                 + "'MB1', 'Amsterdam', 'Michael', 'Boer de', 'Amsterdam', 'Active', 'Adminstrator' )");
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
-                + "'AA1', 'Amsterdam', 'Ahmet', 'Aksu', 'Amsterdam', 'Active', 'Adminstrator' )");
+                + "'AA1', 'Amsterdam', 'Ahmet', 'Aksu', 'Amsterdam', 'Manager', 'Adminstrator' )");
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
-                + "'AK1', 'Amsterdam', 'Arthur', 'Krom', 'Amsterdam', 'Active', 'Adminstrator' )");
+                + "'AK1', 'Amsterdam', 'Arthur', 'Krom', 'Amsterdam', 'Service', 'Adminstrator' )");
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
-                + "'TZ1', 'Amsterdam', 'Thijs', 'Zijdel', 'Amsterdam', 'Active', 'Adminstrator' )");
+                + "'TZ1', 'Amsterdam', 'Thijs', 'Zijdel', 'Amsterdam', 'Service', 'Adminstrator' )");
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
-                + "'DO1', 'Amsterdam', 'Daron', 'Özdemir', 'Amsterdam', 'Active', 'Adminstrator' )");
+                + "'DO1', 'Amsterdam', 'Daron', 'Özdemir', 'Amsterdam', 'Manager', 'Adminstrator' )");
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
-                + "'PL1', 'Amsterdam', 'Poek', 'Ligthart', 'Amsterdam', 'Active', 'Adminstrator' )");
+                + "'PL1', 'Amsterdam', 'Poek', 'Ligthart', 'Amsterdam', 'Service', 'Adminstrator' )");
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
-                + "'MB2', 'Amsterdam', 'Michael', 'Boer de', 'Amsterdam', 'Active', 'Adminstrator' )");
+                + "'MB2', 'Amsterdam', 'Michael', 'Boer de', 'Amsterdam', 'Manager', 'Adminstrator' )");
         
         myJDBC.executeUpdateQuery("INSERT INTO foundLuggage VALUES ("
                 + "'170', '09:21', 'AMS', '05-07-2017', 'Unknown', 'Unknown', 'Unknown', 'Unknown', 'Unknown', 'Unknown', '298438738AB', 'AMS328LON', 'Trolley', 'LON', 'Nomad', 'Silver', 'Steel, red dot' )");

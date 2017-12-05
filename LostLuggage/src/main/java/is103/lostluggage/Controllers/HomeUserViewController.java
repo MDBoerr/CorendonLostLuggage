@@ -48,12 +48,12 @@ public class HomeUserViewController implements Initializable {
 
     @FXML
     protected void handleButtonAction(ActionEvent event) throws IOException {
-        MainApp.switchView("/Views/UserScene.fxml");
+        MainApp.switchView("/Views/Admin/UserScene.fxml");
     }
 
     @FXML
     protected void viewAddUserWindow(ActionEvent event) throws IOException {
-        MainApp.switchView("/fxml/AdminAddUserView.fxml");
+        MainApp.switchView("/Views/Admin/AdminAddUserView.fxml");
     }
 
 }

@@ -83,7 +83,7 @@ public class MainApp extends Application {
         if (user != null) {
             System.out.println(user);
             if (user.equals("Adminstrator")) {
-                switchView("/Views/HomeUserView.fxml");
+                switchView("/Views/Admin/HomeUserView.fxml");
                 System.out.println(user);
 
             }
@@ -91,7 +91,7 @@ public class MainApp extends Application {
                 switchView("/Views/ManagerHomeView.fxml");
 
             }
-            if (user.equals("Service Employee")) {
+            if (user.equals("Service")) {
                 switchView("/Views/Service/ServiceHomeView.fxml");
 
             }

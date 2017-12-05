@@ -99,7 +99,7 @@ public class AdminAddUserViewController implements Initializable {
         }
 
         //Set which view was previous
-        MainViewController.previousView = "/Views/HomeUserView.fxml";
+        MainViewController.previousView = "/Views/Admin/HomeUserView.fxml";
 
         //Add options to List
         roleList = FXCollections.observableArrayList(
@@ -122,7 +122,7 @@ public class AdminAddUserViewController implements Initializable {
 
     @FXML
     protected void backToHomeUserView(ActionEvent event) throws IOException {
-        MainApp.switchView("/Views/HomeUserView.fxml");
+        MainApp.switchView("/Views/Admin/HomeUserView.fxml");
 
     }
 

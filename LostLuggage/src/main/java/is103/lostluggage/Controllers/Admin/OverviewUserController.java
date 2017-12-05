@@ -54,7 +54,7 @@ public class OverviewUserController implements Initializable {
     @FXML
     private void goToAddView(ActionEvent event) {
         try {
-            MainApp.switchView("/fxml/AdminAddUserView.fxml");
+            MainApp.switchView("/Views/Admin/AdminAddUserView.fxml");
 
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
@@ -85,7 +85,7 @@ public class OverviewUserController implements Initializable {
         mouseClickedOnRow();
 
         //To Previous Scene
-        MainViewController.previousView = "/Views/HomeUserView.fxml";
+        MainViewController.previousView = "/Views/Admin/HomeUserView.fxml";
 
     }
 
@@ -134,7 +134,7 @@ public class OverviewUserController implements Initializable {
                 }
                 System.out.println(row.getItem());
                 try {
-                    MainApp.switchView("/fxml/AdminAddUserView.fxml");
+                    MainApp.switchView("/Views/Admin/AdminAddUserView.fxml");
                 } catch (IOException ex) {
                     Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
                 }
