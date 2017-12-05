@@ -160,6 +160,8 @@ public class ServiceMatchingViewController implements Initializable {
         initializeFoundLuggageTable();
         
         
+        autoMatching(getFoundLuggage(), getMissedLuggage());
+        
     }
 
     /**  
@@ -513,10 +515,21 @@ public class ServiceMatchingViewController implements Initializable {
         matchingSelectionTabs.select(tab); 
     }
     
-    public void autoMatching(){
+    
+    public void autoMatching(ObservableList<FoundLuggage> foundList, ObservableList<MissedLuggage> missedList){
+        //ObservableList<FoundLuggage> newList = foundLuggageList;
+        
+        //Loop trough observebale lists :D
+        foundList.forEach((found) -> {
+            System.out.println("");
+            System.out.println("found: "+found.getRegistrationNr());
+        });
+        missedList.forEach((lost) -> {
+            System.out.println("");
+            System.out.println("lost: "+lost.getRegistrationNr());
+        });    
         
     }
-    
     
     
     @FXML

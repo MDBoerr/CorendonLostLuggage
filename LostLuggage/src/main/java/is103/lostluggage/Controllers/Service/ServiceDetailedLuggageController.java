@@ -224,7 +224,13 @@ public class ServiceDetailedLuggageController implements Initializable {
     }
     
     @FXML
-    protected void checkFields(){
+    public void checkFields(){
+        System.out.println("type.getText(): "+type.getText() );
+        
+        
+        //Need to fix!!   --> ER IS GEEN REDEN WAAROM IK EEN NulPointerException KRIJG
+        //Althans dat denk ik..
+        
 //        if (type.getText().equals("")){type.setText("Unknown");}
 //        if (luggageTag.getText().equals("")){luggageTag.setText("Unknown");}
 //        if (brand.getText().equals("")){brand.setText("Unknown");}
@@ -284,7 +290,7 @@ public class ServiceDetailedLuggageController implements Initializable {
     
     @FXML
     protected void manualMatching(ActionEvent event){
-        System.out.println("manual matched");
+        System.out.println("added to manual matching");
         FoundLuggage passObject =  LuggageDetails.getInstance().currentLuggage();
         LuggageManualMatchFound.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());
         
