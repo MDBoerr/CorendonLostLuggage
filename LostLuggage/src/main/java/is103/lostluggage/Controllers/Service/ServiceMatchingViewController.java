@@ -51,20 +51,26 @@ import javafx.util.Duration;
 public class ServiceMatchingViewController implements Initializable {
 
 
-            //view title
+    //view title
     private final String title = "Matching";
     
+    //popup stage
     public Stage popupStage = new Stage();    
     
+    //refresh rate                           
+    public static long timeRate = 1; //s
     
+    //setup for manual matching -> stop loop
+    public int idCheckFound = 9999;//random value (!= registrationNr) 
+    public int idFound      = 9999;//random value (!= registrationNr)
     
-    
-    
+    //luggage's lists
     public static ObservableList<FoundLuggage> foundLuggageList;
     public static ObservableList<MissedLuggage> missedLuggageList;
     
     
-    
+    //Working on right now:
+    //--------------------------------
     @FXML public TabPane matchingTabs;
     @FXML public Tab possibleTab;
     
@@ -72,10 +78,11 @@ public class ServiceMatchingViewController implements Initializable {
     @FXML public AnchorPane manualPane;
     @FXML public GridPane manualGrid;
     @FXML public Pane foundPane;
+    //--------------------------------
     
-    /* -----------------------------------------
-         TableView found luggage's colommen
-    ----------------------------------------- */
+    
+    //--------------------------------
+    //    Table Found initializen
     @FXML private TableView<FoundLuggage> foundLuggageTable;
 
     @FXML private TableColumn<FoundLuggage, String>  foundRegistrationNr;
@@ -98,10 +105,8 @@ public class ServiceMatchingViewController implements Initializable {
 //    @FXML private TableColumn<FoundLuggage, Integer> foundMatchedId;
     
 
-    /* -----------------------------------------
-         TableView missed luggage's colommen
-    ----------------------------------------- */
-    
+    //--------------------------------
+    //    Table Lost initializen
     @FXML private TableView<MissedLuggage> missedLuggageTable;
 
     @FXML private TableColumn<MissedLuggage, String>  missedRegistrationNr;
@@ -138,26 +143,18 @@ public class ServiceMatchingViewController implements Initializable {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         } 
         
-        //refreshTimer();
-        final ServiceMatchingViewController ttc = new ServiceMatchingViewController();
         
-//        Timer timer = new Timer();
-//        timer.schedule(new TimerTask() {
-//            
-//            @Override
-//            public void run() {
-//                callMethods();
-//                System.out.println("called!!");
-//            }
-//        }, 0, ServiceMatchingViewController.timeR);
+        //Refresh timer setup
+        Timeline refreshTimeLine = new Timeline(new KeyFrame(Duration.seconds(timeRate), ev -> {
+            callMethods();
+        }));
+        
+        //Start time line
+        refreshTimeLine.setCycleCount(Animation.INDEFINITE);
+        refreshTimeLine.play();
+        
 
-    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), ev -> {
-                callMethods();
-                System.out.println("called!!");
-    }));
-    timeline.setCycleCount(Animation.INDEFINITE);
-    timeline.play();
-                
+        //Initialize Table's
         initializeMissedLuggageTable();
         initializeFoundLuggageTable();
         
@@ -412,6 +409,7 @@ public class ServiceMatchingViewController implements Initializable {
         });
     }
     
+    
     /**  
      * @void popupDetails 
      */
@@ -443,75 +441,61 @@ public class ServiceMatchingViewController implements Initializable {
         }
         
     }
-
-    public static long timeR = 1244;
-    public void refreshTimer(){
-        
-        
-    }
     
-    
+    /**  
+     * @void callMethodes@RateOfTimeLine 
+     */
     public void callMethods(){
-        //ServiceMatchingViewController ttc = new ServiceMatchingViewController();
+        //Methodes calling at rate of --> int:  timeRate   //2s
         addToManualFound();
-        System.out.println("called  2   !!");
     }
-    public int idCheck = 9999;  
-    public int idObject = 9999;
+    
+
     public void addToManualFound() {
-        //foundPane.setContent();
+        //Standard --> id= null (not configured)
+        String getIdOfLuggageAddedToManualMatching = 
+                LuggageManualMatchFound.getInstance().currentLuggage().getRegistrationNr();
         
-       
-        String id = LuggageManualMatchFound.getInstance().currentLuggage().getRegistrationNr();
-        if (id != null) {
-            idObject = Integer.parseInt(""+id+"");
-            
-            System.out.println("-----------");
-            System.out.println("runned   !!");
-            System.out.println("Id check:"+idCheck);
-            System.out.println("Id:"+idObject);
-            System.out.println("-----------");
+        //if found luggage added to manual matching-> asign: iD found to this.id
+        if (getIdOfLuggageAddedToManualMatching != null) {
+            idFound = Integer.parseInt(""+getIdOfLuggageAddedToManualMatching+"");
         }
         
+//        System.out.println("---------DEBUG-----------");
+//        System.out.println("idFound:      "+idFound);
+//        System.out.println("idCheckFound: "+idCheckFound);
+//        System.out.println("-------------------------");
         
-        if (id == null) {
-            System.out.println("No manual matching found luggage selected - yet");
+        
+        if (getIdOfLuggageAddedToManualMatching == null) {
+            //No found luggage added to manual matching
         } else {
-            if (idCheck != idObject) {
-                idCheck = idObject;
-                System.out.println("shout be added now ----------------------------");
+            //if id of luggage added to manual matching is null
+            //check if this id is not the same id
+            if (idCheckFound != idFound) {
+                //if this is true, than asaign idcheckfound to this 
+                //(so the loop is stoped next time)
+                idCheckFound = idFound;
+                
+                //now try to load the manualMatchingFoundView in the right (found) pane
                 try {
-                    Pane root1 = FXMLLoader.load(getClass().getResource("/Views/Service/ServiceManualMatchingFound.fxml"));
-                    foundPane.getChildren().add(root1);
+                    //get the right source for MaualFoundView.FXML
+                    Pane ManualMatchingFoundSource = FXMLLoader.load(getClass()
+                            .getResource("/Views/Service/ServiceManualMatchingFoundView.fxml"));
+                    
+                    //clear the found pane
+                    foundPane.getChildren().clear();
+                    
+                    //Asign the source to the right pane: foundPane
+                    foundPane.getChildren().add(ManualMatchingFoundSource);
+                    
                 } catch (IOException ex) {
                     Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
-                System.out.println("Id is the same");
+                //id is the same
             }
-        }
-            //Parent root1 = (Parent) fxmlLoader.load();
-//            Stage stage = new Stage();
-//            stage.setScene(new Scene(root1));
-//            stage.show();
-           
-         
-        
-//                 try {
-//                    popUpDetails(popupStage, "/Views/Service/ServiceDetailedLuggageView.fxml");
-//                } catch (IOException ex) {
-//                    Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-        
-//     for this function:
-//    @FXML public TabPane matchingTabs;
-//    @FXML public Tab possibleTab;
-//    
-//    @FXML public Tab manualTab;
-//    @FXML public AnchorPane manualPane;
-//    @FXML public GridPane manualGrid;
-     
-    
+        }     
     }
     
     
