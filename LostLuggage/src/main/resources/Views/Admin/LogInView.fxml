@@ -35,6 +35,7 @@
                </children>
             </HBox>
             <JFXPasswordField fx:id="passwordField" focusColor="#4dadf7" labelFloat="true" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <JFXButton buttonType="RAISED" minHeight="40.0" minWidth="105.0" onAction="#switchViews" prefHeight="38.0" prefWidth="105.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c;" text="(Select User)" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
    </children>
