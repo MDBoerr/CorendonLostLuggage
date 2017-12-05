@@ -142,7 +142,7 @@ public class ServiceDetailedLuggageController implements Initializable {
             }
 //            if (luggageTag.getText().equals("")){luggageTag.setText("Unknown");}
 //            if (brand.getText().equals("")){brand.setText("Unknown");}
-//            if (signatures.getText().equals("")){signatures.setText("None");}
+            if (signatures.getText().equals("")){signatures.setText("None");}
 //            if (flight.getText().equals("")){flight.setText("Unknown");}
         
     }

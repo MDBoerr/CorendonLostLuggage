@@ -23,11 +23,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 
@@ -49,7 +53,17 @@ public class ServiceMatchingViewController implements Initializable {
     
     public static ObservableList<FoundLuggage> foundLuggageList;
     public static ObservableList<MissedLuggage> missedLuggageList;
-
+    
+    
+    
+    @FXML public TabPane matchingTabs;
+    @FXML public Tab possibleTab;
+    
+    @FXML public Tab manualTab;
+    @FXML public AnchorPane manualPane;
+    @FXML public GridPane manualGrid;
+    
+    
     /* -----------------------------------------
          TableView found luggage's colommen
     ----------------------------------------- */
