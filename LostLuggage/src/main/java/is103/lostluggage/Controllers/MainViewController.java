@@ -84,7 +84,7 @@ public class MainViewController implements Initializable {
     private void goBackToPreviousScene(ActionEvent event) throws IOException {
 
         if (previousView != null) {
-            System.out.println("-Back: Previous view/scene");
+            System.out.println("-Back: Previous view= " + previousView);
 
             MainApp.switchView(previousView);
 

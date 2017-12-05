@@ -1,6 +1,6 @@
 package is103.lostluggage.Controllers.Manager;
 
-import is103.lostluggage.Controllers.HomeUserViewController;
+import is103.lostluggage.Controllers.Admin.HomeUserViewController;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.MainApp;
 import java.io.IOException;

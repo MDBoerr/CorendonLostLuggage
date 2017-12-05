@@ -87,7 +87,7 @@ public class AdminAddUserViewController implements Initializable {
     private JFXTextField locationField;
 
     //Title of the view
-    private String header = "Voeg een Gebruiker toe";
+    private String header = "Add User";
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

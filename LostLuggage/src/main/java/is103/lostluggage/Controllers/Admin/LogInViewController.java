@@ -29,6 +29,9 @@ public class LogInViewController implements Initializable {
 
     @FXML
     private JFXButton logInButton;
+    
+    @FXML
+    private JFXButton clearAllButton;
 
     @FXML
     private JFXTextField idTextField;

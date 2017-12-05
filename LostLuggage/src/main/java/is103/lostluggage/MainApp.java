@@ -23,11 +23,15 @@ public class MainApp extends Application {
 
     public static String user = null;
 
-    private static String dbName = "sys";
+    private static String dbName = "CorendonLostLuggage";
 
     @Override
     public void start(Stage stage) throws Exception {
 
+        //Uncomment line below to create a Database on local SQL Server -> See READ ME for help 
+        //MyJDBC.createLostLuggageDatabase(dbName);
+        
+        
         //set root
         root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
 
@@ -56,8 +60,6 @@ public class MainApp extends Application {
 
         stage.show();
 
-        //Uncomment line below to create a local SQL Server 
-        //MyJDBC.createLostLuggageDatabase(dbName);
     }
 
     //methode voor het switchen van schermen

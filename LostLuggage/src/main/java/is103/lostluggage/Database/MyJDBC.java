@@ -10,9 +10,10 @@ import java.util.Enumeration;
 
 /**
  *
- * @author hva
+ * @author Part 1 = Hva - Part 2 = Michael de Boer
  */
 public class MyJDBC {
+    //Part 1
 
     private static final String DB_DEFAULT_DATABASE = "sys";
     private static final String DB_DEFAULT_SERVER_URL = "localhost:3306";
@@ -118,7 +119,7 @@ public class MyJDBC {
      */
     public int executeUpdateQuery(String sql) {
         try {
-             Statement s = this.connection.createStatement();
+            Statement s = this.connection.createStatement();
             log(sql);
             int n = s.executeUpdate(sql);
             s.close();
@@ -146,15 +147,6 @@ public class MyJDBC {
         ResultSet rs = s.executeQuery(sql);
         // cannot close the statement, because that also closes the resultset
         return rs;
-    }
-    public ResultSet executeLogInResultSetQuery (String id, String password) throws SQLException {
-        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM User  "
-                + "WHERE ID = ? AND Location = ?");
-        preparedStatement.setString(1, id);
-        preparedStatement.setString(2, password);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        
-        return resultSet;
     }
 
     /**
@@ -241,6 +233,48 @@ public class MyJDBC {
         this.close();
     }
 
+    public boolean isVerbose() {
+        return verbose;
+    }
+
+    public void setVerbose(boolean verbose) {
+        this.verbose = verbose;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+    
+    
+
+    /*
+    
+    Part 2 
+    
+     */
+    /**
+     * *
+     * Executes an SQL query that yields a ResultSet with a user if the filled
+     * in fields match a id and password in the user table.
+     * Else returns an ResultSet 
+     *
+     * Using a Prepared Statement. Prepared statements are used against SQL
+     * injection
+     *
+     *
+     * @param id the username from the user.
+     * @param password the password that the user entered
+     * @return a ResultSet object (User)
+     */
+    public ResultSet executeLogInResultSetQuery(String id, String password) throws SQLException {
+        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM User  "
+                + "WHERE ID = ? AND Location = ?");
+        preparedStatement.setString(1, id);
+        preparedStatement.setString(2, password);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        return resultSet;
+    }
 
     public static void createLostLuggageDatabase(String dbName) {
 
@@ -250,15 +284,11 @@ public class MyJDBC {
         MyJDBC sysJDBC = new MyJDBC("sys");
         sysJDBC.executeUpdateQuery("CREATE DATABASE IF NOT EXISTS " + dbName);
         sysJDBC.close();
-        
-        
+
         // create or truncate User table in the Airline database
-        System.out.println("Creating the User,table...");
+        System.out.println("Creating the User table...");
         MyJDBC myJDBC = new MyJDBC(dbName);
-        
-        
-        
-        //OUDE DATA -> IK GA DEZE NOG VERNIEUWEN VOLGENS DE NIEUWE DATABASE
+
 //        myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS missedLuggage ("
 //                + " idmissedLuggage VARCHAR(10) NOT NULL PRIMARY KEY,"
 //                + " time VARCHAR(8),"
@@ -277,10 +307,25 @@ public class MyJDBC {
 //                + " brand VARCHAR(40),"
 //                + " color VARCHAR(40),"
 //                + " signatures VARCHAR(40) )");
-//        
-       
-                
-                
+//
+//        myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS foundLuggage ("
+//                + " idfoundLuggage VARCHAR(10) NOT NULL PRIMARY KEY,"
+//                + " time VARCHAR(8),"
+//                + " airport VARCHAR(45),"
+//                + " date VARCHAR(45),"
+//                + " name VARCHAR(45),"
+//                + " adress VARCHAR(45),"
+//                + " residence VARCHAR(40),"
+//                + " postalcode VARCHAR(40),"
+//                + " country VARCHAR(40),"
+//                + " email VARCHAR(40),"
+//                + " labelnumber VARCHAR(40),"
+//                + " flightnumber VARCHAR(40),"
+//                + " type VARCHAR(40),"
+//                + " destination VARCHAR(40),"
+//                + " brand VARCHAR(40),"
+//                + " color VARCHAR(40),"
+//                + " signatures VARCHAR(40) )");
         myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS User ("
                 + " ID VARCHAR(10) NOT NULL PRIMARY KEY,"
                 + " Password VARCHAR(20) NOT NULL"
@@ -289,7 +334,7 @@ public class MyJDBC {
                 + " Location VARCHAR(45),"
                 + " Status VARCHAR(10),"
                 + " Role VARCHAR(20) )");
-        
+
         // truncate Tables, in case some data was already there
         myJDBC.executeUpdateQuery("TRUNCATE TABLE User");
         myJDBC.executeUpdateQuery("TRUNCATE TABLE foundLuggage");
@@ -297,7 +342,7 @@ public class MyJDBC {
 
         // Populate the tables in the Airline database        
         System.out.println("Populating with User Account, Found and Missed Luggage...");
-        
+
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
                 + "'MB1', 'Amsterdam', 'Michael', 'Boer de', 'Amsterdam', 'Active', 'Adminstrator' )");
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
@@ -312,12 +357,14 @@ public class MyJDBC {
                 + "'PL1', 'Amsterdam', 'Poek', 'Ligthart', 'Amsterdam', 'Service', 'Adminstrator' )");
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
                 + "'MB2', 'Amsterdam', 'Michael', 'Boer de', 'Amsterdam', 'Manager', 'Adminstrator' )");
-        
-        myJDBC.executeUpdateQuery("INSERT INTO foundLuggage VALUES ("
-                + "'170', '09:21', 'AMS', '05-07-2017', 'Unknown', 'Unknown', 'Unknown', 'Unknown', 'Unknown', 'Unknown', '298438738AB', 'AMS328LON', 'Trolley', 'LON', 'Nomad', 'Silver', 'Steel, red dot' )");
-        
-        
 
+//        myJDBC.executeUpdateQuery("INSERT INTO foundLuggage VALUES ("
+//                + "'170', '09:21', 'AMS', '05-07-2017', 'Unknown', 'Unknown', 'Unknown', 'Unknown', 'Unknown', 'Unknown', '298438738AB', 'AMS328LON', 'Trolley', 'LON', 'Nomad', 'Silver', 'Steel, red dot' )");
+//
+//        myJDBC.executeUpdateQuery("INSERT INTO missedLuggage VALUES ("
+//                + "'123', '12:00', 'AKE', '01-02-2015', 'Dave', 'Streename 3', 'Amsterdam', '1432 AD', 'Netherlands', 'Dave@mail.com', '298438738AB', 'AMS328LON', 'Trolley', 'LON', 'Nomad', 'Silver', 'Steel, dot' )");
+//        myJDBC.executeUpdateQuery("INSERT INTO missedLuggage VALUES ("
+//                + "'192', '10:02', 'SDA', '05-03-2017', 'Lenart', 'Wibautsat 2', 'Amsterdam', '1932 AM', 'Netherlands', 'Lenny@hva.nl', '26374738KE', 'AES128LEP', 'Badpack', 'EKL', 'TULU', 'Blue', 'Expensive laptop' )");
         // echo all airports in timezone 1
         System.out.println("Known User in time zone 1:");
         try {
@@ -340,15 +387,4 @@ public class MyJDBC {
         myJDBC.close();
     }
 
-    public boolean isVerbose() {
-        return verbose;
-    }
-
-    public void setVerbose(boolean verbose) {
-        this.verbose = verbose;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
 }

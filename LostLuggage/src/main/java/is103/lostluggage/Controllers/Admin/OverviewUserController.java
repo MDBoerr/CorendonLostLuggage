@@ -1,6 +1,5 @@
 package is103.lostluggage.Controllers.Admin;
 
-import is103.lostluggage.Controllers.HomeUserViewController;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
