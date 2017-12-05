@@ -1,11 +1,15 @@
 package is103.lostluggage.Controllers.Manager;
 
+import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.HomeUserViewController;
 import is103.lostluggage.Controllers.MainViewController;
+import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 //import is103.lostluggage.Controllers.Service.Luggage;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,11 +38,19 @@ import javafx.stage.Stage;
 public class ManagerRetrievedViewController implements Initializable {
 
     //luggage list
-    public static ObservableList<RetrievedLuggage> retrievedLuggage;
-    private int id = 0;
+    @FXML
+    public TableView<RetrievedLuggage> retrievedTable;
 
     @FXML
-    public TableView retrievedTable;
+    private TableColumn<RetrievedLuggage, String> FormID;
+    @FXML
+    private TableColumn<RetrievedLuggage, String> Date;
+    @FXML
+    private TableColumn<RetrievedLuggage, String> Customer;
+    @FXML
+    private TableColumn<RetrievedLuggage, String> Employee;
+    @FXML
+    private TableColumn<RetrievedLuggage, String> Deliverer;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -46,52 +58,45 @@ public class ManagerRetrievedViewController implements Initializable {
         //To Previous Scene
         MainViewController.previousView = "/Views/ManagerHomeView.fxml";
 
-        retrievedLuggage = FXCollections.observableArrayList();
-        retrievedTable.setItems(retrievedLuggage);
+        FormID.setCellValueFactory(new PropertyValueFactory<RetrievedLuggage, String>("foundluggage.registrationNr"));
+        Date.setCellValueFactory(new PropertyValueFactory<RetrievedLuggage, String>("dateMatched"));
+        Customer.setCellValueFactory(new PropertyValueFactory<RetrievedLuggage, String>("passenger.name"));
+        Employee.setCellValueFactory(new PropertyValueFactory<RetrievedLuggage, String>("employee.firstname"));
+        Deliverer.setCellValueFactory(new PropertyValueFactory<RetrievedLuggage, String>("delivered"));
 
-        //voor elke colum data vullen (bij verandering en initializatie
-        for (int i = 0; i < retrievedTable.getColumns().size(); i++) {
-            TableColumn tc = (TableColumn) retrievedTable.getColumns().get(i);
+        retrievedTable.setItems(getRetrievedLuggage());
+    }
 
-            tc.setCellValueFactory(new PropertyValueFactory<>(tc.getId()));
+    public ObservableList<RetrievedLuggage> getRetrievedLuggage() {
 
-        }
+        ObservableList<RetrievedLuggage> retrieved = FXCollections.observableArrayList();
 
-        retrievedTable.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
+        try {
+            MyJDBC db = MainApp.connectToDatabase();
 
-                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                    Node node = ((Node) event.getTarget()).getParent();
+            ResultSet resultSet;
 
-                    TableRow row;
+            resultSet = db.executeResultSetQuery("SELECT delivered, dateMatched, employee.firstname, foundluggage.registrationNr, passenger.name  FROM matched \n"
+                    + "    INNER JOIN employee ON matched.employeeId = employee.employeeId \n"
+                    + "            INNER JOIN foundluggage ON matched.foundluggage = foundluggage.registrationNr \n"
+                    + "                    INNER JOIN passenger ON foundluggage.passengerId = passenger.passengerId;");
 
-                    if (node instanceof TableRow) {
-                        row = (TableRow) node;
-                    } else {
-                        // clicking on text part
-                        row = (TableRow) node.getParent();
-                    }
-                    System.out.println(row.getItem());
-
-                    try {
-
-                        MainApp.switchView("/Views/ManagerPassengerInfoView.fxml");
-
-                    } catch (IOException ex) {
-
-                        Logger.getLogger(ManagerRetrievedViewController.class.getName()).log(Level.SEVERE, null, ex);
-
-                    }
-
-                }
+            while (resultSet.next()) {
+                String delivered = resultSet.getString("delivered");
+                String date = resultSet.getString("dateMatched");
+                String employeename = resultSet.getString("employee.firstname");
+                String registrationnr = resultSet.getString("foundluggage.registrationNr");
+                String passengername = resultSet.getString("passenger.name");
+                
+                System.out.println("deliverer: "+delivered + " Date: " +date + " passName: " + passengername+ " empname: " + employeename + " regnr: " + registrationnr);
+                retrieved.add(new RetrievedLuggage(registrationnr, date, passengername, employeename, delivered));
 
             }
 
-        });
+        } catch (SQLException ex) {
+            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        //dummy data invoeren in de tabel 
-        retrievedLuggage.add(new RetrievedLuggage((id++), "0234", "04-11-2018", "Arthur", "Poek", "DHL"));
-        retrievedLuggage.add(new RetrievedLuggage((id++), "0323", "05-11-2018", "Henry", "Poek", "Locale bezorger"));
+        return retrieved;
     }
 }
