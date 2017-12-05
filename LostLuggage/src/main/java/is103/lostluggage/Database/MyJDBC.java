@@ -241,68 +241,6 @@ public class MyJDBC {
         this.close();
     }
 
-    /**
-     * *
-     * builds a sample database with sample content
-     *
-     * @param dbName name of the sample database.
-     */
-    public static void createTestDatabase(String dbName) {
-
-        System.out.println("Creating the " + dbName + " database...");
-
-        // use the sys schema for creating another db
-        MyJDBC sysJDBC = new MyJDBC("sys");
-        sysJDBC.executeUpdateQuery("CREATE DATABASE IF NOT EXISTS " + dbName);
-        sysJDBC.close();
-
-        // create or truncate Airport table in the Airline database
-        System.out.println("Creating the Airport table...");
-        MyJDBC myJDBC = new MyJDBC(dbName);
-        myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS Airport ("
-                + " IATACode VARCHAR(3) NOT NULL PRIMARY KEY,"
-                + " Name VARCHAR(45),"
-                + " TimeZone INT(3) )");
-
-        // truncate Airport, in case some data was already there
-        myJDBC.executeUpdateQuery("TRUNCATE TABLE Airport");
-
-        // Populate the Airport table in the Airline database        
-        System.out.println("Populating with Airport information...");
-        myJDBC.executeUpdateQuery("INSERT INTO Airport VALUES ("
-                + "'AMS', 'Schiphol Amsterdam', 1 )");
-        myJDBC.executeUpdateQuery("INSERT INTO Airport VALUES ("
-                + "'LHR', 'London Heathrow', 0 )");
-        myJDBC.executeUpdateQuery("INSERT INTO Airport VALUES ("
-                + "'BRU', 'Brussels Airport', 1 )");
-        myJDBC.executeUpdateQuery("INSERT INTO Airport VALUES ("
-                + "'ESB', 'Ankara Esenboğa Airport', 2 )");
-        myJDBC.executeUpdateQuery("INSERT INTO Airport VALUES ("
-                + "'SUF', 'Sant\\'Eufemia Lamezia International Airport', 1 )");
-        myJDBC.executeUpdateQuery("INSERT INTO Airport VALUES ("
-                + "'HKG', 'Hong Kong International', 8 )");
-
-        // echo all airports in timezone 1
-        System.out.println("Known Airports in time zone 1:");
-        try {
-            ResultSet rs = myJDBC.executeResultSetQuery(
-                    "SELECT IATACode, Name FROM AirPort WHERE TimeZone=1");
-            while (rs.next()) {
-                // echo the info of the next airport found
-                System.out.println(
-                        rs.getString("IATACode")
-                        + " " + rs.getString("Name"));
-            }
-            // close and release the resources
-            rs.close();
-
-        } catch (SQLException ex) {
-            myJDBC.error(ex);
-        }
-
-        // close the connection with the database
-        myJDBC.close();
-    }
 
     public static void createLostLuggageDatabase(String dbName) {
 
