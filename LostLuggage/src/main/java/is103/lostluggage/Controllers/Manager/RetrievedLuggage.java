@@ -1,77 +1,64 @@
 package is103.lostluggage.Controllers.Manager;
 
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  *
  * @author daron
  */
 public class RetrievedLuggage {
-        //inserts for ManagerTeruggebrachttebagage
-    private int id;
+    //inserts for ManagerTeruggebrachttebagage
 
+    private SimpleStringProperty FormID, Date, Customer, Employee, Deliverer;
 
-    private String FormID;
-    private String Date;
-    private String Customer;
-    private String Employee;
-    private String Deliverer;
+    public RetrievedLuggage(String FormID, String Date, String Customer, String Employee, String Deliverer) {
 
-    public RetrievedLuggage(int id, String FormID, String Date, String Customer, String Employee, String Deliverer) {
-        this.FormID = FormID;
-        this.id = id;
-        this.Date = Date;
-        this.Customer = Customer;
-        this.Employee = Employee;
-        this.Deliverer = Deliverer;
-    }    
-    
-        public String getFormID() {
+        this.FormID = new SimpleStringProperty(FormID);
+        this.Date = new SimpleStringProperty(Date);
+        this.Customer = new SimpleStringProperty(Customer);
+        this.Employee = new SimpleStringProperty(Employee);
+        this.Deliverer = new SimpleStringProperty(Deliverer);
+
+    }
+
+    public SimpleStringProperty getFormID() {
         return FormID;
     }
 
-    public void setFormID(String FormID) {
+    public void setFormID(SimpleStringProperty FormID) {
         this.FormID = FormID;
     }
 
-    public String getDate() {
+    public SimpleStringProperty getDate() {
         return Date;
     }
 
-    public void setDate(String Date) {
+    public void setDate(SimpleStringProperty Date) {
         this.Date = Date;
     }
 
-    public String getCustomer() {
+    public SimpleStringProperty getCustomer() {
         return Customer;
     }
 
-    public void setCustomer(String Customer) {
+    public void setCustomer(SimpleStringProperty Customer) {
         this.Customer = Customer;
     }
 
-    public String getEmployee() {
+    public SimpleStringProperty getEmployee() {
         return Employee;
     }
 
-    public void setEmployee(String Employee) {
+    public void setEmployee(SimpleStringProperty Employee) {
         this.Employee = Employee;
     }
 
-    public String getDeliverer() {
+    public SimpleStringProperty getDeliverer() {
         return Deliverer;
     }
 
-
-    public void setDeliverer(String Deliverer) {
+    public void setDeliverer(SimpleStringProperty Deliverer) {
         this.Deliverer = Deliverer;
     }
-    
-        public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-    
-    
 }

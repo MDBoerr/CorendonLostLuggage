@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane prefHeight="579.0" prefWidth="949.0" style="-fx-background-color: #868e96#868e96 #868e96#868e96;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Manager.ManagerRetrievedViewController">
+<GridPane prefHeight="579.0" prefWidth="949.0" style="-fx-background-color: #868e96#868e96 #868e96#868e96;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Manager.ManagerRetrievedViewController">
     <columnConstraints>
         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -21,8 +21,7 @@
     <children>
         <TableView fx:id="retrievedTable" prefHeight="414.0" prefWidth="721.0" GridPane.columnSpan="2" GridPane.rowSpan="4">
             <columns>
-                <TableColumn fx:id="id" prefWidth="42.05970764160156" text="ID" />
-                <TableColumn fx:id="FormID" prefWidth="115.17697143554688" text="FormulierID" />
+                <TableColumn fx:id="FormID" prefWidth="115.17697143554688" text="registratienummer" />
                 <TableColumn fx:id="Date" prefWidth="70.47128295898438" text="Datum" />
                 <TableColumn fx:id="Customer" prefWidth="80.17697143554688" text="Klant" />
                 <TableColumn fx:id="Employee" prefWidth="126.822998046875" text="Medewerker" />
