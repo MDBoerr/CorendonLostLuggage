@@ -28,12 +28,12 @@ import javafx.scene.control.TableRow;
 import javafx.scene.input.MouseEvent;
 
 public class OverviewUserController implements Initializable {
-    
+
     private String header = "Overzicht Gebruikers";
-    
+
     @FXML
     private TableView<User> tableView;
-    
+
     @FXML
     private TableColumn<User, String> idColumn;
     @FXML
@@ -55,52 +55,51 @@ public class OverviewUserController implements Initializable {
     private void goToAddView(ActionEvent event) {
         try {
             MainApp.switchView("/fxml/AdminAddUserView.fxml");
-            
+
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         //Error in creating database User
         //MyJDBC.createLostLuggageDatabase("LostLuggage");
-        
         try {
             MainViewController.getInstance().getTitle(header);
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         idColumn.setCellValueFactory(new PropertyValueFactory<User, String>("Id"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("LastName"));
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("FirstName"));
         locationColumn.setCellValueFactory(new PropertyValueFactory<User, String>("Location"));
         roleColumn.setCellValueFactory(new PropertyValueFactory<User, String>("Role"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<User, String>("Status"));
-        
+
         tableView.setItems(getUsers());
-        
+
         mouseClickedOnRow();
 
         //To Previous Scene
         MainViewController.previousView = "/Views/HomeUserView.fxml";
-        
+
     }
-    
+
     public ObservableList<User> getUsers() {
-        
+
         ObservableList<User> users = FXCollections.observableArrayList();
-        
+
         try {
             MyJDBC db = MainApp.connectToDatabase();
-            
+
             ResultSet resultSet;
-            
+
             resultSet = db.executeResultSetQuery("SELECT ID, Firstname, Lastname, Location, Status, Role FROM User");
-            
+
             while (resultSet.next()) {
                 String id = resultSet.getString("ID");
                 String firstName = resultSet.getString("Firstname");
@@ -108,12 +107,12 @@ public class OverviewUserController implements Initializable {
                 String location = resultSet.getString("Location");
                 String status = resultSet.getString("Status");
                 String role = resultSet.getString("Role");
-                
+
                 System.out.println("ID: " + id + "  Firstname: " + firstName + " Lastname: " + lastName + " Location: " + location + " Status: " + status + " Role: " + role);
                 users.add(new User(id, lastName, firstName, location, role, status));
-                
+
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -121,7 +120,7 @@ public class OverviewUserController implements Initializable {
 
         return users;
     }
-    
+
     public void mouseClickedOnRow() {
         tableView.setOnMousePressed((MouseEvent event) -> {
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
@@ -139,9 +138,9 @@ public class OverviewUserController implements Initializable {
                 } catch (IOException ex) {
                     Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
             }
         });
     }
-    
+
 }

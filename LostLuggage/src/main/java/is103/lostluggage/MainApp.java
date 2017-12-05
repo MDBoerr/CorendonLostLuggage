@@ -21,6 +21,8 @@ public class MainApp extends Application {
 
     private static BorderPane root;
 
+    public static String user = null;
+
     private static String dbName = "LostLuggage";
 
     @Override
@@ -29,7 +31,8 @@ public class MainApp extends Application {
         //set root
         root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
 
-        switchView("/fxml/SelectUserRoleView.fxml");
+        //switchView("/fxml/SelectUserRoleView.fxml");
+        checkLoggedInStatus(user);
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
@@ -43,8 +46,11 @@ public class MainApp extends Application {
         stage.setY(primaryScreenBounds.getMinY());
         stage.setWidth(primaryScreenBounds.getWidth());
         stage.setHeight(primaryScreenBounds.getHeight());
-        
-        Image logo = new Image("Images/Stage logo@3x.png");
+
+        stage.setMinWidth(1000);
+        stage.setMinHeight(700);
+
+        Image logo = new Image("Images/Stage logo.png");
         //Image applicationIcon = new Image(getClass().getResourceAsStream("Images/Logo.png"));
         stage.getIcons().add(logo);
 
@@ -70,6 +76,30 @@ public class MainApp extends Application {
         MyJDBC db = new MyJDBC(dbName);
 
         return db;
+    }
+
+    public static void checkLoggedInStatus(String user) throws IOException {
+
+        if (user != null) {
+            System.out.println(user);
+            if (user.equals("Adminstrator")) {
+                switchView("/Views/HomeUserView.fxml");
+                System.out.println(user);
+
+            }
+            if (user.equals("Manager")) {
+                switchView("/Views/ManagerHomeView.fxml");
+
+            }
+            if (user.equals("Service Employee")) {
+                switchView("/Views/Service/ServiceHomeView.fxml");
+
+            }
+
+        } else {
+            switchView("/Views/Admin/LogInView.fxml");
+
+        }
     }
 
     /**

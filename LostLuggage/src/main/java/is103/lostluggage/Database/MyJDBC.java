@@ -147,6 +147,15 @@ public class MyJDBC {
         // cannot close the statement, because that also closes the resultset
         return rs;
     }
+    public ResultSet executeLogInResultSetQuery (String id, String password) throws SQLException {
+        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM User  "
+                + "WHERE ID = ? AND Location = ?");
+        preparedStatement.setString(1, id);
+        preparedStatement.setString(2, password);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        
+        return resultSet;
+    }
 
     /**
      * *
@@ -350,6 +359,7 @@ public class MyJDBC {
                 
         myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS User ("
                 + " ID VARCHAR(10) NOT NULL PRIMARY KEY,"
+                + " Password VARCHAR(20) NOT NULL"
                 + " Firstname VARCHAR(45),"
                 + " Lastname VARCHAR(45),"
                 + " Location VARCHAR(45),"
@@ -365,11 +375,19 @@ public class MyJDBC {
         System.out.println("Populating with User Account, Found and Missed Luggage...");
         
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
-                + "'MB1', 'Michael', 'Boer de', 'Amsterdam', 'Active', 'Adminstrator' )");
+                + "'MB1', 'Amsterdam', 'Michael', 'Boer de', 'Amsterdam', 'Active', 'Adminstrator' )");
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
-                + "'AA1', 'Ahmet', 'Boer de', 'Amsterdam', 'Active', 'Adminstrator' )");
+                + "'AA1', 'Amsterdam', 'Ahmet', 'Aksu', 'Amsterdam', 'Active', 'Adminstrator' )");
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
-                + "'MB2', 'Arthur', 'Krom', 'Amsterdam', 'Active', 'Adminstrator' )");
+                + "'AK1', 'Amsterdam', 'Arthur', 'Krom', 'Amsterdam', 'Active', 'Adminstrator' )");
+        myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
+                + "'TZ1', 'Amsterdam', 'Thijs', 'Zijdel', 'Amsterdam', 'Active', 'Adminstrator' )");
+        myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
+                + "'DO1', 'Amsterdam', 'Daron', 'Özdemir', 'Amsterdam', 'Active', 'Adminstrator' )");
+        myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
+                + "'PL1', 'Amsterdam', 'Poek', 'Ligthart', 'Amsterdam', 'Active', 'Adminstrator' )");
+        myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
+                + "'MB2', 'Amsterdam', 'Michael', 'Boer de', 'Amsterdam', 'Active', 'Adminstrator' )");
         
         myJDBC.executeUpdateQuery("INSERT INTO foundLuggage VALUES ("
                 + "'170', '09:21', 'AMS', '05-07-2017', 'Unknown', 'Unknown', 'Unknown', 'Unknown', 'Unknown', 'Unknown', '298438738AB', 'AMS328LON', 'Trolley', 'LON', 'Nomad', 'Silver', 'Steel, red dot' )");
