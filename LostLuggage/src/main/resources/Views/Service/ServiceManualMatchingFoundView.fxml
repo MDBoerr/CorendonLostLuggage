@@ -4,230 +4,236 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9" fx:controller="is103.lostluggage.Controllers.Service.ServiceManualMatchingFoundController">
+<AnchorPane id="AnchorPane" minHeight="150.0" minWidth="400.0" prefHeight="250.0" prefWidth="603.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Service.ServiceManualMatchingFoundController">
     <children>
-      <GridPane layoutX="-24.0" layoutY="-22.0" prefHeight="622.0" prefWidth="570.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="272.0" minWidth="1.0" prefWidth="17.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="399.0" minWidth="90.0" prefWidth="95.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="364.0" minWidth="125.0" prefWidth="150.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="364.0" minWidth="100.0" prefWidth="125.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="364.0" minWidth="125.0" prefWidth="150.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="291.0" minWidth="10.0" prefWidth="25.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints maxHeight="151.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="151.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="154.0" minHeight="40.0" prefHeight="33.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="188.0" minHeight="40.0" prefHeight="39.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="256.0" minHeight="40.0" prefHeight="31.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="229.0" minHeight="40.0" prefHeight="37.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="291.0" minHeight="40.0" prefHeight="36.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="291.0" minHeight="40.0" prefHeight="36.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="271.0" minHeight="40.0" prefHeight="36.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="271.0" minHeight="40.0" prefHeight="36.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="271.0" minHeight="40.0" prefHeight="36.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="271.0" minHeight="40.0" prefHeight="36.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <JFXTextField fx:id="registrationNr" editable="false" focusColor="#282727" promptText="Registration Nr" GridPane.columnIndex="2" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="type" editable="false" focusColor="#282727" promptText="Type" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="brand" editable="false" focusColor="#282727" promptText="Brand" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="mainColor" editable="false" focusColor="#282727" promptText="Color" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
-            <JFXTextArea fx:id="signatures" editable="false" focusColor="#282727" prefHeight="115.0" prefWidth="282.0" promptText="Signatures" GridPane.columnIndex="2" GridPane.rowIndex="8" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
-               <GridPane.margin>
-                  <Insets bottom="10.0" top="5.0" />
-               </GridPane.margin></JFXTextArea>
-            <Label text="Type:" textFill="#9a9a9a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-               <opaqueInsets>
-                  <Insets bottom="5.0" right="20.0" />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="5.0" right="10.0" />
-               </padding>
-            </Label>
-            <Label text="Reg Nr:" textFill="#9a9a9a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
-               <opaqueInsets>
-                  <Insets bottom="5.0" right="20.0" />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="5.0" right="10.0" />
-               </padding>
-            </Label>
-            <Label text="Brand:" textFill="#9a9a9a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
-               <opaqueInsets>
-                  <Insets bottom="5.0" right="20.0" />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="5.0" right="10.0" />
-               </padding>
-            </Label>
-            <Label text="Main Color:" textFill="#9a9a9a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-               <opaqueInsets>
-                  <Insets bottom="5.0" right="20.0" />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="5.0" right="10.0" />
-               </padding>
-            </Label>
-            <Label text="Sec. Color:" textFill="#9a9a9a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
-               <opaqueInsets>
-                  <Insets bottom="5.0" right="20.0" />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="5.0" right="10.0" />
-               </padding>
-            </Label>
-            <JFXTextField fx:id="secondColor" editable="false" focusColor="#282727" promptText="Color" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="luggageTag" editable="false" focusColor="#282727" promptText="Luggage Tag" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-            <Label text="Tag:" textFill="#9a9a9a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-               <opaqueInsets>
-                  <Insets bottom="5.0" right="20.0" />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="5.0" right="10.0" />
-               </padding>
-            </Label>
-            <Label text="Size:" textFill="#9a9a9a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
-               <opaqueInsets>
-                  <Insets bottom="5.0" right="20.0" />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="5.0" right="10.0" />
-               </padding>
-            </Label>
-            <JFXTextField fx:id="size" editable="false" focusColor="#282727" promptText="Size" GridPane.columnIndex="2" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="weight" editable="false" focusColor="#282727" promptText="Weight" GridPane.columnIndex="2" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
-            <Label text="Weight:" textFill="#9a9a9a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
-               <opaqueInsets>
-                  <Insets bottom="5.0" right="20.0" />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="5.0" right="10.0" />
-               </padding>
-            </Label>
-            <Label text="Signatures:" textFill="#9a9a9a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="8" GridPane.valignment="TOP">
-               <opaqueInsets>
-                  <Insets bottom="5.0" right="20.0" />
-               </opaqueInsets>
-               <padding>
-                  <Insets right="10.0" top="5.0" />
-               </padding>
-            </Label>
-            <Label text="Passanger:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
-               <opaqueInsets>
-                  <Insets bottom="5.0" right="20.0" />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="5.0" right="10.0" />
-               </padding>
-            </Label>
-            <JFXTextField fx:id="passangerId" editable="false" focusColor="#282727" promptText="Passanger ID" GridPane.columnIndex="4" GridPane.valignment="BOTTOM" />
-            <Label text="Name:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-               <opaqueInsets>
-                  <Insets bottom="5.0" right="20.0" />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="5.0" right="10.0" />
-               </padding>
-            </Label>
-            <JFXTextField fx:id="passangerName" editable="false" focusColor="#282727" promptText="Passanger Name" GridPane.columnIndex="4" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="address" editable="false" focusColor="#282727" promptText="Address" GridPane.columnIndex="4" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-            <Label text="Address:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-               <opaqueInsets>
-                  <Insets bottom="5.0" right="20.0" />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="5.0" right="10.0" />
-               </padding>
-            </Label>
-            <JFXTextField fx:id="place" editable="false" focusColor="#282727" promptText="Place" GridPane.columnIndex="4" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
-            <Label text="Place:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
-               <opaqueInsets>
-                  <Insets bottom="5.0" right="20.0" />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="5.0" right="10.0" />
-               </padding>
-            </Label>
-            <JFXTextField fx:id="postalCode" editable="false" focusColor="#282727" promptText="Postal Code" GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="country" editable="false" focusColor="#282727" promptText="Country" GridPane.columnIndex="4" GridPane.rowIndex="5" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="email" editable="false" focusColor="#282727" promptText="Email" GridPane.columnIndex="4" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="phone" editable="false" focusColor="#282727" promptText="Phone" GridPane.columnIndex="4" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
-            <Label text="Postal Code:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-               <opaqueInsets>
-                  <Insets bottom="5.0" right="20.0" />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="5.0" right="10.0" />
-               </padding>
-            </Label>
-            <Label text="Country:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
-               <opaqueInsets>
-                  <Insets bottom="5.0" right="20.0" />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="5.0" right="10.0" />
-               </padding>
-            </Label>
-            <Label text="Email:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
-               <opaqueInsets>
-                  <Insets bottom="5.0" right="20.0" />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="5.0" right="10.0" />
-               </padding>
-            </Label>
-            <Label text="Phone:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
-               <opaqueInsets>
-                  <Insets bottom="5.0" right="20.0" />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="5.0" right="10.0" />
-               </padding>
-            </Label>
-            <Label text="Location Found:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="8" GridPane.valignment="BOTTOM">
-               <opaqueInsets>
-                  <Insets bottom="5.0" right="20.0" />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="5.0" right="10.0" />
-               </padding>
-            </Label>
-            <JFXTextField fx:id="locationFound" editable="false" focusColor="#282727" promptText="Location Found" GridPane.columnIndex="4" GridPane.rowIndex="8" GridPane.valignment="BOTTOM" />
-            <Label text="Flight:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="11" GridPane.valignment="BOTTOM">
-               <opaqueInsets>
-                  <Insets bottom="5.0" right="20.0" />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="5.0" right="10.0" />
-               </padding>
-            </Label>
-            <JFXTextField fx:id="flight" editable="false" focusColor="#282727" promptText="Flight" GridPane.columnIndex="4" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />
-            <Label text="Time Found:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="10" GridPane.valignment="BOTTOM">
-               <opaqueInsets>
-                  <Insets bottom="5.0" right="20.0" />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="5.0" right="10.0" />
-               </padding>
-            </Label>
-            <Label text="Date Found:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="9" GridPane.valignment="BOTTOM">
-               <opaqueInsets>
-                  <Insets bottom="5.0" right="20.0" />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="5.0" right="10.0" />
-               </padding>
-            </Label>
-            <JFXTextField fx:id="dateFound" editable="false" focusColor="#282727" promptText="Date Found" GridPane.columnIndex="4" GridPane.rowIndex="9" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="timeFound" editable="false" focusColor="#282727" promptText="Time Found" GridPane.columnIndex="4" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />
-         </children>
-      </GridPane>
+      <ScrollPane prefHeight="339.0" prefWidth="603.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <GridPane prefHeight="622.0" prefWidth="570.0">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="272.0" minWidth="1.0" prefWidth="17.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="399.0" minWidth="90.0" prefWidth="95.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="364.0" minWidth="125.0" prefWidth="150.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="364.0" minWidth="100.0" prefWidth="125.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="364.0" minWidth="125.0" prefWidth="150.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="291.0" minWidth="10.0" prefWidth="25.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="39.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="31.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="37.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="50.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="50.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <JFXTextField fx:id="registrationNr" editable="false" focusColor="#282727" promptText="Registration Nr" GridPane.columnIndex="2" GridPane.valignment="BOTTOM" />
+                  <JFXTextField fx:id="type" editable="false" focusColor="#282727" promptText="Type" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                  <JFXTextField fx:id="brand" editable="false" focusColor="#282727" promptText="Brand" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
+                  <JFXTextField fx:id="mainColor" editable="false" focusColor="#282727" promptText="Color" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
+                  <JFXTextArea fx:id="signatures" editable="false" focusColor="#282727" prefHeight="115.0" prefWidth="282.0" promptText="Signatures" GridPane.columnIndex="2" GridPane.rowIndex="8" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" top="5.0" />
+                     </GridPane.margin>
+                  </JFXTextArea>
+                  <Label text="Type:" textFill="#9a9a9a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                     <opaqueInsets>
+                        <Insets bottom="5.0" right="20.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" right="10.0" />
+                     </padding>
+                  </Label>
+                  <Label text="Reg Nr:" textFill="#9a9a9a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+                     <opaqueInsets>
+                        <Insets bottom="5.0" right="20.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" right="10.0" />
+                     </padding>
+                  </Label>
+                  <Label text="Brand:" textFill="#9a9a9a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                     <opaqueInsets>
+                        <Insets bottom="5.0" right="20.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" right="10.0" />
+                     </padding>
+                  </Label>
+                  <Label text="Main Color:" textFill="#9a9a9a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+                     <opaqueInsets>
+                        <Insets bottom="5.0" right="20.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" right="10.0" />
+                     </padding>
+                  </Label>
+                  <Label text="Sec. Color:" textFill="#9a9a9a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+                     <opaqueInsets>
+                        <Insets bottom="5.0" right="20.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" right="10.0" />
+                     </padding>
+                  </Label>
+                  <JFXTextField fx:id="secondColor" editable="false" focusColor="#282727" promptText="Color" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.valignment="BOTTOM" />
+                  <JFXTextField fx:id="luggageTag" editable="false" focusColor="#282727" promptText="Luggage Tag" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                  <Label text="Tag:" textFill="#9a9a9a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                     <opaqueInsets>
+                        <Insets bottom="5.0" right="20.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" right="10.0" />
+                     </padding>
+                  </Label>
+                  <Label text="Size:" textFill="#9a9a9a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
+                     <opaqueInsets>
+                        <Insets bottom="5.0" right="20.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" right="10.0" />
+                     </padding>
+                  </Label>
+                  <JFXTextField fx:id="size" editable="false" focusColor="#282727" promptText="Size" GridPane.columnIndex="2" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
+                  <JFXTextField fx:id="weight" editable="false" focusColor="#282727" promptText="Weight" GridPane.columnIndex="2" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
+                  <Label text="Weight:" textFill="#9a9a9a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
+                     <opaqueInsets>
+                        <Insets bottom="5.0" right="20.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" right="10.0" />
+                     </padding>
+                  </Label>
+                  <Label text="Signatures:" textFill="#9a9a9a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="8" GridPane.valignment="TOP">
+                     <opaqueInsets>
+                        <Insets bottom="5.0" right="20.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets right="10.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <Label text="Passanger:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+                     <opaqueInsets>
+                        <Insets bottom="5.0" right="20.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" right="10.0" />
+                     </padding>
+                  </Label>
+                  <JFXTextField fx:id="passangerId" editable="false" focusColor="#282727" promptText="Passanger ID" GridPane.columnIndex="4" GridPane.valignment="BOTTOM" />
+                  <Label text="Name:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                     <opaqueInsets>
+                        <Insets bottom="5.0" right="20.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" right="10.0" />
+                     </padding>
+                  </Label>
+                  <JFXTextField fx:id="passangerName" editable="false" focusColor="#282727" promptText="Passanger Name" GridPane.columnIndex="4" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                  <JFXTextField fx:id="address" editable="false" focusColor="#282727" promptText="Address" GridPane.columnIndex="4" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                  <Label text="Address:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                     <opaqueInsets>
+                        <Insets bottom="5.0" right="20.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" right="10.0" />
+                     </padding>
+                  </Label>
+                  <JFXTextField fx:id="place" editable="false" focusColor="#282727" promptText="Place" GridPane.columnIndex="4" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
+                  <Label text="Place:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                     <opaqueInsets>
+                        <Insets bottom="5.0" right="20.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" right="10.0" />
+                     </padding>
+                  </Label>
+                  <JFXTextField fx:id="postalCode" editable="false" focusColor="#282727" promptText="Postal Code" GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
+                  <JFXTextField fx:id="country" editable="false" focusColor="#282727" promptText="Country" GridPane.columnIndex="4" GridPane.rowIndex="5" GridPane.valignment="BOTTOM" />
+                  <JFXTextField fx:id="email" editable="false" focusColor="#282727" promptText="Email" GridPane.columnIndex="4" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
+                  <JFXTextField fx:id="phone" editable="false" focusColor="#282727" promptText="Phone" GridPane.columnIndex="4" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
+                  <Label text="Postal Code:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+                     <opaqueInsets>
+                        <Insets bottom="5.0" right="20.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" right="10.0" />
+                     </padding>
+                  </Label>
+                  <Label text="Country:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+                     <opaqueInsets>
+                        <Insets bottom="5.0" right="20.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" right="10.0" />
+                     </padding>
+                  </Label>
+                  <Label text="Email:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
+                     <opaqueInsets>
+                        <Insets bottom="5.0" right="20.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" right="10.0" />
+                     </padding>
+                  </Label>
+                  <Label text="Phone:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
+                     <opaqueInsets>
+                        <Insets bottom="5.0" right="20.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" right="10.0" />
+                     </padding>
+                  </Label>
+                  <Label text="Location Found:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="8" GridPane.valignment="BOTTOM">
+                     <opaqueInsets>
+                        <Insets bottom="5.0" right="20.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" right="10.0" />
+                     </padding>
+                  </Label>
+                  <JFXTextField fx:id="locationFound" editable="false" focusColor="#282727" promptText="Location Found" GridPane.columnIndex="4" GridPane.rowIndex="8" GridPane.valignment="BOTTOM" />
+                  <Label text="Flight:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="11" GridPane.valignment="BOTTOM">
+                     <opaqueInsets>
+                        <Insets bottom="5.0" right="20.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" right="10.0" />
+                     </padding>
+                  </Label>
+                  <JFXTextField fx:id="flight" editable="false" focusColor="#282727" promptText="Flight" GridPane.columnIndex="4" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />
+                  <Label text="Time Found:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="10" GridPane.valignment="BOTTOM">
+                     <opaqueInsets>
+                        <Insets bottom="5.0" right="20.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" right="10.0" />
+                     </padding>
+                  </Label>
+                  <Label text="Date Found:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="9" GridPane.valignment="BOTTOM">
+                     <opaqueInsets>
+                        <Insets bottom="5.0" right="20.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" right="10.0" />
+                     </padding>
+                  </Label>
+                  <JFXTextField fx:id="dateFound" editable="false" focusColor="#282727" promptText="Date Found" GridPane.columnIndex="4" GridPane.rowIndex="9" GridPane.valignment="BOTTOM" />
+                  <JFXTextField fx:id="timeFound" editable="false" focusColor="#282727" promptText="Time Found" GridPane.columnIndex="4" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />
+               </children>
+            </GridPane>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

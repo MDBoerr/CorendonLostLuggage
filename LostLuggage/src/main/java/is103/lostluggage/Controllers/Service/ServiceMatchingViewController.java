@@ -29,6 +29,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -157,6 +158,7 @@ public class ServiceMatchingViewController implements Initializable {
         //Initialize Table's
         initializeMissedLuggageTable();
         initializeFoundLuggageTable();
+        
         
     }
 
@@ -486,6 +488,9 @@ public class ServiceMatchingViewController implements Initializable {
                     //clear the found pane
                     foundPane.getChildren().clear();
                     
+                    //Before asigning -> set matching tab to right page
+                    setMatchingTab(1);   
+                    
                     //Asign the source to the right pane: foundPane
                     foundPane.getChildren().add(ManualMatchingFoundSource);
                     
@@ -499,6 +504,18 @@ public class ServiceMatchingViewController implements Initializable {
     }
     
     
+    public void setMatchingTab(int tab){
+        //get selection of matching tabs
+        SingleSelectionModel<Tab> matchingSelectionTabs = matchingTabs.getSelectionModel(); 
+        
+        //change tab to givven param    //0: auto   tab
+                                        //1: manual tab
+        matchingSelectionTabs.select(tab); 
+    }
+    
+    public void autoMatching(){
+        
+    }
     
     
     
