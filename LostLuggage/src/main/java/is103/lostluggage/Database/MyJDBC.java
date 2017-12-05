@@ -253,46 +253,32 @@ public class MyJDBC {
         
         
         // create or truncate User table in the Airline database
-        System.out.println("Creating the User, missedLuggage and foundLuggage table...");
+        System.out.println("Creating the User,table...");
         MyJDBC myJDBC = new MyJDBC(dbName);
         
-        myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS missedLuggage ("
-                + " idmissedLuggage VARCHAR(10) NOT NULL PRIMARY KEY,"
-                + " time VARCHAR(8),"
-                + " airport VARCHAR(45),"
-                + " date VARCHAR(45),"
-                + " name VARCHAR(45),"
-                + " adress VARCHAR(45),"
-                + " residence VARCHAR(40),"
-                + " postalcode VARCHAR(40),"
-                + " country VARCHAR(40),"
-                + " email VARCHAR(40),"
-                + " labelnumber VARCHAR(40),"
-                + " flightnumber VARCHAR(40),"
-                + " type VARCHAR(40),"
-                + " destination VARCHAR(40),"
-                + " brand VARCHAR(40),"
-                + " color VARCHAR(40),"
-                + " signatures VARCHAR(40) )");
         
-        myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS foundLuggage ("
-                + " idfoundLuggage VARCHAR(10) NOT NULL PRIMARY KEY,"
-                + " time VARCHAR(8),"
-                + " airport VARCHAR(45),"
-                + " date VARCHAR(45),"
-                + " name VARCHAR(45),"
-                + " adress VARCHAR(45),"
-                + " residence VARCHAR(40),"
-                + " postalcode VARCHAR(40),"
-                + " country VARCHAR(40),"
-                + " email VARCHAR(40),"
-                + " labelnumber VARCHAR(40),"
-                + " flightnumber VARCHAR(40),"
-                + " type VARCHAR(40),"
-                + " destination VARCHAR(40),"
-                + " brand VARCHAR(40),"
-                + " color VARCHAR(40),"
-                + " signatures VARCHAR(40) )");
+        
+        //OUDE DATA -> IK GA DEZE NOG VERNIEUWEN VOLGENS DE NIEUWE DATABASE
+//        myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS missedLuggage ("
+//                + " idmissedLuggage VARCHAR(10) NOT NULL PRIMARY KEY,"
+//                + " time VARCHAR(8),"
+//                + " airport VARCHAR(45),"
+//                + " date VARCHAR(45),"
+//                + " name VARCHAR(45),"
+//                + " adress VARCHAR(45),"
+//                + " residence VARCHAR(40),"
+//                + " postalcode VARCHAR(40),"
+//                + " country VARCHAR(40),"
+//                + " email VARCHAR(40),"
+//                + " labelnumber VARCHAR(40),"
+//                + " flightnumber VARCHAR(40),"
+//                + " type VARCHAR(40),"
+//                + " destination VARCHAR(40),"
+//                + " brand VARCHAR(40),"
+//                + " color VARCHAR(40),"
+//                + " signatures VARCHAR(40) )");
+//        
+       
                 
                 
         myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS User ("
@@ -331,11 +317,6 @@ public class MyJDBC {
                 + "'170', '09:21', 'AMS', '05-07-2017', 'Unknown', 'Unknown', 'Unknown', 'Unknown', 'Unknown', 'Unknown', '298438738AB', 'AMS328LON', 'Trolley', 'LON', 'Nomad', 'Silver', 'Steel, red dot' )");
         
         
-        myJDBC.executeUpdateQuery("INSERT INTO missedLuggage VALUES ("
-                + "'123', '12:00', 'AKE', '01-02-2015', 'Dave', 'Streename 3', 'Amsterdam', '1432 AD', 'Netherlands', 'Dave@mail.com', '298438738AB', 'AMS328LON', 'Trolley', 'LON', 'Nomad', 'Silver', 'Steel, dot' )");
-        myJDBC.executeUpdateQuery("INSERT INTO missedLuggage VALUES ("
-                + "'192', '10:02', 'SDA', '05-03-2017', 'Lenart', 'Wibautsat 2', 'Amsterdam', '1932 AM', 'Netherlands', 'Lenny@hva.nl', '26374738KE', 'AES128LEP', 'Badpack', 'EKL', 'TULU', 'Blue', 'Expensive laptop' )");
-
 
         // echo all airports in timezone 1
         System.out.println("Known User in time zone 1:");
