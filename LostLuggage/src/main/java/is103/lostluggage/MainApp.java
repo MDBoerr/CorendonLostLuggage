@@ -23,7 +23,7 @@ public class MainApp extends Application {
 
     public static String user = null;
 
-    private static String dbName = "LostLuggage";
+    private static String dbName = "sys";
 
     @Override
     public void start(Stage stage) throws Exception {

@@ -251,6 +251,24 @@ public class ServiceDetailedLuggageController implements Initializable {
 //        }
    
     }
+    
+    @FXML
+    protected void viewPotentials(ActionEvent event){
+        
+    }
+    
+    @FXML
+    protected void editLuggage(ActionEvent event){
+        
+    }
+    
+    @FXML
+    protected void manualMatching(ActionEvent event){
+        
+    }
+
+    
+    
 
     
 }
