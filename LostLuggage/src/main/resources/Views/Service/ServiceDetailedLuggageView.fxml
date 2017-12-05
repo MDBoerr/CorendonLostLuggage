@@ -169,7 +169,7 @@
                </padding>
             </Label>
             <JFXTextField fx:id="postalCode" editable="false" focusColor="#4dadf7" promptText="Postal Code" GridPane.columnIndex="4" GridPane.rowIndex="5" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="contry" editable="false" focusColor="#4dadf7" promptText="Country" GridPane.columnIndex="4" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
+            <JFXTextField fx:id="country" editable="false" focusColor="#4dadf7" promptText="Country" GridPane.columnIndex="4" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
             <JFXTextField fx:id="email" editable="false" focusColor="#4dadf7" promptText="Email" GridPane.columnIndex="4" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
             <JFXTextField fx:id="phone" editable="false" focusColor="#4dadf7" promptText="Phone" GridPane.columnIndex="4" GridPane.rowIndex="8" GridPane.valignment="BOTTOM" />
             <Label text="Postal Code:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">

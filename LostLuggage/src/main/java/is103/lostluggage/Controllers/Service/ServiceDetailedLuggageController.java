@@ -5,56 +5,20 @@
  */
 package is103.lostluggage.Controllers.Service;
 
-import com.jfoenix.controls.JFXTextField;
-import is103.lostluggage.Model.FoundLuggage;
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.paint.Paint;
-
-
-
-
-
-
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
-import static is103.lostluggage.MainApp.connectToDatabase;
 import is103.lostluggage.Model.LuggageDetails;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.Set;
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.PauseTransition;
-import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Paint;
-import javafx.util.Duration;
 
 
 
@@ -79,7 +43,7 @@ public class ServiceDetailedLuggageController implements Initializable {
     @FXML private JFXTextField weight;    
     @FXML private JFXTextArea signatures;
 
-    @FXML private JFXTextField passengerId;
+    @FXML private JFXTextField passangerId;
     @FXML private JFXTextField passangerName;
     @FXML private JFXTextField address;        
     @FXML private JFXTextField place;
@@ -108,6 +72,9 @@ public class ServiceDetailedLuggageController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(ServiceDetailedLuggageController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
+        checkFields();
   
     }   
     
@@ -142,19 +109,17 @@ public class ServiceDetailedLuggageController implements Initializable {
                 int getLocationFound =         resultSet.getInt("locationFound");
                 //String employeeId =         resultSet.getString("employeeId");
                 //int matchedId =              resultSet.getInt("matchedId");
- 
+
+            
+                
             registrationNr.setText(getRegistrationNr);  
+            luggageTag.setText(getLuggageTag);
+            
             setType(db,getLuggageType);
             brand.setText(getBrand);
             
-            dateFound.setText(getDateFound);
-            timeFound.setText(getTimeFound);
-            luggageTag.setText(getLuggageTag);
-            
             setColor(db, getMainColor); 
             setSecondColor(db, getSecondColor);
-            
-            signatures.setText(getOtherCharacteristics);
             
             String setSize = Integer.toString(getSize);
             size.setText(setSize);
@@ -162,11 +127,23 @@ public class ServiceDetailedLuggageController implements Initializable {
             String setWeight = Integer.toString(getWeight);
             weight.setText(setWeight);
             
-            flight.setText(getFlight);
+            signatures.setText(getOtherCharacteristics);
+            
             setPassenger(db, getPassengerId);
             
             setLocation(db, getLocationFound);
+            dateFound.setText(getDateFound);
+            timeFound.setText(getTimeFound);
+            flight.setText(getFlight);
+            
+            
+            
+
             }
+//            if (luggageTag.getText().equals("")){luggageTag.setText("Unknown");}
+//            if (brand.getText().equals("")){brand.setText("Unknown");}
+//            if (signatures.getText().equals("")){signatures.setText("None");}
+//            if (flight.getText().equals("")){flight.setText("Unknown");}
         
     }
     
@@ -177,37 +154,51 @@ public class ServiceDetailedLuggageController implements Initializable {
             String color = result_color.getString(language);
             mainColor.setText(color);
         }
+        
     }
+    @FXML
     private void setType(MyJDBC db, int luggageType) throws SQLException {
         ResultSet result_type = db.executeResultSetQuery("SELECT * FROM luggagetype WHERE luggageTypeId='"+luggageType+"'");
         while (result_type.next()) {    
             String typeGotten = result_type.getString(language);
+            
             type.setText(typeGotten);
         }
+     
     }
-    
+    @FXML
     private void setSecondColor(MyJDBC db, int secondColor2) throws SQLException {
         ResultSet result_second = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+secondColor2+"'");
         while (result_second.next()) {    
             String color = result_second.getString(language);
             secondColor.setText(color);
         }
+       
     }     
-
+    @FXML
     private void setPassenger(MyJDBC db, int passengerIdG) throws SQLException {
-        ResultSet result_second = db.executeResultSetQuery("SELECT * FROM passenger WHERE passengerId='"+passengerIdG+"'");
+        String idString = Integer.toString(passengerIdG);
+         
+        ResultSet result_second = db.executeResultSetQuery("SELECT * FROM passenger WHERE passengerId='"+idString+"'");
+        System.out.println(idString);
+        System.out.println(result_second);
         while (result_second.next()) {    
-            String idG = result_second.getString("passengerId");
+            int idG = result_second.getInt("passengerId");
             String nameG = result_second.getString("name");
             String addressG = result_second.getString("address");
             String placeG = result_second.getString("place");
-            String postalCodeG = result_second.getString("postalCode");
+            String postalCodeG = result_second.getString("postalcode");
             
             String countryG = result_second.getString("country");
             String emailG = result_second.getString("email");
             String phoneG = result_second.getString("phone");
             
-            passengerId.setText(idG);
+            String id = Integer.toString(idG);
+            
+
+            
+            
+            passangerId.setText(id);
             passangerName.setText(nameG);
             address.setText(addressG);
             place.setText(placeG);
@@ -216,14 +207,41 @@ public class ServiceDetailedLuggageController implements Initializable {
             email.setText(emailG);
             phone.setText(phoneG);
         }
-    }
 
+    }
+    @FXML
     private void setLocation(MyJDBC db, int locationFoundG) throws SQLException {
-        ResultSet result = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+locationFoundG+"'");
+        String locationId = Integer.toString(locationFoundG);
+        ResultSet result = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+locationId+"'");
         while (result.next()) {    
             String location = result.getString(language);
             locationFound.setText(location);
-        }   
+        } 
+       
+
+    }
+    
+    @FXML
+    protected void checkFields(){
+//        if (type.getText().equals("")){type.setText("Unknown");}
+//        if (luggageTag.getText().equals("")){luggageTag.setText("Unknown");}
+//        if (brand.getText().equals("")){brand.setText("Unknown");}
+//        if (signatures.getText().equals("")){signatures.setText("None");}
+//        if (flight.getText().equals("")){flight.setText("Unknown");}
+            
+        if (mainColor.getText().equals("")){mainColor.setText("");}
+        if (secondColor.getText().equals("")){secondColor.setText("");}
+        
+        if (passangerId.getText().equals("")){passangerId.setText("");}
+        if (passangerName.getText().equals("")){passangerName.setText("Unknown");}
+        if (address.getText().equals("")){address.setText("Unknown");}
+        if (place.getText().equals("")){place.setText("Unknown");}
+        if (postalCode.getText().equals("")){postalCode.setText("Unknown");}
+        if (country.getText().equals("")){country.setText("Unknown");}
+        if (email.getText().equals("")){email.setText("Unknown");}
+        if (phone.getText().equals("")){phone.setText("Unknown");}
+        
+        if (locationFound.getText().equals("")){locationFound.setText("Unknown");}
     }
    
     @FXML
