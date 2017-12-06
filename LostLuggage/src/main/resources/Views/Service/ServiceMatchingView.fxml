@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -25,11 +26,11 @@
         <RowConstraints maxHeight="148.65740966796875" minHeight="10.0" prefHeight="57.5" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="266.5" minHeight="10.0" prefHeight="266.5" valignment="CENTER" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="316.0810241699219" minHeight="3.595653533935547" prefHeight="35.5" valignment="CENTER" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="134.0" minHeight="28.789535522460938" prefHeight="35.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="130.0" minHeight="18.0" prefHeight="41.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="40.0" prefHeight="45.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="40.0" prefHeight="45.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="135.5" minHeight="0.0" prefHeight="36.5" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="137.0" minHeight="21.0" prefHeight="41.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="102.5" minHeight="21.5" prefHeight="25.5" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="40.0" prefHeight="45.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="40.0" prefHeight="45.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="94.903076171875" minHeight="27.5" prefHeight="27.5" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
@@ -69,8 +70,8 @@
                           </columnConstraints>
                           <rowConstraints>
                               <RowConstraints maxHeight="167.0" minHeight="24.0" prefHeight="24.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="249.0" minHeight="10.0" prefHeight="249.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="249.0" minHeight="10.0" prefHeight="242.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="97.0" minHeight="40.0" prefHeight="43.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
                               <GridPane prefWidth="1179.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
@@ -84,12 +85,12 @@
                                 </rowConstraints>
                                  <children>
                                     <JFXButton buttonType="RAISED" ripplerFill="#318d49" style="-fx-background-color: #46d06b#46d06b;" text="Confirm Match" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                    <JFXButton ripplerFill="#9e2626" style="-fx-background-color: #e03434#e03434;" text="Remove ">
+                                    <JFXButton ripplerFill="#9e2626" style="-fx-background-color: #e03434#e03434;" text="Remove " textFill="WHITE">
                                        <GridPane.margin>
                                           <Insets left="15.0" />
                                        </GridPane.margin>
                                     </JFXButton>
-                                    <JFXButton onAction="#addToManualFound" ripplerFill="#9e2626" style="-fx-background-color: #e03434#e03434;" text="Remove " GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+                                    <JFXButton onAction="#addToManualFound" ripplerFill="#9e2626" style="-fx-background-color: #e03434#e03434;" text="Remove " textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
                                        <GridPane.margin>
                                           <Insets right="15.0" />
                                        </GridPane.margin>
@@ -113,7 +114,10 @@
                                  </GridPane.margin>
                               </Text>
                               <Pane fx:id="foundPane" minHeight="200.0" prefHeight="300.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Pane fx:id="missedPane" minHeight="200.0" prefHeight="300.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                              <Pane fx:id="missedPane" minHeight="200.0" prefHeight="300.0" prefWidth="589.0" GridPane.rowIndex="1">
+                                 <children>
+                                    <JFXTextArea editable="false" layoutX="66.0" layoutY="21.0" prefHeight="198.0" prefWidth="435.0" text="The manual matching makes the process of checking the last values of a possible match a lot easier! You will be able to see and compare two luggages. 1 Lost and 1 Found in just 2 steps.&#10;&#10;STEP 1&#10;Double click on one of the table row's below.&#10;&#10;STEP 2&#10;On the full details popup click:&#10;At the right bottom: *manual matching*&#10;" />
+                                 </children></Pane>
                            </children>
                         </GridPane>
                      </children></AnchorPane>
