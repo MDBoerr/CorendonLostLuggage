@@ -39,10 +39,10 @@ public class ManagerRetrievedViewController implements Initializable {
 
     //luggage list
     @FXML
-    public TableView<RetrievedLuggage> retrievedTable;
+    private TableView<RetrievedLuggage> retrievedTable;
 
     @FXML
-    private TableColumn<RetrievedLuggage, String> FormID;
+    private TableColumn<RetrievedLuggage, Integer> FormID;
     @FXML
     private TableColumn<RetrievedLuggage, String> Date;
     @FXML
@@ -59,14 +59,14 @@ public class ManagerRetrievedViewController implements Initializable {
         MainViewController.previousView = "/Views/ManagerHomeView.fxml";
 
         FormID.setCellValueFactory(new PropertyValueFactory<>("foundluggage.registrationNr"));
-        Date.setCellValueFactory(new PropertyValueFactory<>("dateMatched"));
+        Date.setCellValueFactory(new PropertyValueFactory<>("matched.dateMatched"));
         Customer.setCellValueFactory(new PropertyValueFactory<>("passenger.name"));
         Employee.setCellValueFactory(new PropertyValueFactory<>("employee.firstname"));
-        Deliverer.setCellValueFactory(new PropertyValueFactory<>("delivered"));
+        Deliverer.setCellValueFactory(new PropertyValueFactory<>("matched.delivered"));
         System.out.println("test --------------* ");
         retrievedTable.setItems(getRetrievedLuggage());
         System.out.println("---- placed ");
-        System.out.println(getRetrievedLuggage());
+       
         
     }
 
@@ -79,17 +79,17 @@ public class ManagerRetrievedViewController implements Initializable {
 
             ResultSet resultSet;
 
-            resultSet = db.executeResultSetQuery("SELECT delivery, dateMatched, employee.firstname, foundluggage.registrationNr, passenger.name  FROM matched \n"
-                    + "    INNER JOIN employee ON matched.employeeId = employee.employeeId \n"
-                    + "            INNER JOIN foundluggage ON matched.foundluggage = foundluggage.registrationNr \n"
-                    + "                    INNER JOIN passenger ON foundluggage.passengerId = passenger.passengerId");
-
+            resultSet = db.executeResultSetQuery("SELECT delivery, dateMatched, employee.firstname, foundluggage.registrationNr, passenger.name  FROM matched INNER JOIN employee ON matched.employeeId = employee.employeeId INNER JOIN foundluggage ON matched.foundluggage = foundluggage.registrationNr INNER JOIN passenger ON foundluggage.passengerId = passenger.passengerId");
+            
             while (resultSet.next()) {
-                String delivered = resultSet.getString("delivery");
-                String date = resultSet.getString("dateMatched");
-                String employeename = resultSet.getString("employee.firstname");
-                String registrationnr = resultSet.getString("foundluggage.registrationNr");
+                
+                
+                
+                int registrationnr = resultSet.getInt("foundluggage.registrationNr");
+                String date = resultSet.getString("matched.dateMatched");
                 String passengername = resultSet.getString("passenger.name");
+                String employeename = resultSet.getString("employee.firstname");
+                String delivered = resultSet.getString("matched.delivery");
                 
                 System.out.println("deliverer: "+delivered + " Date: " +date + " passName: " + passengername+ " empname: " + employeename + " regnr: " + registrationnr);
                

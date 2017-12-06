@@ -9,9 +9,10 @@ import javafx.beans.property.SimpleStringProperty;
 public class RetrievedLuggage {
     //inserts for ManagerTeruggebrachttebagage
 
-    private String FormID, Date, Customer, Employee, Deliverer;
+    private int FormID;
+    private String Date, Customer, Employee, Deliverer;
 
-    public RetrievedLuggage(String FormID, String Date, String Customer, String Employee, String Deliverer) {
+    public RetrievedLuggage(int FormID, String Date, String Customer, String Employee, String Deliverer) {
 
         this.FormID = FormID;
         this.Date = Date;
@@ -21,11 +22,11 @@ public class RetrievedLuggage {
 
     }
 
-    public String getFormID() {
+    public int getFormID() {
         return FormID;
     }
 
-    public void setFormID(String FormID) {
+    public void setFormID(int FormID) {
         this.FormID = FormID;
     }
 
