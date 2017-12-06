@@ -165,6 +165,7 @@ public class ManagerReportViewController implements Initializable {
         serieslost.setName("Lost Luggage");
         lineChart.getData().add(seriesfound);
         lineChart.getData().add(serieslost);
+        //functie jaartal
 
 //
 //          lineChart.getData().clear();

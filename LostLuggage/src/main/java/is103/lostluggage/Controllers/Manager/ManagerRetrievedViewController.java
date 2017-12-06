@@ -82,7 +82,7 @@ public class ManagerRetrievedViewController implements Initializable {
             resultSet = db.executeResultSetQuery("SELECT delivery, dateMatched, employee.firstname, foundluggage.registrationNr, passenger.name  FROM matched \n"
                     + "    INNER JOIN employee ON matched.employeeId = employee.employeeId \n"
                     + "            INNER JOIN foundluggage ON matched.foundluggage = foundluggage.registrationNr \n"
-                    + "                    INNER JOIN passenger ON foundluggage.passengerId = passenger.passengerId;");
+                    + "                    INNER JOIN passenger ON foundluggage.passengerId = passenger.passengerId");
 
             while (resultSet.next()) {
                 String delivered = resultSet.getString("delivery");
@@ -102,6 +102,7 @@ public class ManagerRetrievedViewController implements Initializable {
                                 delivered));
                 
                 System.out.println("Test 1 ");
+                System.out.println(retrieved);
             }
 
         } catch (SQLException ex) {
