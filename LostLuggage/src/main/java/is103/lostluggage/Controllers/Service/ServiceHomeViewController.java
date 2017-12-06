@@ -54,7 +54,10 @@ public class ServiceHomeViewController implements Initializable {
         //tijd weergeven
         timeDisplay.setText(LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute());
     }
-
+    
+    
+    /*-------------------------------------/
+    /*            switch views            */
     @FXML
     protected void logOut(ActionEvent event) throws IOException {
         MainApp.switchView("/fxml/SelectUserRoleView.fxml");
