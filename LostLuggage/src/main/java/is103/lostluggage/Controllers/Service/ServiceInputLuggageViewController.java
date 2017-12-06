@@ -6,23 +6,12 @@ import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-//import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import static is103.lostluggage.Controllers.Service.ServiceMissedOverviewViewController.MissedLuggageList;
 
 /**
  * FXML Controller class
@@ -42,67 +31,6 @@ public class ServiceInputLuggageViewController implements Initializable {
     private JFXComboBox missingFoundComboBox;
     
     
-    //Top left fields
-    
-    @FXML
-    //Textfield that represents the time the form was filled in
-    private TextField timeField;
-    
-    @FXML
-    private TextField airportField;
-    
-    @FXML
-    private DatePicker dateDatepicker;
-    
-    
-    //Bottom left fields
-    
-    @FXML
-    private TextField nameField;
-    
-    @FXML
-    private TextField addressField;
-    
-    @FXML
-    private TextField residenceField;
-    
-    @FXML
-    private TextField postalcodeField;
-    
-    @FXML
-    private TextField countryField;
-    
-    @FXML
-    private TextField phoneField;
-    
-    @FXML
-    private TextField emailField;
-    
-    
-    //Fields on the right
-    
-    @FXML
-    private TextField labelnumberField;
-    
-    @FXML
-    private TextField flightnumberField;
-    
-    @FXML
-    private TextField destinationField;
-    
-    @FXML
-    private TextField typeField;
-    
-    @FXML
-    private TextField brandField;
-    
-    @FXML
-    private TextField colorField;
-    
-    @FXML
-    private TextArea signaturesField;
-    
-    //Main gridpane containing smaller gridpanes
     
     @FXML
     private GridPane mainGridPane;
@@ -112,6 +40,9 @@ public class ServiceInputLuggageViewController implements Initializable {
     
     @FXML
     private GridPane luggageInfoGridPane;
+    
+    @FXML
+    private Label passengerInformationLbl;
     
     
     
@@ -129,8 +60,6 @@ public class ServiceInputLuggageViewController implements Initializable {
         //Default value is set to Service Employee as Administrator will most likely add a user with that role.
         missingFoundComboBox.setValue("Vermist");
         
-        //Set the current time in the timefield
-        timeField.setText(LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute());
     }
 
     @FXML
@@ -157,6 +86,8 @@ public class ServiceInputLuggageViewController implements Initializable {
             mainGridPane.getChildren().remove(luggageInfoGridPane);
             mainGridPane.add(luggageInfoGridPane, 0, 1);
             mainGridPane.add(travellerInfoGridPane, 1, 1);
+            
+            passengerInformationLbl.setText("Reizigers informatie is niet verplicht");
         }
         
         if(value == "Vermist"){
@@ -165,6 +96,7 @@ public class ServiceInputLuggageViewController implements Initializable {
             mainGridPane.getChildren().remove(luggageInfoGridPane);
             mainGridPane.add(travellerInfoGridPane, 0, 1);
             mainGridPane.add(luggageInfoGridPane, 1, 1);
+            passengerInformationLbl.setText("Reizigers informatie");
         }
     }
  
