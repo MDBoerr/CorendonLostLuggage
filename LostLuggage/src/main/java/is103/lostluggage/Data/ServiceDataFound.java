@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package is103.lostluggage.Data;
 
-import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.FoundLuggage;
-import is103.lostluggage.Model.MissedLuggage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -24,25 +17,14 @@ import javafx.collections.ObservableList;
  */
 public class ServiceDataFound {
     public static ObservableList<FoundLuggage> foundLuggageList = FXCollections.observableArrayList();
-    
     private static final MyJDBC db = MainApp.connectToDatabase();
-    
-    
     private static ResultSet resultSet;
-//    private String sqlTabel;
-//    private String[] dataColums;
-//    private String[] fieldsColums;
+
 
      public ServiceDataFound() throws SQLException{
         ServiceDataFound.foundLuggageList = setFoundLuggage();
     }
-    
-    
-    
-  
-   
-      
-            
+           
     public static ObservableList<FoundLuggage> setFoundLuggage() {
 
         try {
@@ -110,6 +92,7 @@ public class ServiceDataFound {
          return ServiceDataFound.foundLuggageList;
     }
       
-    
+    //Refresh methode ?
+    //Update methode ?
     
 }
