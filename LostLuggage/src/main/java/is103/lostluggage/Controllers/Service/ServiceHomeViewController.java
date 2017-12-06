@@ -36,19 +36,16 @@ public class ServiceHomeViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //database aanmaken
-                                //--> Doe dit nu tijdelijk al bij de select user view
-        //MyJDBC.createLostLuggageDatabase("LostLuggage");
-        
         //To Previous Scene
         MainViewController.previousView = "/fxml/SelectUserRoleView.fxml";
         
         //titel boven de pagina zetten
+       
         try {
             MainViewController.getInstance().getTitle(title);
         } catch (IOException ex) {
-            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+            Logger.getLogger(ServiceHomeViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }  
         
         
         //tijd weergeven
