@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" minHeight="150.0" minWidth="400.0" prefHeight="250.0" prefWidth="603.0" style="-fx-background-color: fff;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Service.ServiceManualMatchingFoundController">
+<AnchorPane id="AnchorPane" minHeight="150.0" minWidth="400.0" prefHeight="250.0" prefWidth="603.0" style="-fx-background-color: fff;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Service.ServiceManualMatchingMissedViewController">
     <children>
       <ScrollPane prefHeight="339.0" prefWidth="603.0" style="-fx-background-color: fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
@@ -195,15 +195,6 @@
                         <Insets bottom="5.0" right="10.0" />
                      </padding>
                   </Label>
-                  <Label text="Location Found:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="8" GridPane.valignment="BOTTOM">
-                     <opaqueInsets>
-                        <Insets bottom="5.0" right="20.0" />
-                     </opaqueInsets>
-                     <padding>
-                        <Insets bottom="5.0" right="10.0" />
-                     </padding>
-                  </Label>
-                  <JFXTextField fx:id="locationFound" editable="false" focusColor="#282727" promptText="Location Found" GridPane.columnIndex="4" GridPane.rowIndex="8" GridPane.valignment="BOTTOM" />
                   <Label text="Flight:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="11" GridPane.valignment="BOTTOM">
                      <opaqueInsets>
                         <Insets bottom="5.0" right="20.0" />
@@ -213,7 +204,7 @@
                      </padding>
                   </Label>
                   <JFXTextField fx:id="flight" editable="false" focusColor="#282727" promptText="Flight" GridPane.columnIndex="4" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />
-                  <Label text="Time Found:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="10" GridPane.valignment="BOTTOM">
+                  <Label text="Time Lost:" textFill="#9a9a9a" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="10" GridPane.valignment="BOTTOM">
                      <opaqueInsets>
                         <Insets bottom="5.0" right="20.0" />
                      </opaqueInsets>
@@ -229,8 +220,8 @@
                         <Insets bottom="5.0" right="10.0" />
                      </padding>
                   </Label>
-                  <JFXTextField fx:id="dateFound" editable="false" focusColor="#282727" promptText="Date Found" GridPane.columnIndex="4" GridPane.rowIndex="9" GridPane.valignment="BOTTOM" />
-                  <JFXTextField fx:id="timeFound" editable="false" focusColor="#282727" promptText="Time Found" GridPane.columnIndex="4" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />
+                  <JFXTextField fx:id="dateLost" editable="false" focusColor="#282727" promptText="Date Lost" GridPane.columnIndex="4" GridPane.rowIndex="9" GridPane.valignment="BOTTOM" />
+                  <JFXTextField fx:id="timeLost" editable="false" focusColor="#282727" promptText="Time Lost" GridPane.columnIndex="4" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />
                </children>
             </GridPane>
          </content>

@@ -9,55 +9,56 @@ import javafx.beans.property.SimpleStringProperty;
 public class RetrievedLuggage {
     //inserts for ManagerTeruggebrachttebagage
 
-    private SimpleStringProperty FormID, Date, Customer, Employee, Deliverer;
+    private int FormID;
+    private String Date, Customer, Employee, Deliverer;
 
-    public RetrievedLuggage(String FormID, String Date, String Customer, String Employee, String Deliverer) {
+    public RetrievedLuggage(int FormID, String Date, String Customer, String Employee, String Deliverer) {
 
-        this.FormID = new SimpleStringProperty(FormID);
-        this.Date = new SimpleStringProperty(Date);
-        this.Customer = new SimpleStringProperty(Customer);
-        this.Employee = new SimpleStringProperty(Employee);
-        this.Deliverer = new SimpleStringProperty(Deliverer);
+        this.FormID = FormID;
+        this.Date = Date;
+        this.Customer = Customer;
+        this.Employee = Employee;
+        this.Deliverer = Deliverer;
 
     }
 
-    public SimpleStringProperty getFormID() {
+    public int getFormID() {
         return FormID;
     }
 
-    public void setFormID(SimpleStringProperty FormID) {
+    public void setFormID(int FormID) {
         this.FormID = FormID;
     }
 
-    public SimpleStringProperty getDate() {
+    public String getDate() {
         return Date;
     }
 
-    public void setDate(SimpleStringProperty Date) {
+    public void setDate(String Date) {
         this.Date = Date;
     }
 
-    public SimpleStringProperty getCustomer() {
+    public String getCustomer() {
         return Customer;
     }
 
-    public void setCustomer(SimpleStringProperty Customer) {
+    public void setCustomer(String Customer) {
         this.Customer = Customer;
     }
 
-    public SimpleStringProperty getEmployee() {
+    public String getEmployee() {
         return Employee;
     }
 
-    public void setEmployee(SimpleStringProperty Employee) {
+    public void setEmployee(String Employee) {
         this.Employee = Employee;
     }
 
-    public SimpleStringProperty getDeliverer() {
+    public String getDeliverer() {
         return Deliverer;
     }
 
-    public void setDeliverer(SimpleStringProperty Deliverer) {
+    public void setDeliverer(String Deliverer) {
         this.Deliverer = Deliverer;
     }
 

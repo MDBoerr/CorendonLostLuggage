@@ -4,8 +4,8 @@ package is103.lostluggage.Model;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
- * Doel:
- * @author Thijs Zijdel
+ * missed luggage classen
+ * @author Thijs Zijdel - 500782165
  */
 public class MissedLuggage {
      private String  

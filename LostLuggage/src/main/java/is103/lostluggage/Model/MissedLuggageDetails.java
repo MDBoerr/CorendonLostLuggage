@@ -5,24 +5,20 @@
  */
 package is103.lostluggage.Model;
 
-import javax.naming.Context;
-
 /**
  *
  * @author thijszijdel
  */
-public class LuggageDetails {
- 
-    private final static LuggageDetails instance = new LuggageDetails();
+public class MissedLuggageDetails {
+    private final static MissedLuggageDetails instance = new MissedLuggageDetails();
 
-    public static LuggageDetails getInstance() {
+    public static MissedLuggageDetails getInstance() {
         return instance;
     }
 
-    private FoundLuggage luggage = new FoundLuggage();
+    private MissedLuggage luggage = new MissedLuggage();
 
-    public FoundLuggage currentLuggage() {
+    public MissedLuggage currentLuggage() {
         return luggage;
     }
-
 }
