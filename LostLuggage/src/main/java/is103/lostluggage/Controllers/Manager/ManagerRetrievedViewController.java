@@ -58,13 +58,16 @@ public class ManagerRetrievedViewController implements Initializable {
         //To Previous Scene
         MainViewController.previousView = "/Views/ManagerHomeView.fxml";
 
-        FormID.setCellValueFactory(new PropertyValueFactory<RetrievedLuggage, String>("foundluggage.registrationNr"));
-        Date.setCellValueFactory(new PropertyValueFactory<RetrievedLuggage, String>("dateMatched"));
-        Customer.setCellValueFactory(new PropertyValueFactory<RetrievedLuggage, String>("passenger.name"));
-        Employee.setCellValueFactory(new PropertyValueFactory<RetrievedLuggage, String>("employee.firstname"));
-        Deliverer.setCellValueFactory(new PropertyValueFactory<RetrievedLuggage, String>("delivered"));
-
+        FormID.setCellValueFactory(new PropertyValueFactory<>("foundluggage.registrationNr"));
+        Date.setCellValueFactory(new PropertyValueFactory<>("dateMatched"));
+        Customer.setCellValueFactory(new PropertyValueFactory<>("passenger.name"));
+        Employee.setCellValueFactory(new PropertyValueFactory<>("employee.firstname"));
+        Deliverer.setCellValueFactory(new PropertyValueFactory<>("delivered"));
+        System.out.println("test --------------* ");
         retrievedTable.setItems(getRetrievedLuggage());
+        System.out.println("---- placed ");
+        System.out.println(getRetrievedLuggage());
+        
     }
 
     public ObservableList<RetrievedLuggage> getRetrievedLuggage() {
@@ -76,27 +79,35 @@ public class ManagerRetrievedViewController implements Initializable {
 
             ResultSet resultSet;
 
-            resultSet = db.executeResultSetQuery("SELECT delivered, dateMatched, employee.firstname, foundluggage.registrationNr, passenger.name  FROM matched \n"
+            resultSet = db.executeResultSetQuery("SELECT delivery, dateMatched, employee.firstname, foundluggage.registrationNr, passenger.name  FROM matched \n"
                     + "    INNER JOIN employee ON matched.employeeId = employee.employeeId \n"
                     + "            INNER JOIN foundluggage ON matched.foundluggage = foundluggage.registrationNr \n"
                     + "                    INNER JOIN passenger ON foundluggage.passengerId = passenger.passengerId;");
 
             while (resultSet.next()) {
-                String delivered = resultSet.getString("delivered");
+                String delivered = resultSet.getString("delivery");
                 String date = resultSet.getString("dateMatched");
                 String employeename = resultSet.getString("employee.firstname");
                 String registrationnr = resultSet.getString("foundluggage.registrationNr");
                 String passengername = resultSet.getString("passenger.name");
                 
                 System.out.println("deliverer: "+delivered + " Date: " +date + " passName: " + passengername+ " empname: " + employeename + " regnr: " + registrationnr);
-                retrieved.add(new RetrievedLuggage(registrationnr, date, passengername, employeename, delivered));
-
+               
+                retrieved.add(  
+                        new RetrievedLuggage(
+                                registrationnr, 
+                                date, 
+                                passengername, 
+                                employeename, 
+                                delivered));
+                
+                System.out.println("Test 1 ");
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+            Logger.getLogger(ManagerReportViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+        System.out.println("test 2 ");
         return retrieved;
     }
 }

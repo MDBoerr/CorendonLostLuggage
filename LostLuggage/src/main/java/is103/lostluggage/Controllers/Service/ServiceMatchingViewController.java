@@ -195,10 +195,10 @@ public class ServiceMatchingViewController implements Initializable {
 
     /**  
      * @void 
-     */
+     */ 
     public void initializeMissedLuggageTable(){
         missedRegistrationNr.setCellValueFactory(      new PropertyValueFactory<>("registrationNr"));
-        missedDateLost.setCellValueFactory(            new PropertyValueFactory<>("dateFound"));
+        missedDateLost.setCellValueFactory(            new PropertyValueFactory<>("dateFound"));  //-> lost
         missedTimeLost.setCellValueFactory(            new PropertyValueFactory<>("timeFound"));
         
         missedLuggageTag.setCellValueFactory(           new PropertyValueFactory<>("luggageTag"));
@@ -793,6 +793,9 @@ public class ServiceMatchingViewController implements Initializable {
     }
     
     
+    /**  
+     * @SwitchViews
+     */
     @FXML
     protected void switchToInput(ActionEvent event) throws IOException {
         MainApp.switchView("/fxml/ServiceInvoerView.fxml");
