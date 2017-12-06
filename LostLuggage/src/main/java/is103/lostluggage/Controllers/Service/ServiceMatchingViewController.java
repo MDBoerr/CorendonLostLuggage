@@ -26,6 +26,7 @@ import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -59,7 +60,7 @@ public class ServiceMatchingViewController implements Initializable {
     private final String title = "Matching";
     
     //popup stage
-    public Stage popupStage = new Stage();   
+    public Stage popupStageFound = new Stage();   
     public Stage popupStageMissed = new Stage(); 
     
     //refresh rate                           
@@ -85,7 +86,6 @@ public class ServiceMatchingViewController implements Initializable {
     @FXML public Tab manualTab;
     @FXML public AnchorPane manualPane;
     @FXML public GridPane manualGrid;
-    
     
     @FXML public Pane foundPane;
     @FXML public Pane missedPane;
@@ -433,7 +433,7 @@ public class ServiceMatchingViewController implements Initializable {
                 
                 //switchen naar detailed viw dmv: popup
                 try {
-                    popUpDetails(popupStage, "/Views/Service/ServiceDetailedFoundLuggageView.fxml","found");
+                    popUpDetails(popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml","found");
                 } catch (IOException ex) {
                     Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -480,6 +480,10 @@ public class ServiceMatchingViewController implements Initializable {
         });
     }
     
+    
+    public void clickRow(TableView<MissedLuggage> tableMissed, TableView<FoundLuggage> tableFound, Stage typeStage, String viewLink, TableRow row, MissedLuggage getDetailObjMissed, FoundLuggage getDetailObjFound, Node node_data, int clickCount, Event eventType){
+        
+    }
     
     /**  
      * @void popupDetails 
@@ -542,6 +546,7 @@ public class ServiceMatchingViewController implements Initializable {
         
     }
     
+    
     /**  
      * @void callMethodes@RateOfTimeLine 
      */
@@ -551,107 +556,95 @@ public class ServiceMatchingViewController implements Initializable {
         addToManualMissed();
     }
     
-
-    public void addToManualFound() {
-        //Standard --> id= null (not configured)
-        String getIdOfLuggageAddedToManualMatching = 
-                LuggageManualMatchFound.getInstance().currentLuggage().getRegistrationNr();
-        
-        //if found luggage added to manual matching-> asign: iD found to this.id
-        if (getIdOfLuggageAddedToManualMatching != null) {
-            idFound = Integer.parseInt(""+getIdOfLuggageAddedToManualMatching+"");
-        }
-        
-//        System.out.println("---------DEBUG-----------");
-//        System.out.println("idFound:      "+idFound);
-//        System.out.println("idCheckFound: "+idCheckFound);
-//        System.out.println("-------------------------");
-        
-        
-        if (getIdOfLuggageAddedToManualMatching == null) {
-            //No found luggage added to manual matching
-        } else {
-            //if id of luggage added to manual matching is null
-            //check if this id is not the same id
-            if (idCheckFound != idFound) {
-                //if this is true, than asaign idcheckfound to this 
-                //(so the loop is stoped next time)
-                idCheckFound = idFound;
-                
-                //now try to load the manualMatchingFoundView in the right (found) pane
-                try {
-                    //get the right source for MaualFoundView.FXML
-                    Pane ManualMatchingFoundSource = FXMLLoader.load(getClass()
-                            .getResource("/Views/Service/ServiceManualMatchingFoundView.fxml"));
-                    
-                    //clear the found pane
-                    foundPane.getChildren().clear();
-                    
-                    //Before asigning -> set matching tab to right page
-                    setMatchingTab(1);   
-                    
-                    //Asign the source to the right pane: foundPane
-                    foundPane.getChildren().add(ManualMatchingFoundSource);
-                    
-                } catch (IOException ex) {
-                    Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                //id is the same
-            }
-        }     
-    }
-
-    public void addToManualMissed() {
-        //Standard --> id= null (not configured)
-        String getIdOfMissedLuggageAddedToManualMatching = 
-                LuggageManualMatchMissed.getInstance().currentLuggage().getRegistrationNr();
-        
-        //if found luggage added to manual matching-> asign: iD found to this.id
-        if (getIdOfMissedLuggageAddedToManualMatching != null) {
-            idLost = Integer.parseInt(""+getIdOfMissedLuggageAddedToManualMatching+"");
-        }
-        
-//        System.out.println("---------DEBUG-----------");
-//        System.out.println("idFound:      "+idFound);
-//        System.out.println("idCheckFound: "+idCheckFound);
-//        System.out.println("-------------------------");
-        
-        
-        if (getIdOfMissedLuggageAddedToManualMatching == null) {
-            //No found luggage added to manual matching
-        } else {
-            //if id of luggage added to manual matching is null
-            //check if this id is not the same id
-            if (idCheckLost != idLost) {
-                //if this is true, than asaign idcheckfound to this 
-                //(so the loop is stoped next time)
-                idCheckLost = idLost;
-                
-                //now try to load the manualMatchingFoundView in the right (found) pane
-                try {
-                    //get the right source for MaualFoundView.FXML
-                    Pane ManualMatchingMissedSource = FXMLLoader.load(getClass()
-                            .getResource("/Views/Service/ServiceManualMatchingMissedView.fxml"));
-                    
-                    //clear the found pane
-                    missedPane.getChildren().clear();
-                    
-                    //Before asigning -> set matching tab to right page
-                    setMatchingTab(1);   
-                    
-                    //Asign the source to the right pane: foundPane
-                    missedPane.getChildren().add(ManualMatchingMissedSource);
-                    
-                } catch (IOException ex) {
-                    Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                //id is the same
-            }
-        }     
-    }    
     
+    
+    
+    @FXML
+    public void addToManualFound() {
+        String idManualMatching = LuggageManualMatchFound.getInstance().currentLuggage().getRegistrationNr();
+        idCheckFound = addToManualMatching(foundPane, 1, idCheckFound, idFound, idManualMatching, "/Views/Service/ServiceManualMatchingFoundView.fxml");
+    
+    }
+    
+    @FXML
+    public void addToManualMissed() {
+        String idManualMatching = LuggageManualMatchMissed.getInstance().currentLuggage().getRegistrationNr();
+        idCheckLost = addToManualMatching(missedPane, 1, idCheckLost, idLost, idManualMatching, "/Views/Service/ServiceManualMatchingMissedView.fxml");
+    } 
+   
+    
+    /**  
+     * Methode for setting the right data in the right place for:
+     *                     MANUAL MATCHING
+     * 
+     * -(Checks used for not resetting the views)
+     * @param   paneType = id of pane were the view needs to be loaden
+     * @param   tab      = tab that needs to be setted.
+     * @param   idCheck  = standard value that in the loop gets checked & returned
+     * @param   idObj    = id thats been set (from id) in the loop for checking 
+     * @param   idDataObj= String id of the added luggage -> used for checking 
+     * @param   viewLink = link of fxml that needs to be set in the @paneType
+     * @return  idCheck to stop the loop from going to far 
+     */
+    public int addToManualMatching(Pane paneType, int tab, int idCheck, int idObj, String idDataObj, String viewLink){
+        //Standard --> id= null (not configured)
+        
+//        String idDataObj = 
+//                LuggageManualMatchMissed.getInstance().currentLuggage().getRegistrationNr();
+        
+        //if found luggage added to manual matching-> asign: iD found to this.id
+        if (idDataObj != null) {
+            idObj = Integer.parseInt(""+idDataObj+"");
+        }
+        
+//        System.out.println("---------DEBUG-----------");
+//        System.out.println("idLost:      "+idObj);
+//        System.out.println("idCheckLost: "+idCheck);
+//        System.out.println("-------------------------");
+        
+        
+        if (idDataObj == null) {
+            //No found luggage added to manual matching
+        } else {
+            //if id of luggage added to manual matching is null
+            //check if this id is not the same id
+            if (idCheck != idObj) {
+                //if this is true, than asaign idcheckfound to this 
+                //(so the loop is stoped next time)
+                idCheck = idObj;
+                
+                //now try to load the manualMatchingFoundView in the right (found) pane
+                try {
+                    //get the right source for MaualFoundView.FXML
+                    Pane SourceLink = FXMLLoader.load(getClass()
+                          .getResource(viewLink));
+                    
+                    //clear the found pane
+                    paneType.getChildren().clear();
+                    
+                    //Before asigning -> set matching tab to right page
+                    setMatchingTab(1);   
+                    
+                    //Asign the source to the right pane: foundPane
+                    paneType.getChildren().add(SourceLink);
+                    System.out.println("returned top  -4");
+                    return idCheck;
+                    
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                //id is the same
+                System.out.println("returned top mid  -3");
+                return idCheck;
+            }
+            System.out.println("returned mid -2");
+            return idCheck;
+        }  
+        System.out.println("returned low  -1");
+        return idCheck;
+    }
+            
     public void setMatchingTab(int tab){
         //get selection of matching tabs
         SingleSelectionModel<Tab> matchingSelectionTabs = matchingTabs.getSelectionModel(); 
@@ -668,12 +661,12 @@ public class ServiceMatchingViewController implements Initializable {
      * @void 
      */
     public void initializeMatchingLuggageTable(){
-        matchIdLost.setCellValueFactory(      new PropertyValueFactory<>("registrationNrMissed"));
-        matchIdFound.setCellValueFactory(            new PropertyValueFactory<>("registrationNrFound"));
-        matchTag.setCellValueFactory(            new PropertyValueFactory<>("luggageTag"));
+        matchIdLost.setCellValueFactory(               new PropertyValueFactory<>("registrationNrMissed"));
+        matchIdFound.setCellValueFactory(              new PropertyValueFactory<>("registrationNrFound"));
+        matchTag.setCellValueFactory(                  new PropertyValueFactory<>("luggageTag"));
         
         matchPercentage.setCellValueFactory(           new PropertyValueFactory<>("matchPercentage"));
-        matchType.setCellValueFactory(          new PropertyValueFactory<>("luggageType"));
+        matchType.setCellValueFactory(                 new PropertyValueFactory<>("luggageType"));
         matchBrand.setCellValueFactory(                new PropertyValueFactory<>("brand"));
         matchMainColor.setCellValueFactory(            new PropertyValueFactory<>("mainColor"));
         matchSecondColor.setCellValueFactory(          new PropertyValueFactory<>("secondColor"));
@@ -681,7 +674,7 @@ public class ServiceMatchingViewController implements Initializable {
         matchWeight.setCellValueFactory(               new PropertyValueFactory<>("weight"));
 
         matchOtherCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
-        matchId.setCellValueFactory(          new PropertyValueFactory<>("matchedId"));
+        matchId.setCellValueFactory(                   new PropertyValueFactory<>("matchedId"));
         
            
         
@@ -791,6 +784,10 @@ public class ServiceMatchingViewController implements Initializable {
         return matchingList;
         
     }
+    
+    
+    
+    
     
     
     /**  
