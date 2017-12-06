@@ -220,17 +220,17 @@ public class ServiceManualMatchingFoundController implements Initializable {
 //        if (signatures.getText().equals("")){signatures.setText("None");}
 //        if (flight.getText().equals("")){flight.setText("Unknown");}
             
-        if (mainColor.getText().equals("")){mainColor.setText("");}
-        if (secondColor.getText().equals("")){secondColor.setText("");}
+        if (mainColor.getText() == null){mainColor.setText("");}
+        if (secondColor.getText() == null){secondColor.setText("");}
         
-        if (passangerId.getText().equals("")){passangerId.setText("");}
-        if (passangerName.getText().equals("")){passangerName.setText("Unknown");}
-        if (address.getText().equals("")){address.setText("Unknown");}
-        if (place.getText().equals("")){place.setText("Unknown");}
-        if (postalCode.getText().equals("")){postalCode.setText("Unknown");}
-        if (country.getText().equals("")){country.setText("Unknown");}
-        if (email.getText().equals("")){email.setText("Unknown");}
-        if (phone.getText().equals("")){phone.setText("Unknown");}
+        if (passangerId.getText() == null){passangerId.setText("");}
+        if (passangerName.getText() == null){passangerName.setText("Unknown");}
+        if (address.getText() == null){address.setText("Unknown");}
+        if (place.getText() == null){place.setText("Unknown");}
+        if (postalCode.getText() == null){postalCode.setText("Unknown");}
+        if (country.getText() == null){country.setText("Unknown");}
+        if (email.getText() == null){email.setText("Unknown");}
+        if (phone.getText() == null){phone.setText("Unknown");}
         
         if (locationFound.getText().equals("")){locationFound.setText("Unknown");}
     }

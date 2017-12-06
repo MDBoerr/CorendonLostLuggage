@@ -365,7 +365,7 @@ public class ServiceMatchingViewController implements Initializable {
 
                 
 
-
+                
                 //Per result -> toevoegen aan Luggages  (observable list) 
                 foundLuggageList.add(
                         new FoundLuggage(
@@ -411,32 +411,9 @@ public class ServiceMatchingViewController implements Initializable {
         foundLuggageTable.setOnMousePressed((MouseEvent event) -> {
                                 //--> event         //--> double click
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                //obj hash code vinden
-                Node node_data = ((Node) event.getTarget() ).getParent();
-                TableRow found_row;
                 
-                if (node_data instanceof TableRow) {
-                    found_row = (TableRow) node_data;
-                } else {
-                    // als op de tekst is geklikt -> pak parent van text
-                    found_row = (TableRow) node_data.getParent();
-                }
+               getDetailsOfRow("found", event, popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "missed");
                 
-                //get het goede found luggage object -> plaats in getDetailObj
-                FoundLuggage getDetailObj = (FoundLuggage) found_row.getItem();
-                
-                //get row item
-                System.out.println("row item; " +found_row.getItem());
-                
-                //Detail object zetten -> zodat hij in volgende view te openen is
-                FoundLuggageDetails.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNr());
-                
-                //switchen naar detailed viw dmv: popup
-                try {
-                    popUpDetails(popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml","found");
-                } catch (IOException ex) {
-                    Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
-                }
    
             }
         });
@@ -449,40 +426,61 @@ public class ServiceMatchingViewController implements Initializable {
         missedLuggageTable.setOnMousePressed((MouseEvent event) -> {
                                 //--> event         //--> double click
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                //obj hash code vinden
-                Node node_data = ((Node) event.getTarget() ).getParent();
-                TableRow missed_row;
                 
-                if (node_data instanceof TableRow) {
-                    missed_row = (TableRow) node_data;
-                } else {
-                    // als op de tekst is geklikt -> pak parent van text
-                    missed_row = (TableRow) node_data.getParent();
-                }
+                getDetailsOfRow("missed", event, popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml", "missed");
                 
-                //get het goede found luggage object -> plaats in getDetailObj
-                MissedLuggage getDetailObj = (MissedLuggage) missed_row.getItem();
-                
-                //get row item
-                System.out.println("row item; " +missed_row.getItem());
-                
-                //Detail object zetten -> zodat hij in volgende view te openen is
-                MissedLuggageDetails.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNr());
-                
-                //switchen naar detailed viw dmv: popup
-                try {
-                    popUpDetails(popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml","missed");
-                } catch (IOException ex) {
-                    Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
-                }
    
             }
         });
     }
     
     
-    public void clickRow(TableView<MissedLuggage> tableMissed, TableView<FoundLuggage> tableFound, Stage typeStage, String viewLink, TableRow row, MissedLuggage getDetailObjMissed, FoundLuggage getDetailObjFound, Node node_data, int clickCount, Event eventType){
+    public void getDetailsOfRow(String type, MouseEvent event, Stage stageType, String stageLink, String popupKey){
         
+             Node node = ((Node) event.getTarget() ).getParent();
+             TableRow tableRowGet;
+             
+             if (node instanceof TableRow) {
+                    tableRowGet = (TableRow) node;
+            } else {
+                    // als op de tekst is geklikt -> pak parent van text
+                    tableRowGet = (TableRow) node.getParent();
+            }
+             
+        if ("missed".equals(type)){
+            //get het goede found luggage object -> plaats in getDetailObj
+            MissedLuggage getDetailObj = (MissedLuggage) tableRowGet.getItem();
+            
+            //Detail object zetten -> zodat hij in volgende view te openen is
+            MissedLuggageDetails.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNr());
+                
+        } 
+        
+        if ("found".equals(type)){
+            //get het goede found luggage object -> plaats in getDetailObj
+            FoundLuggage getDetailObj = (FoundLuggage) tableRowGet.getItem();
+            
+            //Detail object zetten -> zodat hij in volgende view te openen is
+            FoundLuggageDetails.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNr());
+                
+        } 
+        
+        //switchen naar detailed viw dmv: popup
+        if ("found".equals(type) || "missed".equals(type)){
+            try {
+                popUpDetails(stageType, stageLink, popupKey);
+            } catch (IOException ex) {
+                Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        
+        
+        
+        
+        if ("match".equals(type)){
+            
+        }
     }
     
     /**  
@@ -627,7 +625,6 @@ public class ServiceMatchingViewController implements Initializable {
                     
                     //Asign the source to the right pane: foundPane
                     paneType.getChildren().add(SourceLink);
-                    System.out.println("returned top  -4");
                     return idCheck;
                     
                 } catch (IOException ex) {
@@ -635,13 +632,10 @@ public class ServiceMatchingViewController implements Initializable {
                 }
             } else {
                 //id is the same
-                System.out.println("returned top mid  -3");
                 return idCheck;
             }
-            System.out.println("returned mid -2");
             return idCheck;
         }  
-        System.out.println("returned low  -1");
         return idCheck;
     }
             
@@ -712,9 +706,6 @@ public class ServiceMatchingViewController implements Initializable {
             foundList.forEach((found) -> {
                 int matchId = 0;
                 int matchPercentage = 0;
-                System.out.println("-------------");
-                System.out.println("lost: "+lost.getRegistrationNr());
-                System.out.println("found: "+found.getRegistrationNr());
                 
                 if (lost.getLuggageType()==found.getLuggageType()){
                     matchPercentage += 10;
@@ -760,7 +751,7 @@ public class ServiceMatchingViewController implements Initializable {
                 }
                 
                 System.out.println("match percentage: "+matchPercentage+"%");
-                if (matchPercentage>5){
+                if (matchPercentage>65){
                     matchingList.add( 
                         new LuggageMatching(
                                 found.getRegistrationNr(), 

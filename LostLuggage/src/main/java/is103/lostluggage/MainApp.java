@@ -23,7 +23,7 @@ public class MainApp extends Application {
 
     public static String user = null;
 
-    private static String dbName = "sys";
+    private static String dbName = "LostLuggage";
     
     public static String language = "English";
 
