@@ -23,7 +23,9 @@ public class MainApp extends Application {
 
     public static String user = null;
 
-    private static String dbName = "CorendonLostLuggage";
+    private static String dbName = "sys";
+    
+    public static String language = "English";
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -78,6 +80,10 @@ public class MainApp extends Application {
         MyJDBC db = new MyJDBC(dbName);
 
         return db;
+    }
+    
+    public static String getLanguage() {
+        return language;
     }
 
     public static void checkLoggedInStatus(String user) throws IOException {

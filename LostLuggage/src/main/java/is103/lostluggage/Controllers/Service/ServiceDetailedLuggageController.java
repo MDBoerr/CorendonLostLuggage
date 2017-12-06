@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
+import static is103.lostluggage.MainApp.getLanguage;
 import is103.lostluggage.Model.FoundLuggage;
 import is103.lostluggage.Model.LuggageDetails;
 import is103.lostluggage.Model.LuggageManualMatchFound;
@@ -31,9 +32,6 @@ import javafx.fxml.Initializable;
  * @author thijszijdel
  */
 public class ServiceDetailedLuggageController implements Initializable {
-    
-    
-    public String language = "English";
     
     @FXML private JFXTextField registrationNr;
     @FXML private JFXTextField luggageTag;
@@ -153,7 +151,7 @@ public class ServiceDetailedLuggageController implements Initializable {
     private void setColor(MyJDBC db, int colorD) throws SQLException {
         ResultSet result_color = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+colorD+"'");
         while (result_color.next()) {    
-            String color = result_color.getString(language);
+            String color = result_color.getString(getLanguage());
             mainColor.setText(color);
         }
         
@@ -162,7 +160,7 @@ public class ServiceDetailedLuggageController implements Initializable {
     private void setType(MyJDBC db, int luggageType) throws SQLException {
         ResultSet result_type = db.executeResultSetQuery("SELECT * FROM luggagetype WHERE luggageTypeId='"+luggageType+"'");
         while (result_type.next()) {    
-            String typeGotten = result_type.getString(language);
+            String typeGotten = result_type.getString(getLanguage());
             
             type.setText(typeGotten);
         }
@@ -172,7 +170,7 @@ public class ServiceDetailedLuggageController implements Initializable {
     private void setSecondColor(MyJDBC db, int secondColor2) throws SQLException {
         ResultSet result_second = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+secondColor2+"'");
         while (result_second.next()) {    
-            String color = result_second.getString(language);
+            String color = result_second.getString(getLanguage());
             secondColor.setText(color);
         }
        
@@ -216,7 +214,7 @@ public class ServiceDetailedLuggageController implements Initializable {
         String locationId = Integer.toString(locationFoundG);
         ResultSet result = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+locationId+"'");
         while (result.next()) {    
-            String location = result.getString(language);
+            String location = result.getString(getLanguage());
             locationFound.setText(location);
         } 
        
@@ -227,18 +225,14 @@ public class ServiceDetailedLuggageController implements Initializable {
     public void checkFields(){
         System.out.println("type.getText(): "+type.getText() );
         
-        
-        //Need to fix!!   --> ER IS GEEN REDEN WAAROM IK EEN NulPointerException KRIJG
-        //Althans dat denk ik..
-        
-//        if (type.getText().equals("")){type.setText("Unknown");}
-//        if (luggageTag.getText().equals("")){luggageTag.setText("Unknown");}
-//        if (brand.getText().equals("")){brand.setText("Unknown");}
-//        if (signatures.getText().equals("")){signatures.setText("None");}
-//        if (flight.getText().equals("")){flight.setText("Unknown");}
+        if (type.getText() == null){type.setText("Unknown");}
+        if (luggageTag.getText() == null){luggageTag.setText("Unknown");}
+        if (brand.getText() == null){brand.setText("Unknown");}
+        if (signatures.getText() == null){signatures.setText("None");}
+        if (flight.getText() == null){flight.setText("Unknown");}
             
-        if (mainColor.getText().equals("")){mainColor.setText("");}
-        if (secondColor.getText().equals("")){secondColor.setText("");}
+        if (mainColor.getText().equals("")){mainColor.setText("Unknown");}
+        if (secondColor.getText().equals("")){secondColor.setText("Unknown");}
         
         if (passangerId.getText().equals("")){passangerId.setText("");}
         if (passangerName.getText().equals("")){passangerName.setText("Unknown");}

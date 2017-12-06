@@ -7,6 +7,7 @@ import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.FoundLuggage;
 import is103.lostluggage.Model.LuggageDetails;
 import is103.lostluggage.Model.LuggageManualMatchFound;
+import is103.lostluggage.Model.LuggageMatching;
 import is103.lostluggage.Model.MissedLuggage;
 import java.io.IOException;
 import java.net.URL;
@@ -128,7 +129,27 @@ public class ServiceMatchingViewController implements Initializable {
     //@FXML private TableColumn<MissedLuggage, String>  missedEmployeeId;
     //@FXML private TableColumn<MissedLuggage, Integer> missedMatchedId;
     
+    
+    //--------------------------------
+    //    Table Matches initializen
+    @FXML private TableView<LuggageMatching> matchTabbleView;
 
+    @FXML private TableColumn<LuggageMatching, String>  matchIdLost;
+    @FXML private TableColumn<LuggageMatching, String>  matchIdFound;
+    @FXML private TableColumn<LuggageMatching, String>  matchTag;
+    
+    @FXML private TableColumn<LuggageMatching, String>  matchPercentage;
+    @FXML private TableColumn<LuggageMatching, String>  matchType;
+    @FXML private TableColumn<LuggageMatching, String>  matchBrand;
+    @FXML private TableColumn<LuggageMatching, Integer> matchMainColor;
+    @FXML private TableColumn<LuggageMatching, String>  matchSecondColor;
+    @FXML private TableColumn<LuggageMatching, Integer> matchSize;
+    @FXML private TableColumn<LuggageMatching, String>  matchWeight;
+    @FXML private TableColumn<LuggageMatching, String>  matchOtherCharacteristics;
+    @FXML private TableColumn<LuggageMatching, Integer> matchId;
+
+    
+    
     /**
      * Initializes the controller class.
      */
@@ -159,8 +180,7 @@ public class ServiceMatchingViewController implements Initializable {
         initializeMissedLuggageTable();
         initializeFoundLuggageTable();
         
-        
-        autoMatching(getFoundLuggage(), getMissedLuggage());
+        initializeMatchingLuggageTable();
         
     }
 
@@ -205,9 +225,9 @@ public class ServiceMatchingViewController implements Initializable {
             ResultSet resultSet;
 
             resultSet = db.executeResultSetQuery("SELECT * FROM lostLuggage");
-            System.out.println(" ---------------------------------------------------------------------");
-            System.out.println("               alles geselecteerd van missed luggage tabel            ");
-            System.out.println(" ---------------------------------------------------------------------");
+            System.out.println("=====");
+            System.out.println("== Lost Luggage Tabel");
+            System.out.println("=====");
             
             
             while (resultSet.next()) {
@@ -255,8 +275,8 @@ public class ServiceMatchingViewController implements Initializable {
                 
                 
                 // Alle gegevens per result (koffer) (alleen id) om spam te voorkomen) ->  printen
-                System.out.println("Gegevens voor koffer id: "+registrationNr+" |       Zijn: Correct");
-                System.out.println("---------------------------------------------------------------------");
+                System.out.println("-"+registrationNr);
+                System.out.println("---");
                       
             }//-> stop als er geen resultaten meer zijn!
 
@@ -308,9 +328,9 @@ public class ServiceMatchingViewController implements Initializable {
             ResultSet resultSet;
 
             resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage");
-            System.out.println(" ---------------------------------------------------------------------");
-            System.out.println("               alles geselecteerd van found luggage tabel            ");
-            System.out.println(" ---------------------------------------------------------------------");
+            System.out.println("=====");
+            System.out.println("== Found luggage tabel ");
+            System.out.println("=====");
             
             
             while (resultSet.next()) {
@@ -362,8 +382,8 @@ public class ServiceMatchingViewController implements Initializable {
                 
                 
                 // Alle gegevens per result (koffer) (alleen id) om spam te voorkomen) ->  printen
-                System.out.println("Gegevens voor koffer id: "+registrationNr+" |       Zijn: Correct");
-                System.out.println("---------------------------------------------------------------------");
+                System.out.println("-"+registrationNr);
+                System.out.println("---");
                       
 
             }//-> stop als er geen resultaten meer zijn!
@@ -516,18 +536,126 @@ public class ServiceMatchingViewController implements Initializable {
     }
     
     
-    public void autoMatching(ObservableList<FoundLuggage> foundList, ObservableList<MissedLuggage> missedList){
+    /**  
+     * @void 
+     */
+    public void initializeMatchingLuggageTable(){
+        matchIdLost.setCellValueFactory(      new PropertyValueFactory<>("registrationNrMissed"));
+        matchIdFound.setCellValueFactory(            new PropertyValueFactory<>("registrationNrFound"));
+        matchTag.setCellValueFactory(            new PropertyValueFactory<>("luggageTag"));
+        
+        matchPercentage.setCellValueFactory(           new PropertyValueFactory<>("matchPercentage"));
+        matchType.setCellValueFactory(          new PropertyValueFactory<>("luggageType"));
+        matchBrand.setCellValueFactory(                new PropertyValueFactory<>("brand"));
+        matchMainColor.setCellValueFactory(            new PropertyValueFactory<>("mainColor"));
+        matchSecondColor.setCellValueFactory(          new PropertyValueFactory<>("secondColor"));
+        matchSize.setCellValueFactory(                 new PropertyValueFactory<>("size"));
+        matchWeight.setCellValueFactory(               new PropertyValueFactory<>("weight"));
+
+        matchOtherCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
+        matchId.setCellValueFactory(          new PropertyValueFactory<>("matchedId"));
+        
+           
+        
+        matchTabbleView.setItems(autoMatching(getFoundLuggage(), getMissedLuggage())); 
+        
+       
+    }
+    
+    public ObservableList<LuggageMatching> autoMatching(ObservableList<FoundLuggage> foundList, ObservableList<MissedLuggage> missedList){
         //ObservableList<FoundLuggage> newList = foundLuggageList;
         
         //Loop trough observebale lists :D
-        foundList.forEach((found) -> {
-            System.out.println("");
-            System.out.println("found: "+found.getRegistrationNr());
-        });
+//        foundList.forEach((found) -> {
+//            System.out.println("");
+//            System.out.println("found: "+found.getRegistrationNr());
+//        });
+
+        ObservableList<LuggageMatching> matchingList = FXCollections.observableArrayList();
+        
+        System.out.println("-------START-->LOOPING------");
+        System.out.println("----------------------------");
+        
         missedList.forEach((lost) -> {
-            System.out.println("");
-            System.out.println("lost: "+lost.getRegistrationNr());
-        });    
+            
+           
+            
+            
+            
+            
+            foundList.forEach((found) -> {
+                int matchId = 0;
+                int matchPercentage = 0;
+                System.out.println("-------------");
+                System.out.println("lost: "+lost.getRegistrationNr());
+                System.out.println("found: "+found.getRegistrationNr());
+                
+                if (lost.getLuggageType()==found.getLuggageType()){
+                    matchPercentage += 10;
+                }
+                if (lost.getBrand().equals(found.getBrand())
+                                        && lost.getBrand() != null 
+                                        && found.getBrand() != null){
+                    matchPercentage += 10;
+                }
+                if (lost.getMainColor()==found.getMainColor()
+                                        && lost.getMainColor() != 0 
+                                        && found.getMainColor() != 0){
+                    matchPercentage += 10;
+                }
+                if (lost.getSecondColor()==found.getSecondColor()
+                                        && lost.getSecondColor() != 0 
+                                        && found.getSecondColor() != 0){
+                    matchPercentage += 10;
+                }
+                if (lost.getFlight()==found.getArrivedWithFlight()
+                                        && lost.getFlight() != null 
+                                        && found.getArrivedWithFlight() != null){
+                    matchPercentage += 10;
+                }
+                
+                if (lost.getWeight() != 0 && found.getWeight() != 0){
+                    if ( ((lost.getWeight()/found.getWeight())-1)*100 < 50 ){
+                        matchPercentage += 10;
+                    }
+                }
+                
+                if (lost.getSize() != 0 && found.getSize() != 0){
+                    if ( ((lost.getSize()/found.getSize())-1)*100 < 70 ){
+                        matchPercentage += 10;
+                    }
+                }
+                
+                if (lost.getLuggageTag()==found.getLuggageTag() 
+                                        && lost.getLuggageTag() != null 
+                                        && found.getLuggageTag() != null ){
+                    matchPercentage += 50;
+                    if (matchPercentage >= 100){matchPercentage=100;System.out.println("jackpot");}
+                }
+                
+                System.out.println("match percentage: "+matchPercentage+"%");
+                if (matchPercentage>5){
+                    matchingList.add( 
+                        new LuggageMatching(
+                                found.getRegistrationNr(), 
+                                lost.getRegistrationNr(), 
+                                lost.getLuggageTag()+" | "+found.getLuggageTag(), 
+                                matchPercentage, 
+                                lost.getLuggageType()+" | "+found.getLuggageType(), 
+                                lost.getBrand()+" | "+found.getBrand(), 
+                                lost.getMainColor()+" | "+found.getMainColor(), 
+                                lost.getSecondColor()+" | "+found.getSecondColor(), 
+                                lost.getSize()+" | "+found.getSize(), 
+                                lost.getWeight()+" | "+found.getWeight(), 
+                                lost.getOtherCharaccteristics()+" | "+found.getOtherCharaccteristics(), 
+                                matchId++));
+
+ 
+                }
+                
+            });
+        });  
+        return matchingList;
         
     }
     

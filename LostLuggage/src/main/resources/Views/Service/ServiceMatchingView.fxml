@@ -39,21 +39,20 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="missedLuggageTable1" onMouseClicked="#foundRowClicked" prefHeight="207.0" prefWidth="1178.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="matchTabbleView" onMouseClicked="#foundRowClicked" prefHeight="207.0" prefWidth="1178.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <columns>
-                              <TableColumn fx:id="missedRegistrationNr1" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="ID" />
-                              <TableColumn fx:id="missedDateLost1" minWidth="80.0" text="Date Found" />
-                              <TableColumn fx:id="missedTimeLost1" minWidth="65.0" prefWidth="114.00006103515625" text="Time" />
-                              <TableColumn fx:id="missedLuggageTag1" minWidth="15.999969482421875" prefWidth="60.0" text="Tag" />
-                              <TableColumn fx:id="missedLuggageType1" minWidth="21.0" prefWidth="49.0" text="Type" />
-                              <TableColumn fx:id="missedBrand1" minWidth="37.0" prefWidth="68.0" text="Brand" />
-                              <TableColumn fx:id="missedMainColor1" minWidth="39.0" prefWidth="61.0" text="Color" />
-                              <TableColumn fx:id="missedSecondColor1" minWidth="78.0" prefWidth="94.0" text="Secondcolor" />
-                              <TableColumn fx:id="missedSize1" minWidth="49.0" prefWidth="58.0" text="Size" />
-                              <TableColumn fx:id="missedWeight1" minWidth="56.0" prefWidth="76.0" text="Weight" />
-                              <TableColumn fx:id="missedOtherCharacteristics1" minWidth="100.0" prefWidth="176.0" text="Characteristics" />
-                              <TableColumn fx:id="missedPassengerId1" minWidth="57.0" prefWidth="82.0" text="Passenger" />
-                              <TableColumn fx:id="missedFlight1" minWidth="50.0" prefWidth="84.0" text="Flight" />
+                              <TableColumn fx:id="matchIdLost" maxWidth="2000.0" minWidth="60.0" prefWidth="100.0" text="ID Lost" />
+                              <TableColumn fx:id="matchIdFound" minWidth="60.0" prefWidth="100.0" text="ID Found" />
+                              <TableColumn fx:id="matchTag" minWidth="100.0" prefWidth="150.0" text="Tag" />
+                              <TableColumn fx:id="matchPercentage" minWidth="60.0" prefWidth="70.0" text="Match %" />
+                              <TableColumn fx:id="matchType" minWidth="100.0" prefWidth="120.0" text="Type" />
+                              <TableColumn fx:id="matchBrand" minWidth="100.0" prefWidth="120.0" text="Brand" />
+                              <TableColumn fx:id="matchMainColor" minWidth="100.0" prefWidth="120.0" text="Main Color" />
+                              <TableColumn fx:id="matchSecondColor" minWidth="100.0" prefWidth="120.0" text="Second Color" />
+                              <TableColumn fx:id="matchSize" minWidth="70.0" prefWidth="100.0" text="Size" />
+                              <TableColumn fx:id="matchWeight" minWidth="70.0" prefWidth="100.0" text="Weight" />
+                              <TableColumn fx:id="matchOtherCharacteristics" minWidth="100.0" prefWidth="145.0" text="Characteristics" />
+                              <TableColumn fx:id="matchId" minWidth="50.0" prefWidth="84.0" text="Match ID" />
                            </columns>
                         </TableView>
                      </children></AnchorPane>
