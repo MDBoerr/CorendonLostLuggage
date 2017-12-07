@@ -277,7 +277,7 @@ public class ServiceMatchingViewController implements Initializable {
 
             ResultSet resultSet;
 
-            resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage");
+            resultSet = db.executeResultSetQuery("SELECT * FROM foundluggage");
             System.out.println(" ---------------------------------------------------------------------");
             System.out.println("               alles geselecteerd van found luggage tabel            ");
             System.out.println(" ---------------------------------------------------------------------");

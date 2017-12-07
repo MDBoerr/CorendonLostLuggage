@@ -5,6 +5,7 @@ import is103.lostluggage.Controllers.HomeUserViewController;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
+import static is103.lostluggage.MainApp.connectToDatabase;
 import is103.lostluggage.Model.FoundLuggage;
 //import is103.lostluggage.Controllers.Service.Luggage;
 import java.io.IOException;
@@ -173,11 +174,11 @@ private final String title = "Overzicht Gevonden Bagage";
         ObservableList<FoundLuggage> foundLuggageList = FXCollections.observableArrayList();
         
         try {
-            MyJDBC db = new MyJDBC("LostLuggage");
+             MyJDBC db = connectToDatabase();
 
             ResultSet resultSet;
 
-            resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage");
+            resultSet = db.executeResultSetQuery("SELECT * FROM foundluggage");
             
             
             while (resultSet.next()) {
