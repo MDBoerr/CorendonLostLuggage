@@ -324,6 +324,10 @@ public class ServiceMatchingViewController implements Initializable {
             MissedLuggage route = MissedLuggageDetails.getInstance().currentLuggage();
             route.setRegistrationNr(getDetailObj.getRegistrationNr());
             
+            
+            
+            //pp----->
+            
         } 
         
         if ("found".equals(type)){
@@ -347,8 +351,8 @@ public class ServiceMatchingViewController implements Initializable {
         if ("match".equals(type)){
             //      match to manual matching
             //  -   -   -   -   -   -   -   -   -
-            
-            
+             MissedLuggage getDetailObj = (MissedLuggage) tableRowGet.getItem();
+             
             
             
             //          !IMPORTANT;
@@ -584,7 +588,7 @@ public class ServiceMatchingViewController implements Initializable {
                     if (matchingPercentage >= 100){matchingPercentage=100;System.out.println("Same: luggage tag");}
                 }
                 
-                if (matchingPercentage>65){
+                if (matchingPercentage>10){
                     matchingList.add(new LuggageMatching(
                         found.getRegistrationNr(), 
                         lost.getRegistrationNr(), 

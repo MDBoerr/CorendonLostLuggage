@@ -87,6 +87,7 @@ public class ServiceDetailedMisseddLuggageViewController implements Initializabl
     @FXML
     private void initializeFoundFields() throws SQLException{
         String id = MissedLuggageDetails.getInstance().currentLuggage().getRegistrationNr();
+
         System.out.println("iD: "+id);
             MyJDBC db = MainApp.connectToDatabase();
             
