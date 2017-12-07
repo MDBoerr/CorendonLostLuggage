@@ -61,13 +61,13 @@ public class ServiceHomeViewController implements Initializable {
         
         
         
-        ServiceDataFound dataListFound;
-        try {
-            dataListFound = new ServiceDataFound();
-        } catch (SQLException ex) {
-            dataListFound = (ServiceDataFound) ServiceDataFound.getFoundLuggage();
-            Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        ServiceDataFound dataListFound;
+//        try {
+//            dataListFound = new ServiceDataFound();
+//        } catch (SQLException ex) {
+//            dataListFound = (ServiceDataFound) ServiceDataFound.getFoundLuggage();
+//            Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
     
     

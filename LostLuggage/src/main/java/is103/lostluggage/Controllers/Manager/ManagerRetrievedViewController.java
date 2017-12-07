@@ -56,23 +56,53 @@ public class ManagerRetrievedViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         //To Previous Scene
-        MainViewController.previousView = "/Views/ManagerHomeView.fxml";
+        MainViewController.previousView = "/Views/ManagerReportView.fxml";
 
-        FormID.setCellValueFactory(new PropertyValueFactory<>("foundluggage.registrationNr"));
-        Date.setCellValueFactory(new PropertyValueFactory<>("matched.dateMatched"));
-        Customer.setCellValueFactory(new PropertyValueFactory<>("passenger.name"));
-        Employee.setCellValueFactory(new PropertyValueFactory<>("employee.firstname"));
-        Deliverer.setCellValueFactory(new PropertyValueFactory<>("matched.delivered"));
-        System.out.println("test --------------* ");
+        FormID.setCellValueFactory(new PropertyValueFactory<>("FormID"));
+        Date.setCellValueFactory(new PropertyValueFactory<>("Date"));
+        Customer.setCellValueFactory(new PropertyValueFactory<>("Customer"));
+        Employee.setCellValueFactory(new PropertyValueFactory<>("Employee"));
+        Deliverer.setCellValueFactory(new PropertyValueFactory<>("Deliverer"));
         retrievedTable.setItems(getRetrievedLuggage());
-        System.out.println("---- placed ");
-       
-        
+
+        retrievedTable.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                    Node node = ((Node) event.getTarget()).getParent();
+
+                    TableRow row;
+
+                    if (node instanceof TableRow) {
+                        row = (TableRow) node;
+                    } else {
+                        // clicking on text part
+                        row = (TableRow) node.getParent();
+                    }
+                    System.out.println(row.getItem());
+
+                    try {
+
+                        MainApp.switchView("/Views/ManagerPassengerInfoView.fxml");
+
+                    } catch (IOException ex) {
+
+                        Logger.getLogger(ManagerFoundViewController.class.getName()).log(Level.SEVERE, null, ex);
+
+                    }
+
+                }
+
+            }
+
+        });
+
     }
 
     public ObservableList<RetrievedLuggage> getRetrievedLuggage() {
 
-        ObservableList<RetrievedLuggage> retrieved = FXCollections.observableArrayList();
+        ObservableList<RetrievedLuggage> retrievedList = FXCollections.observableArrayList();
 
         try {
             MyJDBC db = MainApp.connectToDatabase();
@@ -80,35 +110,28 @@ public class ManagerRetrievedViewController implements Initializable {
             ResultSet resultSet;
 
             resultSet = db.executeResultSetQuery("SELECT delivery, dateMatched, employee.firstname, foundluggage.registrationNr, passenger.name  FROM matched INNER JOIN employee ON matched.employeeId = employee.employeeId INNER JOIN foundluggage ON matched.foundluggage = foundluggage.registrationNr INNER JOIN passenger ON foundluggage.passengerId = passenger.passengerId");
-            
+
             while (resultSet.next()) {
-                
-                
-                
+
                 int registrationnr = resultSet.getInt("foundluggage.registrationNr");
                 String date = resultSet.getString("matched.dateMatched");
                 String passengername = resultSet.getString("passenger.name");
                 String employeename = resultSet.getString("employee.firstname");
                 String delivered = resultSet.getString("matched.delivery");
-                
-                System.out.println("deliverer: "+delivered + " Date: " +date + " passName: " + passengername+ " empname: " + employeename + " regnr: " + registrationnr);
-               
-                retrieved.add(  
+
+                retrievedList.add(
                         new RetrievedLuggage(
-                                registrationnr, 
-                                date, 
-                                passengername, 
-                                employeename, 
+                                registrationnr,
+                                date,
+                                passengername,
+                                employeename,
                                 delivered));
-                
-                System.out.println("Test 1 ");
-                System.out.println(retrieved);
+
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(ManagerReportViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }   
-        System.out.println("test 2 ");
-        return retrieved;
+        }
+        return retrievedList;
     }
 }
