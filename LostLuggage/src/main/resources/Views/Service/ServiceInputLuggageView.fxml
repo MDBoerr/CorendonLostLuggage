@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="mainGridPane" prefHeight="579.0" prefWidth="949.0" style="-fx-background-color: #868e96#868e96 #868e96#868e96;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Service.ServiceInputLuggageViewController">
+<GridPane fx:id="mainGridPane" prefHeight="579.0" prefWidth="949.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Service.ServiceInputLuggageViewController">
     <columnConstraints>
         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="443.0" minWidth="10.0" prefWidth="443.0" />
         <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="689.0" minWidth="10.0" prefWidth="372.0" />
@@ -45,20 +44,41 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label fx:id="nameLbl" text="Naam" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Label fx:id="addressLbl" text="Adres" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Label fx:id="residenceLbl" text="Woonplaats" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <Label fx:id="postalcodeLbl" text="Postcode" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-            <Label fx:id="countryLbl" text="Land" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-            <Label fx:id="phoneLbl" text="Telefoon" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-            <Label fx:id="emailLbl" text="E-mail" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
-            <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <TextField fx:id="addressField" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <TextField fx:id="residenceField" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <TextField fx:id="postalcodeField" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-            <TextField fx:id="countryField" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-            <TextField fx:id="phoneField" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-            <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+            <JFXTextField labelFloat="true" promptText="Naam" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXTextField labelFloat="true" promptText="Adres" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXTextField labelFloat="true" promptText="Woonplaats" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXTextField labelFloat="true" promptText="Postcode" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXTextField labelFloat="true" promptText="Land" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXTextField labelFloat="true" promptText="Telefoon" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXTextField labelFloat="true" promptText="E-mail" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
          </children>
         </GridPane>
       <Button mnemonicParsing="false" onAction="#addLuggage" text="Invoeren" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
@@ -78,17 +98,26 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="dateLbl" text="Datum" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Label fx:id="timeLbl" text="Tijd" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Label fx:id="airportLbl" text="Luchthaven" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
             <Label text="Vermissing" underline="true" GridPane.halignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="airportField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <DatePicker fx:id="dateDatepicker" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="timeField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <JFXTextField labelFloat="true" promptText="Tijd" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXTextField labelFloat="true" promptText="Luchthaven" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXDatePicker promptText="Datum" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </JFXDatePicker>
          </children>
       </GridPane>
       <GridPane fx:id="luggageInfoGridPane" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -113,53 +142,46 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label fx:id="labelNumberLbl" text="Labelnummer" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Label fx:id="flightnumberLbl" text="Vluchtnummer" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Label fx:id="destinationLbl" text="Bestemming" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
             <Label fx:id="luggageInformationLbl" text="Bagage informatie" underline="true" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label fx:id="typeLbl" text="Type" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-            <Label fx:id="brandLbl" text="Merk" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-            <Label fx:id="colorLbl" text="Kleur" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
-            <Label fx:id="signaturesLbl" text="Kenmerken" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
-            <TextField fx:id="labelnumberField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <JFXTextField labelFloat="true" promptText="Labelnummer" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets right="10.0" />
+                  <Insets left="10.0" />
                </GridPane.margin>
-            </TextField>
-            <TextField fx:id="flightnumberField" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            </JFXTextField>
+            <JFXTextField labelFloat="true" promptText="Luchthaven" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets right="10.0" />
+                  <Insets left="10.0" />
                </GridPane.margin>
-            </TextField>
-            <TextField fx:id="destinationField" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            </JFXTextField>
+            <JFXTextField labelFloat="true" promptText="Bestemming" GridPane.rowIndex="3">
                <GridPane.margin>
-                  <Insets right="10.0" />
+                  <Insets left="10.0" />
                </GridPane.margin>
-            </TextField>
-            <TextField fx:id="typeField" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            </JFXTextField>
+            <JFXComboBox labelFloat="true" promptText="Type" GridPane.rowIndex="5">
                <GridPane.margin>
-                  <Insets right="10.0" />
+                  <Insets left="10.0" />
                </GridPane.margin>
-            </TextField>
-            <TextField fx:id="brandField" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            </JFXComboBox>
+            <JFXTextField labelFloat="true" promptText="Merk" GridPane.rowIndex="6">
                <GridPane.margin>
-                  <Insets right="10.0" />
+                  <Insets left="10.0" />
                </GridPane.margin>
-            </TextField>
-            <TextField fx:id="colorField" GridPane.columnIndex="1" GridPane.rowIndex="7">
+            </JFXTextField>
+            <JFXComboBox labelFloat="true" promptText="Kleur" GridPane.rowIndex="7">
                <GridPane.margin>
-                  <Insets right="10.0" />
+                  <Insets left="10.0" />
                </GridPane.margin>
-            </TextField>
-            <TextArea fx:id="signaturesField" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+            </JFXComboBox>
+            <JFXTextField labelFloat="true" promptText="Kenmerken" GridPane.rowIndex="8">
                <GridPane.margin>
-                  <Insets right="10.0" />
+                  <Insets left="10.0" />
                </GridPane.margin>
-            </TextArea>
+            </JFXTextField>
          </children>
       </GridPane>
       <GridPane onMouseEntered="#foundOrMissing" GridPane.columnIndex="1">

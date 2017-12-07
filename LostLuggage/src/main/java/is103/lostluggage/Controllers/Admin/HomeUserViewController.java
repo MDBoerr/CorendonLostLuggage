@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package is103.lostluggage.Controllers;
+package is103.lostluggage.Controllers.Admin;
 
+import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.MainApp;
 import javafx.event.ActionEvent;
 import java.io.IOException;
@@ -48,12 +49,12 @@ public class HomeUserViewController implements Initializable {
 
     @FXML
     protected void handleButtonAction(ActionEvent event) throws IOException {
-        MainApp.switchView("/Views/UserScene.fxml");
+        MainApp.switchView("/Views/Admin/UserScene.fxml");
     }
 
     @FXML
     protected void viewAddUserWindow(ActionEvent event) throws IOException {
-        MainApp.switchView("/fxml/AdminAddUserView.fxml");
+        MainApp.switchView("/Views/Admin/AdminAddUserView.fxml");
     }
 
 }

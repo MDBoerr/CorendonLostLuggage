@@ -13,32 +13,36 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 public class MainApp extends Application {
 
     private static BorderPane root;
+
+    public static String user = null;
+
+    private static String dbName = "LostLuggage";
     
-    private static String dbName = "lostluggage";
+    public static String language = "English";
 
     @Override
     public void start(Stage stage) throws Exception {
-        //Oude manier:
-        //Parent root = FXMLLoader.load(getClass().getResource("/Views/HomeView.fxml"));        //Admin
-        //Parent root = FXMLLoader.load(getClass().getResource("/fxml/ServiceHomeView.fxml"));  //Service medewerker
-        //Parent root = FXMLLoader.load(getClass().getResource("/Views/ManagerHomeView.fxml"));   //Manager 
 
+        //Uncomment line below to create a Database on local SQL Server -> See READ ME for help 
+        //MyJDBC.createLostLuggageDatabase(dbName);
+        
+        
         //set root
         root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
-        //root.setTop(headerFxml);          -> later nog een header invoeren!
-        //Na laden 'main view'   tijdelijke switch naar -> ServiceHomeView
-        //switchView("/fxml/ServiceHomeView.fxml");
-        switchView("/fxml/SelectUserRoleView.fxml");
 
-        Scene scene = new Scene(root, 1200, 800);
+        //switchView("/fxml/SelectUserRoleView.fxml");
+        checkLoggedInStatus(user);
+
+        Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
-        scene.getStylesheets().add("/styles/MaterialDesign.css");
+        //scene.getStylesheets().add("/styles/MaterialDesign.css");
 
         stage.setTitle("Corendon Lost Luggage");
         stage.setScene(scene);
@@ -49,10 +53,14 @@ public class MainApp extends Application {
         stage.setWidth(primaryScreenBounds.getWidth());
         stage.setHeight(primaryScreenBounds.getHeight());
 
+        stage.setMinWidth(1000);
+        stage.setMinHeight(700);
+
+        Image logo = new Image("Images/Stage logo.png");
+        //Image applicationIcon = new Image(getClass().getResourceAsStream("Images/Logo.png"));
+        stage.getIcons().add(logo);
+
         stage.show();
-        
-        //Uncomment line below to create a local SQL Server 
-        //MyJDBC.createLostLuggageDatabase(dbName);
 
     }
 
@@ -70,8 +78,36 @@ public class MainApp extends Application {
     public static MyJDBC connectToDatabase() {
 
         MyJDBC db = new MyJDBC(dbName);
-        
-        return  db;
+
+        return db;
+    }
+    
+    public static String getLanguage() {
+        return language;
+    }
+
+    public static void checkLoggedInStatus(String user) throws IOException {
+
+        if (user != null) {
+            System.out.println(user);
+            if (user.equals("Adminstrator")) {
+                switchView("/Views/Admin/HomeUserView.fxml");
+                System.out.println(user);
+
+            }
+            if (user.equals("Manager")) {
+                switchView("/Views/ManagerHomeView.fxml");
+
+            }
+            if (user.equals("Service")) {
+                switchView("/Views/Service/ServiceHomeView.fxml");
+
+            }
+
+        } else {
+            switchView("/Views/Admin/LogInView.fxml");
+
+        }
     }
 
     /**

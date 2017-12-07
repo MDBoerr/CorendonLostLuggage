@@ -55,7 +55,7 @@ public class SelectUserRoleViewController implements Initializable {
     }
     @FXML 
     protected void toAdminView(ActionEvent event) throws IOException {
-        MainApp.switchView("/Views/HomeUserView.fxml");
+        MainApp.switchView("/Views/Admin/HomeUserView.fxml");
     }
     @FXML 
     protected void toManagerView(ActionEvent event) throws IOException {

@@ -12,6 +12,7 @@ import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
 import java.util.ResourceBundle;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -86,7 +87,7 @@ public class AdminAddUserViewController implements Initializable {
     private JFXTextField locationField;
 
     //Title of the view
-    private String header = "Voeg een Gebruiker toe";
+    private String header = "Add User";
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -98,7 +99,7 @@ public class AdminAddUserViewController implements Initializable {
         }
 
         //Set which view was previous
-        MainViewController.previousView = "/Views/HomeUserView.fxml";
+        MainViewController.previousView = "/Views/Admin/HomeUserView.fxml";
 
         //Add options to List
         roleList = FXCollections.observableArrayList(
@@ -121,7 +122,7 @@ public class AdminAddUserViewController implements Initializable {
 
     @FXML
     protected void backToHomeUserView(ActionEvent event) throws IOException {
-        MainApp.switchView("/Views/HomeUserView.fxml");
+        MainApp.switchView("/Views/Admin/HomeUserView.fxml");
 
     }
 
@@ -135,8 +136,8 @@ public class AdminAddUserViewController implements Initializable {
         String firstname = firstnameField.getText();
         String lastname = lastnameField.getText();
         String location = locationField.getText();
-        String status = statusComboBox.getValue().toString();
-        String role = roleComboBox.getValue().toString();
+        Object status = statusComboBox.getValue();
+        Object role = roleComboBox.getValue();
 
         //Counter for empty fields
         int amount = 0;
@@ -226,14 +227,16 @@ public class AdminAddUserViewController implements Initializable {
         else {
             //Temporary id
             String id = UUID.randomUUID().toString().substring(0, 8);
-            
+            String roleString = role.toString();
+            String statusString = status.toString();
+
             MyJDBC db = MainApp.connectToDatabase();
-            
-            String query = String.format("INSERT INTO User VALUES ('%s', '%s', '%s', '%s', '%s', '%s')", id, firstname, lastname, location, status, role);
-            
+
+            String query = String.format("INSERT INTO User VALUES ('%s', '%s', '%s', '%s', '%s', '%s')", id, firstname, lastname, location, statusString, roleString);
+
             int result = db.executeUpdateQuery(query);
             System.out.println(" This is the result:  " + result);
-            
+
         }
     }
 

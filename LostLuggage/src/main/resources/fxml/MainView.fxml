@@ -27,6 +27,8 @@
                         <Font size="30.0" />
                      </font>
                   </Label>
+                  <JFXButton ripplerFill="WHITE" style="-fx-background-color: #018ada#018ada;" text="EN" textFill="WHITE" />
+                  <JFXButton ripplerFill="WHITE" style="-fx-background-color: ff5151;" text="NL" textFill="WHITE" />
                </children>
             </HBox>
          </children></AnchorPane>

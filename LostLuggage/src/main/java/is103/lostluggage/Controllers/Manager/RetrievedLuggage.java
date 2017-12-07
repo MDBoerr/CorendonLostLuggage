@@ -1,34 +1,32 @@
 package is103.lostluggage.Controllers.Manager;
 
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  *
  * @author daron
  */
 public class RetrievedLuggage {
-        //inserts for ManagerTeruggebrachttebagage
-    private int id;
+    //inserts for ManagerTeruggebrachttebagage
 
+    private int FormID;
+    private String Date, Customer, Employee, Deliverer;
 
-    private String FormID;
-    private String Date;
-    private String Customer;
-    private String Employee;
-    private String Deliverer;
+    public RetrievedLuggage(int FormID, String Date, String Customer, String Employee, String Deliverer) {
 
-    public RetrievedLuggage(int id, String FormID, String Date, String Customer, String Employee, String Deliverer) {
         this.FormID = FormID;
-        this.id = id;
         this.Date = Date;
         this.Customer = Customer;
         this.Employee = Employee;
         this.Deliverer = Deliverer;
-    }    
-    
-        public String getFormID() {
+
+    }
+
+    public int getFormID() {
         return FormID;
     }
 
-    public void setFormID(String FormID) {
+    public void setFormID(int FormID) {
         this.FormID = FormID;
     }
 
@@ -60,18 +58,8 @@ public class RetrievedLuggage {
         return Deliverer;
     }
 
-
     public void setDeliverer(String Deliverer) {
         this.Deliverer = Deliverer;
     }
-    
-        public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-    
-    
 }

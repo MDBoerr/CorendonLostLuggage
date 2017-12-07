@@ -61,12 +61,12 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                         </rowConstraints>
                         <children>
-                            <JFXTextField fx:id="firstnameField" focusColor="#4dadf7" promptText="Firstname" />
-                            <JFXTextField fx:id="lastnameField" focusColor="#4dadf7" promptText="Last name" GridPane.rowIndex="1" />
-                            <JFXTextField fx:id="locationField" focusColor="#4dadf7" promptText="Airport / Building" GridPane.rowIndex="3" />
-                            <JFXTextField fx:id="employeeIdField" focusColor="#4dadf7" promptText="Employee ID" GridPane.rowIndex="2" />
-                            <JFXComboBox fx:id="statusComboBox" focusColor="#4dadf7" prefHeight="27.0" prefWidth="149.0" promptText="Status" GridPane.rowIndex="4" />
-                            <JFXComboBox fx:id="roleComboBox" focusColor="#4dadf7" prefHeight="27.0" prefWidth="149.0" promptText="Role" GridPane.rowIndex="5" />
+                            <JFXTextField fx:id="firstnameField" focusColor="#4dadf7" labelFloat="true" promptText="Firstname" />
+                            <JFXTextField fx:id="lastnameField" focusColor="#4dadf7" labelFloat="true" promptText="Last name" GridPane.rowIndex="1" />
+                            <JFXTextField fx:id="locationField" focusColor="#4dadf7" labelFloat="true" promptText="Airport / Building" GridPane.rowIndex="3" />
+                            <JFXTextField fx:id="employeeIdField" focusColor="#4dadf7" labelFloat="true" promptText="Employee ID" GridPane.rowIndex="2" />
+                            <JFXComboBox fx:id="statusComboBox" focusColor="#4dadf7" labelFloat="true" prefHeight="27.0" prefWidth="149.0" promptText="Status" GridPane.rowIndex="4" />
+                            <JFXComboBox fx:id="roleComboBox" focusColor="#4dadf7" labelFloat="true" prefHeight="27.0" prefWidth="149.0" promptText="Role" GridPane.rowIndex="5" />
                             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="6">
                                 <children>
                                     <JFXButton onAction="#backToHomeUserView" prefHeight="35.0" prefWidth="75.0" style="-fx-background-color: #adb5bd#adb5bd;" text="Cancel" textFill="WHITE" />
