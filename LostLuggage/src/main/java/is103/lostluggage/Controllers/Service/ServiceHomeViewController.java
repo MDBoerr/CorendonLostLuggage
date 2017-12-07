@@ -2,10 +2,12 @@ package is103.lostluggage.Controllers.Service;
 
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.MainViewController;
+import is103.lostluggage.Data.ServiceDataFound;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -18,7 +20,8 @@ import javafx.scene.control.Label;
 /**
  * FXML Controller class
  *
- * @author gebruiker
+ * @author Thijs Zijdel - 500782165
+ * @author 2
  */
 public class ServiceHomeViewController implements Initializable {
 
@@ -36,23 +39,35 @@ public class ServiceHomeViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //database aanmaken
-                                //--> Doe dit nu tijdelijk al bij de select user view
-        //MyJDBC.createLostLuggageDatabase("LostLuggage");
-        
         //To Previous Scene
         MainViewController.previousView = "/fxml/SelectUserRoleView.fxml";
         
         //titel boven de pagina zetten
+       
         try {
             MainViewController.getInstance().getTitle(title);
         } catch (IOException ex) {
-            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+            Logger.getLogger(ServiceHomeViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }  
         
         
         //tijd weergeven
         timeDisplay.setText(LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute());
+        
+        
+        
+        
+        
+        
+        
+        
+        ServiceDataFound dataListFound;
+        try {
+            dataListFound = new ServiceDataFound();
+        } catch (SQLException ex) {
+            dataListFound = (ServiceDataFound) ServiceDataFound.getFoundLuggage();
+            Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     

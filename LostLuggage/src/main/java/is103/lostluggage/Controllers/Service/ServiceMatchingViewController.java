@@ -1,8 +1,10 @@
 package is103.lostluggage.Controllers.Service;
 
+import com.sun.javafx.scene.control.skin.TableHeaderRow;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.MainViewController;
-import is103.lostluggage.Database.MyJDBC;
+import is103.lostluggage.Data.ServiceDataFound;
+import is103.lostluggage.Data.ServiceDataLost;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.FoundLuggage;
 import is103.lostluggage.Model.FoundLuggageDetails;
@@ -13,20 +15,18 @@ import is103.lostluggage.Model.MissedLuggage;
 import is103.lostluggage.Model.MissedLuggageDetails;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -41,8 +41,6 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -51,7 +49,7 @@ import javafx.util.Duration;
 /**
  * FXML Controller class
  *
- * @author Thijs Zijdel
+ * @author Thijs Zijdel - 500782165
  */
 public class ServiceMatchingViewController implements Initializable {
 
@@ -78,18 +76,12 @@ public class ServiceMatchingViewController implements Initializable {
     public static ObservableList<MissedLuggage> missedLuggageList;
     
     
-    //Working on right now:
-    //--------------------------------
+    //Matching tabs -> 1: automatic matching     2: manual matching
     @FXML public TabPane matchingTabs;
-    @FXML public Tab possibleTab;
-    
-    @FXML public Tab manualTab;
-    @FXML public AnchorPane manualPane;
-    @FXML public GridPane manualGrid;
-    
+
+    //Pannels for manual matching
     @FXML public Pane foundPane;
     @FXML public Pane missedPane;
-    //--------------------------------
     
     
     //--------------------------------
@@ -112,8 +104,6 @@ public class ServiceMatchingViewController implements Initializable {
     
     @FXML private TableColumn<FoundLuggage, String>  foundArrivedWithFlight;
     @FXML private TableColumn<FoundLuggage, Integer> foundLocationFound;
-//    @FXML private TableColumn<FoundLuggage, String>  foundEmployeeId;
-//    @FXML private TableColumn<FoundLuggage, Integer> foundMatchedId;
     
 
     //--------------------------------
@@ -135,8 +125,6 @@ public class ServiceMatchingViewController implements Initializable {
     @FXML private TableColumn<MissedLuggage, Integer> missedPassengerId;
     
     @FXML private TableColumn<MissedLuggage, String>  missedFlight;
-    //@FXML private TableColumn<MissedLuggage, String>  missedEmployeeId;
-    //@FXML private TableColumn<MissedLuggage, Integer> missedMatchedId;
     
     
     //--------------------------------
@@ -165,9 +153,12 @@ public class ServiceMatchingViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //switch to prev view.
+        // -   -   -   -   - 
         MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
         
+        
         //titel boven de pagina zetten
+        // -   -   -   -   - 
         try {
             MainViewController.getInstance().getTitle(title);
         } catch (IOException ex) {
@@ -176,21 +167,55 @@ public class ServiceMatchingViewController implements Initializable {
         
         
         //Refresh timer setup
+        // -   -   -   -   - 
         Timeline refreshTimeLine = new Timeline(new KeyFrame(Duration.seconds(timeRate), ev -> {
+            //methode to call all timer required methods.
             callMethods();
-        }));
-        
-        //Start time line
-        refreshTimeLine.setCycleCount(Animation.INDEFINITE);
-        refreshTimeLine.play();
+        })); 
+        refreshTimeLine.setCycleCount(Animation.INDEFINITE);    //cycle count-> no end
+        refreshTimeLine.play();                                 //start timeline
         
 
-        //Initialize Table's
+        //Initialize Table & obj lost
+        // -   -   -   -   -  
+        ServiceDataLost dataListLost;
+        try {
+            dataListLost = new ServiceDataLost();
+        } catch (SQLException ex) {
+            dataListLost = (ServiceDataLost) ServiceDataLost.getMissedLuggage();
+            Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         initializeMissedLuggageTable();
+        setMissedLuggageTable(dataListLost);
+        
+        
+        //Initialize Table & obj found 
+        // -   -   -   -   -   
+        ServiceDataFound dataListFound;
+        try {
+            dataListFound = new ServiceDataFound();
+        } catch (SQLException ex) {
+            dataListFound = (ServiceDataFound) ServiceDataFound.getFoundLuggage();
+            Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         initializeFoundLuggageTable();
+        setFoundLuggageTable(dataListFound);
         
+        
+        //initialize matching table & set with dataListFound and dataListLost 
+        // -   -   -   -   -   -   -
         initializeMatchingLuggageTable();
-        
+        try {
+            setMatchingLuggageTable(dataListFound,dataListLost);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //Stop Tables from being able to re position/ order
+        // -   -   -   -   -   -   -
+        fixedTableHeader(foundLuggageTable);
+        fixedTableHeader(missedLuggageTable);
+        fixedTableHeader(matchTabbleView);
     }
 
     /**  
@@ -216,85 +241,10 @@ public class ServiceMatchingViewController implements Initializable {
         
 //        missedEmployeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
 //        missedMatchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId"));    
-        
-        missedLuggageTable.setItems(getMissedLuggage());   
     }
-    
-    
-    /**  
-     * @return missedLuggages
-     */
-    public ObservableList<MissedLuggage> getMissedLuggage() {
-
-        ObservableList<MissedLuggage> missedLuggageList = FXCollections.observableArrayList();
-        
-        try {
-            MyJDBC db = MainApp.connectToDatabase();
-
-            ResultSet resultSet;
-
-            resultSet = db.executeResultSetQuery("SELECT * FROM lostLuggage");
-            System.out.println("=====");
-            System.out.println("== Lost Luggage Tabel");
-            System.out.println("=====");
-            
-            
-            while (resultSet.next()) {
-                //Alle gegevens van de database (missedLuggage tabel) in variabelen plaatsen
-                String registrationNr =     resultSet.getString("registrationNr");
-                String dateFound =          resultSet.getString("dateLost");
-                String timeFound =          resultSet.getString("timeLost");
-                
-                String luggageTag =         resultSet.getString("luggageTag");
-                int luggageType =           resultSet.getInt("luggageType");
-                String brand =              resultSet.getString("brand");
-                int mainColor =             resultSet.getInt("mainColor");
-                int secondColor =           resultSet.getInt("secondColor");
-                int size =                  resultSet.getInt("size");
-                int weight =                resultSet.getInt("weight");   
-                String otherCharacteristics=resultSet.getString("otherCharacteristics");
-                int passengerId =           resultSet.getInt("passengerId");
-                
-                String flight =             resultSet.getString("flight"); 
-                String employeeId =         resultSet.getString("employeeId");
-                int matchedId =             resultSet.getInt("matchedId");
-
-
-                //Per result -> toevoegen aan Luggages  (observable list) 
-                missedLuggageList.add(
-                        new MissedLuggage(
-                                registrationNr, 
-                                dateFound, 
-                                timeFound, 
-                                
-                                luggageTag, 
-                                luggageType, 
-                                brand, 
-                                mainColor, 
-                                secondColor, 
-                                size, 
-                                weight, 
-                                otherCharacteristics, 
-                                passengerId, 
-                                
-                                flight, 
-                                employeeId, 
-                                matchedId
-                            ));
-                
-                
-                // Alle gegevens per result (koffer) (alleen id) om spam te voorkomen) ->  printen
-                System.out.println("-"+registrationNr);
-                System.out.println("---");
-                      
-            }//-> stop als er geen resultaten meer zijn!
-
-        } catch (SQLException ex) {
-            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return missedLuggageList;
-    } 
-    
+    public void setMissedLuggageTable(ServiceDataLost dataListLost){
+        missedLuggageTable.setItems(dataListLost.getMissedLuggage());   
+    }
     
     /**  
      * @void
@@ -318,91 +268,11 @@ public class ServiceMatchingViewController implements Initializable {
         foundArrivedWithFlight.setCellValueFactory(    new PropertyValueFactory<>("arrivedWithFlight"));
         foundLocationFound.setCellValueFactory(        new PropertyValueFactory<>("locationFound"));
 //        foundEmployeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
-//        foundMatchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId"));
-
-        foundLuggageTable.setItems(getFoundLuggage());
+//        foundMatchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId"));  
     }
-    
-    
-    /**  
-     * @return foundLuggages
-     */
-    public ObservableList<FoundLuggage> getFoundLuggage() {
-
-        ObservableList<FoundLuggage> foundLuggageList = FXCollections.observableArrayList();
-        
-        try {
-            MyJDBC db = MainApp.connectToDatabase();;
-
-            ResultSet resultSet;
-
-            resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage");
-            System.out.println("=====");
-            System.out.println("== Found luggage tabel ");
-            System.out.println("=====");
-            
-            
-            while (resultSet.next()) {
-        //Alle gegevens van de database (foundLuggage tabel) in variabelen plaatsen
-                String registrationNr =     resultSet.getString("registrationNr");
-                String dateFound =          resultSet.getString("dateFound");
-                String timeFound =          resultSet.getString("timeFound");
-                
-                String luggageTag =         resultSet.getString("luggageTag");
-                int luggageType =           resultSet.getInt("luggageType");
-                String brand =              resultSet.getString("brand");
-                int mainColor =             resultSet.getInt("mainColor");
-                int secondColor =           resultSet.getInt("secondColor");
-                int size =                  resultSet.getInt("size");
-                int weight =                resultSet.getInt("weight");   
-                String otherCharacteristics=resultSet.getString("otherCharacteristics");
-                int passengerId =           resultSet.getInt("passengerId");
-                
-                String arrivedWithFlight =  resultSet.getString("arrivedWithFlight"); 
-                int locationFound =         resultSet.getInt("locationFound");
-                String employeeId =         resultSet.getString("employeeId");
-                int matchedId =             resultSet.getInt("matchedId");
-
-                
-
-                
-                //Per result -> toevoegen aan Luggages  (observable list) 
-                foundLuggageList.add(
-                        new FoundLuggage(
-                                registrationNr, 
-                                dateFound, 
-                                timeFound, 
-                                
-                                luggageTag, 
-                                luggageType, 
-                                brand, 
-                                mainColor, 
-                                secondColor, 
-                                size, 
-                                weight, 
-                                otherCharacteristics, 
-                                passengerId, 
-                                
-                                arrivedWithFlight, 
-                                locationFound, 
-                                employeeId, 
-                                matchedId
-                            ));
-                
-                
-                // Alle gegevens per result (koffer) (alleen id) om spam te voorkomen) ->  printen
-                System.out.println("-"+registrationNr);
-                System.out.println("---");
-                      
-
-            }//-> stop als er geen resultaten meer zijn!
-
-        } catch (SQLException ex) {
-            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return foundLuggageList;
+    public void setFoundLuggageTable(ServiceDataFound dataListFound){
+        foundLuggageTable.setItems(dataListFound.getFoundLuggage());
     }
-    
     
     /**  
      * @void doubleClickFoundRow
@@ -413,8 +283,6 @@ public class ServiceMatchingViewController implements Initializable {
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
                 
                getDetailsOfRow("found", event, popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "missed");
-                
-   
             }
         });
     }
@@ -428,8 +296,7 @@ public class ServiceMatchingViewController implements Initializable {
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
                 
                 getDetailsOfRow("missed", event, popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml", "missed");
-                
-   
+
             }
         });
     }
@@ -452,8 +319,11 @@ public class ServiceMatchingViewController implements Initializable {
             MissedLuggage getDetailObj = (MissedLuggage) tableRowGet.getItem();
             
             //Detail object zetten -> zodat hij in volgende view te openen is
-            MissedLuggageDetails.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNr());
-                
+            
+            //MissedLuggageDetails.getInstance().currentLuggage() .setRegistrationNr(getDetailObj.getRegistrationNr());
+            MissedLuggage route = MissedLuggageDetails.getInstance().currentLuggage();
+            route.setRegistrationNr(getDetailObj.getRegistrationNr());
+            
         } 
         
         if ("found".equals(type)){
@@ -474,21 +344,26 @@ public class ServiceMatchingViewController implements Initializable {
             }
         }
 
-        
-        
-        
-        
         if ("match".equals(type)){
+            //      match to manual matching
+            //  -   -   -   -   -   -   -   -   -
             
+            
+            
+            
+            //          !IMPORTANT;
+            
+            
+            
+            
+            //  -   -   -   -   -   -   -   -   -
         }
     }
     
     /**  
      * @void popupDetails 
      */
-    public void popUpDetails(Stage stage, String viewLink, String type) throws IOException {
-        
-        if (type == "found"){    
+    public void popUpDetails(Stage stage, String viewLink, String type) throws IOException { 
             try { 
                 //get popup fxml resource   
                 Parent popup = FXMLLoader.load(getClass().getResource(viewLink));
@@ -514,34 +389,6 @@ public class ServiceMatchingViewController implements Initializable {
             } catch (IOException ex) {
                 Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if (type == "missed"){
-            try { 
-                //get popup fxml resource   
-                Parent popupMissed = FXMLLoader.load(getClass().getResource(viewLink));
-                stage.setScene(new Scene(popupMissed));
-
-                //no functies -> close / fullscreen/ topbar
-                //stage.initStyle(StageStyle.TRANSPARENT);
-
-                //stage altijd on top
-                stage.setAlwaysOnTop(true);
-
-                if (stage.isShowing()){
-                    //Stage was open -> refresh
-                    stage.close();
-                    stage.show();
-                } else {
-                    //Stage was gesloten -> alleen openen
-                    stage.show();
-                    System.out.println("Popup opend");
-                }
-
-
-            } catch (IOException ex) {
-                Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
     }
     
     
@@ -556,16 +403,16 @@ public class ServiceMatchingViewController implements Initializable {
     
     
     
-    
-    @FXML
-    public void addToManualFound() {
+    //Event listner add luggage to manual matching
+    @FXML public void addToManualFound() {
         String idManualMatching = LuggageManualMatchFound.getInstance().currentLuggage().getRegistrationNr();
         idCheckFound = addToManualMatching(foundPane, 1, idCheckFound, idFound, idManualMatching, "/Views/Service/ServiceManualMatchingFoundView.fxml");
     
     }
     
-    @FXML
-    public void addToManualMissed() {
+    
+    //Event listner add luggage to manual matching
+    @FXML public void addToManualMissed() {
         String idManualMatching = LuggageManualMatchMissed.getInstance().currentLuggage().getRegistrationNr();
         idCheckLost = addToManualMatching(missedPane, 1, idCheckLost, idLost, idManualMatching, "/Views/Service/ServiceManualMatchingMissedView.fxml");
     } 
@@ -585,20 +432,17 @@ public class ServiceMatchingViewController implements Initializable {
      * @return  idCheck to stop the loop from going to far 
      */
     public int addToManualMatching(Pane paneType, int tab, int idCheck, int idObj, String idDataObj, String viewLink){
-        //Standard --> id= null (not configured)
-        
-//        String idDataObj = 
-//                LuggageManualMatchMissed.getInstance().currentLuggage().getRegistrationNr();
-        
         //if found luggage added to manual matching-> asign: iD found to this.id
         if (idDataObj != null) {
             idObj = Integer.parseInt(""+idDataObj+"");
         }
         
-//        System.out.println("---------DEBUG-----------");
-//        System.out.println("idLost:      "+idObj);
-//        System.out.println("idCheckLost: "+idCheck);
-//        System.out.println("-------------------------");
+        
+        //Debug:
+        //        System.out.println("---------DEBUG-----------");
+        //        System.out.println("idLost:      "+idObj);
+        //        System.out.println("idCheckLost: "+idCheck);
+        //        System.out.println("-------------------------");
         
         
         if (idDataObj == null) {
@@ -670,104 +514,90 @@ public class ServiceMatchingViewController implements Initializable {
         matchOtherCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
         matchId.setCellValueFactory(                   new PropertyValueFactory<>("matchedId"));
         
-           
-        
-        matchTabbleView.setItems(autoMatching(getFoundLuggage(), getMissedLuggage())); 
-        
         setMatchingTab(0);
-       
+    }
+    public void setMatchingLuggageTable(ServiceDataFound dataListFound, ServiceDataLost datalistDataLost) throws SQLException{
+        matchTabbleView.setItems(autoMatching(dataListFound.getFoundLuggage(), datalistDataLost.getMissedLuggage())); 
     }
     
     
     /**  
-     * @return matches
+     * @params 
+     * @params
+     * @return matchingList
      */
     public ObservableList<LuggageMatching> autoMatching(ObservableList<FoundLuggage> foundList, ObservableList<MissedLuggage> missedList){
-        //ObservableList<FoundLuggage> newList = foundLuggageList;
-        
-        //Loop trough observebale lists :D
-//        foundList.forEach((found) -> {
-//            System.out.println("");
-//            System.out.println("found: "+found.getRegistrationNr());
-//        });
-
         ObservableList<LuggageMatching> matchingList = FXCollections.observableArrayList();
         
-        System.out.println("-------START-->LOOPING------");
-        System.out.println("----------------------------");
-        
+        //Start looping every item of missed list
         missedList.forEach((lost) -> {
-            
-           
-            
-            
-            
-            
+
+            //With every item of found list
             foundList.forEach((found) -> {
-                int matchId = 0;
-                int matchPercentage = 0;
+                //set match id and percentage on zero.
+                int matchedId = 0;
+                int matchingPercentage = 0;
                 
-                if (lost.getLuggageType()==found.getLuggageType()){
-                    matchPercentage += 10;
+                //Contorle of different match possibilities:
+                if (lost.getLuggageType() == found.getLuggageType()
+                                        && lost.getLuggageType() != 0 
+                                        && found.getLuggageType() != 0){
+                    matchingPercentage += 10;
                 }
                 if (lost.getBrand().equals(found.getBrand())
                                         && lost.getBrand() != null 
                                         && found.getBrand() != null){
-                    matchPercentage += 10;
+                    matchingPercentage += 10;
                 }
                 if (lost.getMainColor()==found.getMainColor()
                                         && lost.getMainColor() != 0 
                                         && found.getMainColor() != 0){
-                    matchPercentage += 10;
+                    matchingPercentage += 10;
                 }
                 if (lost.getSecondColor()==found.getSecondColor()
                                         && lost.getSecondColor() != 0 
                                         && found.getSecondColor() != 0){
-                    matchPercentage += 10;
+                    matchingPercentage += 10;
                 }
                 if (lost.getFlight()==found.getArrivedWithFlight()
                                         && lost.getFlight() != null 
                                         && found.getArrivedWithFlight() != null){
-                    matchPercentage += 10;
+                    matchingPercentage += 10;
                 }
                 
                 if (lost.getWeight() != 0 && found.getWeight() != 0){
                     if ( ((lost.getWeight()/found.getWeight())-1)*100 < 50 ){
-                        matchPercentage += 10;
+                        matchingPercentage += 10;
                     }
                 }
                 
                 if (lost.getSize() != 0 && found.getSize() != 0){
                     if ( ((lost.getSize()/found.getSize())-1)*100 < 70 ){
-                        matchPercentage += 10;
+                        matchingPercentage += 10;
                     }
                 }
                 
                 if (lost.getLuggageTag()==found.getLuggageTag() 
                                         && lost.getLuggageTag() != null 
                                         && found.getLuggageTag() != null ){
-                    matchPercentage += 50;
-                    if (matchPercentage >= 100){matchPercentage=100;System.out.println("jackpot");}
+                    matchingPercentage += 50;
+                    if (matchingPercentage >= 100){matchingPercentage=100;System.out.println("Same: luggage tag");}
                 }
                 
-                System.out.println("match percentage: "+matchPercentage+"%");
-                if (matchPercentage>65){
-                    matchingList.add( 
-                        new LuggageMatching(
-                                found.getRegistrationNr(), 
-                                lost.getRegistrationNr(), 
-                                lost.getLuggageTag()+" | "+found.getLuggageTag(), 
-                                matchPercentage, 
-                                lost.getLuggageType()+" | "+found.getLuggageType(), 
-                                lost.getBrand()+" | "+found.getBrand(), 
-                                lost.getMainColor()+" | "+found.getMainColor(), 
-                                lost.getSecondColor()+" | "+found.getSecondColor(), 
-                                lost.getSize()+" | "+found.getSize(), 
-                                lost.getWeight()+" | "+found.getWeight(), 
-                                lost.getOtherCharaccteristics()+" | "+found.getOtherCharaccteristics(), 
-                                matchId++));
-
- 
+                if (matchingPercentage>65){
+                    matchingList.add(new LuggageMatching(
+                        found.getRegistrationNr(), 
+                        lost.getRegistrationNr(), 
+                        lost.getLuggageTag()+" | "+found.getLuggageTag(), 
+                        matchingPercentage, 
+                        lost.getLuggageType()+" | "+found.getLuggageType(), 
+                        lost.getBrand()+" | "+found.getBrand(), 
+                        lost.getMainColor()+" | "+found.getMainColor(), 
+                        lost.getSecondColor()+" | "+found.getSecondColor(), 
+                        lost.getSize()+" | "+found.getSize(), 
+                        lost.getWeight()+" | "+found.getWeight(), 
+                        lost.getOtherCharaccteristics()+" | "+found.getOtherCharaccteristics(), 
+                        matchedId++));
                 }
                 
             });
@@ -777,7 +607,23 @@ public class ServiceMatchingViewController implements Initializable {
     }
     
     
-    
+    // Solution by: Alexander Chingarev
+    // https://stackoverflow.com/questions/22202782/how-to-prevent-tableview-from-doing-tablecolumn-re-order-in-javafx-8?answertab=active#tab-top
+    public void fixedTableHeader(TableView table){
+        table.widthProperty().addListener(new ChangeListener<Number>(){
+            @Override
+            public void changed(ObservableValue<? extends Number> source, Number oldWidth, Number newWidth)
+            {
+                TableHeaderRow header = (TableHeaderRow) table.lookup("TableHeaderRow");
+                header.reorderingProperty().addListener(new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                        header.setReordering(false);
+                    }
+                });
+            }
+        });
+    }
     
     
     
@@ -786,17 +632,17 @@ public class ServiceMatchingViewController implements Initializable {
      */
     @FXML
     protected void switchToInput(ActionEvent event) throws IOException {
-        MainApp.switchView("/fxml/ServiceInvoerView.fxml");
+        MainApp.switchView("/Views/Service/ServiceInputView.fxml");
     }
     
     @FXML
     protected void switchToFound(ActionEvent event) throws IOException {
-        MainApp.switchView("/fxml/ServiceGevondenOverzichtView.fxml");
+        MainApp.switchView("/Views/Service/ServiceFoundOverviewView.fxml");
     }
     
     @FXML
     protected void switchToMissed(ActionEvent event) throws IOException {
-        MainApp.switchView("/fxml/ServiceVermisteOverzichtView.fxml");
+        MainApp.switchView("/Views/Service/ServiceMissedOverviewView.fxml");
     }
     
     

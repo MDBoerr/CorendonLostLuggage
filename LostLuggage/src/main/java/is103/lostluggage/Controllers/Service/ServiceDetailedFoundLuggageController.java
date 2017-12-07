@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package is103.lostluggage.Controllers.Service;
 
 import com.jfoenix.controls.JFXTextArea;
@@ -29,9 +24,9 @@ import javafx.stage.Stage;
 
 
 /**
- * FXML Controller class
+ * FXML Controller class detailed found luggage
  *
- * @author thijszijdel
+ * @author Thijs Zijdel - 500782165
  */
 public class ServiceDetailedFoundLuggageController implements Initializable {
     
@@ -87,6 +82,10 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
     
     @FXML
     private void initializeFoundFields() throws SQLException{
+        
+        //needs to be faster and get more obj options !
+        //less searching in db
+        
         String id = FoundLuggageDetails.getInstance().currentLuggage().getRegistrationNr();
         System.out.println("iD: "+id);
             MyJDBC db = MainApp.connectToDatabase();

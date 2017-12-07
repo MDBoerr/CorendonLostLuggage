@@ -4,7 +4,7 @@ package is103.lostluggage.Controllers.Service;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
-import is103.lostluggage.Model.FoundLuggage;
+
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
@@ -17,7 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import static is103.lostluggage.Controllers.Service.ServiceMissedOverviewViewController.MissedLuggageList;
+
 import is103.lostluggage.Database.MyJDBC;
 import static is103.lostluggage.MainApp.connectToDatabase;
 import is103.lostluggage.Model.FoundLuggage;
@@ -250,7 +250,7 @@ public class ServiceFoundOverviewViewController implements Initializable {
 
             ResultSet resultSet;
 
-            resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage");
+            resultSet = db.executeResultSetQuery("SELECT * FROM foundluggage");
             System.out.println(" ---------------------------------------------------------------------");
             System.out.println("               alles geselecteerd van found luggage tabel            ");
             System.out.println(" ---------------------------------------------------------------------");
