@@ -30,6 +30,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -42,6 +43,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -83,6 +85,7 @@ public class ServiceMatchingViewController implements Initializable {
     @FXML public Pane foundPane;
     @FXML public Pane missedPane;
     
+    public TableView[] fixingTables = new TableView[3];
     
     //--------------------------------
     //    Table Found initializen
@@ -156,14 +159,11 @@ public class ServiceMatchingViewController implements Initializable {
         // -   -   -   -   - 
         MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
         
-        
         //titel boven de pagina zetten
-        // -   -   -   -   - 
-        try {
-            MainViewController.getInstance().getTitle(title);
-        } catch (IOException ex) {
-            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        // -   -   -   -   -
+        try {MainViewController.getInstance().getTitle(title);} catch (IOException ex) {
+            Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         
         //Refresh timer setup
@@ -177,47 +177,53 @@ public class ServiceMatchingViewController implements Initializable {
         
 
         //Initialize Table & obj lost
+        //          and
+        //Initialize Table & obj found 
+        //          and
+        //initialize matching table 
+        //  & set with dataListFound and dataListLost 
         // -   -   -   -   -  
         ServiceDataLost dataListLost;
-        try {
-            dataListLost = new ServiceDataLost();
-        } catch (SQLException ex) {
-            dataListLost = (ServiceDataLost) ServiceDataLost.getMissedLuggage();
-            Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        initializeMissedLuggageTable();
-        setMissedLuggageTable(dataListLost);
-        
-        
-        //Initialize Table & obj found 
-        // -   -   -   -   -   
         ServiceDataFound dataListFound;
         try {
+            dataListLost = new ServiceDataLost();
+            initializeMissedLuggageTable();
+            setMissedLuggageTable(dataListLost);
+        
+        
             dataListFound = new ServiceDataFound();
-        } catch (SQLException ex) {
-            dataListFound = (ServiceDataFound) ServiceDataFound.getFoundLuggage();
-            Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        initializeFoundLuggageTable();
-        setFoundLuggageTable(dataListFound);
-        
-        
-        //initialize matching table & set with dataListFound and dataListLost 
-        // -   -   -   -   -   -   -
-        initializeMatchingLuggageTable();
-        try {
+            initializeFoundLuggageTable();
+            setFoundLuggageTable(dataListFound);
+            
+            initializeMatchingLuggageTable();
             setMatchingLuggageTable(dataListFound,dataListLost);
         } catch (SQLException ex) {
+            //dataListLost = (ServiceDataLost) ServiceDataLost.getMissedLuggage();
+            //dataListFound = (ServiceDataFound) ServiceDataFound.getFoundLuggage();
             Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        
 
         //Stop Tables from being able to re position/ order
         // -   -   -   -   -   -   -
-        fixedTableHeader(foundLuggageTable);
-        fixedTableHeader(missedLuggageTable);
-        fixedTableHeader(matchTabbleView);
+        fixingTables[0]=foundLuggageTable;
+        fixingTables[1]=missedLuggageTable;
+        fixingTables[2]=matchTabbleView;
+        
+        for (int i = 0; i < fixingTables.length; i++) {
+            fixedTableHeader(fixingTables[i]);
+        }
+        
+        
+        resetManualMatching();
     }
 
+    public void resetManualMatching(){
+        LuggageManualMatchFound.getInstance().currentLuggage().setRegistrationNr(null);
+        LuggageManualMatchMissed.getInstance().currentLuggage().setRegistrationNr(null);
+    }
+    
     /**  
      * @void 
      */ 
@@ -282,7 +288,9 @@ public class ServiceMatchingViewController implements Initializable {
                                 //--> event         //--> double click
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
                 
-               getDetailsOfRow("found", event, popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "missed");
+               setDetailsOfRow("found", event, popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
+               openPopUpDetails("found", popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
+               
             }
         });
     }
@@ -295,14 +303,51 @@ public class ServiceMatchingViewController implements Initializable {
                                 //--> event         //--> double click
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
                 
-                getDetailsOfRow("missed", event, popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml", "missed");
+                setDetailsOfRow("missed", event, popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml", "missed");
+                openPopUpDetails("missed", popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml", "missed");
+                
+            }
+        });
+    }
+    
+    /**  
+     * @void doubleClickMatchRow
+     */
+    public void matchRowClicked() {
+        matchTabbleView.setOnMousePressed((MouseEvent event) -> {
+                                //--> event         //--> double click
+            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                System.out.println("yess gotten");
+                
+                //I set the details of the double clicked row (matched here)
+                //In 2 objects, FoundLuggageDetails & MissedLuggageDetails)
+                setDetailsOfRow("match", event, popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml", "match");
+                
+                //openPopUpDetails() --> popup in this case not neccesary 
 
+                    
+                    //Now i am going to set an LuggageManualMatchFound obj
+                    //this object is being called in the addToManualMatching
+                    //note: not the entire object is setted& called-> just the id
+                    LuggageManualMatchFound.getInstance().currentLuggage().setRegistrationNr( FoundLuggageDetails.getInstance().currentLuggage().getRegistrationNr() );
+                    String TempIdFound = LuggageManualMatchFound.getInstance().currentLuggage().getRegistrationNr();
+                    //Set the idCheckFound (for stop resetting the view) -> return int
+                    //initialize the right data in the found pane
+                    idCheckFound = addToManualMatching(foundPane, 1, idCheckFound, idFound, TempIdFound, "/Views/Service/ServiceManualMatchingFoundView.fxml");
+
+                    //repeating same steps as found luggage -> here for: missed/lost
+                    LuggageManualMatchMissed.getInstance().currentLuggage().setRegistrationNr( MissedLuggageDetails.getInstance().currentLuggage().getRegistrationNr() );
+                    String TempIdMissed = LuggageManualMatchMissed.getInstance().currentLuggage().getRegistrationNr();
+                    idCheckLost = addToManualMatching(missedPane, 1, idCheckLost, idLost, TempIdMissed, "/Views/Service/ServiceManualMatchingMissedView.fxml");
+    
+                
+                  
             }
         });
     }
     
     
-    public void getDetailsOfRow(String type, MouseEvent event, Stage stageType, String stageLink, String popupKey){
+    public void setDetailsOfRow(String type, MouseEvent event, Stage stageType, String stageLink, String popupKey){
         
              Node node = ((Node) event.getTarget() ).getParent();
              TableRow tableRowGet;
@@ -324,8 +369,7 @@ public class ServiceMatchingViewController implements Initializable {
             MissedLuggage route = MissedLuggageDetails.getInstance().currentLuggage();
             route.setRegistrationNr(getDetailObj.getRegistrationNr());
             
-            
-            
+
             //pp----->
             
         } 
@@ -339,6 +383,18 @@ public class ServiceMatchingViewController implements Initializable {
                 
         } 
         
+         if ("match".equals(type)){
+            //      match to manual matching
+            //  -   -   -   -   -   -   -   -   -
+            LuggageMatching getDetailObj = (LuggageMatching) tableRowGet.getItem();
+             System.out.println("matching detail obj: "+getDetailObj);
+            FoundLuggageDetails.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNrFound());
+            MissedLuggageDetails.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNrMissed());
+
+        }
+    }
+    
+    public void openPopUpDetails(String type, Stage stageType, String stageLink, String popupKey){
         //switchen naar detailed viw dmv: popup
         if ("found".equals(type) || "missed".equals(type)){
             try {
@@ -346,21 +402,13 @@ public class ServiceMatchingViewController implements Initializable {
             } catch (IOException ex) {
                 Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-
-        if ("match".equals(type)){
-            //      match to manual matching
-            //  -   -   -   -   -   -   -   -   -
-             MissedLuggage getDetailObj = (MissedLuggage) tableRowGet.getItem();
-             
-            
-            
-            //          !IMPORTANT;
-            
-            
-            
-            
-            //  -   -   -   -   -   -   -   -   -
+        } else if ("match".equals(type)){
+            try {
+                popUpDetails(popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml", popupKey);
+                popUpDetails(popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", popupKey);
+            } catch (IOException ex) {
+                Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     
@@ -372,6 +420,18 @@ public class ServiceMatchingViewController implements Initializable {
                 //get popup fxml resource   
                 Parent popup = FXMLLoader.load(getClass().getResource(viewLink));
                 stage.setScene(new Scene(popup));
+                
+                Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+                
+                if ("found".equals(type)){
+                    stage.setX(screenBounds.getMinX() + screenBounds.getWidth() - 10);
+                } else if ("missed".equals(type)) {
+                    stage.setX(screenBounds.getMaxX() - screenBounds.getWidth() - 10);
+                } else if ("match".equals(type)){
+                    
+                }
+                
+                stage.setY(screenBounds.getMaxY() - screenBounds.getHeight() - 10);
 
                 //no functies -> close / fullscreen/ topbar
                 //stage.initStyle(StageStyle.TRANSPARENT);
@@ -408,16 +468,18 @@ public class ServiceMatchingViewController implements Initializable {
     
     
     //Event listner add luggage to manual matching
-    @FXML public void addToManualFound() {
+    public void addToManualFound() {
         String idManualMatching = LuggageManualMatchFound.getInstance().currentLuggage().getRegistrationNr();
+        System.out.println(idManualMatching+" id manual found");
         idCheckFound = addToManualMatching(foundPane, 1, idCheckFound, idFound, idManualMatching, "/Views/Service/ServiceManualMatchingFoundView.fxml");
     
     }
     
     
     //Event listner add luggage to manual matching
-    @FXML public void addToManualMissed() {
+    public void addToManualMissed() {
         String idManualMatching = LuggageManualMatchMissed.getInstance().currentLuggage().getRegistrationNr();
+        System.out.println(idManualMatching+" id manual missed");
         idCheckLost = addToManualMatching(missedPane, 1, idCheckLost, idLost, idManualMatching, "/Views/Service/ServiceManualMatchingMissedView.fxml");
     } 
    
