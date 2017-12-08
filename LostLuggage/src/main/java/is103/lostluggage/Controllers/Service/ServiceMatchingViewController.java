@@ -316,9 +316,7 @@ public class ServiceMatchingViewController implements Initializable {
     public void matchRowClicked() {
         matchTabbleView.setOnMousePressed((MouseEvent event) -> {
                                 //--> event         //--> double click
-            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                System.out.println("yess gotten");
-                
+            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {  
                 //I set the details of the double clicked row (matched here)
                 //In 2 objects, FoundLuggageDetails & MissedLuggageDetails)
                 setDetailsOfRow("match", event, popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml", "match");
@@ -387,7 +385,6 @@ public class ServiceMatchingViewController implements Initializable {
             //      match to manual matching
             //  -   -   -   -   -   -   -   -   -
             LuggageMatching getDetailObj = (LuggageMatching) tableRowGet.getItem();
-             System.out.println("matching detail obj: "+getDetailObj);
             FoundLuggageDetails.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNrFound());
             MissedLuggageDetails.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNrMissed());
 
@@ -470,7 +467,6 @@ public class ServiceMatchingViewController implements Initializable {
     //Event listner add luggage to manual matching
     public void addToManualFound() {
         String idManualMatching = LuggageManualMatchFound.getInstance().currentLuggage().getRegistrationNr();
-        System.out.println(idManualMatching+" id manual found");
         idCheckFound = addToManualMatching(foundPane, 1, idCheckFound, idFound, idManualMatching, "/Views/Service/ServiceManualMatchingFoundView.fxml");
     
     }
@@ -479,7 +475,6 @@ public class ServiceMatchingViewController implements Initializable {
     //Event listner add luggage to manual matching
     public void addToManualMissed() {
         String idManualMatching = LuggageManualMatchMissed.getInstance().currentLuggage().getRegistrationNr();
-        System.out.println(idManualMatching+" id manual missed");
         idCheckLost = addToManualMatching(missedPane, 1, idCheckLost, idLost, idManualMatching, "/Views/Service/ServiceManualMatchingMissedView.fxml");
     } 
    

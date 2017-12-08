@@ -31,7 +31,6 @@ public class ServiceDataFound {
             resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage");
             System.out.println("=========================");
             System.out.println("== Found luggage tabel ==");
-            System.out.println("=========================");
             
             
             while (resultSet.next()) {

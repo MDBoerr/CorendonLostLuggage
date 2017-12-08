@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
 
 import is103.lostluggage.Controllers.MainViewController;
+import is103.lostluggage.Data.ServiceDataFound;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
@@ -44,10 +45,6 @@ public class ServiceFoundOverviewViewController implements Initializable {
     
     @FXML JFXTextField searchField;
     @FXML JFXComboBox searchTypeComboBox;
-    
-    /* -----------------------------------------
-         TableView found luggage's colommen
-    ----------------------------------------- */
     
     @FXML private TableView<FoundLuggage> foundLuggageTable;
 
@@ -99,9 +96,16 @@ public class ServiceFoundOverviewViewController implements Initializable {
         
         
         
-        initializeFoundLuggageTable();
         
+        ServiceDataFound dataListFound;
+        try {
+            dataListFound = new ServiceDataFound();
+            initializeFoundLuggageTable(dataListFound.getFoundLuggage());
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceFoundOverviewViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
+
         
     }
     
@@ -212,7 +216,7 @@ public class ServiceFoundOverviewViewController implements Initializable {
     /**  
      * @void 
      */
-    public void initializeFoundLuggageTable(){
+    public void initializeFoundLuggageTable(ObservableList<FoundLuggage> dataListFound){
         foundRegistrationNr.setCellValueFactory(       new PropertyValueFactory<>("registrationNr"));
         foundDateFound.setCellValueFactory(            new PropertyValueFactory<>("dateFound"));
         foundTimeFound.setCellValueFactory(            new PropertyValueFactory<>("timeFound"));
@@ -233,92 +237,9 @@ public class ServiceFoundOverviewViewController implements Initializable {
         foundEmployeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
         foundMatchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId"));
 
-        foundLuggageTable.setItems(getFoundLuggage());
+        foundLuggageTable.setItems(dataListFound);
     }
-    
-    
-
-    /**  
-     * @return foundLuggages
-     */
-    public ObservableList<FoundLuggage> getFoundLuggage() {
-
-        ObservableList<FoundLuggage> foundLuggageList = FXCollections.observableArrayList();
-        
-        try {
-            MyJDBC db = MainApp.connectToDatabase();;
-
-            ResultSet resultSet;
-
-            resultSet = db.executeResultSetQuery("SELECT * FROM foundluggage");
-            System.out.println(" ---------------------------------------------------------------------");
-            System.out.println("               alles geselecteerd van found luggage tabel            ");
-            System.out.println(" ---------------------------------------------------------------------");
-            
-            
-            while (resultSet.next()) {
-        //Alle gegevens van de database (foundLuggage tabel) in variabelen plaatsen
-                String registrationNr =     resultSet.getString("registrationNr");
-                String dateFound =          resultSet.getString("dateFound");
-                String timeFound =          resultSet.getString("timeFound");
-                
-                String luggageTag =         resultSet.getString("luggageTag");
-                int luggageType =           resultSet.getInt("luggageType");
-                String brand =              resultSet.getString("brand");
-                int mainColor =             resultSet.getInt("mainColor");
-                int secondColor =           resultSet.getInt("secondColor");
-                int size =                  resultSet.getInt("size");
-                int weight =                resultSet.getInt("weight");   
-                String otherCharacteristics=resultSet.getString("otherCharacteristics");
-                int passengerId =           resultSet.getInt("passengerId");
-                
-                String arrivedWithFlight =  resultSet.getString("arrivedWithFlight"); 
-                int locationFound =         resultSet.getInt("locationFound");
-                String employeeId =         resultSet.getString("employeeId");
-                int matchedId =             resultSet.getInt("matchedId");
-
-                
-
-
-                //Per result -> toevoegen aan Luggages  (observable list) 
-                foundLuggageList.add(
-                        new FoundLuggage(
-                                registrationNr, 
-                                dateFound, 
-                                timeFound, 
-                                
-                                luggageTag, 
-                                luggageType, 
-                                brand, 
-                                mainColor, 
-                                secondColor, 
-                                size, 
-                                weight, 
-                                otherCharacteristics, 
-                                passengerId, 
-                                
-                                arrivedWithFlight, 
-                                locationFound, 
-                                employeeId, 
-                                matchedId
-                            ));
-                
-                
-                // Alle gegevens per result (koffer) (alleen id) om spam te voorkomen) ->  printen
-                System.out.println("Gegevens voor koffer id: "+registrationNr+" |       Zijn: Correct");
-                System.out.println("---------------------------------------------------------------------");
-                      
-
-            }//-> stop als er geen resultaten meer zijn!
-
-        } catch (SQLException ex) {
-            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return foundLuggageList;
-    }
-    
-    
-    
+ 
     
     @FXML
     protected void switchToInput(ActionEvent event) throws IOException {

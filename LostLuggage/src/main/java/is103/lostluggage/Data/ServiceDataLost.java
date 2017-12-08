@@ -30,7 +30,6 @@ public class ServiceDataLost {
             resultSet = db.executeResultSetQuery("SELECT * FROM lostLuggage");
             System.out.println("=========================");
             System.out.println("==  Lost luggage tabel ==");
-            System.out.println("=========================");
             
             
             while (resultSet.next()) {

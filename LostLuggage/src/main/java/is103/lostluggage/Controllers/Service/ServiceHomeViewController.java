@@ -28,10 +28,7 @@ public class ServiceHomeViewController implements Initializable {
     
     //view title
     private final String title = "Service Home";
-    
-    @FXML
-    //Textfield that represents the time the form was filled in
-    private Label timeDisplay;
+   
     
     
     /**
@@ -50,20 +47,16 @@ public class ServiceHomeViewController implements Initializable {
             Logger.getLogger(ServiceHomeViewController.class.getName()).log(Level.SEVERE, null, ex);
         }  
         
-        
-        //tijd weergeven
-        timeDisplay.setText(LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute());
+
         
         
         
         
         
         
-        
-        
-//        ServiceDataFound dataListFound;
+//        ServiceDataFound dataListFoundMain;
 //        try {
-//            dataListFound = new ServiceDataFound();
+//            dataListFoundMain = new ServiceDataFound();
 //        } catch (SQLException ex) {
 //            dataListFound = (ServiceDataFound) ServiceDataFound.getFoundLuggage();
 //            Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);

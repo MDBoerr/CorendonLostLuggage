@@ -48,10 +48,10 @@
                               <TableColumn fx:id="matchPercentage" minWidth="60.0" prefWidth="70.0" text="Match %" />
                               <TableColumn fx:id="matchType" minWidth="100.0" prefWidth="120.0" text="Type" />
                               <TableColumn fx:id="matchBrand" minWidth="100.0" prefWidth="120.0" text="Brand" />
-                              <TableColumn fx:id="matchMainColor" minWidth="100.0" prefWidth="120.0" text="Main Color" />
-                              <TableColumn fx:id="matchSecondColor" minWidth="100.0" prefWidth="120.0" text="Second Color" />
-                              <TableColumn fx:id="matchSize" minWidth="70.0" prefWidth="100.0" text="Size" />
-                              <TableColumn fx:id="matchWeight" minWidth="70.0" prefWidth="100.0" text="Weight" />
+                              <TableColumn fx:id="matchMainColor" minWidth="100.0" prefWidth="120.0" text="Primary Color" />
+                              <TableColumn fx:id="matchSecondColor" minWidth="100.0" prefWidth="120.0" text="Secondary Color" />
+                              <TableColumn fx:id="matchSize" minWidth="70.0" prefWidth="100.0" text="Size (LxBxH)" />
+                              <TableColumn fx:id="matchWeight" minWidth="70.0" prefWidth="100.0" text="Weight (Kg)" />
                               <TableColumn fx:id="matchOtherCharacteristics" minWidth="100.0" prefWidth="145.0" text="Characteristics" />
                               <TableColumn fx:id="matchId" minWidth="50.0" prefWidth="84.0" text="Match ID" />
                            </columns>
@@ -136,13 +136,13 @@
       <TableView fx:id="missedLuggageTable" onMouseClicked="#missedRowClicked" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="2">
          <columns>
             <TableColumn fx:id="missedRegistrationNr" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="ID" />
-            <TableColumn fx:id="missedDateLost" minWidth="80.0" text="Date Found" />
+            <TableColumn fx:id="missedDateLost" minWidth="80.0" text="Date" />
             <TableColumn fx:id="missedTimeLost" minWidth="65.0" prefWidth="114.00006103515625" text="Time" />
             <TableColumn fx:id="missedLuggageTag" minWidth="15.999969482421875" prefWidth="60.0" text="Tag" />
             <TableColumn fx:id="missedLuggageType" minWidth="21.0" prefWidth="49.0" text="Type" />
             <TableColumn fx:id="missedBrand" minWidth="37.0" prefWidth="68.0" text="Brand" />
-            <TableColumn fx:id="missedMainColor" minWidth="39.0" prefWidth="61.0" text="Color" />
-            <TableColumn fx:id="missedSecondColor" minWidth="78.0" prefWidth="94.0" text="Secondcolor" />
+            <TableColumn fx:id="missedMainColor" minWidth="39.0" prefWidth="61.0" text="Primary Color" />
+            <TableColumn fx:id="missedSecondColor" minWidth="78.0" prefWidth="94.0" text="Secondary Color" />
             <TableColumn fx:id="missedSize" minWidth="49.0" prefWidth="58.0" text="Size" />
             <TableColumn fx:id="missedWeight" minWidth="56.0" prefWidth="76.0" text="Weight" />
             <TableColumn fx:id="missedOtherCharacteristics" minWidth="100.0" prefWidth="176.0" text="Characteristics" />
@@ -161,13 +161,13 @@
       <TableView fx:id="foundLuggageTable" onMouseClicked="#foundRowClicked" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowIndex="7" GridPane.rowSpan="2">
          <columns>
             <TableColumn fx:id="foundRegistrationNr" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="ID" />
-            <TableColumn fx:id="foundDateFound" minWidth="80.0" text="Date Found" />
+            <TableColumn fx:id="foundDateFound" minWidth="80.0" text="Date" />
             <TableColumn fx:id="foundTimeFound" minWidth="65.0" prefWidth="114.00006103515625" text="Time" />
             <TableColumn fx:id="foundLuggageTag" minWidth="15.999969482421875" prefWidth="60.0" text="Tag" />
             <TableColumn fx:id="foundLuggageType" minWidth="21.0" prefWidth="49.0" text="Type" />
             <TableColumn fx:id="foundBrand" minWidth="37.0" prefWidth="68.0" text="Brand" />
-            <TableColumn fx:id="foundMainColor" minWidth="39.0" prefWidth="61.0" text="Color" />
-            <TableColumn fx:id="foundSecondColor" minWidth="78.0" prefWidth="94.0" text="Secondcolor" />
+            <TableColumn fx:id="foundMainColor" minWidth="39.0" prefWidth="61.0" text="Primary Color" />
+            <TableColumn fx:id="foundSecondColor" minWidth="78.0" prefWidth="94.0" text="Secondary Color" />
             <TableColumn fx:id="foundSize" minWidth="49.0" prefWidth="58.0" text="Size" />
             <TableColumn fx:id="foundWeight" minWidth="56.0" prefWidth="76.0" text="Weight" />
             <TableColumn fx:id="foundOtherCharacteristics" minWidth="100.0" prefWidth="176.0" text="Characteristics" />

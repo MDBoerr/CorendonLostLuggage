@@ -75,7 +75,6 @@ public class ServiceManualMatchingMissedViewController implements Initializable 
     @FXML
     private void initializeFoundFields() throws SQLException{
         String id = LuggageManualMatchMissed.getInstance().currentLuggage().getRegistrationNr();
-        System.out.println("iD: "+id);
             MyJDBC db = MainApp.connectToDatabase();
             
             ResultSet resultSet = db.executeResultSetQuery("SELECT * FROM lostLuggage WHERE registrationNr='"+id+"'");
@@ -130,10 +129,6 @@ public class ServiceManualMatchingMissedViewController implements Initializable 
             
 
             }
-//            if (luggageTag.getText().equals("")){luggageTag.setText("Unknown");}
-//            if (brand.getText().equals("")){brand.setText("Unknown");}
-//            if (signatures.getText().equals("")){signatures.setText("None");}
-//            if (flight.getText().equals("")){flight.setText("Unknown");}
         
     }
     
@@ -170,8 +165,6 @@ public class ServiceManualMatchingMissedViewController implements Initializable 
         String idString = Integer.toString(passengerIdG);
          
         ResultSet result_second = db.executeResultSetQuery("SELECT * FROM passenger WHERE passengerId='"+idString+"'");
-        System.out.println(idString);
-        System.out.println(result_second);
         while (result_second.next()) {    
             int idG = result_second.getInt("passengerId");
             String nameG = result_second.getString("name");
@@ -184,10 +177,7 @@ public class ServiceManualMatchingMissedViewController implements Initializable 
             String phoneG = result_second.getString("phone");
             
             String id = Integer.toString(idG);
-            
 
-            
-            
             passangerId.setText(id);
             passangerName.setText(nameG);
             address.setText(addressG);
@@ -203,6 +193,9 @@ public class ServiceManualMatchingMissedViewController implements Initializable 
     
     @FXML
     protected void checkFields(){
+        //I am going to change this with an sql replace query
+        //IS NULL(colum, "unknown")   ;D
+        
 //        if (type.getText().equals("")){type.setText("Unknown");}
 //        if (luggageTag.getText().equals("")){luggageTag.setText("Unknown");}
 //        if (brand.getText().equals("")){brand.setText("Unknown");}

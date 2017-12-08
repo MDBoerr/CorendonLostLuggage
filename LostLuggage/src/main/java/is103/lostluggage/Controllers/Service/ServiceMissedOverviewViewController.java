@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Model.MissedLuggage;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.MainViewController;
+import is103.lostluggage.Data.ServiceDataLost;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
@@ -84,13 +85,18 @@ public class ServiceMissedOverviewViewController implements Initializable {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
            
-
-        initializeMissedLuggageTable();
+        ServiceDataLost dataListLost;
+        try {
+            dataListLost = new ServiceDataLost();
+            initializeMissedLuggageTable(dataListLost.getMissedLuggage());
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceFoundOverviewViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     
     
-    public void initializeMissedLuggageTable(){
+    public void initializeMissedLuggageTable(ObservableList<MissedLuggage> dataList){
         missedRegistrationNr.setCellValueFactory(       new PropertyValueFactory<>("registrationNr"));
         missedDateLost.setCellValueFactory(            new PropertyValueFactory<>("dateFound"));
         missedTimeLost.setCellValueFactory(            new PropertyValueFactory<>("timeFound"));
@@ -110,85 +116,9 @@ public class ServiceMissedOverviewViewController implements Initializable {
         missedEmployeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
         missedMatchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId")); 
 
-        missedLuggageTable.setItems(getMissedLuggage());
+        missedLuggageTable.setItems(dataList);
     }
-    
-
-    /**  
-     * @return missedLuggages
-     */
-    public ObservableList<MissedLuggage> getMissedLuggage() {
-
-        ObservableList<MissedLuggage> missedLuggageList = FXCollections.observableArrayList();
-        
-        try {
-            MyJDBC db = MainApp.connectToDatabase();
-
-            ResultSet resultSet;
-
-            resultSet = db.executeResultSetQuery("SELECT * FROM lostLuggage");
-            System.out.println(" ---------------------------------------------------------------------");
-            System.out.println("               alles geselecteerd van missed luggage tabel            ");
-            System.out.println(" ---------------------------------------------------------------------");
-            
-            
-            while (resultSet.next()) {
-                //Alle gegevens van de database (missedLuggage tabel) in variabelen plaatsen
-                String registrationNr =     resultSet.getString("registrationNr");
-                String dateFound =          resultSet.getString("dateLost");
-                String timeFound =          resultSet.getString("timeLost");
-                
-                String luggageTag =         resultSet.getString("luggageTag");
-                int luggageType =           resultSet.getInt("luggageType");
-                String brand =              resultSet.getString("brand");
-                int mainColor =             resultSet.getInt("mainColor");
-                int secondColor =           resultSet.getInt("secondColor");
-                int size =                  resultSet.getInt("size");
-                int weight =                resultSet.getInt("weight");   
-                String otherCharacteristics=resultSet.getString("otherCharacteristics");
-                int passengerId =           resultSet.getInt("passengerId");
-                
-                String flight =  resultSet.getString("flight"); 
-                String employeeId =         resultSet.getString("employeeId");
-                int matchedId =             resultSet.getInt("matchedId");
-
-
-                //Per result -> toevoegen aan Luggages  (observable list) 
-                missedLuggageList.add(
-                        new MissedLuggage(
-                                registrationNr, 
-                                dateFound, 
-                                timeFound, 
-                                
-                                luggageTag, 
-                                luggageType, 
-                                brand, 
-                                mainColor, 
-                                secondColor, 
-                                size, 
-                                weight, 
-                                otherCharacteristics, 
-                                passengerId, 
-                                
-                                flight, 
-                                employeeId, 
-                                matchedId
-                            ));
-                
-                
-                // Alle gegevens per result (koffer) (alleen id) om spam te voorkomen) ->  printen
-                System.out.println("Gegevens voor koffer id: "+registrationNr+" |       Zijn: Correct");
-                System.out.println("---------------------------------------------------------------------");
-                      
-            }//-> stop als er geen resultaten meer zijn!
-
-        } catch (SQLException ex) {
-            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return missedLuggageList;
-    }
-    
-
+ 
 
     @FXML
     protected void backHomeButton(ActionEvent event) throws IOException {
