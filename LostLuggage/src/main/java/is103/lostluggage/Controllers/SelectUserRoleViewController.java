@@ -18,7 +18,7 @@ import javafx.scene.control.Button;
 /**
  * FXML Controller class
  *
- * @author Mike
+ * @author Michael de Boer
  */
 public class SelectUserRoleViewController implements Initializable {
 
