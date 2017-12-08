@@ -55,6 +55,10 @@ public class LogInViewController implements Initializable {
                 Logger.getLogger(LogInViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
+        clearAllButton.setOnAction(e -> {
+            idTextField.clear();
+            passwordField.clear();
+        });
 
     }
 
