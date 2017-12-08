@@ -25,6 +25,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -33,10 +35,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class ServiceFoundOverviewViewController implements Initializable {
 
-    
+        public Stage popupStageFound = new Stage();   
+
     
         //view title
-    private final String title = "Overzicht Gevonden Bagage";
+    private final String title = "Overview Found Luggage";
     
     public static ObservableList<FoundLuggage> foundLuggageList;
     public static ObservableList<FoundLuggage> foundLuggageListSearchResults;
@@ -239,7 +242,21 @@ public class ServiceFoundOverviewViewController implements Initializable {
 
         foundLuggageTable.setItems(dataListFound);
     }
- 
+    
+    /**  
+     * @void doubleClickFoundRow
+     */
+    public void foundRowClicked() {
+        foundLuggageTable.setOnMousePressed((MouseEvent event) -> {
+                                //--> event         //--> double click
+            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                System.out.println("foundd");
+               //setDetailsOfRow("found", event, popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
+                //setAndOpenPopUpDetails("found", popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
+               
+            }
+        });
+    }
     
     @FXML
     protected void switchToInput(ActionEvent event) throws IOException {
