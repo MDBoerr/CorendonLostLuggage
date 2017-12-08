@@ -11,7 +11,6 @@ import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +19,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import is103.lostluggage.Database.MyJDBC;
-import static is103.lostluggage.MainApp.connectToDatabase;
 import is103.lostluggage.Model.FoundLuggage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,7 +29,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 /**
  * FXML Controller class
  *
- * @author Thijs Zijdel
+ * @author Thijs Zijdel - 500782165
  */
 public class ServiceFoundOverviewViewController implements Initializable {
 
@@ -105,7 +103,9 @@ public class ServiceFoundOverviewViewController implements Initializable {
             Logger.getLogger(ServiceFoundOverviewViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        
 
+        
         
     }
     

@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package is103.lostluggage.Controllers.Service;
 
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
-import is103.lostluggage.Model.LuggageManualMatchFound;
 import is103.lostluggage.Model.LuggageManualMatchMissed;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -23,7 +17,7 @@ import javafx.fxml.Initializable;
 /**
  * FXML Controller class
  *
- * @author thijszijdel
+ * @author Thijs Zijdel - 500782165
  */
 public class ServiceManualMatchingMissedViewController implements Initializable {
     

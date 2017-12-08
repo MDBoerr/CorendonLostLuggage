@@ -5,16 +5,13 @@ import is103.lostluggage.Model.MissedLuggage;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Data.ServiceDataLost;
-import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,7 +24,7 @@ import javafx.scene.paint.Paint;
 /**
  * FXML Controller class voor vermiste bagage overzicht
  *
- * @author Thijs Zijdel
+ * @author Thijs Zijdel - 500782165
  */
 public class ServiceMissedOverviewViewController implements Initializable {
 

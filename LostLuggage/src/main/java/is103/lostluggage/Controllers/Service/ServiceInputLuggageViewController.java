@@ -5,13 +5,10 @@ import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -20,7 +17,7 @@ import javafx.scene.layout.GridPane;
 /**
  * FXML Controller class
  *
- * @author gebruiker
+ * @author Arthur Krom
  */
 public class ServiceInputLuggageViewController implements Initializable {
 
