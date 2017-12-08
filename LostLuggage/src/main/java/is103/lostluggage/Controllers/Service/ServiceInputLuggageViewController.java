@@ -1,10 +1,14 @@
 package is103.lostluggage.Controllers.Service;
 
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.MainViewController;
+import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -28,24 +32,20 @@ public class ServiceInputLuggageViewController implements Initializable {
     @FXML
     //Choicebox that determines whether the form should be for a missing or found
     //luggage
-    private JFXComboBox missingFoundComboBox;
-    
-    
+    private JFXComboBox missingFoundComboBox, airportJFXComboBox, flightJFXComboBox, destinationJFXComboBox, typeJFXComboBox, colorJFXComboBox;
     
     @FXML
-    private GridPane mainGridPane;
+    private GridPane mainGridPane,travellerInfoGridPane, luggageInfoGridPane ;
         
     @FXML
-    private GridPane travellerInfoGridPane;
+    private Label passengerInformationLbl, missingLbl;
     
     @FXML
-    private GridPane luggageInfoGridPane;
-    
-    @FXML
-    private Label passengerInformationLbl;
-    
-    
-    
+    private JFXTextField timeJFXTextField, nameJFXTextField, addressJFXTextField, placeJFXTextField, 
+            postalcodeJFXTextField, countryJFXTextField, phoneJFXTextField, emailJFXTextField, labelnumberJFXTextField, brandJFXTextField,
+            characteristicsJFXTextField;
+            
+               
     
     
 
@@ -55,22 +55,22 @@ public class ServiceInputLuggageViewController implements Initializable {
         MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
 
         //Add options to choicebox
-        missingFoundComboBox.getItems().addAll("Gevonden", "Vermist");
+        missingFoundComboBox.getItems().addAll("Found", "Missing");
 
         //Default value is set to Service Employee as Administrator will most likely add a user with that role.
-        missingFoundComboBox.setValue("Vermist");
+        missingFoundComboBox.setValue("Missing");
         
     }
-
-    @FXML
-    //This method will return the user to the previous screen
-    protected void backHomeButton(ActionEvent event) throws IOException {
-        MainApp.switchView("/fxml/ServiceHomeView.fxml");
-    }
     
-    @FXML
-    //This method adds the missing or found luggage to the system
-    public void addLuggage(ActionEvent event){
+    //This method puts the values into the combo boxes
+    public void setComboBox() throws SQLException{
+        
+        //connection to the database
+        MyJDBC db = MainApp.connectToDatabase();
+        
+        //set with results
+        ResultSet resultSet = db.executeResultSetQuery("SELECT * FROM color");
+        
         
     }
     
@@ -80,25 +80,27 @@ public class ServiceInputLuggageViewController implements Initializable {
         
       String value = missingFoundComboBox.getValue().toString();
       
-        if(value == "Gevonden"){
+        if(value == "Found"){
       
             mainGridPane.getChildren().remove(travellerInfoGridPane);
             mainGridPane.getChildren().remove(luggageInfoGridPane);
             mainGridPane.add(luggageInfoGridPane, 0, 1);
             mainGridPane.add(travellerInfoGridPane, 1, 1);
             
-            passengerInformationLbl.setText("Reizigers informatie is niet verplicht");
+            passengerInformationLbl.setText("Passenger information is not required");
+            missingLbl.setText("Found");
         }
         
-        if(value == "Vermist"){
-            
+        if(value == "Missing"){
+
             mainGridPane.getChildren().remove(travellerInfoGridPane);
             mainGridPane.getChildren().remove(luggageInfoGridPane);
             mainGridPane.add(travellerInfoGridPane, 0, 1);
             mainGridPane.add(luggageInfoGridPane, 1, 1);
-            passengerInformationLbl.setText("Reizigers informatie");
+            passengerInformationLbl.setText("Passenger information");
+            missingLbl.setText("Missing");
         }
     }
- 
+    
 
 }
