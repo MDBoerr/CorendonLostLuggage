@@ -29,9 +29,11 @@ public class ServiceDataFound {
 
         try {
             resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage");
-            System.out.println("=========================");
             System.out.println("== Found luggage tabel ==");
             System.out.println("=========================");
+            
+            //clear previous list -> so there wont be any duplicate luggage
+            ServiceDataFound.foundLuggageList.clear();
             
             
             while (resultSet.next()) {

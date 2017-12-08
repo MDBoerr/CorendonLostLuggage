@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package is103.lostluggage.Controllers.Service;
 
 import com.jfoenix.controls.JFXTextArea;
@@ -23,7 +18,7 @@ import javafx.fxml.Initializable;
 /**
  * FXML Controller class
  *
- * @author thijszijdel
+ * @author Thijs Zijdel - 500782165
  */
 public class ServiceManualMatchingFoundController implements Initializable {
     
@@ -76,7 +71,6 @@ public class ServiceManualMatchingFoundController implements Initializable {
     @FXML
     private void initializeFoundFields() throws SQLException{
         String id = LuggageManualMatchFound.getInstance().currentLuggage().getRegistrationNr();
-        System.out.println("iD: "+id);
             MyJDBC db = MainApp.connectToDatabase();
             
             ResultSet resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage WHERE registrationNr='"+id+"'");
@@ -102,39 +96,27 @@ public class ServiceManualMatchingFoundController implements Initializable {
                 //int matchedId =              resultSet.getInt("matchedId");
 
             
-                
+            signatures.setText(getOtherCharacteristics);    
             registrationNr.setText(getRegistrationNr);  
             luggageTag.setText(getLuggageTag);
-            
-            setType(db,getLuggageType);
             brand.setText(getBrand);
             
+            setType(db,getLuggageType);
             setColor(db, getMainColor); 
             setSecondColor(db, getSecondColor);
             
             String setSize = Integer.toString(getSize);
             size.setText(setSize);
-            
             String setWeight = Integer.toString(getWeight);
             weight.setText(setWeight);
             
-            signatures.setText(getOtherCharacteristics);
-            
             setPassenger(db, getPassengerId);
-            
             setLocation(db, getLocationFound);
             dateFound.setText(getDateFound);
             timeFound.setText(getTimeFound);
             flight.setText(getFlight);
-            
-            
-            
 
             }
-//            if (luggageTag.getText().equals("")){luggageTag.setText("Unknown");}
-//            if (brand.getText().equals("")){brand.setText("Unknown");}
-//            if (signatures.getText().equals("")){signatures.setText("None");}
-//            if (flight.getText().equals("")){flight.setText("Unknown");}
         
     }
     
@@ -214,12 +196,6 @@ public class ServiceManualMatchingFoundController implements Initializable {
     
     @FXML
     protected void checkFields(){
-//        if (type.getText().equals("")){type.setText("Unknown");}
-//        if (luggageTag.getText().equals("")){luggageTag.setText("Unknown");}
-//        if (brand.getText().equals("")){brand.setText("Unknown");}
-//        if (signatures.getText().equals("")){signatures.setText("None");}
-//        if (flight.getText().equals("")){flight.setText("Unknown");}
-            
         if (mainColor.getText() == null){mainColor.setText("");}
         if (secondColor.getText() == null){secondColor.setText("");}
         

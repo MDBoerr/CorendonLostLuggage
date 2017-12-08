@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package is103.lostluggage.Controllers.Service;
 
 import com.jfoenix.controls.JFXTextArea;
@@ -10,12 +5,10 @@ import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import static is103.lostluggage.MainApp.getLanguage;
-import is103.lostluggage.Model.FoundLuggage;
-import is103.lostluggage.Model.FoundLuggageDetails;
-import is103.lostluggage.Model.LuggageManualMatchFound;
 import is103.lostluggage.Model.LuggageManualMatchMissed;
 import is103.lostluggage.Model.MissedLuggage;
 import is103.lostluggage.Model.MissedLuggageDetails;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,7 +24,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author thijszijdel
+ * @author Thijs Zijdel - 500782165
  */
 public class ServiceDetailedMisseddLuggageViewController implements Initializable {
     
@@ -59,7 +52,7 @@ public class ServiceDetailedMisseddLuggageViewController implements Initializabl
     @FXML private JFXTextField dateLost;
     @FXML private JFXTextField flight;
     
-
+    public Stage popupStageEditingView = new Stage(); 
     
     /**
      * Initializes the controller class.
@@ -143,15 +136,12 @@ public class ServiceDetailedMisseddLuggageViewController implements Initializabl
             
 
             }
-//            if (luggageTag.getText().equals("")){luggageTag.setText("Unknown");}
-//            if (brand.getText().equals("")){brand.setText("Unknown");}
-//            if (signatures.getText().equals("")){signatures.setText("None");}
-//            if (flight.getText().equals("")){flight.setText("Unknown");}
         
     }
     
     @FXML
     private void setColor(MyJDBC db, int colorD) throws SQLException {
+        //will be replaced by inner join
         ResultSet result_color = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+colorD+"'");
         while (result_color.next()) {    
             String color = result_color.getString(getLanguage());
@@ -161,6 +151,7 @@ public class ServiceDetailedMisseddLuggageViewController implements Initializabl
     }
     @FXML
     private void setType(MyJDBC db, int luggageType) throws SQLException {
+        //will be replaced by inner join
         ResultSet result_type = db.executeResultSetQuery("SELECT * FROM luggagetype WHERE luggageTypeId='"+luggageType+"'");
         while (result_type.next()) {    
             String typeGotten = result_type.getString(getLanguage());
@@ -171,6 +162,7 @@ public class ServiceDetailedMisseddLuggageViewController implements Initializabl
     }
     @FXML
     private void setSecondColor(MyJDBC db, int secondColor2) throws SQLException {
+        //will be replaced by inner join
         ResultSet result_second = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+secondColor2+"'");
         while (result_second.next()) {    
             String color = result_second.getString(getLanguage());
@@ -180,6 +172,7 @@ public class ServiceDetailedMisseddLuggageViewController implements Initializabl
     }     
     @FXML
     private void setPassenger(MyJDBC db, int passengerIdG) throws SQLException {
+        //will be replaced by inner join
         String idString = Integer.toString(passengerIdG);
          
         ResultSet result_second = db.executeResultSetQuery("SELECT * FROM passenger WHERE passengerId='"+idString+"'");
@@ -215,6 +208,7 @@ public class ServiceDetailedMisseddLuggageViewController implements Initializabl
     
     @FXML
     public void checkFields(){
+        //i will change this to an  is null (query)
         System.out.println("type.getText(): "+type.getText() );
         
         if (type.getText() == null){type.setText("Unknown");}
@@ -245,13 +239,10 @@ public class ServiceDetailedMisseddLuggageViewController implements Initializabl
     
     @FXML
     protected void viewPotentials(ActionEvent event){
-        
+        //methode starten
+        MainApp.serviceChangeValue = 0;
     }
     
-    @FXML
-    protected void editLuggage(ActionEvent event){
-        
-    }
     
     @FXML
     protected void manualMatching(ActionEvent event){
@@ -262,6 +253,18 @@ public class ServiceDetailedMisseddLuggageViewController implements Initializabl
         Stage stage = (Stage) registrationNr.getScene().getWindow();
         stage.close();
         
+    }
+    
+    
+    
+         //Not closable & no borders
+     ////   popupStageEditingView.initStyle(StageStyle.TRANSPARENT);
+        //popUpDetails(popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml", popupKey);
+        @FXML
+    public void openEditView() throws IOException{
+        Stage stage = (Stage) registrationNr.getScene().getWindow();
+        stage.close();
+        MainApp.switchView("/Views/Service/ServiceEditLostLuggageView.fxml");
     }
 
     

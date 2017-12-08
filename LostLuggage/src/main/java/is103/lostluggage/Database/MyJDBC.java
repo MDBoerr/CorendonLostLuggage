@@ -291,6 +291,8 @@ public class MyJDBC {
         System.out.println("Creating the User table...");
         MyJDBC myJDBC = new MyJDBC(dbName);
 
+        
+        //User will be changed to Employee next Fase
         myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS User ("
                 + " ID VARCHAR(10) NOT NULL PRIMARY KEY,"
                 + " Password VARCHAR(20) NOT NULL,"
@@ -298,15 +300,11 @@ public class MyJDBC {
                 + " Lastname VARCHAR(45),"
                 + " Location VARCHAR(45),"
                 + " Status VARCHAR(10),"
-                + " Role VARCHAR(20) )");
+                + " Role VARCHAR(20)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
         // truncate Tables, in case some data was already there
         myJDBC.executeUpdateQuery("TRUNCATE TABLE User");
-//        myJDBC.executeUpdateQuery("TRUNCATE TABLE foundLuggage");
-//        myJDBC.executeUpdateQuery("TRUNCATE TABLE missedLuggage");
 
-        // Populate the tables in the Airline database        
-        System.out.println("Populating with User Account, Found and Missed Luggage...");
 
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
                 + "'MB1', 'Amsterdam', 'Michael', 'Boer de', 'Amsterdam', 'Active', 'Adminstrator' )");
@@ -327,15 +325,15 @@ public class MyJDBC {
         myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS color ("
                 + "  ralCode INT(11) NOT NULL,"
                 + "  english VARCHAR(45) NOT NULL,"
-                + "  dutch VARCHAR(45) NOT NULL)");
+                + "  dutch VARCHAR(45) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
         //Create Table Destination 
-        myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS `destination` ("
-                + "  `IATAcode` VARCHAR(45) NOT NULL,"
+        myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS destination ("
+                + "  `IATAcode` VARCHAR(10) NOT NULL,"
                 + "  `airport` VARCHAR(45) NOT NULL,"
                 + "  `country` VARCHAR(45) NOT NULL,"
                 + "  `timeZone` VARCHAR(45) NOT NULL,"
-                + "  `daylightSaving` TINYINT(4) NOT NULL)");
+                + "  `daylightSaving` TINYINT(4) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
         //Create Table Employee 
         myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS `employee` ("
@@ -344,14 +342,14 @@ public class MyJDBC {
                 + "  `surname` VARCHAR(45) NOT NULL,"
                 + "  `password` VARCHAR(45) NOT NULL,"
                 + "  `department` VARCHAR(45) NOT NULL,"
-                + "  `airport` VARCHAR(45) NOT NULL)");
+                + "  `airport` VARCHAR(45) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
         //Create Table Flight 
         myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS flight ("
                 + "  `flightNr` varchar(45) NOT NULL,"
                 + "  `airline` varchar(45) NOT NULL,"
-                + "  `from` varchar(45) NOT NULL,"
-                + "  `to` varchar(45) NOT NULL)");
+                + "  `from` varchar(3) NOT NULL,"
+                + "  `to` varchar(3) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
         //Create Table FoundLuggage 
         myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS `foundluggage` ("
@@ -370,13 +368,13 @@ public class MyJDBC {
                 + "  `locationFound` int(11) DEFAULT NULL,"
                 + "  `employeeId` varchar(45) DEFAULT NULL,"
                 + "  `matchedId` int(11) DEFAULT NULL,"
-                + "  `passengerId` int(11) DEFAULT NULL)");
+                + "  `passengerId` int(11) DEFAULT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
         //Create Table Location 
         myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS `location` ("
                 + "  `locationId` int(11) NOT NULL,"
                 + "  `english` varchar(45) NOT NULL,"
-                + "  `dutch` varchar(45) NOT NULL)");
+                + "  `dutch` varchar(45) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
         //Create Table LostLuggage 
         myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS `lostluggage` ("
@@ -400,7 +398,7 @@ public class MyJDBC {
         myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS `luggagetype` ("
                 + "  `luggageTypeId` int(11) NOT NULL,"
                 + "  `english` varchar(45) NOT NULL,"
-                + "  `dutch` varchar(45) NOT NULL)");
+                + "  `dutch` varchar(45) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
         //Create Table Matched 
         myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS `matched` ("
@@ -409,7 +407,7 @@ public class MyJDBC {
                 + "  `lostluggage` int(11) NOT NULL,"
                 + "  `employeeId` varchar(45) NOT NULL,"
                 + "  `dateMatched` varchar(45) NOT NULL,"
-                + "  `delivery` varchar(45) DEFAULT NULL)");
+                + "  `delivery` varchar(45) DEFAULT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
         //Create Table Passenger 
         myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS `passenger` ("
@@ -420,7 +418,7 @@ public class MyJDBC {
                 + "  `postalcode` varchar(45) DEFAULT NULL,"
                 + "  `country` varchar(45) DEFAULT NULL,"
                 + "  `email` varchar(45) DEFAULT NULL,"
-                + "  `phone` varchar(45) DEFAULT NULL)");
+                + "  `phone` varchar(45) DEFAULT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
         myJDBC.executeUpdateQuery("INSERT INTO `color` (`ralCode`, `english`, `dutch`) VALUES"
                 + "(1003, 'Yellow', 'Geel'),"
@@ -555,6 +553,39 @@ public class MyJDBC {
                 + "(46, '2016-06-04', '19:20', '', 2, 'Briggs', 1003, NULL, '', 0, 'Olympic rings', 'TK2414', 2, NULL, NULL, 30),"
                 + "(47, '2016-07-09', '20:18', '', 7, '', 3005, NULL, '70x50x20', 10, '', NULL, 7, NULL, NULL, 31),"
                 + "(48, '2016-08-17', '21:45', '', 3, 'Everest', 6022, NULL, '', 0, '', 'TK2414', 4, NULL, NULL, 32);");
+//        INSERT INTO `lostluggage`.`lostluggage` (`registrationNr`, `dateLost`, `timeLost`, `luggageTag`, `brand`, `mainColor`, `secondColor`, `size`, `weight`, `otherCharacteristics`, `employeeId`, `luggageType`) VALUES ('4', '2015-02-12', '8:00', '1928310232', 'BrandName', '9005', '9005', '10x80x20', '20', 'Blue dots', 'tz', '8');
+
+        System.out.println("started");
+        myJDBC.executeUpdateQuery("INSERT INTO `lostluggage` (`registrationNr`, `dateLost`, `timeLost`, `luggageTag`, `brand`, `mainColor`, `secondColor`, `size`, `weight`, `otherCharacteristics`, `employeeId`, `luggageType`, `matchedId`, `passengerId`) VALUES "
+                + "(1, '2015-03-11', '8:20', '2771896151', 'Delsey', 8002, 6022, '10', 20, 'duvel sticker', 'tz', 7, NULL, 5);");
+        myJDBC.executeUpdateQuery("INSERT INTO `lostluggage` (`registrationNr`, `dateLost`, `timeLost`, `luggageTag`, `brand`, `mainColor`, `secondColor`, `size`, `weight`, `otherCharacteristics`, `employeeId`, `luggageType`, `matchedId`, `passengerId`) VALUES "                
+        + "(2, '2015-10-10', '8:20', '6377992003', 'Fjallraven', 8002, 6002, '30', 20, 'Blue spots', 'tz', 4, NULL, 10);");
+        myJDBC.executeUpdateQuery("INSERT INTO `lostluggage` (`registrationNr`, `dateLost`, `timeLost`, `luggageTag`, `brand`, `mainColor`, `secondColor`, `size`, `weight`, `otherCharacteristics`, `employeeId`, `luggageType`, `matchedId`, `passengerId`) VALUES "                     
+            + "(3, '2015-11-09', '8:20', '', 'Everest', 9005, 9005, '30', 20, 'Olympic rings', 'tz', 2, NULL, 3);");
+        myJDBC.executeUpdateQuery("INSERT INTO `lostluggage` (`registrationNr`, `dateLost`, `timeLost`, `luggageTag`, `brand`, `mainColor`, `secondColor`, `size`, `weight`, `otherCharacteristics`, `employeeId`, `luggageType`, `matchedId`, `passengerId`) VALUES "                
+            + "(4, '2015-04-07', '8:20', '', 'Briggs', 1003, 9005, '30', 20, '', 'tz', 1, NULL, 2);");
+        myJDBC.executeUpdateQuery("INSERT INTO `lostluggage` (`registrationNr`, `dateLost`, `timeLost`, `luggageTag`, `brand`, `mainColor`, `secondColor`, `size`, `weight`, `otherCharacteristics`, `employeeId`, `luggageType`, `matchedId`, `passengerId`) VALUES "                
+                + "(5, '2015-03-12', '8:20', '', 'Everest', 8002, 9005, '30', 20, '', 'tz', 6, NULL, 1);");
+        System.out.println("ended");
+        
+                myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS `lostluggage` ("
+                + "  `registrationNr` int(11) NOT NULL,"
+                + "  `dateLost` datetime NOT NULL,"
+                + "  `timeLost` varchar(45) NOT NULL,"
+                + "  `luggageTag` varchar(45) DEFAULT NULL,"
+                + "  `brand` varchar(45) DEFAULT NULL,"
+                + "  `mainColor` int(11) NOT NULL,"
+                + "  `secondColor` int(11) DEFAULT NULL,"
+                + "  `size` int(11) DEFAULT NULL,"
+                + "  `weight` int(11) DEFAULT NULL,"
+                + "  `otherCharacteristics` mediumtext,"
+                + "  `flight` varchar(45) DEFAULT NULL,"
+                + "  `employeeId` varchar(45) NOT NULL,"
+                + "  `luggageType` int(11) NOT NULL,"
+                + "  `matchedId` int(11) DEFAULT NULL,"
+                + "  `passengerId` int(11) DEFAULT NULL)");
+                
+                
         myJDBC.executeUpdateQuery("INSERT INTO `location` (`locationId`, `english`, `dutch`) VALUES"
                 + "(0, 'belt-06', 'band-06'),"
                 + "(1, 'belt-05', 'band-05'),"
@@ -619,8 +650,8 @@ public class MyJDBC {
 
         myJDBC.executeUpdateQuery("ALTER TABLE `flight`"
                 + "  ADD PRIMARY KEY (`flightNr`),"
-                + "  ADD KEY `this flight leaves from_idx` (`from`),"
-                + "  ADD KEY `this flight arrives at_idx` (`to`);");
+                + "  ADD KEY `destination_start_idx` (`from`),"
+                + "  ADD KEY `destination_end_idx` (`to`);");
 
         myJDBC.executeUpdateQuery("ALTER TABLE `foundluggage`"
                 + "  ADD PRIMARY KEY (`registrationNr`),"
@@ -662,6 +693,8 @@ public class MyJDBC {
                 + "  MODIFY `passengerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;");
         myJDBC.executeUpdateQuery("ALTER TABLE `employee`"
                 + "  ADD CONSTRAINT `works at airport` FOREIGN KEY (`airport`) REFERENCES `destination` (`IATAcode`) ON DELETE NO ACTION ON UPDATE NO ACTION;");
+
+        //These Foreign keys dont work yet, will be implemented in next fase
         
 //        myJDBC.executeUpdateQuery("ALTER TABLE `flight`"
 //                + "  ADD CONSTRAINT `this flight leaves from` FOREIGN KEY (`from`) REFERENCES `destination` (`IATAcode`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
