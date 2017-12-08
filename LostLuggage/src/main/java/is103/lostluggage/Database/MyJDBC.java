@@ -21,7 +21,7 @@ public class MyJDBC {
     private static final String DB_DEFAULT_DATABASE = "sys";
     private static final String DB_DEFAULT_SERVER_URL = "localhost:3306";
     private static final String DB_DEFAULT_ACCOUNT = "root";
-    private static final String DB_DEFAULT_PASSWORD = "root";
+    private static final String DB_DEFAULT_PASSWORD = "ajax1234";
 
     private final static String DB_DRIVER_URL = "com.mysql.jdbc.Driver";
     private final static String DB_DRIVER_PREFIX = "jdbc:mysql://";
@@ -295,7 +295,6 @@ public class MyJDBC {
         //User will be changed to Employee next Fase
         myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS User ("
                 + " ID VARCHAR(10) NOT NULL PRIMARY KEY,"
-                + " Password VARCHAR(20) NOT NULL,"
                 + " Firstname VARCHAR(45),"
                 + " Lastname VARCHAR(45),"
                 + " Location VARCHAR(45),"
@@ -307,19 +306,19 @@ public class MyJDBC {
 
 
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
-                + "'MB1', 'Amsterdam', 'Michael', 'Boer de', 'Amsterdam', 'Active', 'Adminstrator' )");
+                + "'MB1', 'Michael', 'Boer de', 'Amsterdam', 'Active', 'Adminstrator' )");
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
-                + "'AA1', 'Amsterdam', 'Ahmet', 'Aksu', 'Amsterdam', 'Active', 'Manager' )");
+                + "'AA1', 'Ahmet', 'Aksu', 'Amsterdam', 'Active', 'Manager' )");
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
-                + "'AK1', 'Amsterdam', 'Arthur', 'Krom', 'Amsterdam', 'Active', 'Service' )");
+                + "'AK1', 'Arthur', 'Krom', 'Amsterdam', 'Active', 'Service' )");
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
-                + "'TZ1', 'Amsterdam', 'Thijs', 'Zijdel', 'Amsterdam', 'Active', 'Service' )");
+                + "'TZ1', 'Thijs', 'Zijdel', 'Amsterdam', 'Active', 'Service' )");
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
-                + "'DO1', 'Amsterdam', 'Daron', 'Özdemir', 'Amsterdam', 'Active', 'Manager' )");
+                + "'DO1', 'Daron', 'Özdemir', 'Amsterdam', 'Active', 'Manager' )");
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
-                + "'PL1', 'Amsterdam', 'Poek', 'Ligthart', 'Amsterdam', 'Active', 'Service' )");
+                + "'PL1', 'Poek', 'Ligthart', 'Amsterdam', 'Active', 'Service' )");
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
-                + "'MB2', 'Amsterdam', 'Michael', 'Boer de', 'Amsterdam', 'Active', 'Manager' )");
+                + "'MB2', 'Michael', 'Boer de', 'Amsterdam', 'Active', 'Manager' )");
 
         //Create Table Color 
         myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS color ("

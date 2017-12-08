@@ -127,7 +127,7 @@ public class AdminAddUserViewController implements Initializable {
     }
 
     @FXML
-    public void addUser(ActionEvent event) {
+    public void addUser(ActionEvent event) throws IOException {
 
         //default error message is empty
         String errorMessage = "";
@@ -236,6 +236,7 @@ public class AdminAddUserViewController implements Initializable {
 
             int result = db.executeUpdateQuery(query);
             System.out.println(" This is the result:  " + result);
+            MainApp.switchView("/Views/Admin/UserScene.fxml");
 
         }
     }
