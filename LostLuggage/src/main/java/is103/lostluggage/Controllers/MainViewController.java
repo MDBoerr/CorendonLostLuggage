@@ -15,15 +15,13 @@ import javafx.scene.layout.HBox;
 
 
 /**
- * FXML Controller class
+ * MainView Controller class
  *
  * @author Michael de Boer
  */
 public class MainViewController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    //Create instance
     public static MainViewController instance = null;
     public MainViewController(){}
 
@@ -40,40 +38,33 @@ public class MainViewController implements Initializable {
 
     @FXML
     private Label title;
-    
-    //public static String header=  "Chooooooosseee rolee";
-    
+        
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Image logo = new Image("Images/Logo.png");
         logoView.setImage(logo);
         topHBox.toFront();
-        //title.setText("Chooooooosseee rolee");
-//        try {
-//            setTitle(header);
-//        } catch (IOException ex) {
-//            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+
         instance = this;
         
         
 
     }
-
+    //Get instance
     public static MainViewController getInstance() {
         return instance;
     }
 
     /**
-     *
+     * Get the static string header and use instance to pass header to setTitle
      * @param header
      */
     public static void getTitle(String header) throws IOException {
         //header = MainViewController.header;
         getInstance().setTitle(header);
     }
-    
+    //Set non-static header as Title
     private void setTitle(String header) {
         title.setText(header);
     }

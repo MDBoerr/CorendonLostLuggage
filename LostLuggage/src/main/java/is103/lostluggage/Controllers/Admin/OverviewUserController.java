@@ -26,6 +26,12 @@ import javafx.event.EventHandler;
 import javafx.scene.control.TableRow;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * UserScene Controller class
+ *
+ * @author Michael de Boer
+ */
+
 public class OverviewUserController implements Initializable {
 
     private String header = "Overview User";
