@@ -92,7 +92,7 @@
               </rowConstraints>
                <children>
                   <JFXButton fx:id="manualMatchingButton" buttonType="RAISED" onAction="#manualMatching" prefHeight="15.0" prefWidth="136.0" ripplerFill="#62b565" style="-fx-background-color: #5fc965#5fc965;" text="Manual matching" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <JFXButton fx:id="editLuggageButton" onAction="#editLuggage" prefHeight="32.0" prefWidth="107.0" ripplerFill="#dddddd" style="-fx-background-color: #b8b8b8#b8b8b8;" text="Edit luggage" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <JFXButton fx:id="editLuggageButton" onAction="#openEditView" prefHeight="32.0" prefWidth="107.0" ripplerFill="#dddddd" style="-fx-background-color: #b8b8b8#b8b8b8;" text="Edit luggage" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                   <JFXButton fx:id="viewPotentialsButton" buttonType="RAISED" onAction="#viewPotentials" prefHeight="30.0" prefWidth="124.0" ripplerFill="#e8ab28" style="-fx-background-color: #fbc756#fbc756;" text="View potentials" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                </children>
             </GridPane>

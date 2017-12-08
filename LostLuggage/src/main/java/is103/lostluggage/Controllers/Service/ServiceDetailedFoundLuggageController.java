@@ -8,6 +8,7 @@ import static is103.lostluggage.MainApp.getLanguage;
 import is103.lostluggage.Model.FoundLuggage;
 import is103.lostluggage.Model.FoundLuggageDetails;
 import is103.lostluggage.Model.LuggageManualMatchFound;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,9 +17,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 
@@ -29,6 +36,9 @@ import javafx.stage.Stage;
  * @author Thijs Zijdel - 500782165
  */
 public class ServiceDetailedFoundLuggageController implements Initializable {
+   
+        
+    public Stage popupStageEditingView = new Stage(); 
     
     @FXML private AnchorPane popupPain;
     @FXML private JFXTextField registrationNr;
@@ -77,7 +87,13 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
     }   
     
     
-
+         //Not closable & no borders
+     ////   popupStageEditingView.initStyle(StageStyle.TRANSPARENT);
+        //popUpDetails(popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml", popupKey);
+    @FXML
+    public void openEditView() throws IOException{
+         MainApp.switchView("/Views/Service/ServiceEditFoundLuggageView.fxml");
+    }
     
     
     @FXML

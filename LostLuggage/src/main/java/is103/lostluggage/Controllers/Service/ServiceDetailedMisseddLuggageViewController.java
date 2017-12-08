@@ -16,6 +16,7 @@ import is103.lostluggage.Model.LuggageManualMatchFound;
 import is103.lostluggage.Model.LuggageManualMatchMissed;
 import is103.lostluggage.Model.MissedLuggage;
 import is103.lostluggage.Model.MissedLuggageDetails;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,9 +25,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -59,7 +66,7 @@ public class ServiceDetailedMisseddLuggageViewController implements Initializabl
     @FXML private JFXTextField dateLost;
     @FXML private JFXTextField flight;
     
-
+    public Stage popupStageEditingView = new Stage(); 
     
     /**
      * Initializes the controller class.
@@ -262,6 +269,27 @@ public class ServiceDetailedMisseddLuggageViewController implements Initializabl
         Stage stage = (Stage) registrationNr.getScene().getWindow();
         stage.close();
         
+    }
+    
+    
+    
+         //Not closable & no borders
+     ////   popupStageEditingView.initStyle(StageStyle.TRANSPARENT);
+        //popUpDetails(popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml", popupKey);
+    @FXML
+    public void openEditView() throws IOException{
+        Parent popup = FXMLLoader.load(getClass().getResource("/Views/Service/ServiceDetailedMissedLuggageView.fxml"));
+        popupStageEditingView.setScene(new Scene(popup));
+                
+        
+        popupStageEditingView.initStyle(StageStyle.TRANSPARENT);
+        popupStageEditingView.setAlwaysOnTop(true);
+        
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        popupStageEditingView.setX(screenBounds.getMaxX());
+        popupStageEditingView.setY(screenBounds.getMaxY());
+        
+        popupStageEditingView.show();
     }
 
     

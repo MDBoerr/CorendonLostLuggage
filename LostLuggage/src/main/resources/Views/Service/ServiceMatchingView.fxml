@@ -85,12 +85,12 @@
                                 </rowConstraints>
                                  <children>
                                     <JFXButton buttonType="RAISED" ripplerFill="#318d49" style="-fx-background-color: #46d06b#46d06b;" text="Confirm Match" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                    <JFXButton ripplerFill="#9e2626" style="-fx-background-color: #e03434#e03434;" text="Remove " textFill="WHITE">
+                                    <JFXButton onAction="#removeManualLost" ripplerFill="#9e2626" style="-fx-background-color: #e03434#e03434;" text="Remove " textFill="WHITE">
                                        <GridPane.margin>
                                           <Insets left="15.0" />
                                        </GridPane.margin>
                                     </JFXButton>
-                                    <JFXButton onAction="#addToManualFound" ripplerFill="#9e2626" style="-fx-background-color: #e03434#e03434;" text="Remove " textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+                                    <JFXButton onAction="#removeManualFound" ripplerFill="#9e2626" style="-fx-background-color: #e03434#e03434;" text="Remove " textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
                                        <GridPane.margin>
                                           <Insets right="15.0" />
                                        </GridPane.margin>

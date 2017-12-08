@@ -45,6 +45,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 
@@ -217,6 +218,8 @@ public class ServiceMatchingViewController implements Initializable {
         
         
         resetManualMatching();
+        
+       
     }
 
     public void resetManualMatching(){
@@ -287,9 +290,9 @@ public class ServiceMatchingViewController implements Initializable {
         foundLuggageTable.setOnMousePressed((MouseEvent event) -> {
                                 //--> event         //--> double click
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                
+                System.out.println("foundd");
                setDetailsOfRow("found", event, popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
-               openPopUpDetails("found", popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
+               setAndOpenPopUpDetails("found", popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
                
             }
         });
@@ -304,7 +307,7 @@ public class ServiceMatchingViewController implements Initializable {
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
                 
                 setDetailsOfRow("missed", event, popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml", "missed");
-                openPopUpDetails("missed", popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml", "missed");
+                setAndOpenPopUpDetails("missed", popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml", "missed");
                 
             }
         });
@@ -353,30 +356,31 @@ public class ServiceMatchingViewController implements Initializable {
              if (node instanceof TableRow) {
                     tableRowGet = (TableRow) node;
             } else {
-                    // als op de tekst is geklikt -> pak parent van text
+                    // if text is clicked -> get parent
                     tableRowGet = (TableRow) node.getParent();
             }
              
         if ("missed".equals(type)){
-            //get het goede found luggage object -> plaats in getDetailObj
+            //get the right found luggage object -> place this in getDetailObj
             MissedLuggage getDetailObj = (MissedLuggage) tableRowGet.getItem();
             
-            //Detail object zetten -> zodat hij in volgende view te openen is
+            //Detail object setten -> so it is posible to take this in the next fxml
             
             //MissedLuggageDetails.getInstance().currentLuggage() .setRegistrationNr(getDetailObj.getRegistrationNr());
             MissedLuggage route = MissedLuggageDetails.getInstance().currentLuggage();
             route.setRegistrationNr(getDetailObj.getRegistrationNr());
             
-
-            //pp----->
-            
+            //----
+            //Momenteel alleen de id en met execute query alle gegevens verkrijgen
+            //Nog kijken wat efficienter is
+            //----
         } 
         
         if ("found".equals(type)){
-            //get het goede found luggage object -> plaats in getDetailObj
+            //get the right obj -> place this in getDet. repeat.. 
             FoundLuggage getDetailObj = (FoundLuggage) tableRowGet.getItem();
             
-            //Detail object zetten -> zodat hij in volgende view te openen is
+            //repeat.. 
             FoundLuggageDetails.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNr());
                 
         } 
@@ -391,8 +395,9 @@ public class ServiceMatchingViewController implements Initializable {
         }
     }
     
-    public void openPopUpDetails(String type, Stage stageType, String stageLink, String popupKey){
-        //switchen naar detailed viw dmv: popup
+    
+    public void setAndOpenPopUpDetails(String type, Stage stageType, String stageLink, String popupKey){
+        //switchen naar detailed view dmv: popup
         if ("found".equals(type) || "missed".equals(type)){
             try {
                 popUpDetails(stageType, stageLink, popupKey);
@@ -408,10 +413,6 @@ public class ServiceMatchingViewController implements Initializable {
             }
         }
     }
-    
-    /**  
-     * @void popupDetails 
-     */
     public void popUpDetails(Stage stage, String viewLink, String type) throws IOException { 
             try { 
                 //get popup fxml resource   
@@ -425,13 +426,14 @@ public class ServiceMatchingViewController implements Initializable {
                 } else if ("missed".equals(type)) {
                     stage.setX(screenBounds.getMaxX() - screenBounds.getWidth() - 10);
                 } else if ("match".equals(type)){
-                    
+                    //if popup details are being used in the coming changes
+                    //*don't forget to set right position!
                 }
                 
                 stage.setY(screenBounds.getMaxY() - screenBounds.getHeight() - 10);
 
                 //no functies -> close / fullscreen/ topbar
-                //stage.initStyle(StageStyle.TRANSPARENT);
+                //stage.initStyle(StageStyle.TRANSPARENT); //off
 
                 //stage altijd on top
                 stage.setAlwaysOnTop(true);
@@ -476,6 +478,24 @@ public class ServiceMatchingViewController implements Initializable {
     public void addToManualMissed() {
         String idManualMatching = LuggageManualMatchMissed.getInstance().currentLuggage().getRegistrationNr();
         idCheckLost = addToManualMatching(missedPane, 1, idCheckLost, idLost, idManualMatching, "/Views/Service/ServiceManualMatchingMissedView.fxml");
+    } 
+    
+    
+    
+    //Event listner add luggage to manual matching
+    public void removeManualFound() {
+        LuggageManualMatchFound.getInstance().currentLuggage().setRegistrationNr(null);
+        idCheckFound = 9999;
+        foundPane.getChildren().clear();
+    }
+    
+    
+    //Event listner add luggage to manual matching
+    public void removeManualLost() {
+        LuggageManualMatchMissed.getInstance().currentLuggage().setRegistrationNr(null);
+        idCheckLost = 9999;
+        missedPane.getChildren().clear();
+        
     } 
    
     

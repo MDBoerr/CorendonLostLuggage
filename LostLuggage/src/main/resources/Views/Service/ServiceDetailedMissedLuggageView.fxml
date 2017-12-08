@@ -94,7 +94,7 @@
                <children>
                   <JFXButton fx:id="manualMatchingButton" buttonType="RAISED" onAction="#manualMatching" prefHeight="26.0" prefWidth="134.0" ripplerFill="#428a43" style="-fx-background-color: #5fc965#5fc965;" text="Manual matching" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                   <JFXButton fx:id="viewPotentialsButton" buttonType="RAISED" onAction="#viewPotentials" prefHeight="28.0" prefWidth="117.0" ripplerFill="#e8ab28" style="-fx-background-color: #fbc756#fbc756;" text="View potentials" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <JFXButton fx:id="editLuggageButton" onAction="#editLuggage" prefHeight="25.0" prefWidth="96.0" ripplerFill="#dddddd" style="-fx-background-color: #b8b8b8#b8b8b8;" text="Edit luggage" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <JFXButton fx:id="editLuggageButton" onAction="#openEditView" prefHeight="25.0" prefWidth="96.0" ripplerFill="#dddddd" style="-fx-background-color: #b8b8b8#b8b8b8;" text="Edit luggage" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                </children>
             </GridPane>
             <JFXTextField fx:id="dateLost" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Date Lost" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="9" GridPane.valignment="BOTTOM" />
