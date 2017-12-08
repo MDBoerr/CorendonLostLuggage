@@ -29,7 +29,7 @@
             <JFXTextField fx:id="idTextField" focusColor="#4dadf7" labelFloat="true" promptText="Employee ID" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <JFXButton buttonType="RAISED" ripplerFill="WHITE" style="-fx-background-color: #adb5bd#adb5bd #adb5bd#adb5bd;" text="Forgot Password" textFill="WHITE" />
+                  <JFXButton fx:id="clearAllButton" buttonType="RAISED" ripplerFill="WHITE" style="-fx-background-color: #adb5bd#adb5bd #adb5bd#adb5bd;" text="Clear All" textFill="WHITE" />
                   <Separator orientation="VERTICAL" prefHeight="94.0" prefWidth="45.0" visible="false" />
                   <JFXButton fx:id="logInButton" buttonType="RAISED" style="-fx-background-color: #4dadf7#4dadf7 #4dadf7#4dadf7 #4dadf7#4dadf7 #4dadf7#4dadf7;" text="Log In" textFill="WHITE" />
                </children>
