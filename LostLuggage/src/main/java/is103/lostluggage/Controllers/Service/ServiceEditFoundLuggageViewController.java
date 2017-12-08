@@ -1,5 +1,6 @@
 package is103.lostluggage.Controllers.Service;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.MainViewController;
@@ -51,6 +52,11 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
     @FXML private JFXTextField locationFound;
     @FXML private JFXTextField flight;
     
+    
+    @FXML private JFXComboBox colorPicker1;
+    @FXML private JFXComboBox colorPicker2;
+    @FXML private JFXComboBox locationPicker;
+    @FXML private JFXComboBox typePicker;
      //view title
     private final String title = "Edit Found Luggage";
     
@@ -72,7 +78,40 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
             Logger.getLogger(ServiceDetailedFoundLuggageController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+         colorPicker1.getItems().addAll(
+                "8002",
+                "4005", 
+                "2004", 
+                "6002");
+        colorPicker1.setValue("6002");
         
+        colorPicker2.getItems().addAll(
+                "8002",
+                "4005", 
+                "2004", 
+                "6002");
+         colorPicker2.setValue("2004");
+         
+         locationPicker.getItems().addAll(
+                "1",
+                "2", 
+                "3", 
+                "4",
+                "5",
+                "6");
+        locationPicker.setValue("1");
+        
+        
+        typePicker.getItems().addAll(
+                "1",
+                "2", 
+                "3", 
+                "4",
+                "5",
+                "6",
+                "7",
+                "8");
+        locationPicker.setValue("1");
         checkFields();
     }    
     
@@ -260,17 +299,60 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
     }
     
     @FXML
-    public void saveEditings(){
-//        String luggageId = idField.getText();
+    public void saveEditings() throws SQLException{
+        
+
+        
+           // String luggageId = idField.getText();
 //        String luggageType = typeField.getText();
 //        String luggageBrand = brandField.getText();
 //        String luggageColor = colorField.getText();
 //        String luggageSignatures = signaturesField.getText();
 //        
 //        
-//        MyJDBC db = MainApp.connectToDatabase();
-//        ResultSet resultSet;
-//        resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage WHERE idfoundLuggage='"+luggageId+"'");
+       
+        
+        MyJDBC db = MainApp.connectToDatabase();
+        db.executeUpdateQuery("UPDATE `foundluggage` SET "
+                + "`dateFound`='"+dateFound.getText()+"', "
+                + "`timeFound`='"+timeFound.getText()+"', "
+                + "`luggageTag`='"+luggageTag.getText()+"', "
+                + "`luggageType`='"+typePicker.getValue()+"', "
+                + "`brand`='"+brand.getText()+"', "
+                + "`mainColor`='"+colorPicker1.getValue()+"', "
+                + "`secondColor`='"+colorPicker2.getValue()+"', "
+                + "`size`='"+size.getText()+"', "
+                + "`weight`='"+weight.getText()+"', "
+                + "`otherCharacteristics`='"+signatures.getText()+"', "
+                + "`arrivedWithFlight`='NULL', "
+                + "`locationFound`='"+locationPicker.getValue()+"', "
+                + "`passengerId`='"+ passangerId.getText()+"' "
+                + "WHERE `registrationNr`='"+registrationNr.getText()+"';");
+        
+        
+//@FXML private JFXTextField registrationNr;
+//    @FXML private JFXTextField luggageTag;
+//    @FXML private JFXTextField type;
+//    @FXML private JFXTextField brand;
+//    @FXML private JFXTextField mainColor;
+//    @FXML private JFXTextField secondColor;
+//    @FXML private JFXTextField size;
+//    @FXML private JFXTextField weight;    
+//    @FXML private JFXTextArea signatures;
+//
+//    @FXML private JFXTextField passangerId;
+//    @FXML private JFXTextField passangerName;
+//    @FXML private JFXTextField address;        
+//    @FXML private JFXTextField place;
+//    @FXML private JFXTextField postalCode;
+//    @FXML private JFXTextField country;
+//    @FXML private JFXTextField email;   
+//    @FXML private JFXTextField phone;   
+//    
+//    @FXML private JFXTextField timeFound;
+//    @FXML private JFXTextField dateFound;
+//    @FXML private JFXTextField locationFound;
+//    @FXML private JFXTextField flight;
 //        System.out.println("result is:"+resultSet);
 //        if (    luggageType == null || "".equals(luggageType) ||
 //                luggageBrand == null || "".equals(luggageBrand) ||
