@@ -186,7 +186,7 @@ public class ServiceInputLuggageViewController implements Initializable {
     
     //Submit the form
     @FXML
-    public void submitForm(){
+    public void submitForm() throws SQLException{
         
         //first check which form it is
         String value = missingFoundComboBox.getValue().toString();
@@ -196,7 +196,107 @@ public class ServiceInputLuggageViewController implements Initializable {
         
         
         if(value == "Found"){
+            
+            String table = "foundluggage";
+            
             System.out.println("Found form has been submitted");
+            
+            //get the values from the fields
+            
+            //date
+            String date = dateJFXDatePicker.getValue().toString();
+  
+            //time
+            String time = timeJFXTimePicker.getValue().toString();
+            
+            //airport
+            String airport = airportJFXComboBox.getValue().toString();
+           
+            //select the IATACODE for the selected airport
+            ResultSet iataCodeResult = db.executeResultSetQuery("SELECT * FROM destination WHERE airport='"+airport+"'");
+
+            
+            while(iataCodeResult.next()){
+                airport = iataCodeResult.getString("IATACode");
+            }
+            
+            System.out.println(airport);
+          
+            //Passenger
+
+            //name
+            String name = nameJFXTextField.getText();
+            System.out.println(name);
+            
+            //address
+            String address = addressJFXTextField.getText();
+            System.out.println(address);
+            
+            //place
+            String place = placeJFXTextField.getText();
+            System.out.println(place);
+            
+            //postalcode
+            String postalCode = postalcodeJFXTextField.getText();
+            System.out.println(postalCode);
+            
+            //country
+            String country = countryJFXTextField.getText();
+            System.out.println(country);
+            
+            //phone
+            String phone = phoneJFXTextField.getText();
+            System.out.println(phone);
+            
+            //email
+            String email = emailJFXTextField.getText();
+            System.out.println(email);
+            
+            //Luggage
+            
+            //Labelnumber
+            String labelNumber = labelnumberJFXTextField.getText();
+            System.out.println(labelNumber);
+            
+            //Flight
+            String flight = flightJFXComboBox.getValue().toString();
+            System.out.println(flight);
+            
+            //Destination
+            String destination = destinationJFXComboBox.getValue().toString();
+            System.out.println(destination);
+            
+            //Type
+            String type = typeJFXComboBox.getValue().toString();
+            System.out.println(type);
+            
+            //Brand
+            String brand = brandJFXTextField.getText();
+            System.out.println(brand);
+            
+            //Color
+            String color = colorJFXComboBox.getValue().toString();
+            System.out.println(color);
+            
+            //Second Color
+            String secondColor = secondColorJFXComboBox.getValue().toString();
+            System.out.println(secondColor);
+            
+            //Characteristics
+            String character = characterJFXTextField.getText();
+            System.out.println(character);
+            
+            //Location found need to fix this
+            String location = "toilet";
+            
+            String employeeId = "ak";
+            
+     
+ 
+        }
+        
+        if(value == "Missing"){
+            System.out.println("Missing form has been submitted");
             
             //get the values from the fields
             
@@ -277,11 +377,7 @@ public class ServiceInputLuggageViewController implements Initializable {
             System.out.println(character);
             
             //Location found need to fix this
-            String location;
-        }
-        
-        if(value == "Missing"){
-            System.out.println("Missing form has been submitted");
+            String location = "toilet";
         }
         
     }
