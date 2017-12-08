@@ -19,18 +19,18 @@
    <top>
       <AnchorPane prefHeight="144.0" prefWidth="1200.0" style="-fx-background-color: #ced4da#ced4da;" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="logoView" fitHeight="120.0" fitWidth="344.0" layoutX="90.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="logoView" fitHeight="120.0" fitWidth="344.0" layoutX="90.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" />
             <HBox fx:id="topHBox" alignment="CENTER" prefHeight="145.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label fx:id="title" alignment="CENTER" prefHeight="196.0" prefWidth="630.0" text="Choose Role">
+                  <Label fx:id="title" alignment="CENTER" prefHeight="144.0" prefWidth="685.0" text="Choose Role">
                      <font>
                         <Font size="30.0" />
                      </font>
                   </Label>
-                  <JFXButton ripplerFill="WHITE" style="-fx-background-color: #018ada#018ada;" text="EN" textFill="WHITE" />
-                  <JFXButton ripplerFill="WHITE" style="-fx-background-color: ff5151;" text="NL" textFill="WHITE" />
                </children>
             </HBox>
+            <JFXButton buttonType="RAISED" ripplerFill="WHITE" style="-fx-background-color: #018ada#018ada;" text="EN" textFill="WHITE" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="40.0" />
+            <JFXButton buttonType="RAISED" layoutX="2.0" layoutY="1.0" ripplerFill="WHITE" style="-fx-background-color: ff5151;" text="NL" textFill="WHITE" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0" />
          </children></AnchorPane>
    </top>
    <right>

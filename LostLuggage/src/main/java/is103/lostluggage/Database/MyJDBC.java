@@ -309,17 +309,17 @@ public class MyJDBC {
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
                 + "'MB1', 'Amsterdam', 'Michael', 'Boer de', 'Amsterdam', 'Active', 'Adminstrator' )");
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
-                + "'AA1', 'Amsterdam', 'Ahmet', 'Aksu', 'Amsterdam', 'Manager', 'Adminstrator' )");
+                + "'AA1', 'Amsterdam', 'Ahmet', 'Aksu', 'Amsterdam', 'Active', 'Manager' )");
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
-                + "'AK1', 'Amsterdam', 'Arthur', 'Krom', 'Amsterdam', 'Service', 'Adminstrator' )");
+                + "'AK1', 'Amsterdam', 'Arthur', 'Krom', 'Amsterdam', 'Active', 'Service' )");
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
-                + "'TZ1', 'Amsterdam', 'Thijs', 'Zijdel', 'Amsterdam', 'Service', 'Adminstrator' )");
+                + "'TZ1', 'Amsterdam', 'Thijs', 'Zijdel', 'Amsterdam', 'Active', 'Service' )");
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
-                + "'DO1', 'Amsterdam', 'Daron', 'Özdemir', 'Amsterdam', 'Manager', 'Adminstrator' )");
+                + "'DO1', 'Amsterdam', 'Daron', 'Özdemir', 'Amsterdam', 'Active', 'Manager' )");
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
-                + "'PL1', 'Amsterdam', 'Poek', 'Ligthart', 'Amsterdam', 'Service', 'Adminstrator' )");
+                + "'PL1', 'Amsterdam', 'Poek', 'Ligthart', 'Amsterdam', 'Active', 'Service' )");
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
-                + "'MB2', 'Amsterdam', 'Michael', 'Boer de', 'Amsterdam', 'Manager', 'Adminstrator' )");
+                + "'MB2', 'Amsterdam', 'Michael', 'Boer de', 'Amsterdam', 'Active', 'Manager' )");
 
         //Create Table Color 
         myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS color ("
@@ -677,14 +677,14 @@ public class MyJDBC {
 //                + "  ADD CONSTRAINT `matched with` FOREIGN KEY (`matchedId`) REFERENCES `matched` (`matchedId`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
 //                + "  ADD CONSTRAINT `Belongs to a passenger like this` FOREIGN KEY (`passengerId`) REFERENCES `passenger` (`passengerId`) ON DELETE NO ACTION ON UPDATE NO ACTION;");
 
-        myJDBC.executeUpdateQuery("ALTER TABLE `lostluggage`"
-                + "  ADD CONSTRAINT `belongs to this passenger` FOREIGN KEY (`passengerId`) REFERENCES `passenger` (`passengerId`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
-                + "  ADD CONSTRAINT `form has been submitted by employee` FOREIGN KEY (`employeeId`) REFERENCES `employee` (`employeeId`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
-                + "  ADD CONSTRAINT `matched with found` FOREIGN KEY (`matchedId`) REFERENCES `matched` (`matchedId`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
-                + "  ADD CONSTRAINT `should have arrived with this flight` FOREIGN KEY (`flight`) REFERENCES `flight` (`flightNr`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
-                + "  ADD CONSTRAINT `the main color of the luggage` FOREIGN KEY (`mainColor`) REFERENCES `color` (`ralCode`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
-                + "  ADD CONSTRAINT `the second color of the luggage` FOREIGN KEY (`secondColor`) REFERENCES `color` (`ralCode`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
-                + "  ADD CONSTRAINT `type of luggage` FOREIGN KEY (`luggageType`) REFERENCES `luggagetype` (`luggageTypeId`) ON DELETE NO ACTION ON UPDATE NO ACTION;");
+//        myJDBC.executeUpdateQuery("ALTER TABLE `lostluggage`"
+//                + "  ADD CONSTRAINT `belongs to this passenger` FOREIGN KEY (`passengerId`) REFERENCES `passenger` (`passengerId`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
+//                + "  ADD CONSTRAINT `form has been submitted by employee` FOREIGN KEY (`employeeId`) REFERENCES `employee` (`employeeId`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
+//                + "  ADD CONSTRAINT `matched with found` FOREIGN KEY (`matchedId`) REFERENCES `matched` (`matchedId`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
+//                + "  ADD CONSTRAINT `should have arrived with this flight` FOREIGN KEY (`flight`) REFERENCES `flight` (`flightNr`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
+//                + "  ADD CONSTRAINT `the main color of the luggage` FOREIGN KEY (`mainColor`) REFERENCES `color` (`ralCode`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
+//                + "  ADD CONSTRAINT `the second color of the luggage` FOREIGN KEY (`secondColor`) REFERENCES `color` (`ralCode`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
+//                + "  ADD CONSTRAINT `type of luggage` FOREIGN KEY (`luggageType`) REFERENCES `luggagetype` (`luggageTypeId`) ON DELETE NO ACTION ON UPDATE NO ACTION;");
 
         myJDBC.executeUpdateQuery("ALTER TABLE `matched`"
                 + "  ADD CONSTRAINT `foundluggage form` FOREIGN KEY (`foundluggage`) REFERENCES `foundluggage` (`registrationNr`) ON DELETE NO ACTION ON UPDATE NO ACTION,"

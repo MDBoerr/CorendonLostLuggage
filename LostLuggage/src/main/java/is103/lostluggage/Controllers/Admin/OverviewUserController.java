@@ -28,7 +28,7 @@ import javafx.scene.input.MouseEvent;
 
 public class OverviewUserController implements Initializable {
 
-    private String header = "Overzicht Gebruikers";
+    private String header = "Overview User";
 
     @FXML
     private TableView<User> tableView;
@@ -115,8 +115,6 @@ public class OverviewUserController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //users.add(new User("6666", "de Boer", "Michael", "Admin", "Active"));
-
         return users;
     }
 
