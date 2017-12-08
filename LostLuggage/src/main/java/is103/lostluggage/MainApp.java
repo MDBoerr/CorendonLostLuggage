@@ -22,6 +22,10 @@ public class MainApp extends Application {
     private static BorderPane root;
 
     public static String user = null;
+    
+    public static boolean refreshMatching = true; //true= refresh       -> get's alternated in program
+                                                  //false= dont refresh
+                                                  //for: manual matching
 
     private static String dbName = "LostLuggage";
     

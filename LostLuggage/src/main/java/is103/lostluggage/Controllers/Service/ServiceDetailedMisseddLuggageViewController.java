@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package is103.lostluggage.Controllers.Service;
 
 import com.jfoenix.controls.JFXTextArea;
@@ -255,10 +250,6 @@ public class ServiceDetailedMisseddLuggageViewController implements Initializabl
         
     }
     
-    @FXML
-    protected void editLuggage(ActionEvent event){
-        
-    }
     
     @FXML
     protected void manualMatching(ActionEvent event){
@@ -276,20 +267,11 @@ public class ServiceDetailedMisseddLuggageViewController implements Initializabl
          //Not closable & no borders
      ////   popupStageEditingView.initStyle(StageStyle.TRANSPARENT);
         //popUpDetails(popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml", popupKey);
-    @FXML
+        @FXML
     public void openEditView() throws IOException{
-        Parent popup = FXMLLoader.load(getClass().getResource("/Views/Service/ServiceDetailedMissedLuggageView.fxml"));
-        popupStageEditingView.setScene(new Scene(popup));
-                
-        
-        popupStageEditingView.initStyle(StageStyle.TRANSPARENT);
-        popupStageEditingView.setAlwaysOnTop(true);
-        
-        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        popupStageEditingView.setX(screenBounds.getMaxX());
-        popupStageEditingView.setY(screenBounds.getMaxY());
-        
-        popupStageEditingView.show();
+        Stage stage = (Stage) registrationNr.getScene().getWindow();
+        stage.close();
+        MainApp.switchView("/Views/Service/ServiceEditLostLuggageView.fxml");
     }
 
     

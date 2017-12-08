@@ -38,9 +38,8 @@ import javafx.stage.StageStyle;
 public class ServiceDetailedFoundLuggageController implements Initializable {
    
         
-    public Stage popupStageEditingView = new Stage(); 
+
     
-    @FXML private AnchorPane popupPain;
     @FXML private JFXTextField registrationNr;
     @FXML private JFXTextField luggageTag;
     @FXML private JFXTextField type;
@@ -72,8 +71,6 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println("switched!!");
-        
         //try to load initialize methode
         try {
             initializeFoundFields();
@@ -92,7 +89,9 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
         //popUpDetails(popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml", popupKey);
     @FXML
     public void openEditView() throws IOException{
-         MainApp.switchView("/Views/Service/ServiceEditFoundLuggageView.fxml");
+        Stage stage = (Stage) registrationNr.getScene().getWindow();
+        stage.close();
+        MainApp.switchView("/Views/Service/ServiceEditFoundLuggageView.fxml");
     }
     
     

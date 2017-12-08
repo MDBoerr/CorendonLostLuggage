@@ -39,8 +39,10 @@ public class ServiceHomeViewController implements Initializable {
         //To Previous Scene
         MainViewController.previousView = "/fxml/SelectUserRoleView.fxml";
         
+        //reset refreshing to auto
+        MainApp.refreshMatching = true;
+        
         //titel boven de pagina zetten
-       
         try {
             MainViewController.getInstance().getTitle(title);
         } catch (IOException ex) {

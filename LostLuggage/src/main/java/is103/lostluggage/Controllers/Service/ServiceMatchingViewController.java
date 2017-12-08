@@ -216,15 +216,14 @@ public class ServiceMatchingViewController implements Initializable {
             fixedTableHeader(fixingTables[i]);
         }
         
-        
         resetManualMatching();
-        
-       
     }
 
     public void resetManualMatching(){
+        if (MainApp.refreshMatching == true){
         LuggageManualMatchFound.getInstance().currentLuggage().setRegistrationNr(null);
         LuggageManualMatchMissed.getInstance().currentLuggage().setRegistrationNr(null);
+        }
     }
     
     /**  

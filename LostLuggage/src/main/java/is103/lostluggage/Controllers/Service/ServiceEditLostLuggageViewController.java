@@ -6,9 +6,9 @@ import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import static is103.lostluggage.MainApp.getLanguage;
-import is103.lostluggage.Model.FoundLuggage;
-import is103.lostluggage.Model.FoundLuggageDetails;
-import is103.lostluggage.Model.LuggageManualMatchFound;
+import is103.lostluggage.Model.LuggageManualMatchMissed;
+import is103.lostluggage.Model.MissedLuggage;
+import is103.lostluggage.Model.MissedLuggageDetails;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -18,14 +18,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
  * @author thijszijdel
  */
-public class ServiceEditFoundLuggageViewController implements Initializable {
+public class ServiceEditLostLuggageViewController implements Initializable {
 
     @FXML private JFXTextField registrationNr;
     @FXML private JFXTextField luggageTag;
@@ -46,14 +45,13 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
     @FXML private JFXTextField email;   
     @FXML private JFXTextField phone;   
     
-    @FXML private JFXTextField timeFound;
-    @FXML private JFXTextField dateFound;
-    @FXML private JFXTextField locationFound;
+    @FXML private JFXTextField timeLost;
+    @FXML private JFXTextField dateLost;
     @FXML private JFXTextField flight;
     
-     //view title
-    private final String title = "Edit Found Luggage";
     
+         //view title
+    private final String title = "Edit Lost Luggage";
     /**
      * Initializes the controller class.
      */
@@ -74,25 +72,21 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         
         
         checkFields();
-    }    
-    
+    }   
     
     @FXML
     private void initializeFoundFields() throws SQLException{
-        
-        //needs to be faster and get more obj options !
-        //less searching in db
-        
-        String id = FoundLuggageDetails.getInstance().currentLuggage().getRegistrationNr();
+        String id = MissedLuggageDetails.getInstance().currentLuggage().getRegistrationNr();
+
         System.out.println("iD: "+id);
             MyJDBC db = MainApp.connectToDatabase();
             
-            ResultSet resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage WHERE registrationNr='"+id+"'");
+            ResultSet resultSet = db.executeResultSetQuery("SELECT * FROM lostLuggage WHERE registrationNr='"+id+"'");
                 
             while (resultSet.next()) {
                 String getRegistrationNr =     resultSet.getString("registrationNr");
-                String getDateFound =          resultSet.getString("dateFound");
-                String getTimeFound =          resultSet.getString("timeFound");
+                String getDateLost =          resultSet.getString("dateLost");
+                String getTimeLost =          resultSet.getString("timeLost");
                 
                 String getLuggageTag =         resultSet.getString("luggageTag");
                 int getLuggageType =           resultSet.getInt("luggageType");
@@ -104,8 +98,8 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
                 String getOtherCharacteristics=resultSet.getString("otherCharacteristics");
                 int getPassengerId =           resultSet.getInt("passengerId");
                 
-                String getFlight =              resultSet.getString("arrivedWithFlight"); 
-                int getLocationFound =         resultSet.getInt("locationFound");
+                String getFlight =              resultSet.getString("flight"); 
+                ////int getLocationFound =         resultSet.getInt("locationFound");
                 //String employeeId =         resultSet.getString("employeeId");
                 //int matchedId =              resultSet.getInt("matchedId");
 
@@ -130,22 +124,24 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
             
             setPassenger(db, getPassengerId);
             
-            setLocation(db, getLocationFound);
-            dateFound.setText(getDateFound);
-            timeFound.setText(getTimeFound);
+            //setLocation(db, getLocationFound);
+            dateLost.setText(getDateLost);
+            timeLost.setText(getTimeLost);
             flight.setText(getFlight);
             
             
             
 
             }
-
+//            if (luggageTag.getText().equals("")){luggageTag.setText("Unknown");}
+//            if (brand.getText().equals("")){brand.setText("Unknown");}
+//            if (signatures.getText().equals("")){signatures.setText("None");}
+//            if (flight.getText().equals("")){flight.setText("Unknown");}
         
     }
     
     @FXML
     private void setColor(MyJDBC db, int colorD) throws SQLException {
-        //i will change this with inner joints (sql query)
         ResultSet result_color = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+colorD+"'");
         while (result_color.next()) {    
             String color = result_color.getString(getLanguage());
@@ -155,7 +151,6 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
     }
     @FXML
     private void setType(MyJDBC db, int luggageType) throws SQLException {
-        //i will change this with inner joints (sql query)
         ResultSet result_type = db.executeResultSetQuery("SELECT * FROM luggagetype WHERE luggageTypeId='"+luggageType+"'");
         while (result_type.next()) {    
             String typeGotten = result_type.getString(getLanguage());
@@ -166,7 +161,6 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
     }
     @FXML
     private void setSecondColor(MyJDBC db, int secondColor2) throws SQLException {
-        //i will change this with inner joints (sql query)
         ResultSet result_second = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+secondColor2+"'");
         while (result_second.next()) {    
             String color = result_second.getString(getLanguage());
@@ -176,7 +170,6 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
     }     
     @FXML
     private void setPassenger(MyJDBC db, int passengerIdG) throws SQLException {
-        //i will change this with inner joints (sql query)
         String idString = Integer.toString(passengerIdG);
          
         ResultSet result_second = db.executeResultSetQuery("SELECT * FROM passenger WHERE passengerId='"+idString+"'");
@@ -209,22 +202,9 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         }
 
     }
-    @FXML
-    private void setLocation(MyJDBC db, int locationFoundG) throws SQLException {
-        //i will change this with inner joints (sql query)
-        String locationId = Integer.toString(locationFoundG);
-        ResultSet result = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+locationId+"'");
-        while (result.next()) {    
-            String location = result.getString(getLanguage());
-            locationFound.setText(location);
-        } 
-       
-
-    }
     
     @FXML
     public void checkFields(){
-        //i will change this with is null (sql query)
         System.out.println("type.getText(): "+type.getText() );
         
         if (type.getText() == null){type.setText("Unknown");}
@@ -245,14 +225,14 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         if (email.getText() == null){email.setText("Unknown");}
         if (phone.getText() == null){phone.setText("Unknown");}
         
-        if (locationFound.getText() == null){locationFound.setText("Unknown");}
+        //if (locationFound.getText().equals("")){locationFound.setText("Unknown");}
     }
     
     @FXML
     public void manualMatch() throws IOException{
         System.out.println("added to manual matching");
-        FoundLuggage passObject =  FoundLuggageDetails.getInstance().currentLuggage();
-        LuggageManualMatchFound.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());
+        MissedLuggage passObject =  MissedLuggageDetails.getInstance().currentLuggage();
+        LuggageManualMatchMissed.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());
         MainApp.refreshMatching = false;
         
         MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
@@ -264,4 +244,5 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
 
         
     }
+    
 }
