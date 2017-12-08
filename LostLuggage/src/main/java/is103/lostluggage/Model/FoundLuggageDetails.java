@@ -18,5 +18,7 @@ public class FoundLuggageDetails {
     public FoundLuggage currentLuggage() {
         return luggage;
     }
+    
+    
 
 }

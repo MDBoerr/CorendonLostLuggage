@@ -30,7 +30,7 @@ public class ServiceMissedOverviewViewController implements Initializable {
 
     
         //view title
-    private final String title = "Overzicht Vermiste Bagage";
+    private final String title = "Overview Lost Luggage";
     
     public static ObservableList<MissedLuggage> MissedLuggageList;
     
