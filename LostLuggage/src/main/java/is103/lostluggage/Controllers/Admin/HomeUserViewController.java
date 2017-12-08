@@ -23,9 +23,9 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
+ * HomeUserView Controller class
  *
- * @author Mike
+ * @author Michael de Boer
  */
 public class HomeUserViewController implements Initializable {
 
@@ -34,24 +34,20 @@ public class HomeUserViewController implements Initializable {
     @FXML
     private Button button;
 
-    /**
-     * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
-     */
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         MainViewController.previousView = "/fxml/SelectUserRoleView.fxml";
 
     }
-
+    
+    //Go to Overview User Scene
     @FXML
     protected void handleButtonAction(ActionEvent event) throws IOException {
         MainApp.switchView("/Views/Admin/UserScene.fxml");
     }
-
+    //Go to Add User Scene
     @FXML
     protected void viewAddUserWindow(ActionEvent event) throws IOException {
         MainApp.switchView("/Views/Admin/AdminAddUserView.fxml");

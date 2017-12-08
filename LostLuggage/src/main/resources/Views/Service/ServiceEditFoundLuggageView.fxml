@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Text?>
 
 <!--  @author Thijs Zijdel - 500782165 -->
 
@@ -120,6 +121,7 @@
                         <Insets right="10.0" />
                      </padding>
                   </JFXComboBox>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback when editting, saving, get colors etc. &gt; Will be implimented soon!" GridPane.columnSpan="4" GridPane.halignment="CENTER" />
                </children>
             </GridPane>
          </children>

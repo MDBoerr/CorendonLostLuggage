@@ -4,8 +4,12 @@ import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Model.MissedLuggage;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.MainViewController;
+import is103.lostluggage.Data.ServiceDataFound;
 import is103.lostluggage.Data.ServiceDataLost;
 import is103.lostluggage.MainApp;
+import is103.lostluggage.Model.FoundLuggage;
+import is103.lostluggage.Model.FoundLuggageDetails;
+import is103.lostluggage.Model.MissedLuggageDetails;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -16,10 +20,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class voor vermiste bagage overzicht
@@ -28,7 +36,8 @@ import javafx.scene.paint.Paint;
  */
 public class ServiceMissedOverviewViewController implements Initializable {
 
-    
+            public Stage popupStageLost = new Stage();   
+
         //view title
     private final String title = "Overview Lost Luggage";
     
@@ -161,6 +170,49 @@ public class ServiceMissedOverviewViewController implements Initializable {
         }
         
         
+    }
+    
+    /**  
+     * @void doubleClickFoundRow
+     */
+    public void lostRowClicked() {
+        missedLuggageTable.setOnMousePressed((MouseEvent event) -> {
+                                //--> event         //--> double click
+            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                System.out.println("foundd");
+                
+                
+                
+             Node node = ((Node) event.getTarget() ).getParent();
+             TableRow tableRowGet;
+             
+             if (node instanceof TableRow) {
+                    tableRowGet = (TableRow) node;
+            } else {
+                    // if text is clicked -> get parent
+                    tableRowGet = (TableRow) node.getParent();
+            }
+             
+             
+             MissedLuggage getDetailObj = (MissedLuggage) tableRowGet.getItem();
+            
+            //repeat.. 
+            MissedLuggageDetails.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNr());
+              
+                try {
+                    ServiceDataLost getDataLost = new ServiceDataLost();
+                     getDataLost.popUpDetails(popupStageLost);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ServiceMissedOverviewViewController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceMissedOverviewViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               //setDetailsOfRow("found", event, popupStageLost, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
+                //setAndOpenPopUpDetails("found", popupStageLost, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
+              
+               
+            }
+        });
     }
     
    

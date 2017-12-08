@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -9,52 +8,44 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+
 <!--  @author Thijs Zijdel - 500782165 -->
+
 <GridPane prefHeight="586.0" prefWidth="1179.0" style="-fx-background-color: fff;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Service.ServiceMissedOverviewViewController">
     <columnConstraints>
         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="957.3544311523438" minWidth="10.0" prefWidth="579.3277587890625" />
         <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="777.9694519042969" minWidth="10.0" prefWidth="600.1722412109375" />
     </columnConstraints>
     <rowConstraints>
+      <RowConstraints maxHeight="148.65740966796875" minHeight="10.0" prefHeight="81.10185241699219" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="148.65740966796875" minHeight="10.0" prefHeight="81.10185241699219" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="265.3981475830078" minHeight="10.0" prefHeight="200.0" valignment="CENTER" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="316.0810241699219" minHeight="10.0" prefHeight="200.0" valignment="CENTER" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="33.31011962890625" minHeight="100.0" prefHeight="9.034820556640625" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-      <GridPane GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+      <GridPane GridPane.columnIndex="1" GridPane.halignment="RIGHT">
         <columnConstraints>
           <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <JFXButton buttonType="RAISED" onAction="#switchToInput" prefHeight="27.0" prefWidth="115.0" ripplerFill="#1b5e20" style="-fx-background-color: #4CAF50#4CAF50;" text="Add Luggage +" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="2">
+            <JFXButton buttonType="RAISED" onAction="#switchToInput" prefHeight="27.0" prefWidth="115.0" ripplerFill="#1b5e20" style="-fx-background-color: #4CAF50#4CAF50;" text="Add Luggage +" textAlignment="CENTER" textFill="WHITE">
                <GridPane.margin>
-                  <Insets bottom="25.0" right="30.0" />
+                  <Insets />
                </GridPane.margin>
             </JFXButton>
-            <JFXButton buttonType="RAISED" onAction="#switchToMatching" prefHeight="27.0" prefWidth="115.0" ripplerFill="#0d47a1" style="-fx-background-color: #2196F3#2196F3;" text="Find Match &gt;" textAlignment="CENTER" textFill="WHITE">
+            <JFXButton buttonType="RAISED" onAction="#switchToMatching" prefHeight="27.0" prefWidth="115.0" ripplerFill="#0d47a1" style="-fx-background-color: #2196F3#2196F3;" text="Find Match &gt;" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <GridPane.margin>
-                  <Insets right="30.0" top="25.0" />
+                  <Insets />
                </GridPane.margin>
             </JFXButton>
          </children>
       </GridPane>
-      <JFXTextField fx:id="searchField" prefHeight="27.0" prefWidth="427.0" promptText="Search a specific property..." GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
-         <GridPane.margin>
-            <Insets bottom="25.0" left="25.0" />
-         </GridPane.margin>
-      </JFXTextField>
-      <JFXButton fx:id="searchButton" onAction="#searchStarted" prefHeight="27.0" prefWidth="64.0" ripplerFill="#4059a9" text="search" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
-         <GridPane.margin>
-            <Insets bottom="24.0" />
-         </GridPane.margin>
-      </JFXButton>
-      <TableView fx:id="missedLuggageTable" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowSpan="3">
+      <TableView fx:id="missedLuggageTable" onMouseClicked="#lostRowClicked" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="4">
          <columns>
             <TableColumn fx:id="missedRegistrationNr" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="ID" />
             <TableColumn fx:id="missedDateLost" minWidth="80.0" text="Date Found" />
