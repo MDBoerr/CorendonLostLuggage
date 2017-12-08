@@ -28,7 +28,7 @@ public class MainApp extends Application {
                                                   //false= dont refresh
                                                   //for: manual matching
 
-    private static String dbName = "CorendonLostLuggage";
+    private static String dbName = "LostLuggage";
     
     public static String language = "English";
 
