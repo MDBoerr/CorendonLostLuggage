@@ -1,10 +1,11 @@
 
 package is103.lostluggage.Model;
 
-import javafx.beans.property.SimpleStringProperty;
 
 /**
- * missed luggage classen
+ * missed luggage classe
+ * 
+ * 
  * @author Thijs Zijdel - 500782165
  */
 public class MissedLuggage {

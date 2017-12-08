@@ -50,8 +50,27 @@ import javafx.util.Duration;
 
 
 /**
- * FXML Controller class
- *
+ * FXML Controller class for the matching view
+ * This controller class configs the entire view 
+ * -It initializes and gets data from 2 seperated classes (missedLuggage & foundLuggage)
+ * -It stores en gets data from 2 seperated classes (ServiceDataFound & ServiceDataLost)
+ * -It passes objects that contain data in 4 seperated classes
+ *                                  -MissedLuggageDetails & FoundLuggageDetails
+ *                                  -LuggageManualMatchMissed & LuggageManualMatchFound
+ *-It initializes data for the matching in 1 class (will be all in that class)
+ *-It connects directly to 9 fxml views without really noticing it
+ *          1. ServiceHomeView                          
+ *          2. ServiceInputView                        
+ *          3. ServiceManualMatchingMissedView     
+ *          4. ServiceManualMatchingFoundView       
+ *          5. ServiceDetailedFoundLuggageView      
+ *          6. ServiceDetailedMissedLuggageView     
+ *          7. ServiceEditLostLuggage               
+ *          8. ServiceEditLostLuggage      
+ *          9. MainApp
+ * 
+ * Main objective: giving the service employee a clear way to see a lot of data.
+ * 
  * @author Thijs Zijdel - 500782165
  */
 public class ServiceMatchingViewController implements Initializable {
@@ -461,6 +480,14 @@ public class ServiceMatchingViewController implements Initializable {
         //Methodes calling at rate of --> int:  timeRate   //2s
         addToManualFound();
         addToManualMissed();
+        
+        if (MainApp.serviceChangeValue != 99){
+            if(MainApp.serviceChangeValue == 0){ //0 = potentialMatches 
+                                                //-> matching tab to 0
+                potentialMatches();
+            }
+            MainApp.serviceChangeValue = 99;//reset
+        }
     }
     
     
@@ -686,6 +713,11 @@ public class ServiceMatchingViewController implements Initializable {
         
     }
     
+    @FXML
+    public void potentialMatches(){
+        setMatchingTab(0);
+    }
+
     
     // Solution by: Alexander Chingarev
     // https://stackoverflow.com/questions/22202782/how-to-prevent-tableview-from-doing-tablecolumn-re-order-in-javafx-8?answertab=active#tab-top

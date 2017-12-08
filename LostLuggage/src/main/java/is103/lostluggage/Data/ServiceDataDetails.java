@@ -1,7 +1,6 @@
 package is103.lostluggage.Data;
 
 /**
- *
  * @author Thijs Zijdel - 500782165
  */
 public class ServiceDataDetails {

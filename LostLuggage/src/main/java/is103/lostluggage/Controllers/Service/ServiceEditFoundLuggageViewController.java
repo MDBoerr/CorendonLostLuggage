@@ -18,13 +18,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
- * @author thijszijdel
+ * @author Thijs Zijdel - 500782165
  */
+
 public class ServiceEditFoundLuggageViewController implements Initializable {
 
     @FXML private JFXTextField registrationNr;
@@ -261,7 +261,28 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
     
     @FXML
     public void saveEditings(){
-
+//        String luggageId = idField.getText();
+//        String luggageType = typeField.getText();
+//        String luggageBrand = brandField.getText();
+//        String luggageColor = colorField.getText();
+//        String luggageSignatures = signaturesField.getText();
+//        
+//        
+//        MyJDBC db = MainApp.connectToDatabase();
+//        ResultSet resultSet;
+//        resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage WHERE idfoundLuggage='"+luggageId+"'");
+//        System.out.println("result is:"+resultSet);
+//        if (    luggageType == null || "".equals(luggageType) ||
+//                luggageBrand == null || "".equals(luggageBrand) ||
+//                luggageColor == null || "".equals(luggageColor) ||
+//                luggageSignatures == null || "".equals(luggageSignatures)
+//                ) {
+//            System.out.println("Een van de velden is leeg of null");
+//        } else {
+//            db.executeUpdateQuery("UPDATE `LostLuggage`.`foundLuggage` SET `type`='"+luggageType+"', `brand`='"+luggageBrand+"', `color`='"+luggageColor+"', `signatures`='"+luggageSignatures+"' WHERE `idfoundLuggage`='"+luggageId+"'");
+//            System.out.println("DB row is updated!");
+//        }
+   
         
     }
 }

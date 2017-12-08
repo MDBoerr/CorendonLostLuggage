@@ -11,7 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- *
+ * 
  * @author Thijs Zijdel - 500782165
  */
 public class ServiceDataLost {
@@ -22,7 +22,6 @@ public class ServiceDataLost {
     public ServiceDataLost() throws SQLException{
         ServiceDataLost.missedLuggageList = setMissedLuggage();
     }
-    
     
     public static ObservableList<MissedLuggage> setMissedLuggage() throws SQLException{
         try {

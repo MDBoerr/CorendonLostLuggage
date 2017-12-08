@@ -23,6 +23,7 @@ public class MainApp extends Application {
 
     public static String user = null;
     
+    public static int serviceChangeValue = 99;
     public static boolean refreshMatching = true; //true= refresh       -> get's alternated in program
                                                   //false= dont refresh
                                                   //for: manual matching

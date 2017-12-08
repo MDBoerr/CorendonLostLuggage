@@ -5,9 +5,6 @@ import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import static is103.lostluggage.MainApp.getLanguage;
-import is103.lostluggage.Model.FoundLuggage;
-import is103.lostluggage.Model.FoundLuggageDetails;
-import is103.lostluggage.Model.LuggageManualMatchFound;
 import is103.lostluggage.Model.LuggageManualMatchMissed;
 import is103.lostluggage.Model.MissedLuggage;
 import is103.lostluggage.Model.MissedLuggageDetails;
@@ -20,20 +17,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
  *
- * @author thijszijdel
+ * @author Thijs Zijdel - 500782165
  */
 public class ServiceDetailedMisseddLuggageViewController implements Initializable {
     
@@ -145,15 +136,12 @@ public class ServiceDetailedMisseddLuggageViewController implements Initializabl
             
 
             }
-//            if (luggageTag.getText().equals("")){luggageTag.setText("Unknown");}
-//            if (brand.getText().equals("")){brand.setText("Unknown");}
-//            if (signatures.getText().equals("")){signatures.setText("None");}
-//            if (flight.getText().equals("")){flight.setText("Unknown");}
         
     }
     
     @FXML
     private void setColor(MyJDBC db, int colorD) throws SQLException {
+        //will be replaced by inner join
         ResultSet result_color = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+colorD+"'");
         while (result_color.next()) {    
             String color = result_color.getString(getLanguage());
@@ -163,6 +151,7 @@ public class ServiceDetailedMisseddLuggageViewController implements Initializabl
     }
     @FXML
     private void setType(MyJDBC db, int luggageType) throws SQLException {
+        //will be replaced by inner join
         ResultSet result_type = db.executeResultSetQuery("SELECT * FROM luggagetype WHERE luggageTypeId='"+luggageType+"'");
         while (result_type.next()) {    
             String typeGotten = result_type.getString(getLanguage());
@@ -173,6 +162,7 @@ public class ServiceDetailedMisseddLuggageViewController implements Initializabl
     }
     @FXML
     private void setSecondColor(MyJDBC db, int secondColor2) throws SQLException {
+        //will be replaced by inner join
         ResultSet result_second = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+secondColor2+"'");
         while (result_second.next()) {    
             String color = result_second.getString(getLanguage());
@@ -182,6 +172,7 @@ public class ServiceDetailedMisseddLuggageViewController implements Initializabl
     }     
     @FXML
     private void setPassenger(MyJDBC db, int passengerIdG) throws SQLException {
+        //will be replaced by inner join
         String idString = Integer.toString(passengerIdG);
          
         ResultSet result_second = db.executeResultSetQuery("SELECT * FROM passenger WHERE passengerId='"+idString+"'");
@@ -217,6 +208,7 @@ public class ServiceDetailedMisseddLuggageViewController implements Initializabl
     
     @FXML
     public void checkFields(){
+        //i will change this to an  is null (query)
         System.out.println("type.getText(): "+type.getText() );
         
         if (type.getText() == null){type.setText("Unknown");}
@@ -247,7 +239,8 @@ public class ServiceDetailedMisseddLuggageViewController implements Initializabl
     
     @FXML
     protected void viewPotentials(ActionEvent event){
-        
+        //methode starten
+        MainApp.serviceChangeValue = 0;
     }
     
     

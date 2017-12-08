@@ -17,15 +17,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 
 
@@ -263,35 +256,10 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
         if (locationFound.getText() == null){locationFound.setText("Unknown");}
     }
    
-    @FXML
-    protected void saveLuggageChanges(ActionEvent event) throws SQLException {
-//        String luggageId = idField.getText();
-//        String luggageType = typeField.getText();
-//        String luggageBrand = brandField.getText();
-//        String luggageColor = colorField.getText();
-//        String luggageSignatures = signaturesField.getText();
-//        
-//        
-//        MyJDBC db = MainApp.connectToDatabase();
-//        ResultSet resultSet;
-//        resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage WHERE idfoundLuggage='"+luggageId+"'");
-//        System.out.println("result is:"+resultSet);
-//        if (    luggageType == null || "".equals(luggageType) ||
-//                luggageBrand == null || "".equals(luggageBrand) ||
-//                luggageColor == null || "".equals(luggageColor) ||
-//                luggageSignatures == null || "".equals(luggageSignatures)
-//                ) {
-//            System.out.println("Een van de velden is leeg of null");
-//        } else {
-//            db.executeUpdateQuery("UPDATE `LostLuggage`.`foundLuggage` SET `type`='"+luggageType+"', `brand`='"+luggageBrand+"', `color`='"+luggageColor+"', `signatures`='"+luggageSignatures+"' WHERE `idfoundLuggage`='"+luggageId+"'");
-//            System.out.println("DB row is updated!");
-//        }
-   
-    }
     
     @FXML
     protected void viewPotentials(ActionEvent event){
-        
+        MainApp.serviceChangeValue = 0; //temporary
     }
     
     @FXML

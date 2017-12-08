@@ -22,7 +22,7 @@ import javafx.fxml.Initializable;
 /**
  * FXML Controller class
  *
- * @author thijszijdel
+ * @author Thijs Zijdel - 500782165
  */
 public class ServiceEditLostLuggageViewController implements Initializable {
 
@@ -132,16 +132,12 @@ public class ServiceEditLostLuggageViewController implements Initializable {
             
             
 
-            }
-//            if (luggageTag.getText().equals("")){luggageTag.setText("Unknown");}
-//            if (brand.getText().equals("")){brand.setText("Unknown");}
-//            if (signatures.getText().equals("")){signatures.setText("None");}
-//            if (flight.getText().equals("")){flight.setText("Unknown");}
-        
+            }    
     }
     
     @FXML
     private void setColor(MyJDBC db, int colorD) throws SQLException {
+        //will be replaced by inner join
         ResultSet result_color = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+colorD+"'");
         while (result_color.next()) {    
             String color = result_color.getString(getLanguage());
@@ -151,6 +147,7 @@ public class ServiceEditLostLuggageViewController implements Initializable {
     }
     @FXML
     private void setType(MyJDBC db, int luggageType) throws SQLException {
+        //will be replaced by inner join
         ResultSet result_type = db.executeResultSetQuery("SELECT * FROM luggagetype WHERE luggageTypeId='"+luggageType+"'");
         while (result_type.next()) {    
             String typeGotten = result_type.getString(getLanguage());
@@ -161,6 +158,7 @@ public class ServiceEditLostLuggageViewController implements Initializable {
     }
     @FXML
     private void setSecondColor(MyJDBC db, int secondColor2) throws SQLException {
+        //will be replaced by inner join
         ResultSet result_second = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+secondColor2+"'");
         while (result_second.next()) {    
             String color = result_second.getString(getLanguage());
@@ -170,6 +168,7 @@ public class ServiceEditLostLuggageViewController implements Initializable {
     }     
     @FXML
     private void setPassenger(MyJDBC db, int passengerIdG) throws SQLException {
+        //will be replaced by inner join
         String idString = Integer.toString(passengerIdG);
          
         ResultSet result_second = db.executeResultSetQuery("SELECT * FROM passenger WHERE passengerId='"+idString+"'");
@@ -205,6 +204,7 @@ public class ServiceEditLostLuggageViewController implements Initializable {
     
     @FXML
     public void checkFields(){
+        //will be replaced by is null
         System.out.println("type.getText(): "+type.getText() );
         
         if (type.getText() == null){type.setText("Unknown");}
@@ -241,7 +241,28 @@ public class ServiceEditLostLuggageViewController implements Initializable {
     
     @FXML
     public void saveEditings(){
-
+//        String luggageId = idField.getText();
+//        String luggageType = typeField.getText();
+//        String luggageBrand = brandField.getText();
+//        String luggageColor = colorField.getText();
+//        String luggageSignatures = signaturesField.getText();
+//        
+//        
+//        MyJDBC db = MainApp.connectToDatabase();
+//        ResultSet resultSet;
+//        resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage WHERE idfoundLuggage='"+luggageId+"'");
+//        System.out.println("result is:"+resultSet);
+//        if (    luggageType == null || "".equals(luggageType) ||
+//                luggageBrand == null || "".equals(luggageBrand) ||
+//                luggageColor == null || "".equals(luggageColor) ||
+//                luggageSignatures == null || "".equals(luggageSignatures)
+//                ) {
+//            System.out.println("Een van de velden is leeg of null");
+//        } else {
+//            db.executeUpdateQuery("UPDATE `LostLuggage`.`foundLuggage` SET `type`='"+luggageType+"', `brand`='"+luggageBrand+"', `color`='"+luggageColor+"', `signatures`='"+luggageSignatures+"' WHERE `idfoundLuggage`='"+luggageId+"'");
+//            System.out.println("DB row is updated!");
+//        }
+   
         
     }
     
