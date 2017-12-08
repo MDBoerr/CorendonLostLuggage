@@ -300,16 +300,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
     
     @FXML
     public void saveEditings() throws SQLException{
-        
-
-        
-           // String luggageId = idField.getText();
-//        String luggageType = typeField.getText();
-//        String luggageBrand = brandField.getText();
-//        String luggageColor = colorField.getText();
-//        String luggageSignatures = signaturesField.getText();
-//        
-//        
+              
        
         
         MyJDBC db = MainApp.connectToDatabase();
@@ -329,42 +320,6 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
                 + "`passengerId`='"+ passangerId.getText()+"' "
                 + "WHERE `registrationNr`='"+registrationNr.getText()+"';");
         
-        
-//@FXML private JFXTextField registrationNr;
-//    @FXML private JFXTextField luggageTag;
-//    @FXML private JFXTextField type;
-//    @FXML private JFXTextField brand;
-//    @FXML private JFXTextField mainColor;
-//    @FXML private JFXTextField secondColor;
-//    @FXML private JFXTextField size;
-//    @FXML private JFXTextField weight;    
-//    @FXML private JFXTextArea signatures;
-//
-//    @FXML private JFXTextField passangerId;
-//    @FXML private JFXTextField passangerName;
-//    @FXML private JFXTextField address;        
-//    @FXML private JFXTextField place;
-//    @FXML private JFXTextField postalCode;
-//    @FXML private JFXTextField country;
-//    @FXML private JFXTextField email;   
-//    @FXML private JFXTextField phone;   
-//    
-//    @FXML private JFXTextField timeFound;
-//    @FXML private JFXTextField dateFound;
-//    @FXML private JFXTextField locationFound;
-//    @FXML private JFXTextField flight;
-//        System.out.println("result is:"+resultSet);
-//        if (    luggageType == null || "".equals(luggageType) ||
-//                luggageBrand == null || "".equals(luggageBrand) ||
-//                luggageColor == null || "".equals(luggageColor) ||
-//                luggageSignatures == null || "".equals(luggageSignatures)
-//                ) {
-//            System.out.println("Een van de velden is leeg of null");
-//        } else {
-//            db.executeUpdateQuery("UPDATE `LostLuggage`.`foundLuggage` SET `type`='"+luggageType+"', `brand`='"+luggageBrand+"', `color`='"+luggageColor+"', `signatures`='"+luggageSignatures+"' WHERE `idfoundLuggage`='"+luggageId+"'");
-//            System.out.println("DB row is updated!");
-//        }
-   
         
     }
 }
