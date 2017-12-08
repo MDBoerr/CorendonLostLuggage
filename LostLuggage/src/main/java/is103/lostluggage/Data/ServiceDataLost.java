@@ -27,9 +27,11 @@ public class ServiceDataLost {
         try {
 
             resultSet = db.executeResultSetQuery("SELECT * FROM lostLuggage");
-            System.out.println("=========================");
             System.out.println("==  Lost luggage tabel ==");
+            System.out.println("=========================");
             
+            //clear previous list -> so there wont be any duplicate luggage
+            ServiceDataLost.missedLuggageList.clear();
             
             while (resultSet.next()) {
                
@@ -52,7 +54,7 @@ public class ServiceDataLost {
                 String employeeId =         resultSet.getString("employeeId");
                 int matchedId =             resultSet.getInt("matchedId");
 
-
+                
                 //Per result -> toevoegen aan Luggages  (observable list) 
                 missedLuggageList.add(
                         new MissedLuggage(

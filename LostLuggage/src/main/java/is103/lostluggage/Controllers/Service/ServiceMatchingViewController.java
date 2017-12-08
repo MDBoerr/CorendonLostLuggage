@@ -621,6 +621,10 @@ public class ServiceMatchingViewController implements Initializable {
         matchOtherCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
         matchId.setCellValueFactory(                   new PropertyValueFactory<>("matchedId"));
         
+        //sort on match percentage
+        matchTabbleView.getSortOrder().add(matchPercentage);
+        
+        //set right matching 
         setMatchingTab(0);
     }
     public void setMatchingLuggageTable(ServiceDataFound dataListFound, ServiceDataLost datalistDataLost) throws SQLException{
