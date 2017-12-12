@@ -2,7 +2,6 @@ package is103.lostluggage.Data;
 
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
-import is103.lostluggage.Model.MissedLuggage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;

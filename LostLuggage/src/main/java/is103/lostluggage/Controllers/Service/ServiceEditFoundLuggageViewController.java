@@ -155,7 +155,8 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
                 //String employeeId =         resultSet.getString("employeeId");
                 //int matchedId =              resultSet.getInt("matchedId");
 
-            
+            // -> initialize current luggage's data
+            colorPicker2.setValue(getSecondColor);
                 
             registrationNr.setText(getRegistrationNr);  
             luggageTag.setText(getLuggageTag);
