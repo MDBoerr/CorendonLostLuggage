@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.MainViewController;
+import is103.lostluggage.Data.ServiceDataDetails;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import static is103.lostluggage.MainApp.getLanguage;
@@ -17,6 +18,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
@@ -71,47 +73,51 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
             Logger.getLogger(ServiceHomeViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-                //try to load initialize methode
+        //try to load initialize methode
         try {
             initializeFoundFields();
         } catch (SQLException ex) {
             Logger.getLogger(ServiceDetailedFoundLuggageController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-         colorPicker1.getItems().addAll(
-                "8002",
-                "4005", 
-                "2004", 
-                "6002");
-        colorPicker1.setValue("6002");
         
-        colorPicker2.getItems().addAll(
-                "8002",
-                "4005", 
-                "2004", 
-                "6002");
-         colorPicker2.setValue("2004");
+        
+        ServiceDataDetails colors = new ServiceDataDetails("color", "dutch", null);
+        try {
+            ObservableList<String> colorsStringList = colors.getStringList();
+            colorPicker1.getItems().addAll(colorsStringList);
+            colorPicker2.getItems().addAll(colorsStringList);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceEditFoundLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        // -> initialize current luggage's data
+        //colorPicker2.setValue("2004");
          
-         locationPicker.getItems().addAll(
-                "1",
-                "2", 
-                "3", 
-                "4",
-                "5",
-                "6");
-        locationPicker.setValue("1");
+
+        ServiceDataDetails locations = new ServiceDataDetails("location", "dutch", null);
+        try {
+            ObservableList<String> locationStringList = locations.getStringList();
+            locationPicker.getItems().addAll(locationStringList);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceEditFoundLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
+        // -> initialize current luggage's data
+        //locationPicker.setValue("1");
         
-        typePicker.getItems().addAll(
-                "1",
-                "2", 
-                "3", 
-                "4",
-                "5",
-                "6",
-                "7",
-                "8");
-        locationPicker.setValue("1");
+        ServiceDataDetails types = new ServiceDataDetails("luggagetype", "dutch", null);
+        try {
+            ObservableList<String> luggageStringList = types.getStringList();
+            typePicker.getItems().addAll(luggageStringList);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceEditFoundLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // -> initialize current luggage's data
+        //locationPicker.setValue("1");
+        
+        //will be removed
         checkFields();
     }    
     
@@ -126,6 +132,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         System.out.println("iD: "+id);
             MyJDBC db = MainApp.connectToDatabase();
             
+            //new query needed here
             ResultSet resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage WHERE registrationNr='"+id+"'");
                 
             while (resultSet.next()) {
@@ -300,9 +307,11 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
     
     @FXML
     public void saveEditings() throws SQLException{
-              
+        //-------------------------
+        //CHECK FIELDS + FEEDBACK !!   
+        //-------------------------
        
-        
+        //will be changed 
         MyJDBC db = MainApp.connectToDatabase();
         db.executeUpdateQuery("UPDATE `foundluggage` SET "
                 + "`dateFound`='"+dateFound.getText()+"', "
