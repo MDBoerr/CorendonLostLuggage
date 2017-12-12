@@ -74,7 +74,7 @@ public class ServiceHomeViewController implements Initializable {
 
     @FXML
     protected void toMissedLuggageView(ActionEvent event) throws IOException {
-        MainApp.switchView("/Views/Service/ServiceMissedOverviewView.fxml");
+        MainApp.switchView("/Views/Service/ServiceOverviewLostView.fxml");
     }
 
     @FXML

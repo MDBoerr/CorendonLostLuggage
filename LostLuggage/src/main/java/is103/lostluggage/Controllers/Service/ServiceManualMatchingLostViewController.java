@@ -4,7 +4,7 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
-import is103.lostluggage.Model.LuggageManualMatchMissed;
+import is103.lostluggage.Model.LuggageManualMatchLost;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +19,7 @@ import javafx.fxml.Initializable;
  *
  * @author Thijs Zijdel - 500782165
  */
-public class ServiceManualMatchingMissedViewController implements Initializable {
+public class ServiceManualMatchingLostViewController implements Initializable {
     
     
         public String language = "English";
@@ -68,7 +68,7 @@ public class ServiceManualMatchingMissedViewController implements Initializable 
         
     @FXML
     private void initializeFoundFields() throws SQLException{
-        String id = LuggageManualMatchMissed.getInstance().currentLuggage().getRegistrationNr();
+        String id = LuggageManualMatchLost.getInstance().currentLuggage().getRegistrationNr();
             MyJDBC db = MainApp.connectToDatabase();
             
             ResultSet resultSet = db.executeResultSetQuery("SELECT * FROM lostLuggage WHERE registrationNr='"+id+"'");

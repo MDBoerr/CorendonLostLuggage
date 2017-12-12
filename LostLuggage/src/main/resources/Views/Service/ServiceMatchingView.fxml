@@ -15,7 +15,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+
 <!--  @author Thijs Zijdel - 500782165 -->
+
 <GridPane prefHeight="586.0" prefWidth="1179.0" style="-fx-background-color: fff;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Service.ServiceMatchingViewController">
     <columnConstraints>
         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="957.3544311523438" minWidth="10.0" prefWidth="277.5" />
@@ -114,7 +116,7 @@
                                  </GridPane.margin>
                               </Text>
                               <Pane fx:id="foundPane" minHeight="200.0" prefHeight="300.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Pane fx:id="missedPane" minHeight="200.0" prefHeight="300.0" prefWidth="589.0" GridPane.rowIndex="1">
+                              <Pane fx:id="lostPane" minHeight="200.0" prefHeight="300.0" prefWidth="589.0" GridPane.rowIndex="1">
                                  <children>
                                     <JFXTextArea editable="false" layoutX="66.0" layoutY="21.0" prefHeight="198.0" prefWidth="435.0" text="The manual matching makes the process of checking the last values of a possible match a lot easier! You will be able to see and compare two luggages. 1 Lost and 1 Found in just 2 steps.&#10;&#10;STEP 1&#10;Double click on one of the table row's below.&#10;&#10;STEP 2&#10;On the full details popup click:&#10;At the right bottom: *manual matching*&#10;" />
                                  </children></Pane>
@@ -133,7 +135,7 @@
             <Insets left="10.0" />
          </GridPane.margin>
       </Text>
-      <TableView fx:id="missedLuggageTable" onMouseClicked="#missedRowClicked" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="2">
+      <TableView fx:id="lostLuggageTable" onMouseClicked="#lostRowClicked" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="2">
          <columns>
             <TableColumn fx:id="missedRegistrationNr" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="ID" />
             <TableColumn fx:id="missedDateLost" minWidth="80.0" text="Date" />

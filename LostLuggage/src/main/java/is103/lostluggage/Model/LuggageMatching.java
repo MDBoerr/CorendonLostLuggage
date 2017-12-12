@@ -73,7 +73,7 @@ public class LuggageMatching {
     /**
      * @return the registrationNrMissed
      */
-    public String getRegistrationNrMissed() {
+    public String getRegistrationNrLost() {
         return registrationNrMissed;
     }
 

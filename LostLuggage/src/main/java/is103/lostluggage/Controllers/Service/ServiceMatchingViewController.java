@@ -9,10 +9,10 @@ import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.FoundLuggage;
 import is103.lostluggage.Model.FoundLuggageDetails;
 import is103.lostluggage.Model.LuggageManualMatchFound;
-import is103.lostluggage.Model.LuggageManualMatchMissed;
+import is103.lostluggage.Model.LuggageManualMatchLost;
 import is103.lostluggage.Model.LuggageMatching;
-import is103.lostluggage.Model.MissedLuggage;
-import is103.lostluggage.Model.MissedLuggageDetails;
+import is103.lostluggage.Model.LostLuggage;
+import is103.lostluggage.Model.LostLuggageDetails;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -81,7 +81,7 @@ public class ServiceMatchingViewController implements Initializable {
     
     //popup stage
     public Stage popupStageFound = new Stage();   
-    public Stage popupStageMissed = new Stage(); 
+    public Stage popupStageLost = new Stage(); 
     
     //refresh rate                           
     public static long timeRate = 1; //s
@@ -95,7 +95,7 @@ public class ServiceMatchingViewController implements Initializable {
     
     //luggage's lists
     public static ObservableList<FoundLuggage> foundLuggageList;
-    public static ObservableList<MissedLuggage> missedLuggageList;
+    public static ObservableList<LostLuggage> lostLuggageList;
     
     
     //Matching tabs -> 1: automatic matching     2: manual matching
@@ -103,7 +103,7 @@ public class ServiceMatchingViewController implements Initializable {
 
     //Pannels for manual matching
     @FXML public Pane foundPane;
-    @FXML public Pane missedPane;
+    @FXML public Pane lostPane;
     
     public TableView[] fixingTables = new TableView[3];
     
@@ -131,23 +131,23 @@ public class ServiceMatchingViewController implements Initializable {
 
     //--------------------------------
     //    Table Lost initializen
-    @FXML private TableView<MissedLuggage> missedLuggageTable;
+    @FXML private TableView<LostLuggage> lostLuggageTable;
 
-    @FXML private TableColumn<MissedLuggage, String>  missedRegistrationNr;
-    @FXML private TableColumn<MissedLuggage, String>  missedDateLost;
-    @FXML private TableColumn<MissedLuggage, String>  missedTimeLost;
+    @FXML private TableColumn<LostLuggage, String>  missedRegistrationNr;
+    @FXML private TableColumn<LostLuggage, String>  missedDateLost;
+    @FXML private TableColumn<LostLuggage, String>  missedTimeLost;
     
-    @FXML private TableColumn<MissedLuggage, String>  missedLuggageTag;
-    @FXML private TableColumn<MissedLuggage, String>  missedLuggageType;
-    @FXML private TableColumn<MissedLuggage, String>  missedBrand;
-    @FXML private TableColumn<MissedLuggage, Integer> missedMainColor;
-    @FXML private TableColumn<MissedLuggage, String>  missedSecondColor;
-    @FXML private TableColumn<MissedLuggage, Integer> missedSize;
-    @FXML private TableColumn<MissedLuggage, String>  missedWeight;
-    @FXML private TableColumn<MissedLuggage, String>  missedOtherCharacteristics;
-    @FXML private TableColumn<MissedLuggage, Integer> missedPassengerId;
+    @FXML private TableColumn<LostLuggage, String>  missedLuggageTag;
+    @FXML private TableColumn<LostLuggage, String>  missedLuggageType;
+    @FXML private TableColumn<LostLuggage, String>  missedBrand;
+    @FXML private TableColumn<LostLuggage, Integer> missedMainColor;
+    @FXML private TableColumn<LostLuggage, String>  missedSecondColor;
+    @FXML private TableColumn<LostLuggage, Integer> missedSize;
+    @FXML private TableColumn<LostLuggage, String>  missedWeight;
+    @FXML private TableColumn<LostLuggage, String>  missedOtherCharacteristics;
+    @FXML private TableColumn<LostLuggage, Integer> missedPassengerId;
     
-    @FXML private TableColumn<MissedLuggage, String>  missedFlight;
+    @FXML private TableColumn<LostLuggage, String>  missedFlight;
     
     
     //--------------------------------
@@ -207,8 +207,8 @@ public class ServiceMatchingViewController implements Initializable {
         ServiceDataFound dataListFound;
         try {
             dataListLost = new ServiceDataLost();
-            initializeMissedLuggageTable();
-            setMissedLuggageTable(dataListLost);
+            initializeLostLuggageTable();
+            setLostLuggageTable(dataListLost);
         
         
             dataListFound = new ServiceDataFound();
@@ -228,7 +228,7 @@ public class ServiceMatchingViewController implements Initializable {
         //Stop Tables from being able to re position/ order
         // -   -   -   -   -   -   -
         fixingTables[0]=foundLuggageTable;
-        fixingTables[1]=missedLuggageTable;
+        fixingTables[1]=lostLuggageTable;
         fixingTables[2]=matchTabbleView;
         
         for (int i = 0; i < fixingTables.length; i++) {
@@ -241,14 +241,14 @@ public class ServiceMatchingViewController implements Initializable {
     public void resetManualMatching(){
         if (MainApp.refreshMatching == true){
         LuggageManualMatchFound.getInstance().currentLuggage().setRegistrationNr(null);
-        LuggageManualMatchMissed.getInstance().currentLuggage().setRegistrationNr(null);
+        LuggageManualMatchLost.getInstance().currentLuggage().setRegistrationNr(null);
         }
     }
     
     /**  
      * @void 
      */ 
-    public void initializeMissedLuggageTable(){
+    public void initializeLostLuggageTable(){
         missedRegistrationNr.setCellValueFactory(      new PropertyValueFactory<>("registrationNr"));
         missedDateLost.setCellValueFactory(            new PropertyValueFactory<>("dateFound"));  //-> lost
         missedTimeLost.setCellValueFactory(            new PropertyValueFactory<>("timeFound"));
@@ -269,8 +269,8 @@ public class ServiceMatchingViewController implements Initializable {
 //        missedEmployeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
 //        missedMatchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId"));    
     }
-    public void setMissedLuggageTable(ServiceDataLost dataListLost){
-        missedLuggageTable.setItems(dataListLost.getMissedLuggage());   
+    public void setLostLuggageTable(ServiceDataLost dataListLost){
+        lostLuggageTable.setItems(dataListLost.getLostLuggage());   
     }
     
     /**  
@@ -319,13 +319,13 @@ public class ServiceMatchingViewController implements Initializable {
     /**  
      * @void doubleClickMissedRow
      */
-    public void missedRowClicked() {
-        missedLuggageTable.setOnMousePressed((MouseEvent event) -> {
+    public void lostRowClicked() {
+        lostLuggageTable.setOnMousePressed((MouseEvent event) -> {
                                 //--> event         //--> double click
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
                 
-                setDetailsOfRow("missed", event, popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml", "missed");
-                setAndOpenPopUpDetails("missed", popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml", "missed");
+                setDetailsOfRow("lost", event, popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "lost");
+                setAndOpenPopUpDetails("lost", popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "lost");
                 
             }
         });
@@ -339,8 +339,8 @@ public class ServiceMatchingViewController implements Initializable {
                                 //--> event         //--> double click
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {  
                 //I set the details of the double clicked row (matched here)
-                //In 2 objects, FoundLuggageDetails & MissedLuggageDetails)
-                setDetailsOfRow("match", event, popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml", "match");
+                //In 2 objects, FoundLuggageDetails & lostLuggageDetails)
+                setDetailsOfRow("match", event, popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "match");
                 
                 //openPopUpDetails() --> popup in this case not neccesary 
 
@@ -354,10 +354,10 @@ public class ServiceMatchingViewController implements Initializable {
                     //initialize the right data in the found pane
                     idCheckFound = addToManualMatching(foundPane, 1, idCheckFound, idFound, TempIdFound, "/Views/Service/ServiceManualMatchingFoundView.fxml");
 
-                    //repeating same steps as found luggage -> here for: missed/lost
-                    LuggageManualMatchMissed.getInstance().currentLuggage().setRegistrationNr( MissedLuggageDetails.getInstance().currentLuggage().getRegistrationNr() );
-                    String TempIdMissed = LuggageManualMatchMissed.getInstance().currentLuggage().getRegistrationNr();
-                    idCheckLost = addToManualMatching(missedPane, 1, idCheckLost, idLost, TempIdMissed, "/Views/Service/ServiceManualMatchingMissedView.fxml");
+                    //repeating same steps as found luggage -> here for: lost
+                    LuggageManualMatchLost.getInstance().currentLuggage().setRegistrationNr(LostLuggageDetails.getInstance().currentLuggage().getRegistrationNr() );
+                    String TempIdLost = LuggageManualMatchLost.getInstance().currentLuggage().getRegistrationNr();
+                    idCheckLost = addToManualMatching(lostPane, 1, idCheckLost, idLost, TempIdLost, "/Views/Service/ServiceManualMatchingLostView.fxml");
     
                 
                   
@@ -378,14 +378,14 @@ public class ServiceMatchingViewController implements Initializable {
                     tableRowGet = (TableRow) node.getParent();
             }
              
-        if ("missed".equals(type)){
+        if ("lost".equals(type)){
             //get the right found luggage object -> place this in getDetailObj
-            MissedLuggage getDetailObj = (MissedLuggage) tableRowGet.getItem();
+            LostLuggage getDetailObj = (LostLuggage) tableRowGet.getItem();
             
             //Detail object setten -> so it is posible to take this in the next fxml
             
-            //MissedLuggageDetails.getInstance().currentLuggage() .setRegistrationNr(getDetailObj.getRegistrationNr());
-            MissedLuggage route = MissedLuggageDetails.getInstance().currentLuggage();
+            //LostLuggageDetails.getInstance().currentLuggage() .setRegistrationNr(getDetailObj.getRegistrationNr());
+            LostLuggage route = LostLuggageDetails.getInstance().currentLuggage();
             route.setRegistrationNr(getDetailObj.getRegistrationNr());
             
             //----
@@ -408,7 +408,7 @@ public class ServiceMatchingViewController implements Initializable {
             //  -   -   -   -   -   -   -   -   -
             LuggageMatching getDetailObj = (LuggageMatching) tableRowGet.getItem();
             FoundLuggageDetails.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNrFound());
-            MissedLuggageDetails.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNrMissed());
+            LostLuggageDetails.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNrLost());
 
         }
     }
@@ -416,7 +416,7 @@ public class ServiceMatchingViewController implements Initializable {
     
     public void setAndOpenPopUpDetails(String type, Stage stageType, String stageLink, String popupKey){
         //switchen naar detailed view dmv: popup
-        if ("found".equals(type) || "missed".equals(type)){
+        if ("found".equals(type) || "lost".equals(type)){
             try {
                 popUpDetails(stageType, stageLink, popupKey);
             } catch (IOException ex) {
@@ -424,7 +424,7 @@ public class ServiceMatchingViewController implements Initializable {
             }
         } else if ("match".equals(type)){
             try {
-                popUpDetails(popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml", popupKey);
+                popUpDetails(popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", popupKey);
                 popUpDetails(popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", popupKey);
             } catch (IOException ex) {
                 Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -441,7 +441,7 @@ public class ServiceMatchingViewController implements Initializable {
                 
                 if ("found".equals(type)){
                     stage.setX(screenBounds.getMinX() + screenBounds.getWidth() - 10);
-                } else if ("missed".equals(type)) {
+                } else if ("lost".equals(type)) {
                     stage.setX(screenBounds.getMaxX() - screenBounds.getWidth() - 10);
                 } else if ("match".equals(type)){
                     //if popup details are being used in the coming changes
@@ -479,7 +479,7 @@ public class ServiceMatchingViewController implements Initializable {
     public void callMethods(){
         //Methodes calling at rate of --> int:  timeRate   //2s
         addToManualFound();
-        addToManualMissed();
+        addToManualLost();
         
         if (MainApp.serviceChangeValue != 99){
             if(MainApp.serviceChangeValue == 0){ //0 = potentialMatches 
@@ -501,9 +501,9 @@ public class ServiceMatchingViewController implements Initializable {
     
     
     //Event listner add luggage to manual matching
-    public void addToManualMissed() {
-        String idManualMatching = LuggageManualMatchMissed.getInstance().currentLuggage().getRegistrationNr();
-        idCheckLost = addToManualMatching(missedPane, 1, idCheckLost, idLost, idManualMatching, "/Views/Service/ServiceManualMatchingMissedView.fxml");
+    public void addToManualLost() {
+        String idManualMatching = LuggageManualMatchLost.getInstance().currentLuggage().getRegistrationNr();
+        idCheckLost = addToManualMatching(lostPane, 1, idCheckLost, idLost, idManualMatching, "/Views/Service/ServiceManualMatchingLostView.fxml");
     } 
     
     
@@ -518,9 +518,9 @@ public class ServiceMatchingViewController implements Initializable {
     
     //Event listner add luggage to manual matching
     public void removeManualLost() {
-        LuggageManualMatchMissed.getInstance().currentLuggage().setRegistrationNr(null);
+        LuggageManualMatchLost.getInstance().currentLuggage().setRegistrationNr(null);
         idCheckLost = 9999;
-        missedPane.getChildren().clear();
+        lostPane.getChildren().clear();
         
     } 
    
@@ -628,7 +628,7 @@ public class ServiceMatchingViewController implements Initializable {
         setMatchingTab(0);
     }
     public void setMatchingLuggageTable(ServiceDataFound dataListFound, ServiceDataLost datalistDataLost) throws SQLException{
-        matchTabbleView.setItems(autoMatching(dataListFound.getFoundLuggage(), datalistDataLost.getMissedLuggage())); 
+        matchTabbleView.setItems(autoMatching(dataListFound.getFoundLuggage(), datalistDataLost.getLostLuggage())); 
     }
     
     
@@ -637,11 +637,11 @@ public class ServiceMatchingViewController implements Initializable {
      * @params
      * @return matchingList
      */
-    public ObservableList<LuggageMatching> autoMatching(ObservableList<FoundLuggage> foundList, ObservableList<MissedLuggage> missedList){
+    public ObservableList<LuggageMatching> autoMatching(ObservableList<FoundLuggage> foundList, ObservableList<LostLuggage> lostList){
         ObservableList<LuggageMatching> matchingList = FXCollections.observableArrayList();
         
-        //Start looping every item of missed list
-        missedList.forEach((lost) -> {
+        //Start looping every item of lost list
+        lostList.forEach((lost) -> {
 
             //With every item of found list
             foundList.forEach((found) -> {
@@ -758,7 +758,7 @@ public class ServiceMatchingViewController implements Initializable {
     
     @FXML
     protected void switchToMissed(ActionEvent event) throws IOException {
-        MainApp.switchView("/Views/Service/ServiceMissedOverviewView.fxml");
+        MainApp.switchView("/Views/Service/ServiceOverviewLostView.fxml");
     }
     
     
