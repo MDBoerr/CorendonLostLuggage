@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -8,7 +9,6 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Text?>
 
 <!--  @author Thijs Zijdel - 500782165 -->
 
@@ -48,15 +48,12 @@
               </rowConstraints>
                <children>
                   <JFXTextField fx:id="registrationNr" focusColor="#a7a7a7" labelFloat="true" promptText="Registration Nr" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#ababab" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-                  <JFXTextField fx:id="type" focusColor="#a7a7a7" labelFloat="true" promptText="Type" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#ababab" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
                   <JFXTextField fx:id="brand" focusColor="#a7a7a7" labelFloat="true" promptText="Brand" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#ababab" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
-                  <JFXTextField fx:id="mainColor" focusColor="#a7a7a7" labelFloat="true" promptText="Main Color" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#ababab" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="BOTTOM" />
                   <JFXTextArea fx:id="signatures" editable="false" focusColor="#a7a7a7" labelFloat="true" prefHeight="115.0" prefWidth="282.0" promptText="Signatures" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#ababab" GridPane.columnIndex="1" GridPane.rowIndex="9" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
-                        <Insets bottom="10.0" top="15.0" />
+                        <Insets bottom="10.0" top="25.0" />
                      </GridPane.margin>
                   </JFXTextArea>
-                  <JFXTextField fx:id="secondColor" focusColor="#a7a7a7" labelFloat="true" promptText="Second Color" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#ababab" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
                   <JFXTextField fx:id="luggageTag" focusColor="#a7a7a7" labelFloat="true" promptText="Luggage Tag" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#ababab" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
                   <JFXTextField fx:id="size" focusColor="#a7a7a7" labelFloat="true" promptText="Size" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#ababab" GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
                   <JFXTextField fx:id="weight" focusColor="#a7a7a7" labelFloat="true" promptText="Weight" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#ababab" GridPane.columnIndex="1" GridPane.rowIndex="8" GridPane.valignment="BOTTOM" />
@@ -100,7 +97,9 @@
                         <JFXButton fx:id="viewPotentialsButton" buttonType="RAISED" prefHeight="30.0" prefWidth="124.0" ripplerFill="#e8ab28" style="-fx-background-color: #fbc756#fbc756;" text="View potentials" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                      </children>
                   </GridPane>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback when editting, saving, get colors etc. &gt; Will be implimented soon!" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <JFXComboBox fx:id="colorPicker2" focusColor="#a7a7a7" labelFloat="true" maxWidth="364.0" minWidth="125.0" prefWidth="175.0" promptText="Secondary Color" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#ababab" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
+                  <JFXComboBox fx:id="colorPicker1" focusColor="#a7a7a7" labelFloat="true" maxWidth="364.0" minWidth="125.0" prefWidth="175.0" promptText="Main color" style="-fx-prompt-text-fill: #b1b1b1 #b1b1b1;" unFocusColor="#ababab" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="BOTTOM" />
+                  <JFXComboBox fx:id="typePicker" focusColor="#a7a7a7" labelFloat="true" maxWidth="364.0" minWidth="125.0" prefWidth="175.0" promptText="Type" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#ababab" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
                </children>
             </GridPane>
          </children>

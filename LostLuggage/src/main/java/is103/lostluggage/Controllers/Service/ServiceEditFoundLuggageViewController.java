@@ -33,10 +33,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
 
     @FXML private JFXTextField registrationNr;
     @FXML private JFXTextField luggageTag;
-    @FXML private JFXTextField type;
     @FXML private JFXTextField brand;
-    @FXML private JFXTextField mainColor;
-    @FXML private JFXTextField secondColor;
     @FXML private JFXTextField size;
     @FXML private JFXTextField weight;    
     @FXML private JFXTextArea signatures;
@@ -52,7 +49,6 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
     
     @FXML private JFXTextField timeFound;
     @FXML private JFXTextField dateFound;
-    @FXML private JFXTextField locationFound;
     @FXML private JFXTextField flight;
     
     
@@ -165,16 +161,16 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
                 //int matchedId =              resultSet.getInt("matchedId");
 
             // -> initialize current luggage's data
+            colorPicker1.setValue(getMainColor);
             colorPicker2.setValue(getSecondColor);
+            locationPicker.setValue(getLocationFound);
+            typePicker.setValue(getLuggageType);
                 
             registrationNr.setText( Integer.toString(getRegistrationNr) );  
             luggageTag.setText(getLuggageTag);
             
-            type.setText(getLuggageType);
             brand.setText(getBrand);
              
-            mainColor.setText(getMainColor);
-            secondColor.setText(getSecondColor);
             size.setText(getSize);
             weight.setText(getWeight);
             signatures.setText(getOtherCharacteristics);
@@ -188,7 +184,6 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
             email.setText(getEmail);
             phone.setText(getPhone);
             
-            locationFound.setText(getLocationFound);
             dateFound.setText(getDateFound);
             timeFound.setText(getTimeFound);
             flight.setText(getFlight);

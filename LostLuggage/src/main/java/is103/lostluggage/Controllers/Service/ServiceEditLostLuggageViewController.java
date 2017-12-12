@@ -1,8 +1,10 @@
 package is103.lostluggage.Controllers.Service;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.MainViewController;
+import is103.lostluggage.Data.ServiceDataDetails;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import static is103.lostluggage.MainApp.getLanguage;
@@ -17,6 +19,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
@@ -29,10 +32,7 @@ public class ServiceEditLostLuggageViewController implements Initializable {
 
     @FXML private JFXTextField registrationNr;
     @FXML private JFXTextField luggageTag;
-    @FXML private JFXTextField type;
     @FXML private JFXTextField brand;
-    @FXML private JFXTextField mainColor;
-    @FXML private JFXTextField secondColor;
     @FXML private JFXTextField size;
     @FXML private JFXTextField weight;    
     @FXML private JFXTextArea signatures;
@@ -50,6 +50,9 @@ public class ServiceEditLostLuggageViewController implements Initializable {
     @FXML private JFXTextField dateLost;
     @FXML private JFXTextField flight;
     
+    @FXML private JFXComboBox colorPicker1;
+    @FXML private JFXComboBox colorPicker2;
+    @FXML private JFXComboBox typePicker;
     
          //view title
     private final String title = "Edit Lost Luggage";
@@ -71,6 +74,30 @@ public class ServiceEditLostLuggageViewController implements Initializable {
             Logger.getLogger(ServiceDetailedFoundLuggageController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        ServiceDataDetails colors = new ServiceDataDetails("color", "dutch", null);
+        try {
+            ObservableList<String> colorsStringList = colors.getStringList();
+            colorPicker1.getItems().addAll(colorsStringList);
+            colorPicker2.getItems().addAll(colorsStringList);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceEditFoundLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        // -> initialize current luggage's data
+        //colorPicker2.setValue("2004");
+         
+
+        
+        ServiceDataDetails types = new ServiceDataDetails("luggagetype", "dutch", null);
+        try {
+            ObservableList<String> luggageStringList = types.getStringList();
+            typePicker.getItems().addAll(luggageStringList);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceEditFoundLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // -> initialize current luggage's data
+        //locationPicker.setValue("1");
     }   
     
     @FXML
@@ -111,15 +138,15 @@ public class ServiceEditLostLuggageViewController implements Initializable {
                 //int matchedId =              resultSet.getInt("matchedId");
 
             
-                
+            colorPicker1.setValue(getMainColor);
+            colorPicker2.setValue(getSecondColor);
+            typePicker.setValue(getLuggageType);
+            
             registrationNr.setText( Integer.toString(getRegistrationNr) );  
             luggageTag.setText(getLuggageTag);
             
-            type.setText(getLuggageType);
             brand.setText(getBrand);
              
-            mainColor.setText(getMainColor);
-            secondColor.setText(getSecondColor);
             size.setText(getSize);
             weight.setText(getWeight);
             signatures.setText(getOtherCharacteristics);
