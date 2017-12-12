@@ -71,8 +71,6 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
             Logger.getLogger(ServiceDetailedFoundLuggageController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
-        checkFields();
   
     }   
     
@@ -123,17 +121,17 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
                         "COALESCE(NULLIF(P.email,''), 'unknown') as `P.email`," +
                         "COALESCE(NULLIF(P.phone,''), 'unknown') as `P.phone` " +
                             "FROM foundluggage AS F " +
-                                "INNER JOIN luggagetype AS T " +
+                                "LEFT JOIN luggagetype AS T " +
                                 "	ON F.luggageType = T.luggageTypeId " +
-                                "INNER JOIN color AS C1 " +
+                                "LEFT JOIN color AS C1 " +
                                 "	ON F.mainColor = C1.ralCode " +
-                                "INNER JOIN color AS C2 " +
+                                "LEFT JOIN color AS C2 " +
                                 "	ON F.secondColor = C2.ralCode " +
-                                "INNER JOIN location AS L " +
+                                "LEFT JOIN location AS L " +
                                 "	ON F.locationFound = L.locationId " +
                                 "LEFT JOIN passenger AS P " +
                                 "	ON (F.passengerId = P.passengerId) " +
-                            "WHERE registrationNr=' "+id+" ';");
+                            "WHERE registrationNr='"+id+"';");
             
             
             
