@@ -6,7 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
 
 import is103.lostluggage.Controllers.MainViewController;
-import is103.lostluggage.Data.ServiceDataFound;
+import is103.lostluggage.Model.Service.Data.ServiceDataFound;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
@@ -19,8 +19,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import is103.lostluggage.Database.MyJDBC;
-import is103.lostluggage.Model.FoundLuggage;
-import is103.lostluggage.Model.FoundLuggageDetails;
+import is103.lostluggage.Model.Service.Model.FoundLuggage;
+import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetails;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;

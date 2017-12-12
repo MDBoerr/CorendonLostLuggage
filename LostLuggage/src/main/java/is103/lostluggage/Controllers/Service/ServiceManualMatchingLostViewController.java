@@ -4,7 +4,7 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
-import is103.lostluggage.Model.LuggageManualMatchLost;
+import is103.lostluggage.Model.Service.Instance.Matching.LuggageManualMatchLost;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;

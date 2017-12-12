@@ -5,9 +5,9 @@ import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import static is103.lostluggage.MainApp.getLanguage;
-import is103.lostluggage.Model.FoundLuggage;
-import is103.lostluggage.Model.FoundLuggageDetails;
-import is103.lostluggage.Model.LuggageManualMatchFound;
+import is103.lostluggage.Model.Service.Model.FoundLuggage;
+import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetails;
+import is103.lostluggage.Model.Service.Instance.Matching.LuggageManualMatchFound;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -75,9 +75,6 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
     }   
     
     
-         //Not closable & no borders
-     ////   popupStageEditingView.initStyle(StageStyle.TRANSPARENT);
-        //popUpDetails(popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml", popupKey);
     @FXML
     public void openEditView() throws IOException{
         Stage stage = (Stage) registrationNr.getScene().getWindow();
@@ -137,9 +134,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
             
             while (resultSet.next()) {             
                 int getRegistrationNr =     resultSet.getInt("F.registrationNr");
-                System.out.println("MADE");
                 String getDateFound =          resultSet.getString("F.dateFound");
-                System.out.println("it");
                 String getTimeFound =          resultSet.getString("F.timeFound");
                 
                 String getLuggageTag =         resultSet.getString("F.luggageTag");
@@ -161,8 +156,6 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
                 String getEmail =          resultSet.getString("P.email");
                 String getPhone =          resultSet.getString("P.phone");
                 
-                
-                
                 String getFlight =              resultSet.getString("F.arrivedWithFlight"); 
                 String getLocationFound =       resultSet.getString("L.dutch");
                 //String employeeId =         resultSet.getString("employeeId");
@@ -173,24 +166,15 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
             registrationNr.setText( Integer.toString(getRegistrationNr) );  
             luggageTag.setText(getLuggageTag);
             
-            //setType(db,getLuggageType);
             type.setText(getLuggageType);
             brand.setText(getBrand);
-            
-            //setColor(db, getMainColor); 
+             
             mainColor.setText(getMainColor);
-            //setSecondColor(db, getSecondColor);
             secondColor.setText(getSecondColor);
-            
-          
             size.setText(getSize);
-            
-           // String setWeight = Integer.toString(getWeight);
             weight.setText(getWeight);
-            
             signatures.setText(getOtherCharacteristics);
-            
-            //setPassenger(db, getPassengerId);
+
             passangerId.setText( Integer.toString(getPassengerId) );
             passangerName.setText(getName);
             address.setText(getAddress);
@@ -200,25 +184,11 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
             email.setText(getEmail);
             phone.setText(getPhone);
             
-            
-            
-            
-            
-            //setLocation(db, getLocationFound);
             locationFound.setText(getLocationFound);
             dateFound.setText(getDateFound);
             timeFound.setText(getTimeFound);
             flight.setText(getFlight);
-            
-            
-            
-
             }
-//            if (luggageTag.getText().equals("")){luggageTag.setText("Unknown");}
-//            if (brand.getText().equals("")){brand.setText("Unknown");}
-//            if (signatures.getText().equals("")){signatures.setText("None");}
-//            if (flight.getText().equals("")){flight.setText("Unknown");}
-        
     }
     
     
