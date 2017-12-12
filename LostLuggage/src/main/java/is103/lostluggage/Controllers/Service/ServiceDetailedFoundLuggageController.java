@@ -29,10 +29,6 @@ import javafx.stage.Stage;
  * @author Thijs Zijdel - 500782165
  */
 public class ServiceDetailedFoundLuggageController implements Initializable {
-   
-        
-
-    
     @FXML private JFXTextField registrationNr;
     @FXML private JFXTextField luggageTag;
     @FXML private JFXTextField type;
@@ -71,15 +67,12 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
             Logger.getLogger(ServiceDetailedFoundLuggageController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
+        //will be removed
         checkFields();
   
     }   
     
     
-         //Not closable & no borders
-     ////   popupStageEditingView.initStyle(StageStyle.TRANSPARENT);
-        //popUpDetails(popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml", popupKey);
     @FXML
     public void openEditView() throws IOException{
         Stage stage = (Stage) registrationNr.getScene().getWindow();
@@ -98,6 +91,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
         System.out.println("iD: "+id);
             MyJDBC db = MainApp.connectToDatabase();
             
+            //New sql query is needed here
             ResultSet resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage WHERE registrationNr='"+id+"'");
                 
             while (resultSet.next()) {
@@ -135,7 +129,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
             size.setText(setSize);
             
             String setWeight = Integer.toString(getWeight);
-        weight.setText(setWeight);
+            weight.setText(setWeight);
             
             signatures.setText(getOtherCharacteristics);
             
@@ -150,15 +144,11 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
             
 
             }
-//            if (luggageTag.getText().equals("")){luggageTag.setText("Unknown");}
-//            if (brand.getText().equals("")){brand.setText("Unknown");}
-//            if (signatures.getText().equals("")){signatures.setText("None");}
-//            if (flight.getText().equals("")){flight.setText("Unknown");}
-        
     }
     
     @FXML
     private void setColor(MyJDBC db, int colorD) throws SQLException {
+        //will be removed
         ResultSet result_color = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+colorD+"'");
         while (result_color.next()) {    
             String color = result_color.getString(getLanguage());
@@ -168,6 +158,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
     }
     @FXML
     private void setType(MyJDBC db, int luggageType) throws SQLException {
+        //will be removed
         ResultSet result_type = db.executeResultSetQuery("SELECT * FROM luggagetype WHERE luggageTypeId='"+luggageType+"'");
         while (result_type.next()) {    
             String typeGotten = result_type.getString(getLanguage());
@@ -178,6 +169,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
     }
     @FXML
     private void setSecondColor(MyJDBC db, int secondColor2) throws SQLException {
+        //will be removed
         ResultSet result_second = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+secondColor2+"'");
         while (result_second.next()) {    
             String color = result_second.getString(getLanguage());
@@ -187,6 +179,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
     }     
     @FXML
     private void setPassenger(MyJDBC db, int passengerIdG) throws SQLException {
+        //will be removed
         String idString = Integer.toString(passengerIdG);
          
         ResultSet result_second = db.executeResultSetQuery("SELECT * FROM passenger WHERE passengerId='"+idString+"'");
@@ -221,6 +214,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
     }
     @FXML
     private void setLocation(MyJDBC db, int locationFoundG) throws SQLException {
+        //will be removed
         String locationId = Integer.toString(locationFoundG);
         ResultSet result = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+locationId+"'");
         while (result.next()) {    
@@ -233,6 +227,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
     
     @FXML
     public void checkFields(){
+        //will be removed
         System.out.println("type.getText(): "+type.getText() );
         
         if (type.getText() == null){type.setText("Unknown");}

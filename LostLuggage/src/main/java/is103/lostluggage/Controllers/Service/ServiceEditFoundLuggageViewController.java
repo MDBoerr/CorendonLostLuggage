@@ -73,7 +73,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
             Logger.getLogger(ServiceHomeViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-                //try to load initialize methode
+        //try to load initialize methode
         try {
             initializeFoundFields();
         } catch (SQLException ex) {
@@ -90,21 +90,10 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(ServiceEditFoundLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        for (int i = 0; i < stringArrayList.length; i++) {
-//            
-//        }
-       
         
-         //colorPicker1.getItems().addAll(ObservableList);
-         
-//        colorPicker1.setValue("6002");
-//        
-//        colorPicker2.getItems().addAll(
-//                "8002",
-//                "4005", 
-//                "2004", 
-//                "6002");
-//         colorPicker2.setValue("2004");
+        
+        // -> initialize current luggage's data
+        //colorPicker2.setValue("2004");
          
 
         ServiceDataDetails locations = new ServiceDataDetails("location", "dutch", null);
@@ -114,15 +103,10 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(ServiceEditFoundLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-//         locationPicker.getItems().addAll(
-//                "1",
-//                "2", 
-//                "3", 
-//                "4",
-//                "5",
-//                "6");
-//        locationPicker.setValue("1");
-//        
+        
+        // -> initialize current luggage's data
+        //locationPicker.setValue("1");
+        
         ServiceDataDetails types = new ServiceDataDetails("luggagetype", "dutch", null);
         try {
             ObservableList<String> luggageStringList = types.getStringList();
@@ -130,16 +114,10 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(ServiceEditFoundLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        typePicker.getItems().addAll(
-//                "1",
-//                "2", 
-//                "3", 
-//                "4",
-//                "5",
-//                "6",
-//                "7",
-//                "8");
-//        locationPicker.setValue("1");
+        // -> initialize current luggage's data
+        //locationPicker.setValue("1");
+        
+        //will be removed
         checkFields();
     }    
     
@@ -154,6 +132,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         System.out.println("iD: "+id);
             MyJDBC db = MainApp.connectToDatabase();
             
+            //new query needed here
             ResultSet resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage WHERE registrationNr='"+id+"'");
                 
             while (resultSet.next()) {
@@ -328,9 +307,11 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
     
     @FXML
     public void saveEditings() throws SQLException{
-              
+        //-------------------------
+        //CHECK FIELDS + FEEDBACK !!   
+        //-------------------------
        
-        
+        //will be changed 
         MyJDBC db = MainApp.connectToDatabase();
         db.executeUpdateQuery("UPDATE `foundluggage` SET "
                 + "`dateFound`='"+dateFound.getText()+"', "
