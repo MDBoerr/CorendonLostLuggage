@@ -101,27 +101,27 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
             
             ResultSet resultSet = db.executeResultSetQuery(""
                     + "SELECT " +
-                        "COALESCE(NULLIF(F.registrationNr,''), 'none') ," +
-                        "COALESCE(NULLIF(F.dateFound,''), 'unknown') , " +
-                        "COALESCE(NULLIF(F.timeFound,''), 'unknown') , " +
-                        "COALESCE(NULLIF(F.luggageTag,''), 'unknown') ,  " +
-                        "COALESCE(NULLIF(T.dutch,''), 'unknown') , " +
-                        "COALESCE(NULLIF(F.brand,''), 'unknown') ," +
-                        "COALESCE(NULLIF(C1.dutch,''), 'unknown') ,  " +
-                        "COALESCE(NULLIF(C2.dutch,''), 'none') ," +
-                        "COALESCE(NULLIF(F.size,''), 'unknown')	,  " +
-                        "COALESCE(NULLIF(F.weight,''), 'unknown') ," +
-                        "COALESCE(NULLIF(F.otherCharacteristics,''), 'none') ," +
-                        "COALESCE(NULLIF(F.arrivedWithFlight,''), 'unknown') ," +
-                        "COALESCE(NULLIF(L.dutch ,''), 'unknown') ," +
-                        "COALESCE(NULLIF(F.passengerId,''), 'none') ," +
-                        "COALESCE(NULLIF(P.name,''), 'unknown')  ," +
-                        "COALESCE(NULLIF(P.address,''), 'unknown') ," +
-                        "COALESCE(NULLIF(P.place,''), 'unknown') ," +
-                        "COALESCE(NULLIF(P.postalcode,''), 'unknown')  ," +
-                        "COALESCE(NULLIF(P.country,''), 'unknown') ," +
-                        "COALESCE(NULLIF(P.email,''), 'unknown') ," +
-                        "COALESCE(NULLIF(P.phone,''), 'unknown') " +
+                        "COALESCE(NULLIF(F.registrationNr,''), 'none') as `F.registrationNr`," +
+                        "COALESCE(NULLIF(F.dateFound,''), 'unknown') as `F.dateFound`, " +
+                        "COALESCE(NULLIF(F.timeFound,''), 'unknown') as `F.timeFound`, " +
+                        "COALESCE(NULLIF(F.luggageTag,''), 'unknown') as `F.luggageTag`,  " +
+                        "COALESCE(NULLIF(T.dutch,''), 'unknown') as `T.dutch`, " +
+                        "COALESCE(NULLIF(F.brand,''), 'unknown') as `F.brand`," +
+                        "COALESCE(NULLIF(C1.dutch,''), 'unknown') as `C1.dutch`,  " +
+                        "COALESCE(NULLIF(C2.dutch,''), 'none') as `C2.dutch`," +
+                        "COALESCE(NULLIF(F.size,''), 'unknown')	as `F.size`,  " +
+                        "COALESCE(NULLIF(F.weight,''), 'unknown') as `F.weight`," +
+                        "COALESCE(NULLIF(F.otherCharacteristics,''), 'none') as `F.otherCharacteristics`," +
+                        "COALESCE(NULLIF(F.arrivedWithFlight,''), 'unknown') as `F.arrivedWithFlight`," +
+                        "COALESCE(NULLIF(L.dutch ,''), 'unknown') as `L.dutch`," +
+                        "COALESCE(NULLIF(F.passengerId,''), 'none') as `F.passengerId`," +
+                        "COALESCE(NULLIF(P.name,''), 'unknown')  as `P.name`," +
+                        "COALESCE(NULLIF(P.address,''), 'unknown') as `P.address`," +
+                        "COALESCE(NULLIF(P.place,''), 'unknown') as `P.place`," +
+                        "COALESCE(NULLIF(P.postalcode,''), 'unknown')  as `P.postalcode`," +
+                        "COALESCE(NULLIF(P.country,''), 'unknown') as `P.country`," +
+                        "COALESCE(NULLIF(P.email,''), 'unknown') as `P.email`," +
+                        "COALESCE(NULLIF(P.phone,''), 'unknown') as `P.phone` " +
                             "FROM foundluggage AS F " +
                                 "INNER JOIN luggagetype AS T " +
                                 "	ON F.luggageType = T.luggageTypeId " +
@@ -137,10 +137,6 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
             
             
             
-      //      ResultSet resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage WHERE registrationNr='"+id+"'");
-//            "SELECT delivery, dateMatched, employee.firstname, foundluggage.registrationNr, passenger.name  FROM matched "
-//                    + "INNER JOIN employee ON matched.employeeId = employee.employeeId INNER JOIN foundluggage ON matched.foundluggage = foundluggage.registrationNr INNER JOIN passenger ON foundluggage.passengerId = passenger.passengerId");
-//    
             while (resultSet.next()) {             
                 int getRegistrationNr =     resultSet.getInt("F.registrationNr");
                 System.out.println("MADE");
@@ -153,8 +149,8 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
                 String getBrand =              resultSet.getString("F.brand");
                 String getMainColor =          resultSet.getString("c1.dutch");
                 String getSecondColor =        resultSet.getString("c2.dutch");
-                int getSize =                  resultSet.getInt("F.size");
-                int getWeight =                resultSet.getInt("F.weight");   
+                String getSize =               resultSet.getString("F.size");
+                String getWeight =                resultSet.getString("F.weight");   
                 String getOtherCharacteristics=resultSet.getString("F.otherCharacteristics");
                 
                 int getPassengerId =           resultSet.getInt("F.passengerId");
@@ -188,11 +184,11 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
             //setSecondColor(db, getSecondColor);
             secondColor.setText(getSecondColor);
             
-            String setSize = Integer.toString(getSize);
-            size.setText(setSize);
+          
+            size.setText(getSize);
             
-            String setWeight = Integer.toString(getWeight);
-            weight.setText(setWeight);
+           // String setWeight = Integer.toString(getWeight);
+            weight.setText(getWeight);
             
             signatures.setText(getOtherCharacteristics);
             
@@ -227,104 +223,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
         
     }
     
-    @FXML
-    private void setColor(MyJDBC db, int colorD) throws SQLException {
-        ResultSet result_color = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+colorD+"'");
-        while (result_color.next()) {    
-            String color = result_color.getString(getLanguage());
-            mainColor.setText(color);
-        }
-        
-    }
-    @FXML
-    private void setType(MyJDBC db, int luggageType) throws SQLException {
-        ResultSet result_type = db.executeResultSetQuery("SELECT * FROM luggagetype WHERE luggageTypeId='"+luggageType+"'");
-        while (result_type.next()) {    
-            String typeGotten = result_type.getString(getLanguage());
-            
-            type.setText(typeGotten);
-        }
-     
-    }
-    @FXML
-    private void setSecondColor(MyJDBC db, int secondColor2) throws SQLException {
-        ResultSet result_second = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+secondColor2+"'");
-        while (result_second.next()) {    
-            String color = result_second.getString(getLanguage());
-            secondColor.setText(color);
-        }
-       
-    }     
-    @FXML
-    private void setPassenger(MyJDBC db, int passengerIdG) throws SQLException {
-        String idString = Integer.toString(passengerIdG);
-         
-        ResultSet result_second = db.executeResultSetQuery("SELECT * FROM passenger WHERE passengerId='"+idString+"'");
-        System.out.println(idString);
-        System.out.println(result_second);
-        while (result_second.next()) {    
-            int idG = result_second.getInt("passengerId");
-            String nameG = result_second.getString("name");
-            String addressG = result_second.getString("address");
-            String placeG = result_second.getString("place");
-            String postalCodeG = result_second.getString("postalcode");
-            
-            String countryG = result_second.getString("country");
-            String emailG = result_second.getString("email");
-            String phoneG = result_second.getString("phone");
-            
-            String id = Integer.toString(idG);
-            
-
-            
-            
-            passangerId.setText(id);
-            passangerName.setText(nameG);
-            address.setText(addressG);
-            place.setText(placeG);
-            postalCode.setText(postalCodeG);
-            country.setText(countryG);
-            email.setText(emailG);
-            phone.setText(phoneG);
-        }
-
-    }
-    @FXML
-    private void setLocation(MyJDBC db, int locationFoundG) throws SQLException {
-        String locationId = Integer.toString(locationFoundG);
-        ResultSet result = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+locationId+"'");
-        while (result.next()) {    
-            String location = result.getString(getLanguage());
-            locationFound.setText(location);
-        } 
-       
-
-    }
     
-    @FXML
-    public void checkFields(){
-        System.out.println("type.getText(): "+type.getText() );
-        
-        if (type.getText() == null){type.setText("Unknown");}
-        if (luggageTag.getText() == null){luggageTag.setText("Unknown");}
-        if (brand.getText() == null){brand.setText("Unknown");}
-        if (signatures.getText() == null){signatures.setText("None");}
-        if (flight.getText() == null){flight.setText("Unknown");}
-            
-        if (mainColor.getText() == null){mainColor.setText("Unknown");}
-        if (secondColor.getText() == null){secondColor.setText("Unknown");}
-        
-        if (passangerId.getText() == null){passangerId.setText("");}
-        if (passangerName.getText() == null){passangerName.setText("Unknown");}
-        if (address.getText() == null){address.setText("Unknown");}
-        if (place.getText() == null){place.setText("Unknown");}
-        if (postalCode.getText() == null){postalCode.setText("Unknown");}
-        if (country.getText() == null){country.setText("Unknown");}
-        if (email.getText() == null){email.setText("Unknown");}
-        if (phone.getText() == null){phone.setText("Unknown");}
-        
-        if (locationFound.getText() == null){locationFound.setText("Unknown");}
-    }
    
     
     @FXML
