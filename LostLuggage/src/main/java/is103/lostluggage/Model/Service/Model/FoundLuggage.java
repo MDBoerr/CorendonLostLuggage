@@ -1,4 +1,4 @@
-package is103.lostluggage.Model;
+package is103.lostluggage.Model.Service.Model;
 
 /**
  *
