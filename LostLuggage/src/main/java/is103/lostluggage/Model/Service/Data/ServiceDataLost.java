@@ -1,9 +1,10 @@
-package is103.lostluggage.Data;
+package is103.lostluggage.Model.Service.Data;
 
+import is103.lostluggage.Model.Service.Data.ServiceDataFound;
 import is103.lostluggage.Controllers.Service.ServiceMatchingViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
-import is103.lostluggage.Model.LostLuggage;
+import is103.lostluggage.Model.Service.Model.LostLuggage;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -1,15 +1,15 @@
 package is103.lostluggage.Controllers.Service;
 
 import com.jfoenix.controls.JFXTextField;
-import is103.lostluggage.Model.LostLuggage;
+import is103.lostluggage.Model.Service.Model.LostLuggage;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.MainViewController;
-import is103.lostluggage.Data.ServiceDataFound;
-import is103.lostluggage.Data.ServiceDataLost;
+import is103.lostluggage.Model.Service.Data.ServiceDataFound;
+import is103.lostluggage.Model.Service.Data.ServiceDataLost;
 import is103.lostluggage.MainApp;
-import is103.lostluggage.Model.FoundLuggage;
-import is103.lostluggage.Model.FoundLuggageDetails;
-import is103.lostluggage.Model.LostLuggageDetails;
+import is103.lostluggage.Model.Service.Model.FoundLuggage;
+import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetails;
+import is103.lostluggage.Model.Service.Instance.Details.LostLuggageDetails;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;

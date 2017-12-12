@@ -1,4 +1,6 @@
-package is103.lostluggage.Model;
+package is103.lostluggage.Model.Service.Instance.Matching;
+
+import is103.lostluggage.Model.Service.Model.LostLuggage;
 
 /**
  *
