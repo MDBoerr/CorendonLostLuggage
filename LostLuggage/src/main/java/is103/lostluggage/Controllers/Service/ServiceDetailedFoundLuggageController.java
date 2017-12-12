@@ -135,7 +135,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
             size.setText(setSize);
             
             String setWeight = Integer.toString(getWeight);
-            weight.setText(setWeight);
+        weight.setText(setWeight);
             
             signatures.setText(getOtherCharacteristics);
             
