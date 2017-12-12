@@ -8,6 +8,7 @@ import is103.lostluggage.Data.ServiceDataDetails;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import static is103.lostluggage.MainApp.getLanguage;
+import is103.lostluggage.Model.Service.Data.ServiceDataFound;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetails;
 import is103.lostluggage.Model.Service.Instance.Matching.LuggageManualMatchFound;
@@ -117,8 +118,6 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         // -> initialize current luggage's data
         //locationPicker.setValue("1");
         
-        //will be removed
-        checkFields();
     }    
     
     
@@ -130,170 +129,74 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         
         String id = FoundLuggageDetails.getInstance().currentLuggage().getRegistrationNr();
         System.out.println("iD: "+id);
-            MyJDBC db = MainApp.connectToDatabase();
+            //            MyJDBC db = MainApp.connectToDatabase();
+            ServiceDataFound detailsItem = new ServiceDataFound();
+            ResultSet resultSet = detailsItem.getAllDetailsFound(id);
             
-            //new query needed here
-            ResultSet resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage WHERE registrationNr='"+id+"'");
+            
+            
+            while (resultSet.next()) {             
+                int getRegistrationNr =     resultSet.getInt("F.registrationNr");
+                String getDateFound =          resultSet.getString("F.dateFound");
+                String getTimeFound =          resultSet.getString("F.timeFound");
                 
-            while (resultSet.next()) {
-                String getRegistrationNr =     resultSet.getString("registrationNr");
-                String getDateFound =          resultSet.getString("dateFound");
-                String getTimeFound =          resultSet.getString("timeFound");
+                String getLuggageTag =         resultSet.getString("F.luggageTag");
+                String getLuggageType =        resultSet.getString("T.dutch");
+                String getBrand =              resultSet.getString("F.brand");
+                String getMainColor =          resultSet.getString("c1.dutch");
+                String getSecondColor =        resultSet.getString("c2.dutch");
+                String getSize =               resultSet.getString("F.size");
+                String getWeight =                resultSet.getString("F.weight");   
+                String getOtherCharacteristics=resultSet.getString("F.otherCharacteristics");
                 
-                String getLuggageTag =         resultSet.getString("luggageTag");
-                int getLuggageType =           resultSet.getInt("luggageType");
-                String getBrand =              resultSet.getString("brand");
-                int getMainColor =             resultSet.getInt("mainColor");
-                int getSecondColor =           resultSet.getInt("secondColor");
-                int getSize =                  resultSet.getInt("size");
-                int getWeight =                resultSet.getInt("weight");   
-                String getOtherCharacteristics=resultSet.getString("otherCharacteristics");
-                int getPassengerId =           resultSet.getInt("passengerId");
+                int getPassengerId =           resultSet.getInt("F.passengerId");
                 
-                String getFlight =              resultSet.getString("arrivedWithFlight"); 
-                int getLocationFound =         resultSet.getInt("locationFound");
+                String getName =          resultSet.getString("P.name");
+                String getAddress =          resultSet.getString("P.address");
+                String getPlace =          resultSet.getString("P.place");
+                String getPostalcode =          resultSet.getString("P.postalcode");
+                String getCountry =          resultSet.getString("P.country");
+                String getEmail =          resultSet.getString("P.email");
+                String getPhone =          resultSet.getString("P.phone");
+                
+                String getFlight =              resultSet.getString("F.arrivedWithFlight"); 
+                String getLocationFound =       resultSet.getString("L.dutch");
                 //String employeeId =         resultSet.getString("employeeId");
                 //int matchedId =              resultSet.getInt("matchedId");
 
             // -> initialize current luggage's data
             colorPicker2.setValue(getSecondColor);
                 
-            registrationNr.setText(getRegistrationNr);  
+            registrationNr.setText( Integer.toString(getRegistrationNr) );  
             luggageTag.setText(getLuggageTag);
             
-            setType(db,getLuggageType);
+            type.setText(getLuggageType);
             brand.setText(getBrand);
-            
-            setColor(db, getMainColor); 
-            setSecondColor(db, getSecondColor);
-            
-            String setSize = Integer.toString(getSize);
-            size.setText(setSize);
-            
-            String setWeight = Integer.toString(getWeight);
-            weight.setText(setWeight);
-            
+             
+            mainColor.setText(getMainColor);
+            secondColor.setText(getSecondColor);
+            size.setText(getSize);
+            weight.setText(getWeight);
             signatures.setText(getOtherCharacteristics);
+
+            passangerId.setText( Integer.toString(getPassengerId) );
+            passangerName.setText(getName);
+            address.setText(getAddress);
+            place.setText(getPlace);
+            postalCode.setText(getPostalcode);
+            country.setText(getCountry);
+            email.setText(getEmail);
+            phone.setText(getPhone);
             
-            setPassenger(db, getPassengerId);
-            
-            setLocation(db, getLocationFound);
+            locationFound.setText(getLocationFound);
             dateFound.setText(getDateFound);
             timeFound.setText(getTimeFound);
             flight.setText(getFlight);
-            
-            
-            
-
             }
 
         
     }
-    
-    @FXML
-    private void setColor(MyJDBC db, int colorD) throws SQLException {
-        //i will change this with inner joints (sql query)
-        ResultSet result_color = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+colorD+"'");
-        while (result_color.next()) {    
-            String color = result_color.getString(getLanguage());
-            mainColor.setText(color);
-        }
-        
-    }
-    @FXML
-    private void setType(MyJDBC db, int luggageType) throws SQLException {
-        //i will change this with inner joints (sql query)
-        ResultSet result_type = db.executeResultSetQuery("SELECT * FROM luggagetype WHERE luggageTypeId='"+luggageType+"'");
-        while (result_type.next()) {    
-            String typeGotten = result_type.getString(getLanguage());
-            
-            type.setText(typeGotten);
-        }
-     
-    }
-    @FXML
-    private void setSecondColor(MyJDBC db, int secondColor2) throws SQLException {
-        //i will change this with inner joints (sql query)
-        ResultSet result_second = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+secondColor2+"'");
-        while (result_second.next()) {    
-            String color = result_second.getString(getLanguage());
-            secondColor.setText(color);
-        }
-       
-    }     
-    @FXML
-    private void setPassenger(MyJDBC db, int passengerIdG) throws SQLException {
-        //i will change this with inner joints (sql query)
-        String idString = Integer.toString(passengerIdG);
-         
-        ResultSet result_second = db.executeResultSetQuery("SELECT * FROM passenger WHERE passengerId='"+idString+"'");
-        System.out.println(idString);
-        System.out.println(result_second);
-        while (result_second.next()) {    
-            int idG = result_second.getInt("passengerId");
-            String nameG = result_second.getString("name");
-            String addressG = result_second.getString("address");
-            String placeG = result_second.getString("place");
-            String postalCodeG = result_second.getString("postalcode");
-            
-            String countryG = result_second.getString("country");
-            String emailG = result_second.getString("email");
-            String phoneG = result_second.getString("phone");
-            
-            String id = Integer.toString(idG);
-            
 
-            
-            
-            passangerId.setText(id);
-            passangerName.setText(nameG);
-            address.setText(addressG);
-            place.setText(placeG);
-            postalCode.setText(postalCodeG);
-            country.setText(countryG);
-            email.setText(emailG);
-            phone.setText(phoneG);
-        }
-
-    }
-    @FXML
-    private void setLocation(MyJDBC db, int locationFoundG) throws SQLException {
-        //i will change this with inner joints (sql query)
-        String locationId = Integer.toString(locationFoundG);
-        ResultSet result = db.executeResultSetQuery("SELECT * FROM color WHERE ralCode='"+locationId+"'");
-        while (result.next()) {    
-            String location = result.getString(getLanguage());
-            locationFound.setText(location);
-        } 
-       
-
-    }
-    
-    @FXML
-    public void checkFields(){
-        //i will change this with is null (sql query)
-        System.out.println("type.getText(): "+type.getText() );
-        
-        if (type.getText() == null){type.setText("Unknown");}
-        if (luggageTag.getText() == null){luggageTag.setText("Unknown");}
-        if (brand.getText() == null){brand.setText("Unknown");}
-        if (signatures.getText() == null){signatures.setText("None");}
-        if (flight.getText() == null){flight.setText("Unknown");}
-            
-        if (mainColor.getText() == null){mainColor.setText("Unknown");}
-        if (secondColor.getText() == null){secondColor.setText("Unknown");}
-        
-        if (passangerId.getText() == null){passangerId.setText("");}
-        if (passangerName.getText() == null){passangerName.setText("Unknown");}
-        if (address.getText() == null){address.setText("Unknown");}
-        if (place.getText() == null){place.setText("Unknown");}
-        if (postalCode.getText() == null){postalCode.setText("Unknown");}
-        if (country.getText() == null){country.setText("Unknown");}
-        if (email.getText() == null){email.setText("Unknown");}
-        if (phone.getText() == null){phone.setText("Unknown");}
-        
-        if (locationFound.getText() == null){locationFound.setText("Unknown");}
-    }
     
     @FXML
     public void manualMatch() throws IOException{
