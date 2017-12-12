@@ -1,7 +1,7 @@
 package is103.lostluggage.Controllers.Service;
 
 import com.jfoenix.controls.JFXTextField;
-import is103.lostluggage.Model.MissedLuggage;
+import is103.lostluggage.Model.LostLuggage;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Data.ServiceDataFound;
@@ -9,7 +9,7 @@ import is103.lostluggage.Data.ServiceDataLost;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.FoundLuggage;
 import is103.lostluggage.Model.FoundLuggageDetails;
-import is103.lostluggage.Model.MissedLuggageDetails;
+import is103.lostluggage.Model.LostLuggageDetails;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -34,14 +34,14 @@ import javafx.stage.Stage;
  *
  * @author Thijs Zijdel - 500782165
  */
-public class ServiceMissedOverviewViewController implements Initializable {
+public class ServiceOverviewLostViewController implements Initializable {
 
             public Stage popupStageLost = new Stage();   
 
         //view title
     private final String title = "Overview Lost Luggage";
     
-    public static ObservableList<MissedLuggage> MissedLuggageList;
+    public static ObservableList<LostLuggage> MissedLuggageList;
     
     @FXML  
     private JFXTextField searchField;
@@ -53,25 +53,25 @@ public class ServiceMissedOverviewViewController implements Initializable {
          TableView missed luggage's colommen
     ----------------------------------------- */
     
-    @FXML private TableView<MissedLuggage> missedLuggageTable;
+    @FXML private TableView<LostLuggage> missedLuggageTable;
 
-    @FXML private TableColumn<MissedLuggage, String>  missedRegistrationNr;
-    @FXML private TableColumn<MissedLuggage, String>  missedDateLost;
-    @FXML private TableColumn<MissedLuggage, String>  missedTimeLost;
+    @FXML private TableColumn<LostLuggage, String>  missedRegistrationNr;
+    @FXML private TableColumn<LostLuggage, String>  missedDateLost;
+    @FXML private TableColumn<LostLuggage, String>  missedTimeLost;
     
-    @FXML private TableColumn<MissedLuggage, String>  missedLuggageTag;
-    @FXML private TableColumn<MissedLuggage, String>  missedLuggageType;
-    @FXML private TableColumn<MissedLuggage, String>  missedBrand;
-    @FXML private TableColumn<MissedLuggage, Integer> missedMainColor;
-    @FXML private TableColumn<MissedLuggage, String>  missedSecondColor;
-    @FXML private TableColumn<MissedLuggage, Integer> missedSize;
-    @FXML private TableColumn<MissedLuggage, String>  missedWeight;
-    @FXML private TableColumn<MissedLuggage, String>  missedOtherCharacteristics;
-    @FXML private TableColumn<MissedLuggage, Integer> missedPassengerId;
+    @FXML private TableColumn<LostLuggage, String>  missedLuggageTag;
+    @FXML private TableColumn<LostLuggage, String>  missedLuggageType;
+    @FXML private TableColumn<LostLuggage, String>  missedBrand;
+    @FXML private TableColumn<LostLuggage, Integer> missedMainColor;
+    @FXML private TableColumn<LostLuggage, String>  missedSecondColor;
+    @FXML private TableColumn<LostLuggage, Integer> missedSize;
+    @FXML private TableColumn<LostLuggage, String>  missedWeight;
+    @FXML private TableColumn<LostLuggage, String>  missedOtherCharacteristics;
+    @FXML private TableColumn<LostLuggage, Integer> missedPassengerId;
     
-    @FXML private TableColumn<MissedLuggage, String>  missedFlight;
-    @FXML private TableColumn<MissedLuggage, String>  missedEmployeeId;
-    @FXML private TableColumn<MissedLuggage, Integer> missedMatchedId;
+    @FXML private TableColumn<LostLuggage, String>  missedFlight;
+    @FXML private TableColumn<LostLuggage, String>  missedEmployeeId;
+    @FXML private TableColumn<LostLuggage, Integer> missedMatchedId;
     
    
 
@@ -94,7 +94,7 @@ public class ServiceMissedOverviewViewController implements Initializable {
         ServiceDataLost dataListLost;
         try {
             dataListLost = new ServiceDataLost();
-            initializeMissedLuggageTable(dataListLost.getMissedLuggage());
+            initializeMissedLuggageTable(dataListLost.getLostLuggage());
         } catch (SQLException ex) {
             Logger.getLogger(ServiceFoundOverviewViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -102,7 +102,7 @@ public class ServiceMissedOverviewViewController implements Initializable {
     
     
     
-    public void initializeMissedLuggageTable(ObservableList<MissedLuggage> dataList){
+    public void initializeMissedLuggageTable(ObservableList<LostLuggage> dataList){
         missedRegistrationNr.setCellValueFactory(       new PropertyValueFactory<>("registrationNr"));
         missedDateLost.setCellValueFactory(            new PropertyValueFactory<>("dateFound"));
         missedTimeLost.setCellValueFactory(            new PropertyValueFactory<>("timeFound"));
@@ -194,19 +194,21 @@ public class ServiceMissedOverviewViewController implements Initializable {
             }
              
              
-             MissedLuggage getDetailObj = (MissedLuggage) tableRowGet.getItem();
+             LostLuggage getDetailObj = (LostLuggage) tableRowGet.getItem();
             
             //repeat.. 
-            MissedLuggageDetails.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNr());
+            LostLuggageDetails.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNr());
               
                 try {
                     ServiceDataLost getDataLost = new ServiceDataLost();
                      getDataLost.popUpDetails(popupStageLost);
                 } catch (SQLException ex) {
-                    Logger.getLogger(ServiceMissedOverviewViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ServiceOverviewLostViewController.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
-                    Logger.getLogger(ServiceMissedOverviewViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ServiceOverviewLostViewController.class.getName()).log(Level.SEVERE, null, ex);
                 }
+               //setDetailsOfRow("found", event, popupStageLost, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
+                //setAndOpenPopUpDetails("found", popupStageLost, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
                //setDetailsOfRow("found", event, popupStageLost, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
                 //setAndOpenPopUpDetails("found", popupStageLost, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
               

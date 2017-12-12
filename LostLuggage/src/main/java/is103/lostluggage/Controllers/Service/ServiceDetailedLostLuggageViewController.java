@@ -5,9 +5,9 @@ import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import static is103.lostluggage.MainApp.getLanguage;
-import is103.lostluggage.Model.LuggageManualMatchMissed;
-import is103.lostluggage.Model.MissedLuggage;
-import is103.lostluggage.Model.MissedLuggageDetails;
+import is103.lostluggage.Model.LuggageManualMatchLost;
+import is103.lostluggage.Model.LostLuggage;
+import is103.lostluggage.Model.LostLuggageDetails;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -26,7 +26,7 @@ import javafx.stage.Stage;
  *
  * @author Thijs Zijdel - 500782165
  */
-public class ServiceDetailedMisseddLuggageViewController implements Initializable {
+public class ServiceDetailedLostLuggageViewController implements Initializable {
     
     @FXML private AnchorPane popupPain;
     @FXML private JFXTextField registrationNr;
@@ -79,7 +79,7 @@ public class ServiceDetailedMisseddLuggageViewController implements Initializabl
     
     @FXML
     private void initializeFoundFields() throws SQLException{
-        String id = MissedLuggageDetails.getInstance().currentLuggage().getRegistrationNr();
+        String id = LostLuggageDetails.getInstance().currentLuggage().getRegistrationNr();
 
         System.out.println("iD: "+id);
             MyJDBC db = MainApp.connectToDatabase();
@@ -247,8 +247,8 @@ public class ServiceDetailedMisseddLuggageViewController implements Initializabl
     @FXML
     protected void manualMatching(ActionEvent event){
         System.out.println("added to manual matching");
-        MissedLuggage passObject =  MissedLuggageDetails.getInstance().currentLuggage();
-        LuggageManualMatchMissed.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());
+        LostLuggage passObject =  LostLuggageDetails.getInstance().currentLuggage();
+        LuggageManualMatchLost.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());
         
         Stage stage = (Stage) registrationNr.getScene().getWindow();
         stage.close();

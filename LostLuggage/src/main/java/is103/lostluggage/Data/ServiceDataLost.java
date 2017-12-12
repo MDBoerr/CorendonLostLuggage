@@ -3,7 +3,7 @@ package is103.lostluggage.Data;
 import is103.lostluggage.Controllers.Service.ServiceMatchingViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
-import is103.lostluggage.Model.MissedLuggage;
+import is103.lostluggage.Model.LostLuggage;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +23,7 @@ import javafx.stage.Stage;
  * @author Thijs Zijdel - 500782165
  */
 public class ServiceDataLost {
-    public static ObservableList<MissedLuggage> missedLuggageList = FXCollections.observableArrayList(); 
+    public static ObservableList<LostLuggage> missedLuggageList = FXCollections.observableArrayList(); 
     private static final MyJDBC db = MainApp.connectToDatabase();
     private static ResultSet resultSet;
     
@@ -31,7 +31,7 @@ public class ServiceDataLost {
         ServiceDataLost.missedLuggageList = setMissedLuggage();
     }
     
-    public static ObservableList<MissedLuggage> setMissedLuggage() throws SQLException{
+    public static ObservableList<LostLuggage> setMissedLuggage() throws SQLException{
         try {
 
             resultSet = db.executeResultSetQuery("SELECT * FROM lostLuggage");
@@ -64,8 +64,7 @@ public class ServiceDataLost {
 
                 
                 //Per result -> toevoegen aan Luggages  (observable list) 
-                missedLuggageList.add(
-                        new MissedLuggage(
+                missedLuggageList.add(new LostLuggage(
                                 registrationNr, 
                                 dateLost, 
                                 timeLost, 
@@ -93,7 +92,7 @@ public class ServiceDataLost {
     }
       
       
-    public static ObservableList<MissedLuggage> getMissedLuggage(){
+    public static ObservableList<LostLuggage> getLostLuggage(){
          return ServiceDataLost.missedLuggageList;
     }
     

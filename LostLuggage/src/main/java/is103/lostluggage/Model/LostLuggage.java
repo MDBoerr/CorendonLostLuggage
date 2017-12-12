@@ -8,7 +8,7 @@ package is103.lostluggage.Model;
  * 
  * @author Thijs Zijdel - 500782165
  */
-public class MissedLuggage {
+public class LostLuggage {
      private String  
             registrationNr, 
             dateLost, 
@@ -44,7 +44,7 @@ public class MissedLuggage {
     private int
             matchedId;
 
-    public MissedLuggage(
+    public LostLuggage(
             String registrationNr, 
             String dateLost, 
             String timeLost, 
@@ -80,7 +80,7 @@ public class MissedLuggage {
 
     
 
-    public MissedLuggage() {
+    public LostLuggage() {
         
     }
 
