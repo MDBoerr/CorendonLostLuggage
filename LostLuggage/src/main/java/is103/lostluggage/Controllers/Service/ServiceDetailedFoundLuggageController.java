@@ -59,7 +59,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
     @FXML private JFXTextField flight;
     
 
-    
+      private String language = MainApp.getLanguage();  
     /**
      * Initializes the controller class.
      */
@@ -104,10 +104,10 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
                 String getTimeFound =          resultSet.getString("F.timeFound");
                 
                 String getLuggageTag =         resultSet.getString("F.luggageTag");
-                String getLuggageType =        resultSet.getString("T.dutch");
+                String getLuggageType =        resultSet.getString("T."+language+"");
                 String getBrand =              resultSet.getString("F.brand");
-                String getMainColor =          resultSet.getString("c1.dutch");
-                String getSecondColor =        resultSet.getString("c2.dutch");
+                String getMainColor =          resultSet.getString("c1."+language+"");
+                String getSecondColor =        resultSet.getString("c2."+language+"");
                 String getSize =               resultSet.getString("F.size");
                 String getWeight =                resultSet.getString("F.weight");   
                 String getOtherCharacteristics=resultSet.getString("F.otherCharacteristics");
@@ -123,7 +123,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
                 String getPhone =          resultSet.getString("P.phone");
                 
                 String getFlight =              resultSet.getString("F.arrivedWithFlight"); 
-                String getLocationFound =       resultSet.getString("L.dutch");
+                String getLocationFound =       resultSet.getString("L."+language+"");
                 //String employeeId =         resultSet.getString("employeeId");
                 //int matchedId =              resultSet.getInt("matchedId");
 

@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.paint.Paint;
 
 /**
  * FXML Controller class
@@ -59,6 +60,9 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
      //view title
     private final String title = "Edit Found Luggage";
     
+    
+    public String[] startValues;
+    private String language = MainApp.getLanguage();
     /**
      * Initializes the controller class.
      */
@@ -79,7 +83,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         
         
         
-        ServiceDataDetails colors = new ServiceDataDetails("color", "dutch", null);
+        ServiceDataDetails colors = new ServiceDataDetails("color", language, null);
         try {
             ObservableList<String> colorsStringList = colors.getStringList();
             colorPicker1.getItems().addAll(colorsStringList);
@@ -93,7 +97,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         //colorPicker2.setValue("2004");
          
 
-        ServiceDataDetails locations = new ServiceDataDetails("location", "dutch", null);
+        ServiceDataDetails locations = new ServiceDataDetails("location", language, null);
         try {
             ObservableList<String> locationStringList = locations.getStringList();
             locationPicker.getItems().addAll(locationStringList);
@@ -104,7 +108,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         // -> initialize current luggage's data
         //locationPicker.setValue("1");
         
-        ServiceDataDetails types = new ServiceDataDetails("luggagetype", "dutch", null);
+        ServiceDataDetails types = new ServiceDataDetails("luggagetype", language, null);
         try {
             ObservableList<String> luggageStringList = types.getStringList();
             typePicker.getItems().addAll(luggageStringList);
@@ -114,6 +118,8 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         // -> initialize current luggage's data
         //locationPicker.setValue("1");
         
+        
+        startValues = getFields();
     }    
     
     
@@ -137,10 +143,10 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
                 String getTimeFound =          resultSet.getString("F.timeFound");
                 
                 String getLuggageTag =         resultSet.getString("F.luggageTag");
-                String getLuggageType =        resultSet.getString("T.dutch");
+                String getLuggageType =        resultSet.getString("T."+language);
                 String getBrand =              resultSet.getString("F.brand");
-                String getMainColor =          resultSet.getString("c1.dutch");
-                String getSecondColor =        resultSet.getString("c2.dutch");
+                String getMainColor =          resultSet.getString("c1."+language);
+                String getSecondColor =        resultSet.getString("c2."+language);
                 String getSize =               resultSet.getString("F.size");
                 String getWeight =                resultSet.getString("F.weight");   
                 String getOtherCharacteristics=resultSet.getString("F.otherCharacteristics");
@@ -156,40 +162,75 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
                 String getPhone =          resultSet.getString("P.phone");
                 
                 String getFlight =              resultSet.getString("F.arrivedWithFlight"); 
-                String getLocationFound =       resultSet.getString("L.dutch");
+                String getLocationFound =       resultSet.getString("L."+language);
                 //String employeeId =         resultSet.getString("employeeId");
                 //int matchedId =              resultSet.getInt("matchedId");
-
-            // -> initialize current luggage's data
-            colorPicker1.setValue(getMainColor);
-            colorPicker2.setValue(getSecondColor);
-            locationPicker.setValue(getLocationFound);
-            typePicker.setValue(getLuggageType);
                 
-            registrationNr.setText( Integer.toString(getRegistrationNr) );  
-            luggageTag.setText(getLuggageTag);
-            
-            brand.setText(getBrand);
-             
-            size.setText(getSize);
-            weight.setText(getWeight);
-            signatures.setText(getOtherCharacteristics);
+                
+                
+                // -> initialize current luggage's data
+                colorPicker1.setValue(getMainColor);
+                colorPicker2.setValue(getSecondColor);
+                locationPicker.setValue(getLocationFound);
+                typePicker.setValue(getLuggageType);
 
-            passangerId.setText( Integer.toString(getPassengerId) );
-            passangerName.setText(getName);
-            address.setText(getAddress);
-            place.setText(getPlace);
-            postalCode.setText(getPostalcode);
-            country.setText(getCountry);
-            email.setText(getEmail);
-            phone.setText(getPhone);
-            
-            dateFound.setText(getDateFound);
-            timeFound.setText(getTimeFound);
-            flight.setText(getFlight);
+                registrationNr.setText( Integer.toString(getRegistrationNr) );  
+                luggageTag.setText(getLuggageTag);
+
+                brand.setText(getBrand);
+
+                size.setText(getSize);
+                weight.setText(getWeight);
+                signatures.setText(getOtherCharacteristics);
+
+                passangerId.setText( Integer.toString(getPassengerId) );
+                passangerName.setText(getName);
+                address.setText(getAddress);
+                place.setText(getPlace);
+                postalCode.setText(getPostalcode);
+                country.setText(getCountry);
+                email.setText(getEmail);
+                phone.setText(getPhone);
+
+                dateFound.setText(getDateFound);
+                timeFound.setText(getTimeFound);
+                flight.setText(getFlight);
             }
 
         
+    }
+    
+    public String[] getFields(){
+        String[] values = new String[21];
+
+        values[0] = registrationNr.getText();
+        values[1] = luggageTag.getText();
+
+        values[2] = brand.getText();
+
+        values[3] = size.getText();
+        values[4] = weight.getText();
+        values[5] = signatures.getText();
+
+        values[6] = passangerId.getText();
+        values[7] = passangerName.getText();
+        values[8] = address.getText();
+        values[9] = place.getText();
+        values[10] = postalCode.getText();
+        values[11] = country.getText();
+        values[12] = email.getText();
+        values[13] = phone.getText();
+
+        values[14] = dateFound.getText();
+        values[15] = timeFound.getText();
+        values[16] = flight.getText();
+        
+        values[17] = colorPicker1.getValue().toString();
+        values[18] = colorPicker2.getValue().toString();
+        values[19] = locationPicker.getValue().toString();
+        values[20] = typePicker.getValue().toString();
+        
+        return values;
     }
 
     
@@ -209,25 +250,128 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         //-------------------------
         //CHECK FIELDS + FEEDBACK !!   
         //-------------------------
-       
+        checkChanges();
         //will be changed 
-        MyJDBC db = MainApp.connectToDatabase();
-        db.executeUpdateQuery("UPDATE `foundluggage` SET "
-                + "`dateFound`='"+dateFound.getText()+"', "
-                + "`timeFound`='"+timeFound.getText()+"', "
-                + "`luggageTag`='"+luggageTag.getText()+"', "
-                + "`luggageType`='"+typePicker.getValue()+"', "
-                + "`brand`='"+brand.getText()+"', "
-                + "`mainColor`='"+colorPicker1.getValue()+"', "
-                + "`secondColor`='"+colorPicker2.getValue()+"', "
-                + "`size`='"+size.getText()+"', "
-                + "`weight`='"+weight.getText()+"', "
-                + "`otherCharacteristics`='"+signatures.getText()+"', "
-                + "`arrivedWithFlight`='NULL', "
-                + "`locationFound`='"+locationPicker.getValue()+"', "
-                + "`passengerId`='"+ passangerId.getText()+"' "
-                + "WHERE `registrationNr`='"+registrationNr.getText()+"';");
+//        MyJDBC db = MainApp.connectToDatabase();
+//        db.executeUpdateQuery("UPDATE `foundluggage` SET "
+//                + "`dateFound`='"+dateFound.getText()+"', "
+//                + "`timeFound`='"+timeFound.getText()+"', "
+//                + "`luggageTag`='"+luggageTag.getText()+"', "
+//                + "`luggageType`='"+typePicker.getValue()+"', "
+//                + "`brand`='"+brand.getText()+"', "
+//                + "`mainColor`='"+colorPicker1.getValue()+"', "
+//                + "`secondColor`='"+colorPicker2.getValue()+"', "
+//                + "`size`='"+size.getText()+"', "
+//                + "`weight`='"+weight.getText()+"', "
+//                + "`otherCharacteristics`='"+signatures.getText()+"', "
+//                + "`arrivedWithFlight`='NULL', "
+//                + "`locationFound`='"+locationPicker.getValue()+"', "
+//                + "`passengerId`='"+ passangerId.getText()+"' "
+//                + "WHERE `registrationNr`='"+registrationNr.getText()+"';");
         
         
+    }
+    
+    public String unFocusColor = "#ababab";
+    public String alertColor = "#e03636";
+    
+    public void checkChanges(){
+        String[] newValues = getFields();
+        int changes = 0;
+        for (int i = 0; i < startValues.length; i++) {
+            if (startValues[i].equals(newValues[i])){
+                switch (i) {
+                    case 0: registrationNr.setUnFocusColor(Paint.valueOf(unFocusColor));
+                            break;
+                    case 1: luggageTag.setUnFocusColor(Paint.valueOf(unFocusColor));
+                            break;
+                    case 2: brand.setUnFocusColor(Paint.valueOf(unFocusColor));
+                            break;
+                    case 3: size.setUnFocusColor(Paint.valueOf(unFocusColor));
+                            break;
+                    case 4: weight.setUnFocusColor(Paint.valueOf(unFocusColor));
+                            break;
+                    case 5: signatures.setUnFocusColor(Paint.valueOf(unFocusColor));
+                            break;
+                    case 6: passangerId.setUnFocusColor(Paint.valueOf(unFocusColor));
+                            break;
+                    case 7: passangerName.setUnFocusColor(Paint.valueOf(unFocusColor));
+                            break;
+                    case 8: address.setUnFocusColor(Paint.valueOf(unFocusColor));
+                            break;
+                    case 9: place.setUnFocusColor(Paint.valueOf(unFocusColor));
+                            break;
+                    case 10:postalCode.setUnFocusColor(Paint.valueOf(unFocusColor));
+                            break;
+                    case 11:country.setUnFocusColor(Paint.valueOf(unFocusColor));
+                            break;
+                    case 12:email.setUnFocusColor(Paint.valueOf(unFocusColor));
+                            break;
+                    case 13:phone.setUnFocusColor(Paint.valueOf(unFocusColor));
+                            break;
+                    case 14:dateFound.setUnFocusColor(Paint.valueOf(unFocusColor));
+                            break;
+                    case 15:timeFound.setUnFocusColor(Paint.valueOf(unFocusColor));
+                            break;
+                    case 16:flight.setUnFocusColor(Paint.valueOf(unFocusColor));
+                            break;
+                    case 17:colorPicker1.setUnFocusColor(Paint.valueOf(unFocusColor));
+                            break;
+                    case 18:colorPicker2.setUnFocusColor(Paint.valueOf(unFocusColor));
+                            break;
+                    case 19:locationPicker.setUnFocusColor(Paint.valueOf(unFocusColor));
+                            break;
+                    case 20:typePicker.setUnFocusColor(Paint.valueOf(unFocusColor));
+                            break;
+                }
+            } else {
+                changes++;
+                switch (i) {
+                    case 0: registrationNr.setUnFocusColor(Paint.valueOf(alertColor));
+                            break;
+                    case 1: luggageTag.setUnFocusColor(Paint.valueOf(alertColor));
+                            break;
+                    case 2: brand.setUnFocusColor(Paint.valueOf(alertColor));
+                            break;
+                    case 3: size.setUnFocusColor(Paint.valueOf(alertColor));
+                            break;
+                    case 4: weight.setUnFocusColor(Paint.valueOf(alertColor));
+                            break;
+                    case 5: signatures.setUnFocusColor(Paint.valueOf(alertColor));
+                            break;
+                    case 6: passangerId.setUnFocusColor(Paint.valueOf(alertColor));
+                            break;
+                    case 7: passangerName.setUnFocusColor(Paint.valueOf(alertColor));
+                            break;
+                    case 8: address.setUnFocusColor(Paint.valueOf(alertColor));
+                            break;
+                    case 9: place.setUnFocusColor(Paint.valueOf(alertColor));
+                            break;
+                    case 10:postalCode.setUnFocusColor(Paint.valueOf(alertColor));
+                            break;
+                    case 11:country.setUnFocusColor(Paint.valueOf(alertColor));
+                            break;
+                    case 12:email.setUnFocusColor(Paint.valueOf(alertColor));
+                            break;
+                    case 13:phone.setUnFocusColor(Paint.valueOf(alertColor));
+                            break;
+                    case 14:dateFound.setUnFocusColor(Paint.valueOf(alertColor));
+                            break;
+                    case 15:timeFound.setUnFocusColor(Paint.valueOf(alertColor));
+                            break;
+                    case 16:flight.setUnFocusColor(Paint.valueOf(alertColor));
+                            break;
+                    case 17:colorPicker1.setUnFocusColor(Paint.valueOf(alertColor));
+                            break;
+                    case 18:colorPicker2.setUnFocusColor(Paint.valueOf(alertColor));
+                            break;
+                    case 19:locationPicker.setUnFocusColor(Paint.valueOf(alertColor));
+                            break;
+                    case 20:typePicker.setUnFocusColor(Paint.valueOf(alertColor));
+                            break;
+                }
+            } 
+        }
+        System.out.println("There are "+changes+" changes");
     }
 }

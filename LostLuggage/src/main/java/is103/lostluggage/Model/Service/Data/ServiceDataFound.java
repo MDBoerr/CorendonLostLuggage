@@ -27,7 +27,8 @@ public class ServiceDataFound {
     public static ObservableList<FoundLuggage> foundLuggageList = FXCollections.observableArrayList();
     private static final MyJDBC db = MainApp.connectToDatabase();
     private static ResultSet resultSet;
-
+    
+    private String language = MainApp.getLanguage();
 
      public ServiceDataFound() throws SQLException{
         ServiceDataFound.foundLuggageList = setFoundLuggage();
@@ -108,15 +109,15 @@ public class ServiceDataFound {
                         "COALESCE(NULLIF(F.dateFound,''), 'unknown') as `F.dateFound`, " +
                         "COALESCE(NULLIF(F.timeFound,''), 'unknown') as `F.timeFound`, " +
                         "COALESCE(NULLIF(F.luggageTag,''), 'unknown') as `F.luggageTag`,  " +
-                        "COALESCE(NULLIF(T.dutch,''), 'unknown') as `T.dutch`, " +
+                        "COALESCE(NULLIF(T."+language+",''), 'unknown') as `T."+language+"`, " +
                         "COALESCE(NULLIF(F.brand,''), 'unknown') as `F.brand`," +
-                        "COALESCE(NULLIF(C1.dutch,''), 'unknown') as `C1.dutch`,  " +
-                        "COALESCE(NULLIF(C2.dutch,''), 'none') as `C2.dutch`," +
+                        "COALESCE(NULLIF(C1."+language+",''), 'unknown') as `C1."+language+"`,  " +
+                        "COALESCE(NULLIF(C2."+language+",''), 'none') as `C2."+language+"`," +
                         "COALESCE(NULLIF(F.size,''), 'unknown')	as `F.size`,  " +
                         "COALESCE(NULLIF(F.weight,''), 'unknown') as `F.weight`," +
                         "COALESCE(NULLIF(F.otherCharacteristics,''), 'none') as `F.otherCharacteristics`," +
                         "COALESCE(NULLIF(F.arrivedWithFlight,''), 'unknown') as `F.arrivedWithFlight`," +
-                        "COALESCE(NULLIF(L.dutch ,''), 'unknown') as `L.dutch`," +
+                        "COALESCE(NULLIF(L."+language+" ,''), 'unknown') as `L."+language+"`," +
                         "COALESCE(NULLIF(F.passengerId,''), 'none') as `F.passengerId`," +
                         "COALESCE(NULLIF(P.name,''), 'unknown')  as `P.name`," +
                         "COALESCE(NULLIF(P.address,''), 'unknown') as `P.address`," +
