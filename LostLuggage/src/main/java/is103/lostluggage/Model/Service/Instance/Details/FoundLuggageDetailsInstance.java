@@ -7,11 +7,11 @@ import is103.lostluggage.Model.Service.Model.FoundLuggage;
  *
  * @author Thijs Zijdel - 500782165
  */
-public class FoundLuggageDetails {
+public class FoundLuggageDetailsInstance {
  
-    private final static FoundLuggageDetails instance = new FoundLuggageDetails();
+    private final static FoundLuggageDetailsInstance instance = new FoundLuggageDetailsInstance();
 
-    public static FoundLuggageDetails getInstance() {
+    public static FoundLuggageDetailsInstance getInstance() {
         return instance;
     }
 

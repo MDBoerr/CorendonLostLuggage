@@ -8,8 +8,8 @@ import is103.lostluggage.Model.Service.Data.ServiceDataFound;
 import is103.lostluggage.Model.Service.Data.ServiceDataLost;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
-import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetails;
-import is103.lostluggage.Model.Service.Instance.Details.LostLuggageDetails;
+import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetailsInstance;
+import is103.lostluggage.Model.Service.Instance.Details.LostLuggageDetailsInstance;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -197,7 +197,7 @@ public class ServiceOverviewLostViewController implements Initializable {
              LostLuggage getDetailObj = (LostLuggage) tableRowGet.getItem();
             
             //repeat.. 
-            LostLuggageDetails.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNr());
+            LostLuggageDetailsInstance.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNr());
               
                 try {
                     ServiceDataLost getDataLost = new ServiceDataLost();

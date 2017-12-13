@@ -1,4 +1,4 @@
-package is103.lostluggage.Model.Service.Instance.Matching;
+package is103.lostluggage.Model.Service.Instance.Details;
 
 import is103.lostluggage.Model.Service.Model.LostLuggage;
 
@@ -6,10 +6,10 @@ import is103.lostluggage.Model.Service.Model.LostLuggage;
  *
  * @author Thijs Zijdel - 500782165
  */
-public class LuggageManualMatchLost {
-    private final static LuggageManualMatchLost instance = new LuggageManualMatchLost();
+public class LostLuggageDetailsInstance {
+    private final static LostLuggageDetailsInstance instance = new LostLuggageDetailsInstance();
 
-    public static LuggageManualMatchLost getInstance() {
+    public static LostLuggageDetailsInstance getInstance() {
         return instance;
     }
 

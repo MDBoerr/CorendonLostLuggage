@@ -104,18 +104,18 @@ public class ServiceDataLost {
                 Parent popup = FXMLLoader.load(getClass().getResource("/Views/Service/ServiceDetailedLostLuggageView.fxml"));
                 stage.setScene(new Scene(popup));
                 
-                Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+                //Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
                 
 //                if ("found".equals(type)){
                     //stage.setX(screenBounds.getMinX() + screenBounds.getWidth() - 10);
 //                } else if ("missed".equals(type)) {
-                 stage.setX(screenBounds.getMaxX() - screenBounds.getWidth() - 10);
+                 //stage.setX(screenBounds.getMaxX() - screenBounds.getWidth() - 10);
 //                } else if ("match".equals(type)){
 //                    //if popup details are being used in the coming changes
 //                    //*don't forget to set right position!
 //                }
                 
-                stage.setY(screenBounds.getMaxY() - screenBounds.getHeight() - 10);
+                //stage.setY(screenBounds.getMaxY() - screenBounds.getHeight() - 10);
 
                 //no functies -> close / fullscreen/ topbar
                 //stage.initStyle(StageStyle.TRANSPARENT); //off

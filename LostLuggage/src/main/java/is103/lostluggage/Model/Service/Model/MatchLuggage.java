@@ -4,7 +4,7 @@ package is103.lostluggage.Model.Service.Model;
  *
  * @author Thijs Zijdel - 500782165
  */
-public class LuggageMatching {
+public class MatchLuggage {
     private String  
             registrationNrFound, 
             registrationNrMissed,
@@ -29,7 +29,7 @@ public class LuggageMatching {
     private int
             matchedId;
 
-    public LuggageMatching(
+    public MatchLuggage(
             String registrationNrFound, 
             String registrationNrMissed, 
             String luggageTag, 

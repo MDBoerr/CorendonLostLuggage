@@ -6,10 +6,10 @@ import is103.lostluggage.Model.Service.Model.FoundLuggage;
  *
  * @author Thijs Zijdel - 500782165
  */
-public class LuggageManualMatchFound {
-    private final static LuggageManualMatchFound instance = new LuggageManualMatchFound();
+public class FoundLuggageManualMatchingInstance {
+    private final static FoundLuggageManualMatchingInstance instance = new FoundLuggageManualMatchingInstance();
 
-    public static LuggageManualMatchFound getInstance() {
+    public static FoundLuggageManualMatchingInstance getInstance() {
         return instance;
     }
 

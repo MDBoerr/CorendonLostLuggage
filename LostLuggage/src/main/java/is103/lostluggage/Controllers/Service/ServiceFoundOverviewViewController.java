@@ -20,7 +20,7 @@ import javafx.scene.control.TableView;
 
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
-import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetails;
+import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetailsInstance;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -271,7 +271,7 @@ public class ServiceFoundOverviewViewController implements Initializable {
              FoundLuggage getDetailObj = (FoundLuggage) tableRowGet.getItem();
             
             //repeat.. 
-            FoundLuggageDetails.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNr());
+            FoundLuggageDetailsInstance.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNr());
               
                 try {
                     ServiceDataFound getDataFound = new ServiceDataFound();

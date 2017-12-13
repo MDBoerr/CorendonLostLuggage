@@ -9,9 +9,9 @@ import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import static is103.lostluggage.MainApp.getLanguage;
 import is103.lostluggage.Model.Service.Data.ServiceDataLost;
-import is103.lostluggage.Model.Service.Instance.Matching.LuggageManualMatchLost;
+import is103.lostluggage.Model.Service.Instance.Matching.LostLuggageManualMatchingInstance;
 import is103.lostluggage.Model.Service.Model.LostLuggage;
-import is103.lostluggage.Model.Service.Instance.Details.LostLuggageDetails;
+import is103.lostluggage.Model.Service.Instance.Details.LostLuggageDetailsInstance;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -102,7 +102,7 @@ public class ServiceEditLostLuggageViewController implements Initializable {
     
     @FXML
     private void initializeFoundFields() throws SQLException{
-        String id = LostLuggageDetails.getInstance().currentLuggage().getRegistrationNr();
+        String id = LostLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
 
         System.out.println("iD: "+id);
             //            MyJDBC db = MainApp.connectToDatabase();
@@ -178,8 +178,8 @@ public class ServiceEditLostLuggageViewController implements Initializable {
     @FXML
     public void manualMatch() throws IOException{
         System.out.println("added to manual matching");
-        LostLuggage passObject =  LostLuggageDetails.getInstance().currentLuggage();
-        LuggageManualMatchLost.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());
+        LostLuggage passObject =  LostLuggageDetailsInstance.getInstance().currentLuggage();
+        LostLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());
         MainApp.refreshMatching = false;
         
         MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");

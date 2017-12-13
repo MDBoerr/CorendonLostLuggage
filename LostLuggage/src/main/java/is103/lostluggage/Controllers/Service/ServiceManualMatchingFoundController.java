@@ -5,8 +5,8 @@ import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Data.ServiceDataFound;
-import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetails;
-import is103.lostluggage.Model.Service.Instance.Matching.LuggageManualMatchFound;
+import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetailsInstance;
+import is103.lostluggage.Model.Service.Instance.Matching.FoundLuggageManualMatchingInstance;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +24,7 @@ import javafx.fxml.Initializable;
 public class ServiceManualMatchingFoundController implements Initializable {
     
     
-        public String language = "English";
+    private String language = MainApp.getLanguage();
     
     @FXML private JFXTextField registrationNr;
     @FXML private JFXTextField luggageTag;
@@ -70,7 +70,7 @@ public class ServiceManualMatchingFoundController implements Initializable {
         
     @FXML
     private void initializeFoundFields() throws SQLException{
-        String id = LuggageManualMatchFound.getInstance().currentLuggage().getRegistrationNr();
+        String id = FoundLuggageManualMatchingInstance.getInstance().currentLuggage().getRegistrationNr();
             //            MyJDBC db = MainApp.connectToDatabase();
             ServiceDataFound detailsItem = new ServiceDataFound();
             ResultSet resultSet = detailsItem.getAllDetailsFound(id);
@@ -83,10 +83,10 @@ public class ServiceManualMatchingFoundController implements Initializable {
                 String getTimeFound =          resultSet.getString("F.timeFound");
                 
                 String getLuggageTag =         resultSet.getString("F.luggageTag");
-                String getLuggageType =        resultSet.getString("T.dutch");
+                String getLuggageType =        resultSet.getString("T."+language);
                 String getBrand =              resultSet.getString("F.brand");
-                String getMainColor =          resultSet.getString("c1.dutch");
-                String getSecondColor =        resultSet.getString("c2.dutch");
+                String getMainColor =          resultSet.getString("c1."+language);
+                String getSecondColor =        resultSet.getString("c2."+language);
                 String getSize =               resultSet.getString("F.size");
                 String getWeight =                resultSet.getString("F.weight");   
                 String getOtherCharacteristics=resultSet.getString("F.otherCharacteristics");
@@ -102,7 +102,7 @@ public class ServiceManualMatchingFoundController implements Initializable {
                 String getPhone =          resultSet.getString("P.phone");
                 
                 String getFlight =              resultSet.getString("F.arrivedWithFlight"); 
-                String getLocationFound =       resultSet.getString("L.dutch");
+                String getLocationFound =       resultSet.getString("L."+language);
                 //String employeeId =         resultSet.getString("employeeId");
                 //int matchedId =              resultSet.getInt("matchedId");
                 

@@ -5,7 +5,7 @@ import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Data.ServiceDataLost;
-import is103.lostluggage.Model.Service.Instance.Matching.LuggageManualMatchLost;
+import is103.lostluggage.Model.Service.Instance.Matching.LostLuggageManualMatchingInstance;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -67,7 +67,7 @@ public class ServiceManualMatchingLostViewController implements Initializable {
         
     @FXML
     private void initializeFoundFields() throws SQLException{
-        String id = LuggageManualMatchLost.getInstance().currentLuggage().getRegistrationNr();
+        String id = LostLuggageManualMatchingInstance.getInstance().currentLuggage().getRegistrationNr();
             //            MyJDBC db = MainApp.connectToDatabase();
             ServiceDataLost detailsItem = new ServiceDataLost();
             ResultSet resultSet = detailsItem.getAllDetailsLost(id);
