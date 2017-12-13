@@ -104,8 +104,8 @@ public class ServiceOverviewLostViewController implements Initializable {
     
     public void initializeMissedLuggageTable(ObservableList<LostLuggage> dataList){
         missedRegistrationNr.setCellValueFactory(       new PropertyValueFactory<>("registrationNr"));
-        missedDateLost.setCellValueFactory(            new PropertyValueFactory<>("dateFound"));
-        missedTimeLost.setCellValueFactory(            new PropertyValueFactory<>("timeFound"));
+        missedDateLost.setCellValueFactory(            new PropertyValueFactory<>("dateLost"));
+        missedTimeLost.setCellValueFactory(            new PropertyValueFactory<>("timeLost"));
         
         missedLuggageTag.setCellValueFactory(           new PropertyValueFactory<>("luggageTag"));
         missedLuggageType.setCellValueFactory(          new PropertyValueFactory<>("luggageType"));
@@ -118,7 +118,7 @@ public class ServiceOverviewLostViewController implements Initializable {
         missedOtherCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
         missedPassengerId.setCellValueFactory(          new PropertyValueFactory<>("passengerId"));
         
-        missedFlight.setCellValueFactory(    new PropertyValueFactory<>("flight"));
+        missedFlight.setCellValueFactory(               new PropertyValueFactory<>("flight"));
         missedEmployeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
         missedMatchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId")); 
 

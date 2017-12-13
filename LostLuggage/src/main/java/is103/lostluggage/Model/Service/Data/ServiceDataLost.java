@@ -101,7 +101,7 @@ public class ServiceDataLost {
      public void popUpDetails(Stage stage) throws IOException { 
             try { 
                 //get popup fxml resource   
-                Parent popup = FXMLLoader.load(getClass().getResource("/Views/Service/ServiceDetailedMissedLuggageView.fxml"));
+                Parent popup = FXMLLoader.load(getClass().getResource("/Views/Service/ServiceDetailedLostLuggageView.fxml"));
                 stage.setScene(new Scene(popup));
                 
                 Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();

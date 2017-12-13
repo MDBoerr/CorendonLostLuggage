@@ -38,7 +38,7 @@ public class MainApp extends Application {
 
     private static String dbName = "LostLuggage";
     
-    public static String language = "English";
+    public static String language = "english";
 
     @Override
     public void start(Stage stage) throws Exception {

@@ -166,6 +166,12 @@ public class ServiceDetailedLostLuggageViewController implements Initializable {
     
     @FXML
     protected void manualMatching(ActionEvent event){
+//        try {
+//            MainApp.switchView("/views/service/ServiceMatchingView.fxml");
+//        } catch (IOException ex) {
+//            Logger.getLogger(ServiceDetailedLostLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        
         System.out.println("added to manual matching");
         LostLuggage passObject =  LostLuggageDetails.getInstance().currentLuggage();
         LuggageManualMatchLost.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());
