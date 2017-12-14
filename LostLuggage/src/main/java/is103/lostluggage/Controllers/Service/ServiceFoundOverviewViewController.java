@@ -19,14 +19,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import is103.lostluggage.Database.MyJDBC;
+import is103.lostluggage.Model.Service.Data.ServiceDataMore;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
-import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetailsInstance;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.Node;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -253,41 +251,14 @@ public class ServiceFoundOverviewViewController implements Initializable {
         foundLuggageTable.setOnMousePressed((MouseEvent event) -> {
                                 //--> event         //--> double click
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                System.out.println("foundd");
-                
-                
-                
-             Node node = ((Node) event.getTarget() ).getParent();
-             TableRow tableRowGet;
-             
-             if (node instanceof TableRow) {
-                    tableRowGet = (TableRow) node;
-            } else {
-                    // if text is clicked -> get parent
-                    tableRowGet = (TableRow) node.getParent();
-            }
-             
-             
-             FoundLuggage getDetailObj = (FoundLuggage) tableRowGet.getItem();
-            
-            //repeat.. 
-            FoundLuggageDetailsInstance.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNr());
-              
-                try {
-                    ServiceDataFound getDataFound = new ServiceDataFound();
-                     getDataFound.popUpDetails(popupStageFound);
-                } catch (SQLException ex) {
-                    Logger.getLogger(ServiceFoundOverviewViewController.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(ServiceFoundOverviewViewController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-               //setDetailsOfRow("found", event, popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
-                //setAndOpenPopUpDetails("found", popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
-              
+                ServiceDataMore foundDetails = new ServiceDataMore();
+                foundDetails.setDetailsOfRow("found", event, popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
+                foundDetails.setAndOpenPopUpDetails("found", popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
                
             }
         });
     }
+
     
     @FXML
     protected void switchToInput(ActionEvent event) throws IOException {

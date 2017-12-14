@@ -1,4 +1,4 @@
-package is103.lostluggage.Data;
+package is103.lostluggage.Model.Service.Data;
 
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;

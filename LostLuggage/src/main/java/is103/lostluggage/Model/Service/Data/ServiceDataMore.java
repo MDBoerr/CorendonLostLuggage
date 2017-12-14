@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package is103.lostluggage.Model.Service.Data;
 
 import is103.lostluggage.Controllers.Service.ServiceMatchingViewController;
@@ -30,8 +25,14 @@ import javafx.stage.Stage;
  */
 public class ServiceDataMore {
     
-    
+        private final int DETAILS_STAGE_H = 675;
+        private final int DETAILS_STAGE_W = 400;
+        
+        
+        private int matchLuggage = 0;
+        
         //popup stage
+        public Stage overlay = new Stage();
         public Stage popupStageFound = new Stage();   
         public Stage popupStageLost = new Stage(); 
         
@@ -52,15 +53,9 @@ public class ServiceDataMore {
             LostLuggage getDetailObj = (LostLuggage) tableRowGet.getItem();
             
             //Detail object setten -> so it is posible to take this in the next fxml
-            
-            //LostLuggageDetails.getInstance().currentLuggage() .setRegistrationNr(getDetailObj.getRegistrationNr());
             LostLuggage route = LostLuggageDetailsInstance.getInstance().currentLuggage();
             route.setRegistrationNr(getDetailObj.getRegistrationNr());
-            
-            //----
-            //Momenteel alleen de id en met execute query alle gegevens verkrijgen
-            //Nog kijken wat efficienter is
-            //----
+       
         } 
         
         if ("found".equals(type)){
@@ -86,7 +81,7 @@ public class ServiceDataMore {
     
     
     public void setAndOpenPopUpDetails(String type, Stage stageType, String stageLink, String popupKey){
-        //switchen naar detailed view dmv: popup
+        //switchen to selection/ detailed view with: popup
         if ("found".equals(type) || "lost".equals(type)){
             try {
                 popUpDetails(stageType, stageLink, popupKey);
@@ -107,30 +102,62 @@ public class ServiceDataMore {
             try { 
                 //get popup fxml resource   
                 Parent popup = FXMLLoader.load(getClass().getResource(viewLink));
+                
                 stage.setScene(new Scene(popup));
-                
-                Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-                
-                
-                //set location of pop ups
-                if ("found".equals(type)){
-                    //stage.setX(screenBounds.getMinX() + screenBounds.getWidth() - 10);
-                    stage.setX(+600);
-                } else if ("lost".equals(type)) {
-                    //stage.setX(screenBounds.getMaxX() - screenBounds.getWidth() - 10);
-                    stage.setX(-100);
-                } else if ("match".equals(type)){
-                    //if popup details are being used in the coming changes
-                    //*don't forget to set right position!
+  
+                Rectangle2D mainScreenBounds = Screen.getPrimary().getVisualBounds();
+ 
+                if (null!=type)switch (type) {
+                    case "found":stage.setX(mainScreenBounds.getMinX() + mainScreenBounds.getWidth() - DETAILS_STAGE_W);
+                        break;
+                    case "lost":stage.setX(mainScreenBounds.getMinX() - mainScreenBounds.getWidth() - DETAILS_STAGE_W);
+                        break;
+                    case "match":
+                        
+                            //overlay testing
+                            if (overlay.isShowing() == false){
+                                overlay.setWidth(mainScreenBounds.getMaxX());
+                                overlay.setHeight(mainScreenBounds.getMaxY());
+                                //overlay.show();
+                            }
+                            
+                            if (matchLuggage == 0){
+                                //popup stage for lost luggage
+                                stage = popupStageLost;
+                                stage.close();
+                                
+                                //set Stage boundaries to the left side  of the visible bounds of the users (main) screen
+                                stage.setX(mainScreenBounds.getMinX() - mainScreenBounds.getWidth() - DETAILS_STAGE_W);
+                                matchLuggage ++;
+                            } else {
+                                //popup stage for found luggage
+                                stage = popupStageFound;
+                                stage.close();
+                                
+                                //set Stage boundaries to the right side  of the visible bounds of the users (main) screen
+                                stage.setX(mainScreenBounds.getMinX() + mainScreenBounds.getWidth() - DETAILS_STAGE_W);
+                                matchLuggage--;
+                            }
+                        break;
+                    default: //top - middle of screen
+                        break;
                 }
                 
- //               stage.setY(screenBounds.getMaxY() - screenBounds.getHeight() - 10);
-                stage.setY(-100);
+                //set Stage boundaries to the top  of the visible bounds of the users (main) screen
+                stage.setY(mainScreenBounds.getMinY() - mainScreenBounds.getHeight() - DETAILS_STAGE_H);
+                
+                stage.setWidth(DETAILS_STAGE_W);
+                stage.setHeight(DETAILS_STAGE_H);
+                
+                
+                
                 //no functies -> close / fullscreen/ topbar
                 //stage.initStyle(StageStyle.TRANSPARENT); //off
 
                 //stage altijd on top
                 stage.setAlwaysOnTop(true);
+                //stage not resizable 
+                stage.setResizable(false);
 
                 if (stage.isShowing()){
                     //Stage was open -> refresh

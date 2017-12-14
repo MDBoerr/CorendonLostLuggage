@@ -2,9 +2,7 @@ package is103.lostluggage.Controllers.Service;
 
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
-import static is103.lostluggage.MainApp.getLanguage;
 import is103.lostluggage.Model.Service.Data.ServiceDataLost;
 import is103.lostluggage.Model.Service.Instance.Matching.LostLuggageManualMatchingInstance;
 import is103.lostluggage.Model.Service.Model.LostLuggage;
@@ -73,10 +71,7 @@ public class ServiceDetailedLostLuggageViewController implements Initializable {
   
     }   
     
-    
 
-    
-    
     @FXML
     private void initializeFoundFields() throws SQLException{
         String id = LostLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
@@ -151,14 +146,9 @@ public class ServiceDetailedLostLuggageViewController implements Initializable {
     }
     
     
-   
-    @FXML
-    protected void saveLuggageChanges(ActionEvent event) throws SQLException {
-
-    }
-    
     @FXML
     protected void viewPotentials(ActionEvent event){
+        closeStage();
         //methode starten
         MainApp.serviceChangeValue = 0;
     }
@@ -166,31 +156,25 @@ public class ServiceDetailedLostLuggageViewController implements Initializable {
     
     @FXML
     protected void manualMatching(ActionEvent event){
-//        try {
-//            MainApp.switchView("/views/service/ServiceMatchingView.fxml");
-//        } catch (IOException ex) {
-//            Logger.getLogger(ServiceDetailedLostLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        
-        System.out.println("added to manual matching");
         LostLuggage passObject =  LostLuggageDetailsInstance.getInstance().currentLuggage();
         LostLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());
         
-        Stage stage = (Stage) registrationNr.getScene().getWindow();
-        stage.close();
+        closeStage();
         
     }
     
     
     
-         //Not closable & no borders
-     ////   popupStageEditingView.initStyle(StageStyle.TRANSPARENT);
-        //popUpDetails(popupStageMissed, "/Views/Service/ServiceDetailedMissedLuggageView.fxml", popupKey);
-        @FXML
+    @FXML
     public void openEditView() throws IOException{
+        closeStage();
+        MainApp.switchView("/Views/Service/ServiceEditLostLuggageView.fxml");
+    }
+    
+    
+    public void closeStage(){
         Stage stage = (Stage) registrationNr.getScene().getWindow();
         stage.close();
-        MainApp.switchView("/Views/Service/ServiceEditLostLuggageView.fxml");
     }
 
     

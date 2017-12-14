@@ -2,9 +2,7 @@ package is103.lostluggage.Controllers.Service;
 
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
-import static is103.lostluggage.MainApp.getLanguage;
 import is103.lostluggage.Model.Service.Data.ServiceDataFound;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetailsInstance;
@@ -78,8 +76,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
     
     @FXML
     public void openEditView() throws IOException{
-        Stage stage = (Stage) registrationNr.getScene().getWindow();
-        stage.close();
+        closeStage();
         MainApp.switchView("/Views/Service/ServiceEditFoundLuggageView.fxml");
     }
     
@@ -112,7 +109,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
                 String getWeight =                resultSet.getString("F.weight");   
                 String getOtherCharacteristics=resultSet.getString("F.otherCharacteristics");
                 
-                int getPassengerId =           resultSet.getInt("F.passengerId");
+                String getPassengerId =           resultSet.getString("F.passengerId");
                 
                 String getName =          resultSet.getString("P.name");
                 String getAddress =          resultSet.getString("P.address");
@@ -141,7 +138,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
             weight.setText(getWeight);
             signatures.setText(getOtherCharacteristics);
 
-            passangerId.setText( Integer.toString(getPassengerId) );
+            passangerId.setText( getPassengerId );
             passangerName.setText(getName);
             address.setText(getAddress);
             place.setText(getPlace);
@@ -162,23 +159,21 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
     
     @FXML
     protected void viewPotentials(ActionEvent event){
+        closeStage();
         MainApp.serviceChangeValue = 0; //temporary
     }
     
-    @FXML
-    protected void editLuggage(ActionEvent event){
-        
-    }
-    
+
     @FXML
     protected void manualMatching(ActionEvent event){
-        System.out.println("added to manual matching");
+        closeStage();
         FoundLuggage passObject =  FoundLuggageDetailsInstance.getInstance().currentLuggage();
-        FoundLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());
-        
+        FoundLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());        
+    }
+    
+    public void closeStage(){
         Stage stage = (Stage) registrationNr.getScene().getWindow();
         stage.close();
-        
     }
 
     

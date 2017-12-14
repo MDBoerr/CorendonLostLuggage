@@ -4,12 +4,9 @@ import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Model.Service.Model.LostLuggage;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.MainViewController;
-import is103.lostluggage.Model.Service.Data.ServiceDataFound;
 import is103.lostluggage.Model.Service.Data.ServiceDataLost;
 import is103.lostluggage.MainApp;
-import is103.lostluggage.Model.Service.Model.FoundLuggage;
-import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetailsInstance;
-import is103.lostluggage.Model.Service.Instance.Details.LostLuggageDetailsInstance;
+import is103.lostluggage.Model.Service.Data.ServiceDataMore;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -20,9 +17,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
@@ -179,40 +174,10 @@ public class ServiceOverviewLostViewController implements Initializable {
         missedLuggageTable.setOnMousePressed((MouseEvent event) -> {
                                 //--> event         //--> double click
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                System.out.println("foundd");
+                ServiceDataMore lostDetails = new ServiceDataMore();
+                lostDetails.setDetailsOfRow("lost", event, popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "lost");
+                lostDetails.setAndOpenPopUpDetails("lost", popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "lost");
                 
-                
-                
-             Node node = ((Node) event.getTarget() ).getParent();
-             TableRow tableRowGet;
-             
-             if (node instanceof TableRow) {
-                    tableRowGet = (TableRow) node;
-            } else {
-                    // if text is clicked -> get parent
-                    tableRowGet = (TableRow) node.getParent();
-            }
-             
-             
-             LostLuggage getDetailObj = (LostLuggage) tableRowGet.getItem();
-            
-            //repeat.. 
-            LostLuggageDetailsInstance.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNr());
-              
-                try {
-                    ServiceDataLost getDataLost = new ServiceDataLost();
-                     getDataLost.popUpDetails(popupStageLost);
-                } catch (SQLException ex) {
-                    Logger.getLogger(ServiceOverviewLostViewController.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(ServiceOverviewLostViewController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-               //setDetailsOfRow("found", event, popupStageLost, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
-                //setAndOpenPopUpDetails("found", popupStageLost, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
-               //setDetailsOfRow("found", event, popupStageLost, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
-                //setAndOpenPopUpDetails("found", popupStageLost, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
-              
-               
             }
         });
     }

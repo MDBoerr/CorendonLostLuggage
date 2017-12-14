@@ -316,25 +316,6 @@ public class ServiceMatchingViewController implements Initializable {
                 ServiceDataMore matchDetails = new ServiceDataMore();
                 matchDetails.setDetailsOfRow("match", event, popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "match");
                 matchDetails.setAndOpenPopUpDetails("match", popupStageFound, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "match");
-                
-                //openPopUpDetails; 
-
-                    
-//                    //Now i am going to set an FoundLuggageManualMatchingInstance obj
-//                    //this object is being called in the addToManualMatching
-//                    //note: not the entire object is setted& called-> just the id
-//                    FoundLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(FoundLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr() );
-//                    String TempIdFound = FoundLuggageManualMatchingInstance.getInstance().currentLuggage().getRegistrationNr();
-//                    //Set the idCheckFound (for stop resetting the view) -> return int
-//                    //initialize the right data in the found pane
-//                    idCheckFound = addToManualMatching(foundPane, 1, idCheckFound, idFound, TempIdFound, "/Views/Service/ServiceManualMatchingFoundView.fxml");
-//
-//                    //repeating same steps as found luggage -> here for: lost
-//                    LostLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(LostLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr() );
-//                    String TempIdLost = LostLuggageManualMatchingInstance.getInstance().currentLuggage().getRegistrationNr();
-//                    idCheckLost = addToManualMatching(lostPane, 1, idCheckLost, idLost, TempIdLost, "/Views/Service/ServiceManualMatchingLostView.fxml");
-//    
-                
                   
             }
         });
