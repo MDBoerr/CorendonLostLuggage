@@ -8,12 +8,10 @@ import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Data.ServiceDataMatch;
 import is103.lostluggage.Model.Service.Data.ServiceDataMore;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
-import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetailsInstance;
 import is103.lostluggage.Model.Service.Instance.Matching.FoundLuggageManualMatchingInstance;
 import is103.lostluggage.Model.Service.Instance.Matching.LostLuggageManualMatchingInstance;
 import is103.lostluggage.Model.Service.Model.MatchLuggage;
 import is103.lostluggage.Model.Service.Model.LostLuggage;
-import is103.lostluggage.Model.Service.Instance.Details.LostLuggageDetailsInstance;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -197,7 +195,7 @@ public class ServiceMatchingViewController implements Initializable {
             Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
+        System.out.println("");
 
         //Stop Tables from being able to re position/ order
         // -   -   -   -   -   -   -
@@ -291,7 +289,7 @@ public class ServiceMatchingViewController implements Initializable {
     }
     
     /**  
-     * @void doubleClickMissedRow
+     * @void doubleClickLostRow
      */
     public void lostRowClicked() {
         lostLuggageTable.setOnMousePressed((MouseEvent event) -> {
@@ -312,28 +310,30 @@ public class ServiceMatchingViewController implements Initializable {
         matchTabbleView.setOnMousePressed((MouseEvent event) -> {
                                 //--> event         //--> double click
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {  
+
                 //I set the details of the double clicked row (matched here)
                 //In 2 objects, FoundLuggageDetailsInstance & lostLuggageDetails)
                 ServiceDataMore matchDetails = new ServiceDataMore();
                 matchDetails.setDetailsOfRow("match", event, popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "match");
+                matchDetails.setAndOpenPopUpDetails("match", popupStageFound, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "match");
                 
-                //openPopUpDetails() --> popup in this case not neccesary 
+                //openPopUpDetails; 
 
                     
-                    //Now i am going to set an FoundLuggageManualMatchingInstance obj
-                    //this object is being called in the addToManualMatching
-                    //note: not the entire object is setted& called-> just the id
-                    FoundLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(FoundLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr() );
-                    String TempIdFound = FoundLuggageManualMatchingInstance.getInstance().currentLuggage().getRegistrationNr();
-                    //Set the idCheckFound (for stop resetting the view) -> return int
-                    //initialize the right data in the found pane
-                    idCheckFound = addToManualMatching(foundPane, 1, idCheckFound, idFound, TempIdFound, "/Views/Service/ServiceManualMatchingFoundView.fxml");
-
-                    //repeating same steps as found luggage -> here for: lost
-                    LostLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(LostLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr() );
-                    String TempIdLost = LostLuggageManualMatchingInstance.getInstance().currentLuggage().getRegistrationNr();
-                    idCheckLost = addToManualMatching(lostPane, 1, idCheckLost, idLost, TempIdLost, "/Views/Service/ServiceManualMatchingLostView.fxml");
-    
+//                    //Now i am going to set an FoundLuggageManualMatchingInstance obj
+//                    //this object is being called in the addToManualMatching
+//                    //note: not the entire object is setted& called-> just the id
+//                    FoundLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(FoundLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr() );
+//                    String TempIdFound = FoundLuggageManualMatchingInstance.getInstance().currentLuggage().getRegistrationNr();
+//                    //Set the idCheckFound (for stop resetting the view) -> return int
+//                    //initialize the right data in the found pane
+//                    idCheckFound = addToManualMatching(foundPane, 1, idCheckFound, idFound, TempIdFound, "/Views/Service/ServiceManualMatchingFoundView.fxml");
+//
+//                    //repeating same steps as found luggage -> here for: lost
+//                    LostLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(LostLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr() );
+//                    String TempIdLost = LostLuggageManualMatchingInstance.getInstance().currentLuggage().getRegistrationNr();
+//                    idCheckLost = addToManualMatching(lostPane, 1, idCheckLost, idLost, TempIdLost, "/Views/Service/ServiceManualMatchingLostView.fxml");
+//    
                 
                   
             }
@@ -465,7 +465,7 @@ public class ServiceMatchingViewController implements Initializable {
      * @void 
      */
     public void initializeMatchingLuggageTable(){
-        matchIdLost.setCellValueFactory(               new PropertyValueFactory<>("registrationNrMissed"));
+        matchIdLost.setCellValueFactory(               new PropertyValueFactory<>("registrationNrLost"));
         matchIdFound.setCellValueFactory(              new PropertyValueFactory<>("registrationNrFound"));
         matchTag.setCellValueFactory(                  new PropertyValueFactory<>("luggageTag"));
         
@@ -494,7 +494,7 @@ public class ServiceMatchingViewController implements Initializable {
 
     @FXML
     public void potentialMatches(){
-        setMatchingTab(0);
+        setMatchingTab(2);
     }
 
     
