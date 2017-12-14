@@ -56,6 +56,7 @@ public class ServiceDataFound {
                 String employeeId =         resultSet.getString("employeeId");
                 int matchedId =             resultSet.getInt("matchedId");
 
+                if (matchedId == 0){
                 //Per result -> toevoegen aan Luggages  (observable list) 
                 foundLuggageList.add(
                         new FoundLuggage(
@@ -78,6 +79,9 @@ public class ServiceDataFound {
                                 employeeId, 
                                 matchedId
                             ));
+                } else {
+                    //Luggage is already matched
+                }
                 //Debug
                 //System.out.println("-"+registrationNr);
             }

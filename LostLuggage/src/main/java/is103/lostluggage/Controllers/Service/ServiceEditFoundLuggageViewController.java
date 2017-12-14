@@ -1,6 +1,9 @@
 package is103.lostluggage.Controllers.Service;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.MainViewController;
@@ -16,13 +19,24 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -57,6 +71,9 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
     @FXML private JFXComboBox colorPicker2;
     @FXML private JFXComboBox locationPicker;
     @FXML private JFXComboBox typePicker;
+    
+    @FXML private StackPane stackPane;
+    
      //view title
     private final String title = "Edit Found Luggage";
     
@@ -120,6 +137,8 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         
         
         startValues = getFields();
+        
+        stackPane.setVisible(false);
     }    
     
     
@@ -273,9 +292,12 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
     }
     
     public String unFocusColor = "#ababab";
+    public String noticeColor = "#4189fc";
     public String alertColor = "#e03636";
     
     public void checkChanges(){
+        String changedFields = "";
+        
         String[] newValues = getFields();
         int changes = 0;
         for (int i = 0; i < startValues.length; i++) {
@@ -327,51 +349,122 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
             } else {
                 changes++;
                 switch (i) {
-                    case 0: registrationNr.setUnFocusColor(Paint.valueOf(alertColor));
+                    case 0: registrationNr.setUnFocusColor(Paint.valueOf(noticeColor));
+                            changedFields += "registrationNr";
                             break;
-                    case 1: luggageTag.setUnFocusColor(Paint.valueOf(alertColor));
+                    case 1: luggageTag.setUnFocusColor(Paint.valueOf(noticeColor));
+                            changedFields += ", luggageTag";
                             break;
-                    case 2: brand.setUnFocusColor(Paint.valueOf(alertColor));
+                    case 2: brand.setUnFocusColor(Paint.valueOf(noticeColor));
+                            changedFields += ", brand";
                             break;
-                    case 3: size.setUnFocusColor(Paint.valueOf(alertColor));
+                    case 3: size.setUnFocusColor(Paint.valueOf(noticeColor));
+                            changedFields += ", size";
                             break;
-                    case 4: weight.setUnFocusColor(Paint.valueOf(alertColor));
+                    case 4: weight.setUnFocusColor(Paint.valueOf(noticeColor));
+                            changedFields += ", weight";
                             break;
-                    case 5: signatures.setUnFocusColor(Paint.valueOf(alertColor));
+                    case 5: signatures.setUnFocusColor(Paint.valueOf(noticeColor));
+                            changedFields += ", signatures";
                             break;
-                    case 6: passangerId.setUnFocusColor(Paint.valueOf(alertColor));
+                    case 6: passangerId.setUnFocusColor(Paint.valueOf(noticeColor));
+                            changedFields += ", passanger id ";
                             break;
-                    case 7: passangerName.setUnFocusColor(Paint.valueOf(alertColor));
+                    case 7: passangerName.setUnFocusColor(Paint.valueOf(noticeColor));
+                            changedFields += ", passanger name";
                             break;
-                    case 8: address.setUnFocusColor(Paint.valueOf(alertColor));
+                    case 8: address.setUnFocusColor(Paint.valueOf(noticeColor));
+                            changedFields += ", registrationNr";
                             break;
-                    case 9: place.setUnFocusColor(Paint.valueOf(alertColor));
+                    case 9: place.setUnFocusColor(Paint.valueOf(noticeColor));
+                            changedFields += ", ressidence place";
                             break;
-                    case 10:postalCode.setUnFocusColor(Paint.valueOf(alertColor));
+                    case 10:postalCode.setUnFocusColor(Paint.valueOf(noticeColor));
+                            changedFields += ", postal Code";
                             break;
-                    case 11:country.setUnFocusColor(Paint.valueOf(alertColor));
+                    case 11:country.setUnFocusColor(Paint.valueOf(noticeColor));
+                            changedFields += ", registrationNr";
                             break;
-                    case 12:email.setUnFocusColor(Paint.valueOf(alertColor));
+                    case 12:email.setUnFocusColor(Paint.valueOf(noticeColor));
+                            changedFields += ", Email";
                             break;
-                    case 13:phone.setUnFocusColor(Paint.valueOf(alertColor));
+                    case 13:phone.setUnFocusColor(Paint.valueOf(noticeColor));
+                            changedFields += ", phone";
                             break;
-                    case 14:dateFound.setUnFocusColor(Paint.valueOf(alertColor));
+                    case 14:dateFound.setUnFocusColor(Paint.valueOf(noticeColor));
+                            changedFields += ", registrationNr";
                             break;
-                    case 15:timeFound.setUnFocusColor(Paint.valueOf(alertColor));
+                    case 15:timeFound.setUnFocusColor(Paint.valueOf(noticeColor));
+                            changedFields += ", time Found";
                             break;
-                    case 16:flight.setUnFocusColor(Paint.valueOf(alertColor));
+                    case 16:flight.setUnFocusColor(Paint.valueOf(noticeColor));
+                            changedFields += ", flight";
                             break;
-                    case 17:colorPicker1.setUnFocusColor(Paint.valueOf(alertColor));
+                    case 17:colorPicker1.setUnFocusColor(Paint.valueOf(noticeColor));
+                            changedFields += ", main color";
                             break;
-                    case 18:colorPicker2.setUnFocusColor(Paint.valueOf(alertColor));
+                    case 18:colorPicker2.setUnFocusColor(Paint.valueOf(noticeColor));
+                            changedFields += ", secondary color";
                             break;
-                    case 19:locationPicker.setUnFocusColor(Paint.valueOf(alertColor));
+                    case 19:locationPicker.setUnFocusColor(Paint.valueOf(noticeColor));
+                            changedFields += ", location";
                             break;
-                    case 20:typePicker.setUnFocusColor(Paint.valueOf(alertColor));
+                    case 20:typePicker.setUnFocusColor(Paint.valueOf(noticeColor));
+                            changedFields += ", type";
+                            break;
+                    default://no more
                             break;
                 }
             } 
+            
         }
-        System.out.println("There are "+changes+" changes");
+        alertDialog(changedFields, changes); 
+    }
+    
+    public void alertDialog(String changedFields, int changes){
+        //Remove the first , (comma) and space
+        changedFields = changedFields.substring(2);
+        
+        
+        //create dialog content/layout and a textflow for the body
+        JFXDialogLayout content = new JFXDialogLayout();
+        TextFlow alertMessage = new TextFlow();
+        
+        //Set heading of dialog
+        content.setHeading(new Text("Warning"));
+        //Set the right text for the dialog body.
+        String textPart;
+        if (changes == 1){
+            textPart = "There is "+changes+" change made. \n"
+                + "The changed field is the following: \n\n";
+        } else {
+            textPart = "There are "+changes+" changes made. \n"
+                + "The changed fields are the following: \n\n";
+        }
+        Text textPart1 = new Text(textPart);
+        Text textPart2 = new Text(changedFields);
+        Text textPart3 = new Text("\n\nPlease check and confirm them.");
+        //set text color of changed field string to red
+        textPart2.setFill(Color.FIREBRICK);  
+        //comnine the text parts
+        alertMessage.getChildren().addAll(textPart1, textPart2, textPart3);
+        //set the text parts (alert message) in the content
+        content.setBody(alertMessage);
+        
+        //create the dialog alert with the content
+        //& place het in the center of the stackpane
+        JFXDialog alert = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER);
+        
+        //Create the 'ok'/close button
+        JFXButton button = new JFXButton("ok");
+        button.setOnAction((ActionEvent event) -> {
+            alert.close();
+            stackPane.setVisible(false);
+        });
+        content.setActions(button);
+        
+        //Show the alert
+        alert.show();
+        stackPane.setVisible(true);
     }
 }

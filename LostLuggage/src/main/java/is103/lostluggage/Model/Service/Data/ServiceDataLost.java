@@ -52,7 +52,7 @@ public class ServiceDataLost {
                 String employeeId =         resultSet.getString("employeeId");
                 int matchedId =             resultSet.getInt("matchedId");
 
-                
+                if (matchedId == 0) {
                 //Per result -> toevoegen aan Luggages  (observable list) 
                 missedLuggageList.add(new LostLuggage(
                                 registrationNr, 
@@ -72,7 +72,10 @@ public class ServiceDataLost {
                                 flight, 
                                 employeeId, 
                                 matchedId
-                            ));         
+                            ));   
+                } else {
+                    //Luggage is already matched
+                }
             }
 
         } catch (SQLException ex) {

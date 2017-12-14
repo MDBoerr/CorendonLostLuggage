@@ -104,9 +104,15 @@ public class ServiceDataMore {
                 Parent popup = FXMLLoader.load(getClass().getResource(viewLink));
                 
                 stage.setScene(new Scene(popup));
-  
+                
+                
+                //Possible fix for out of screen on windows 
+                //final int width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
+                //final int height = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
+                
+                
                 Rectangle2D mainScreenBounds = Screen.getPrimary().getVisualBounds();
- 
+
                 if (null!=type)switch (type) {
                     case "found":stage.setX(mainScreenBounds.getMinX() + mainScreenBounds.getWidth() - DETAILS_STAGE_W);
                         break;
@@ -165,6 +171,7 @@ public class ServiceDataMore {
                     stage.show();
                 } else {
                     //Stage was gesloten -> alleen openen
+                    
                     stage.show();
                     System.out.println("Popup opend");
                 }

@@ -37,7 +37,7 @@ public class AddNewDataViewController implements Initializable {
         ServiceDataDetails colors = new ServiceDataDetails("color", "*", null);
         try {
             ObservableList<String> colorsStringList = colors.getStringList();
-            colorTable.setItems(colorsStringList);
+            //colorTable.setItems(colorsStringList);
         } catch (SQLException ex) {
             Logger.getLogger(ServiceEditFoundLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

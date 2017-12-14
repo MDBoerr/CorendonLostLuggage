@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 
 <!--  @author Thijs Zijdel - 500782165 -->
 
@@ -108,5 +109,6 @@
             </GridPane>
          </children>
       </AnchorPane>
+      <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" />
    </children>
 </GridPane>
