@@ -36,7 +36,7 @@ public class ServiceDataDetails {
 //        ServiceDataLost.missedLuggageList = setMissedLuggage();
 //    }
     
-    private ResultSet getServiceDetailsResultSet() throws SQLException{
+    public ResultSet getServiceDetailsResultSet() throws SQLException{
       
             
        //chosen for try catch, so its not nescecary to throw evry time sqlexeption
