@@ -30,6 +30,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -74,9 +75,14 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
     
     @FXML private StackPane stackPane;
     
+    @FXML private JFXButton saveEditings;
+    
      //view title
     private final String title = "Edit Found Luggage";
     
+    private String changedFields = "";
+    private int changes = 0;
+    private int changeCountDoubleCheck = 0;
     
     public String[] startValues;
     private String language = MainApp.getLanguage();
@@ -91,51 +97,34 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
             Logger.getLogger(ServiceHomeViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        //try to load initialize methode
-        try {
-            initializeFoundFields();
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceDetailedFoundLuggageController.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
-        
-        
+        //set 3 objects to get the right data from the database 
         ServiceDataDetails colors = new ServiceDataDetails("color", language, null);
-        try {
-            ObservableList<String> colorsStringList = colors.getStringList();
-            colorPicker1.getItems().addAll(colorsStringList);
-            colorPicker2.getItems().addAll(colorsStringList);
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceEditFoundLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
-        
-        // -> initialize current luggage's data
-        //colorPicker2.setValue("2004");
-         
-
         ServiceDataDetails locations = new ServiceDataDetails("location", language, null);
-        try {
-            ObservableList<String> locationStringList = locations.getStringList();
-            locationPicker.getItems().addAll(locationStringList);
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceEditFoundLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        // -> initialize current luggage's data
-        //locationPicker.setValue("1");
         
         ServiceDataDetails types = new ServiceDataDetails("luggagetype", language, null);
         try {
+            //initialize found fields 
+            initializeFoundFields();
+                    
+            //get the right string list for each combo box         
+            ObservableList<String> colorsStringList = colors.getStringList();
+            colorPicker1.getItems().addAll(colorsStringList);
+            colorPicker2.getItems().addAll(colorsStringList);
+            
+            
+            ObservableList<String> locationStringList = locations.getStringList();
+            locationPicker.getItems().addAll(locationStringList);
+            
+            
             ObservableList<String> luggageStringList = types.getStringList();
             typePicker.getItems().addAll(luggageStringList);
         } catch (SQLException ex) {
             Logger.getLogger(ServiceEditFoundLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        // -> initialize current luggage's data
-        //locationPicker.setValue("1");
-        
-        
+
+        //get start values of the fields
         startValues = getFields();
         
         stackPane.setVisible(false);
@@ -144,10 +133,6 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
     
     @FXML
     private void initializeFoundFields() throws SQLException{
-        
-        //needs to be faster and get more obj options !
-        //less searching in db
-        
         String id = FoundLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
         System.out.println("iD: "+id);
             //            MyJDBC db = MainApp.connectToDatabase();
@@ -182,8 +167,11 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
                 
                 String getFlight =              resultSet.getString("F.arrivedWithFlight"); 
                 String getLocationFound =       resultSet.getString("L."+language);
+                
+                //service employee wont be allalowed to see and change this:
                 //String employeeId =         resultSet.getString("employeeId");
                 //int matchedId =              resultSet.getInt("matchedId");
+                //------
                 
                 
                 
@@ -201,7 +189,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
                 size.setText(getSize);
                 weight.setText(getWeight);
                 signatures.setText(getOtherCharacteristics);
-
+                
                 passangerId.setText( Integer.toString(getPassengerId) );
                 passangerName.setText(getName);
                 address.setText(getAddress);
@@ -244,7 +232,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         values[15] = timeFound.getText();
         values[16] = flight.getText();
         
-        values[17] = colorPicker1.getValue().toString();
+        values[17] = colorPicker1.getValue().toString();  //--> 
         values[18] = colorPicker2.getValue().toString();
         values[19] = locationPicker.getValue().toString();
         values[20] = typePicker.getValue().toString();
@@ -270,6 +258,13 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         //CHECK FIELDS + FEEDBACK !!   
         //-------------------------
         checkChanges();
+
+        if (changeCountDoubleCheck == 2){
+            saveEditings.setText("Save changes");
+            //Save is confirmed
+            //Update query
+            //Alert message -> updated confirmed
+        }
         //will be changed 
 //        MyJDBC db = MainApp.connectToDatabase();
 //        db.executeUpdateQuery("UPDATE `foundluggage` SET "
@@ -296,12 +291,18 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
     public String alertColor = "#e03636";
     
     public void checkChanges(){
-        String changedFields = "";
+        //reset changedfield string and changes count
+        changedFields = "";
+        changes = 0;
         
+        //string array to compare fields
         String[] newValues = getFields();
-        int changes = 0;
+        
+        //loop trough al field values
         for (int i = 0; i < startValues.length; i++) {
+            //if start value of .. field is the same as new value
             if (startValues[i].equals(newValues[i])){
+                //use an switch to set that field to the right unFocusColor
                 switch (i) {
                     case 0: registrationNr.setUnFocusColor(Paint.valueOf(unFocusColor));
                             break;
@@ -347,7 +348,10 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
                             break;
                 }
             } else {
+                //if the comparison is not equal, 1 changes made
                 changes++;
+                //use an switch to set that field to the right noticeColor
+                //And add the right field to the changed field string for the alert
                 switch (i) {
                     case 0: registrationNr.setUnFocusColor(Paint.valueOf(noticeColor));
                             changedFields += "registrationNr";
@@ -368,19 +372,19 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
                             changedFields += ", signatures";
                             break;
                     case 6: passangerId.setUnFocusColor(Paint.valueOf(noticeColor));
-                            changedFields += ", passanger id ";
+                            changedFields += ", id ";
                             break;
                     case 7: passangerName.setUnFocusColor(Paint.valueOf(noticeColor));
-                            changedFields += ", passanger name";
+                            changedFields += ", name";
                             break;
                     case 8: address.setUnFocusColor(Paint.valueOf(noticeColor));
                             changedFields += ", registrationNr";
                             break;
                     case 9: place.setUnFocusColor(Paint.valueOf(noticeColor));
-                            changedFields += ", ressidence place";
+                            changedFields += ", place";
                             break;
                     case 10:postalCode.setUnFocusColor(Paint.valueOf(noticeColor));
-                            changedFields += ", postal Code";
+                            changedFields += ", postal code";
                             break;
                     case 11:country.setUnFocusColor(Paint.valueOf(noticeColor));
                             changedFields += ", registrationNr";
@@ -392,10 +396,10 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
                             changedFields += ", phone";
                             break;
                     case 14:dateFound.setUnFocusColor(Paint.valueOf(noticeColor));
-                            changedFields += ", registrationNr";
+                            changedFields += ", date";
                             break;
                     case 15:timeFound.setUnFocusColor(Paint.valueOf(noticeColor));
-                            changedFields += ", time Found";
+                            changedFields += ", time";
                             break;
                     case 16:flight.setUnFocusColor(Paint.valueOf(noticeColor));
                             changedFields += ", flight";
@@ -418,7 +422,21 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
             } 
             
         }
-        alertDialog(changedFields, changes); 
+        
+        //reset start fields
+        startValues = getFields();
+        
+        //if amount of changes equals zero
+        //no more changes made so change count gets ++
+        if (changes == 0){
+            changeCountDoubleCheck++;
+        } else {
+            //if there are some changes:
+            //Alert this with an dialog
+            alertDialog(changedFields, changes); 
+            //reset change count double check 
+            changeCountDoubleCheck = 0;
+        }
     }
     
     public void alertDialog(String changedFields, int changes){
@@ -445,8 +463,9 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         Text textPart2 = new Text(changedFields);
         Text textPart3 = new Text("\n\nPlease check and confirm them.");
         //set text color of changed field string to red
-        textPart2.setFill(Color.FIREBRICK);  
-        //comnine the text parts
+        textPart2.setFill(Color.web("#e03636"));  
+        
+        //combine the text parts
         alertMessage.getChildren().addAll(textPart1, textPart2, textPart3);
         //set the text parts (alert message) in the content
         content.setBody(alertMessage);
@@ -459,12 +478,23 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         JFXButton button = new JFXButton("ok");
         button.setOnAction((ActionEvent event) -> {
             alert.close();
+            //hide the stackpane so the fields will be clickable again
             stackPane.setVisible(false);
         });
+        //set action button in content for alert
         content.setActions(button);
         
-        //Show the alert
+        //Show the alert message (dialog)
         alert.show();
+        //show the stackpane so the dialog will be visible 
         stackPane.setVisible(true);
+        
+        //change the text on the 'save changes'  button
+        saveEditings.setText("Confirm Changes");
+    }
+    
+    @FXML
+    public void closeStackpane(){
+            stackPane.setVisible(false); 
     }
 }

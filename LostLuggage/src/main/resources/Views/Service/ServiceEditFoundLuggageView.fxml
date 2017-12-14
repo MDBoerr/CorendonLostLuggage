@@ -47,7 +47,7 @@
                   <RowConstraints maxHeight="215.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXTextField fx:id="registrationNr" editable="false" focusColor="#a7a7a7" labelFloat="true" promptText="Registration Nr" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#ababab" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                  <JFXTextField fx:id="registrationNr" editable="false" focusColor="#ababab" promptText="Registration Nr" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#ababab" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
                   <JFXTextField fx:id="brand" focusColor="#a7a7a7" labelFloat="true" promptText="Brand" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#ababab" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
                   <JFXTextArea fx:id="signatures" focusColor="#a7a7a7" labelFloat="true" prefHeight="115.0" prefWidth="282.0" promptText="Signatures" style="-fx-prompt-text-fill: #b1b1b1 #b1b1b1;" unFocusColor="#ababab" GridPane.columnIndex="1" GridPane.rowIndex="9" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
@@ -109,6 +109,6 @@
             </GridPane>
          </children>
       </AnchorPane>
-      <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" />
+      <StackPane fx:id="stackPane" onMouseClicked="#closeStackpane" prefHeight="150.0" prefWidth="200.0" />
    </children>
 </GridPane>
