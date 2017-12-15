@@ -2,30 +2,32 @@ package is103.lostluggage.Controllers.Service;
 
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
-import is103.lostluggage.Model.Service.Data.ServiceDataFound;
-import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetailsInstance;
-import is103.lostluggage.Model.Service.Instance.Matching.FoundLuggageManualMatchingInstance;
+import is103.lostluggage.Model.Service.Data.ServiceDataLost;
+import is103.lostluggage.Model.Service.Instance.Matching.LostLuggageManualMatchingInstance;
+import is103.lostluggage.Model.Service.Model.LostLuggage;
+import is103.lostluggage.Model.Service.Instance.Details.LostLuggageDetailsInstance;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
  * @author Thijs Zijdel - 500782165
  */
-public class ServiceManualMatchingFoundController implements Initializable {
+public class ServiceDetailedLostLuggageViewController implements Initializable {
     
-    
-    private String language = MainApp.getLanguage();
-    
+    @FXML private AnchorPane popupPain;
     @FXML private JFXTextField registrationNr;
     @FXML private JFXTextField luggageTag;
     @FXML private JFXTextField type;
@@ -45,17 +47,20 @@ public class ServiceManualMatchingFoundController implements Initializable {
     @FXML private JFXTextField email;   
     @FXML private JFXTextField phone;   
     
-    @FXML private JFXTextField timeFound;
-    @FXML private JFXTextField dateFound;
-    @FXML private JFXTextField locationFound;
+    @FXML private JFXTextField timeLost;
+    @FXML private JFXTextField dateLost;
     @FXML private JFXTextField flight;
+    
+    public Stage popupStageEditingView = new Stage(); 
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-                //try to load initialize methode
+        System.out.println("switched!!");
+        
+        //try to load initialize methode
         try {
             initializeFoundFields();
         } catch (SQLException ex) {
@@ -63,30 +68,29 @@ public class ServiceManualMatchingFoundController implements Initializable {
         }
         
 
-    }  
+  
+    }   
     
-    
-    
-        
+
     @FXML
     private void initializeFoundFields() throws SQLException{
-        String id = FoundLuggageManualMatchingInstance.getInstance().currentLuggage().getRegistrationNr();
-            //            MyJDBC db = MainApp.connectToDatabase();
-            ServiceDataFound detailsItem = new ServiceDataFound();
-            ResultSet resultSet = detailsItem.getAllDetailsFound(id);
-            
-            
+        String id = LostLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
+
+        System.out.println("iD: "+id);
+//            MyJDBC db = MainApp.connectToDatabase();
+            ServiceDataLost detailsItem = new ServiceDataLost();
+            ResultSet resultSet = detailsItem.getAllDetailsLost(id);
             
             while (resultSet.next()) {             
                 int getRegistrationNr =     resultSet.getInt("F.registrationNr");
-                String getDateFound =          resultSet.getString("F.dateFound");
-                String getTimeFound =          resultSet.getString("F.timeFound");
+                String getDateLost =          resultSet.getString("F.dateLost");
+                String getTimeLost =          resultSet.getString("F.timeLost");
                 
                 String getLuggageTag =         resultSet.getString("F.luggageTag");
-                String getLuggageType =        resultSet.getString("T."+language);
+                String getLuggageType =        resultSet.getString("T.dutch");
                 String getBrand =              resultSet.getString("F.brand");
-                String getMainColor =          resultSet.getString("c1."+language);
-                String getSecondColor =        resultSet.getString("c2."+language);
+                String getMainColor =          resultSet.getString("c1.dutch");
+                String getSecondColor =        resultSet.getString("c2.dutch");
                 String getSize =               resultSet.getString("F.size");
                 String getWeight =                resultSet.getString("F.weight");   
                 String getOtherCharacteristics=resultSet.getString("F.otherCharacteristics");
@@ -101,10 +105,11 @@ public class ServiceManualMatchingFoundController implements Initializable {
                 String getEmail =          resultSet.getString("P.email");
                 String getPhone =          resultSet.getString("P.phone");
                 
-                String getFlight =              resultSet.getString("F.arrivedWithFlight"); 
-                String getLocationFound =       resultSet.getString("L."+language);
+                String getFlight =              resultSet.getString("F.Flight"); 
                 //String employeeId =         resultSet.getString("employeeId");
                 //int matchedId =              resultSet.getInt("matchedId");
+
+            
                 
             registrationNr.setText( Integer.toString(getRegistrationNr) );  
             luggageTag.setText(getLuggageTag);
@@ -127,12 +132,53 @@ public class ServiceManualMatchingFoundController implements Initializable {
             email.setText(getEmail);
             phone.setText(getPhone);
             
-            locationFound.setText(getLocationFound);
-            dateFound.setText(getDateFound);
-            timeFound.setText(getTimeFound);
+            //locationFound.setText(getLocationFound);
+            dateLost.setText(getDateLost);
+            timeLost.setText(getTimeLost);
             flight.setText(getFlight);
+            
+            
+            
+            
 
             }
         
     }
+    
+    
+    @FXML
+    protected void viewPotentials(ActionEvent event){
+        closeStage();
+        //methode starten
+        MainApp.serviceChangeValue = 0;
+    }
+    
+    
+    @FXML
+    protected void manualMatching(ActionEvent event){
+        LostLuggage passObject =  LostLuggageDetailsInstance.getInstance().currentLuggage();
+        LostLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());
+        
+        closeStage();
+        
+    }
+    
+    
+    
+    @FXML
+    public void openEditView() throws IOException{
+        closeStage();
+        MainApp.switchView("/Views/Service/ServiceEditLostLuggageView.fxml");
+    }
+    
+    
+    public void closeStage(){
+        Stage stage = (Stage) registrationNr.getScene().getWindow();
+        stage.close();
+    }
+
+    
+    
+
+    
 }

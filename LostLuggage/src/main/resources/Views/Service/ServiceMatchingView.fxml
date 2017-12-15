@@ -16,6 +16,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<!--  @author Thijs Zijdel - 500782165 -->
+
 <GridPane prefHeight="586.0" prefWidth="1179.0" style="-fx-background-color: fff;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Service.ServiceMatchingViewController">
     <columnConstraints>
         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="957.3544311523438" minWidth="10.0" prefWidth="277.5" />
@@ -40,7 +42,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="matchTabbleView" onMouseClicked="#foundRowClicked" prefHeight="207.0" prefWidth="1178.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="matchTabbleView" onMouseClicked="#matchRowClicked" prefHeight="207.0" prefWidth="1178.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <columns>
                               <TableColumn fx:id="matchIdLost" maxWidth="2000.0" minWidth="60.0" prefWidth="100.0" text="ID Lost" />
                               <TableColumn fx:id="matchIdFound" minWidth="60.0" prefWidth="100.0" text="ID Found" />
@@ -48,10 +50,10 @@
                               <TableColumn fx:id="matchPercentage" minWidth="60.0" prefWidth="70.0" text="Match %" />
                               <TableColumn fx:id="matchType" minWidth="100.0" prefWidth="120.0" text="Type" />
                               <TableColumn fx:id="matchBrand" minWidth="100.0" prefWidth="120.0" text="Brand" />
-                              <TableColumn fx:id="matchMainColor" minWidth="100.0" prefWidth="120.0" text="Main Color" />
-                              <TableColumn fx:id="matchSecondColor" minWidth="100.0" prefWidth="120.0" text="Second Color" />
-                              <TableColumn fx:id="matchSize" minWidth="70.0" prefWidth="100.0" text="Size" />
-                              <TableColumn fx:id="matchWeight" minWidth="70.0" prefWidth="100.0" text="Weight" />
+                              <TableColumn fx:id="matchMainColor" minWidth="100.0" prefWidth="120.0" text="Primary Color" />
+                              <TableColumn fx:id="matchSecondColor" minWidth="100.0" prefWidth="120.0" text="Secondary Color" />
+                              <TableColumn fx:id="matchSize" minWidth="70.0" prefWidth="100.0" text="Size (LxBxH)" />
+                              <TableColumn fx:id="matchWeight" minWidth="70.0" prefWidth="100.0" text="Weight (Kg)" />
                               <TableColumn fx:id="matchOtherCharacteristics" minWidth="100.0" prefWidth="145.0" text="Characteristics" />
                               <TableColumn fx:id="matchId" minWidth="50.0" prefWidth="84.0" text="Match ID" />
                            </columns>
@@ -59,7 +61,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id="manualTab" text="Manuel Matching">
+          <Tab fx:id="manualTab" text="Manual Matching">
             <content>
               <AnchorPane fx:id="manualPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -85,12 +87,12 @@
                                 </rowConstraints>
                                  <children>
                                     <JFXButton buttonType="RAISED" ripplerFill="#318d49" style="-fx-background-color: #46d06b#46d06b;" text="Confirm Match" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                    <JFXButton ripplerFill="#9e2626" style="-fx-background-color: #e03434#e03434;" text="Remove " textFill="WHITE">
+                                    <JFXButton onAction="#removeManualLost" ripplerFill="#9e2626" style="-fx-background-color: #e03434#e03434;" text="Remove " textFill="WHITE">
                                        <GridPane.margin>
                                           <Insets left="15.0" />
                                        </GridPane.margin>
                                     </JFXButton>
-                                    <JFXButton onAction="#addToManualFound" ripplerFill="#9e2626" style="-fx-background-color: #e03434#e03434;" text="Remove " textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+                                    <JFXButton onAction="#removeManualFound" ripplerFill="#9e2626" style="-fx-background-color: #e03434#e03434;" text="Remove " textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
                                        <GridPane.margin>
                                           <Insets right="15.0" />
                                        </GridPane.margin>
@@ -114,7 +116,7 @@
                                  </GridPane.margin>
                               </Text>
                               <Pane fx:id="foundPane" minHeight="200.0" prefHeight="300.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Pane fx:id="missedPane" minHeight="200.0" prefHeight="300.0" prefWidth="589.0" GridPane.rowIndex="1">
+                              <Pane fx:id="lostPane" minHeight="200.0" prefHeight="300.0" prefWidth="589.0" GridPane.rowIndex="1">
                                  <children>
                                     <JFXTextArea editable="false" layoutX="66.0" layoutY="21.0" prefHeight="198.0" prefWidth="435.0" text="The manual matching makes the process of checking the last values of a possible match a lot easier! You will be able to see and compare two luggages. 1 Lost and 1 Found in just 2 steps.&#10;&#10;STEP 1&#10;Double click on one of the table row's below.&#10;&#10;STEP 2&#10;On the full details popup click:&#10;At the right bottom: *manual matching*&#10;" />
                                  </children></Pane>
@@ -123,6 +125,30 @@
                      </children></AnchorPane>
             </content>
           </Tab>
+            <Tab fx:id="relatedTab" text="Related Luggage">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="relatedMatchingTable" onMouseClicked="#matchRowClicked" prefHeight="207.0" prefWidth="1178.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <columns>
+                              <TableColumn fx:id="matchIdLost1" maxWidth="2000.0" minWidth="60.0" prefWidth="100.0" text="ID Lost" />
+                              <TableColumn fx:id="matchIdFound1" minWidth="60.0" prefWidth="100.0" text="ID Found" />
+                              <TableColumn fx:id="matchTag1" minWidth="100.0" prefWidth="150.0" text="Tag" />
+                              <TableColumn fx:id="matchPercentage1" minWidth="60.0" prefWidth="70.0" text="Match %" />
+                              <TableColumn fx:id="matchType1" minWidth="100.0" prefWidth="120.0" text="Type" />
+                              <TableColumn fx:id="matchBrand1" minWidth="100.0" prefWidth="120.0" text="Brand" />
+                              <TableColumn fx:id="matchMainColor1" minWidth="100.0" prefWidth="120.0" text="Primary Color" />
+                              <TableColumn fx:id="matchSecondColor1" minWidth="100.0" prefWidth="120.0" text="Secondary Color" />
+                              <TableColumn fx:id="matchSize1" minWidth="70.0" prefWidth="100.0" text="Size (LxBxH)" />
+                              <TableColumn fx:id="matchWeight1" minWidth="70.0" prefWidth="100.0" text="Weight (Kg)" />
+                              <TableColumn fx:id="matchOtherCharacteristics1" minWidth="100.0" prefWidth="145.0" text="Characteristics" />
+                              <TableColumn fx:id="matchId1" minWidth="50.0" prefWidth="84.0" text="Match ID" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
         </tabs>
       </TabPane>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lost Luggage" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
@@ -133,16 +159,16 @@
             <Insets left="10.0" />
          </GridPane.margin>
       </Text>
-      <TableView fx:id="missedLuggageTable" onMouseClicked="#missedRowClicked" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="2">
+      <TableView fx:id="lostLuggageTable" onMouseClicked="#lostRowClicked" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="2">
          <columns>
             <TableColumn fx:id="missedRegistrationNr" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="ID" />
-            <TableColumn fx:id="missedDateLost" minWidth="80.0" text="Date Found" />
+            <TableColumn fx:id="missedDateLost" minWidth="80.0" text="Date" />
             <TableColumn fx:id="missedTimeLost" minWidth="65.0" prefWidth="114.00006103515625" text="Time" />
             <TableColumn fx:id="missedLuggageTag" minWidth="15.999969482421875" prefWidth="60.0" text="Tag" />
             <TableColumn fx:id="missedLuggageType" minWidth="21.0" prefWidth="49.0" text="Type" />
             <TableColumn fx:id="missedBrand" minWidth="37.0" prefWidth="68.0" text="Brand" />
-            <TableColumn fx:id="missedMainColor" minWidth="39.0" prefWidth="61.0" text="Color" />
-            <TableColumn fx:id="missedSecondColor" minWidth="78.0" prefWidth="94.0" text="Secondcolor" />
+            <TableColumn fx:id="missedMainColor" minWidth="39.0" prefWidth="61.0" text="Primary Color" />
+            <TableColumn fx:id="missedSecondColor" minWidth="78.0" prefWidth="94.0" text="Secondary Color" />
             <TableColumn fx:id="missedSize" minWidth="49.0" prefWidth="58.0" text="Size" />
             <TableColumn fx:id="missedWeight" minWidth="56.0" prefWidth="76.0" text="Weight" />
             <TableColumn fx:id="missedOtherCharacteristics" minWidth="100.0" prefWidth="176.0" text="Characteristics" />
@@ -161,13 +187,13 @@
       <TableView fx:id="foundLuggageTable" onMouseClicked="#foundRowClicked" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowIndex="7" GridPane.rowSpan="2">
          <columns>
             <TableColumn fx:id="foundRegistrationNr" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="ID" />
-            <TableColumn fx:id="foundDateFound" minWidth="80.0" text="Date Found" />
+            <TableColumn fx:id="foundDateFound" minWidth="80.0" text="Date" />
             <TableColumn fx:id="foundTimeFound" minWidth="65.0" prefWidth="114.00006103515625" text="Time" />
             <TableColumn fx:id="foundLuggageTag" minWidth="15.999969482421875" prefWidth="60.0" text="Tag" />
             <TableColumn fx:id="foundLuggageType" minWidth="21.0" prefWidth="49.0" text="Type" />
             <TableColumn fx:id="foundBrand" minWidth="37.0" prefWidth="68.0" text="Brand" />
-            <TableColumn fx:id="foundMainColor" minWidth="39.0" prefWidth="61.0" text="Color" />
-            <TableColumn fx:id="foundSecondColor" minWidth="78.0" prefWidth="94.0" text="Secondcolor" />
+            <TableColumn fx:id="foundMainColor" minWidth="39.0" prefWidth="61.0" text="Primary Color" />
+            <TableColumn fx:id="foundSecondColor" minWidth="78.0" prefWidth="94.0" text="Secondary Color" />
             <TableColumn fx:id="foundSize" minWidth="49.0" prefWidth="58.0" text="Size" />
             <TableColumn fx:id="foundWeight" minWidth="56.0" prefWidth="76.0" text="Weight" />
             <TableColumn fx:id="foundOtherCharacteristics" minWidth="100.0" prefWidth="176.0" text="Characteristics" />

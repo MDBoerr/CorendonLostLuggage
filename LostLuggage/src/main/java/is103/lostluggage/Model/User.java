@@ -8,8 +8,9 @@ package is103.lostluggage.Model;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
- *
- * @author Mike
+ * Object User
+ * 
+ * @author Michael de Boer
  */
 public class User {
 

@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package is103.lostluggage.Model;
+package is103.lostluggage.Model.Service.Model;
 
 /**
  *
- * @author thijszijdel
+ * @author Thijs Zijdel - 500782165
  */
-public class LuggageMatching {
+public class MatchLuggage {
     private String  
             registrationNrFound, 
             registrationNrMissed,
@@ -34,7 +29,7 @@ public class LuggageMatching {
     private int
             matchedId;
 
-    public LuggageMatching(
+    public MatchLuggage(
             String registrationNrFound, 
             String registrationNrMissed, 
             String luggageTag, 
@@ -78,7 +73,7 @@ public class LuggageMatching {
     /**
      * @return the registrationNrMissed
      */
-    public String getRegistrationNrMissed() {
+    public String getRegistrationNrLost() {
         return registrationNrMissed;
     }
 

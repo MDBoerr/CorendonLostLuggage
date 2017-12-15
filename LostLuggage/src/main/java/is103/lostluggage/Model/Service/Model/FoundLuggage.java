@@ -1,8 +1,16 @@
+<<<<<<< HEAD:LostLuggage/src/main/java/is103/lostluggage/Model/FoundLuggage.java
 package is103.lostluggage.Model;
 
 /**
  *
  * @author asus
+=======
+package is103.lostluggage.Model.Service.Model;
+
+/**
+ *
+ * @author Thijs Zijdel - 500782165
+>>>>>>> dad3c85d8f66711a1501493a0133135480028361:LostLuggage/src/main/java/is103/lostluggage/Model/Service/Model/FoundLuggage.java
  */
 public class FoundLuggage {
     private String  

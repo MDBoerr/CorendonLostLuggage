@@ -17,15 +17,28 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
+
+/**
+ * Main class
+ *
+ * @author Michael de Boer
+ *
+ */
+
 public class MainApp extends Application {
 
     private static BorderPane root;
 
     public static String user = null;
+    
+    public static int serviceChangeValue = 99;
+    public static boolean refreshMatching = true; //true= refresh       -> get's alternated in program
+                                                  //false= dont refresh
+                                                  //for: manual matching
 
     private static String dbName = "lostluggage";
     
-    public static String language = "English";
+    public static String language = "english";
 
     @Override
     public void start(Stage stage) throws Exception {

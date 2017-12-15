@@ -6,7 +6,11 @@ import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import static is103.lostluggage.MainApp.connectToDatabase;
+<<<<<<< HEAD
 import is103.lostluggage.Model.LostLuggage;
+=======
+import is103.lostluggage.Model.Service.Model.FoundLuggage;
+>>>>>>> dad3c85d8f66711a1501493a0133135480028361
 //import is103.lostluggage.Controllers.Service.Luggage;
 import java.io.IOException;
 import java.net.URL;

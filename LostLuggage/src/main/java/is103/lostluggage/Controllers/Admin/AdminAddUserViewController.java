@@ -36,9 +36,9 @@ import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 
 /**
- * FXML Controller class
+ * AdminAddUserView Controller class
  *
- * @author Michael de Boer GenerateId() Arthur & Michael
+ * @author Michael de Boer
  *
  */
 public class AdminAddUserViewController implements Initializable {
@@ -127,7 +127,7 @@ public class AdminAddUserViewController implements Initializable {
     }
 
     @FXML
-    public void addUser(ActionEvent event) {
+    public void addUser(ActionEvent event) throws IOException {
 
         //default error message is empty
         String errorMessage = "";
@@ -236,10 +236,12 @@ public class AdminAddUserViewController implements Initializable {
 
             int result = db.executeUpdateQuery(query);
             System.out.println(" This is the result:  " + result);
+            MainApp.switchView("/Views/Admin/UserScene.fxml");
 
         }
     }
-
+    //This method will start de error message animation, at the end of the 4 sec
+    // will start de dismiss animation
     public void startAnimation() {
         errorMessageView.prefHeight(0.0d);
         mainBorderPane.setTop(errorMessageView);
@@ -264,7 +266,7 @@ public class AdminAddUserViewController implements Initializable {
         wait.play();
 
     }
-
+    //This method will close the animation
     public void dismissAnimation() {
         errorMessageView.prefHeight(0.0d);
         mainBorderPane.setTop(errorMessageView);
@@ -283,9 +285,10 @@ public class AdminAddUserViewController implements Initializable {
         addUserBtn.setDisable(false);
 
     }
-
-//function to generate the employeeid by using the first letter of the firstname
-//and the first letter of the surname
+    
+    //This method is still in progress (not yet implemented)
+    //function to generate the employeeid by using the first letter of the firstname
+    //and the first letter of the surname
     public void generateEmployeeId() {
 
         //initialy the employee id field is empty

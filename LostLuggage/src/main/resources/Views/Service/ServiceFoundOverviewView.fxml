@@ -14,20 +14,28 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
+<!--  @author Thijs Zijdel - 500782165 -->
+
 <GridPane prefHeight="586.0" prefWidth="1179.0" style="-fx-background-color: fff;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Service.ServiceFoundOverviewViewController">
     <columnConstraints>
         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="957.3544311523438" minWidth="10.0" prefWidth="472.0338439941406" />
         <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="777.9694519042969" minWidth="10.0" prefWidth="707.4661560058594" />
     </columnConstraints>
     <rowConstraints>
+      <RowConstraints maxHeight="148.65740966796875" minHeight="10.0" prefHeight="81.10185241699219" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="148.65740966796875" minHeight="10.0" prefHeight="81.10185241699219" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="265.3981475830078" minHeight="10.0" prefHeight="200.0" valignment="CENTER" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="316.0810241699219" minHeight="10.0" prefHeight="200.0" valignment="CENTER" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="33.31011962890625" minHeight="100.0" prefHeight="9.034820556640625" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.halignment="LEFT">
          <children>
+            <JFXComboBox fx:id="searchTypeComboBox">
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </JFXComboBox>
             <JFXTextField fx:id="searchField" />
             <JFXButton onAction="#search" text="search" />
             <VBox minWidth="150.0" prefHeight="200.0" prefWidth="100.0">
@@ -42,7 +50,7 @@
             <Separator opacity="0.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="75.0" />
          </children>
       </HBox>
-      <TableView fx:id="foundLuggageTable" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowSpan="3">
+      <TableView fx:id="foundLuggageTable" onMouseClicked="#foundRowClicked" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="4">
          <columns>
             <TableColumn fx:id="foundRegistrationNr" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="ID" />
             <TableColumn fx:id="foundDateFound" minWidth="80.0" text="Date Found" />
@@ -62,10 +70,5 @@
             <TableColumn fx:id="foundMatchedId" minWidth="60.0" prefWidth="119.0" text="Match" />
          </columns>
       </TableView>
-      <JFXComboBox fx:id="searchTypeComboBox" GridPane.rowIndex="3">
-         <padding>
-            <Insets right="10.0" />
-         </padding>
-      </JFXComboBox>
     </children>
 </GridPane>
