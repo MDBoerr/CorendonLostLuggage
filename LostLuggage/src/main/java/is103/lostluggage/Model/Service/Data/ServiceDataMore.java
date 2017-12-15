@@ -114,9 +114,9 @@ public class ServiceDataMore {
                 Rectangle2D mainScreenBounds = Screen.getPrimary().getVisualBounds();
 
                 if (null!=type)switch (type) {
-                    case "found":stage.setX(mainScreenBounds.getMinX() + mainScreenBounds.getWidth() - DETAILS_STAGE_W);
+                    case "found"://stage.setX(mainScreenBounds.getMinX() + mainScreenBounds.getWidth() - DETAILS_STAGE_W);
                         break;
-                    case "lost":stage.setX(mainScreenBounds.getMinX() - mainScreenBounds.getWidth() - DETAILS_STAGE_W);
+                    case "lost"://stage.setX(mainScreenBounds.getMinX() - mainScreenBounds.getWidth() - DETAILS_STAGE_W);
                         break;
                     case "match":
                         
@@ -133,7 +133,7 @@ public class ServiceDataMore {
                                 stage.close();
                                 
                                 //set Stage boundaries to the left side  of the visible bounds of the users (main) screen
-                                stage.setX(mainScreenBounds.getMinX() - mainScreenBounds.getWidth() - DETAILS_STAGE_W);
+                                //stage.setX(mainScreenBounds.getMinX() - mainScreenBounds.getWidth() - DETAILS_STAGE_W);
                                 matchLuggage ++;
                             } else {
                                 //popup stage for found luggage
@@ -141,7 +141,7 @@ public class ServiceDataMore {
                                 stage.close();
                                 
                                 //set Stage boundaries to the right side  of the visible bounds of the users (main) screen
-                                stage.setX(mainScreenBounds.getMinX() + mainScreenBounds.getWidth() - DETAILS_STAGE_W);
+                                //stage.setX(mainScreenBounds.getMinX() + mainScreenBounds.getWidth() - DETAILS_STAGE_W);
                                 matchLuggage--;
                             }
                         break;
@@ -150,7 +150,7 @@ public class ServiceDataMore {
                 }
                 
                 //set Stage boundaries to the top  of the visible bounds of the users (main) screen
-                stage.setY(mainScreenBounds.getMinY() - mainScreenBounds.getHeight() - DETAILS_STAGE_H);
+                //stage.setY(mainScreenBounds.getMinY() - mainScreenBounds.getHeight() - DETAILS_STAGE_H);
                 
                 stage.setWidth(DETAILS_STAGE_W);
                 stage.setHeight(DETAILS_STAGE_H);
