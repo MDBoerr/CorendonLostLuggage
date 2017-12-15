@@ -19,9 +19,9 @@ public class FoundLuggageDetails {
         return instance;
     }
 
-    private FoundLuggage luggage = new FoundLuggage();
+    private LostLuggage luggage = new LostLuggage();
 
-    public FoundLuggage currentLuggage() {
+    public LostLuggage currentLuggage() {
         return luggage;
     }
 

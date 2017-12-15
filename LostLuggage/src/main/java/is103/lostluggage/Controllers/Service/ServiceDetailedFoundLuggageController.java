@@ -7,6 +7,7 @@ import is103.lostluggage.MainApp;
 import static is103.lostluggage.MainApp.getLanguage;
 import is103.lostluggage.Model.FoundLuggage;
 import is103.lostluggage.Model.FoundLuggageDetails;
+import is103.lostluggage.Model.LostLuggage;
 import is103.lostluggage.Model.LuggageManualMatchFound;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -287,7 +288,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
     @FXML
     protected void manualMatching(ActionEvent event){
         System.out.println("added to manual matching");
-        FoundLuggage passObject =  FoundLuggageDetails.getInstance().currentLuggage();
+        LostLuggage passObject =  FoundLuggageDetails.getInstance().currentLuggage();
         LuggageManualMatchFound.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());
         
         Stage stage = (Stage) registrationNr.getScene().getWindow();

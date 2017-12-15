@@ -1,35 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<GridPane prefHeight="579.0" prefWidth="949.0" style="-fx-background-color: #868e96#868e96 #868e96#868e96;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Manager.ManagerLostViewController">
+<GridPane prefHeight="586.0" prefWidth="1179.0" style="-fx-background-color: fff;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Manager.ManagerLostViewController">
     <columnConstraints>
-        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="957.3544311523438" minWidth="10.0" prefWidth="472.0338439941406" />
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="777.9694519042969" minWidth="10.0" prefWidth="707.4661560058594" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints maxHeight="148.65740966796875" minHeight="10.0" prefHeight="81.10185241699219" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="265.3981475830078" minHeight="10.0" prefHeight="200.0" valignment="CENTER" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="316.0810241699219" minHeight="10.0" prefHeight="200.0" valignment="CENTER" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="33.31011962890625" minHeight="100.0" prefHeight="9.034820556640625" vgrow="SOMETIMES" />
     </rowConstraints>
-   <children>
-      <TableView fx:id="LostTable" prefHeight="414.0" prefWidth="721.0" GridPane.columnSpan="2" GridPane.rowSpan="4">
-        <columns>
-                <TableColumn fx:id="label" prefWidth="115.17697143554688" text="Labelnummer" />
-                <TableColumn fx:id="merk" prefWidth="70.47128295898438" text="Merk" />
-                <TableColumn fx:id="type" prefWidth="80.17697143554688" text="Type" />
-                <TableColumn fx:id="vlucht" prefWidth="126.822998046875" text="Vluchtnummer" />
-                <TableColumn minWidth="0.0" prefWidth="0.0" text="C2" />
-                <TableColumn fx:id="luchthaven" prefWidth="95.4512939453125" text="Luchthaven" />
-                <TableColumn fx:id="kenmerken" prefWidth="164.39166259765625" text="Kenmerken" />
-                <TableColumn fx:id="reiziger" prefWidth="78.60833740234375" text="Reiziger" />
-        </columns>
-      </TableView>
-   </children>
+    <children>
+        <TableView fx:id="lostTable" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowSpan="3">
+            <columns>
+                <TableColumn fx:id="managerLostRegistrationNr" maxWidth="2000.0" prefWidth="30.0" text="ID" />
+                <TableColumn fx:id="managerLostDateLost" prefWidth="30.0" text="dateLost" />
+                <TableColumn fx:id="managerLostTimeLost" prefWidth="96.0" text="timeLost" />
+                <TableColumn fx:id="managerLostLuggageTag" prefWidth="57.72200012207031" text="luggageTag" />
+                <TableColumn fx:id="managerLostBrand" prefWidth="54.671478271484375" text="brand" />
+                <TableColumn fx:id="managerLostMainColor" prefWidth="71.00393676757812" text="mainColor" />
+                <TableColumn fx:id="managerLostSecondColor" prefWidth="84.48635864257812" text="secondColor" />
+            <TableColumn fx:id="managerLostSize" prefWidth="57.0" text="size" />
+            <TableColumn fx:id="managerLostWeight" prefWidth="95.0" text="weight" />
+            <TableColumn fx:id="managerLostOtherCharacteristics" prefWidth="96.0" text="otherCharacteristics" />  
+            <TableColumn fx:id="managerLostFlight" prefWidth="81.86956787109375" text="flight" />
+            <TableColumn fx:id="managerLostEmployeeId" prefWidth="65.984375" text="employeeId" />
+            <TableColumn fx:id="managerLostLuggageType" prefWidth="54.84834289550781" text="luggageType" />
+            <TableColumn fx:id="managerLostMatchedId" prefWidth="60.482421875" text="matcheId" />
+            <TableColumn fx:id="managerLostPassengerId" prefWidth="86.01171875" text="passangerId" />
+            </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+        </TableView>
+      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <children>
+            <VBox minWidth="150.0" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Separator opacity="0.0" prefHeight="8.0" prefWidth="237.0" />
+                  <Separator opacity="0.0" prefHeight="14.0" prefWidth="237.0" />
+                  <Separator opacity="0.0" prefHeight="8.0" prefWidth="237.0" />
+               </children>
+            </VBox>
+            <Separator opacity="0.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="75.0" />
+         </children>
+      </HBox>
+    </children>
 </GridPane>
