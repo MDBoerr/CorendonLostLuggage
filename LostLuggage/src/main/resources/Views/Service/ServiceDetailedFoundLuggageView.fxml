@@ -11,7 +11,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+
 <!--  @author Thijs Zijdel - 500782165 -->
+
 <AnchorPane id="AnchorPane" fx:id="popupPain" prefHeight="675.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Service.ServiceDetailedFoundLuggageController">
    <children>
       <GridPane layoutX="-24.0" layoutY="-22.0" prefHeight="650.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -51,7 +53,7 @@
             <JFXTextField fx:id="mainColor" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Color" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.valignment="BOTTOM" />
             <JFXTextArea fx:id="signatures" editable="false" focusColor="#b1b1b1" labelFloat="true" prefHeight="115.0" prefWidth="282.0" promptText="Signatures" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="9" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
                <GridPane.margin>
-                  <Insets bottom="10.0" top="15.0" />
+                  <Insets bottom="10.0" top="25.0" />
                </GridPane.margin></JFXTextArea>
             <JFXTextField fx:id="secondColor" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Color" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
             <JFXTextField fx:id="luggageTag" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Luggage Tag" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
@@ -69,10 +71,10 @@
             <JFXTextField fx:id="flight" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Flight" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />
             <GridPane prefHeight="27.0" prefWidth="446.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="12">
               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints />
-                  <ColumnConstraints />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="160.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
+                  <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
+                  <ColumnConstraints maxWidth="135.0" minWidth="140.0" prefWidth="135.0" />
                   <ColumnConstraints />
               </columnConstraints>
               <rowConstraints>
@@ -91,9 +93,9 @@
                   <RowConstraints />
               </rowConstraints>
                <children>
-                  <JFXButton fx:id="manualMatchingButton" buttonType="RAISED" onAction="#manualMatching" prefHeight="15.0" prefWidth="136.0" ripplerFill="#62b565" style="-fx-background-color: #5fc965#5fc965;" text="Manual matching" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <JFXButton fx:id="editLuggageButton" onAction="#openEditView" prefHeight="32.0" prefWidth="107.0" ripplerFill="#dddddd" style="-fx-background-color: #b8b8b8#b8b8b8;" text="Edit luggage" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <JFXButton fx:id="viewPotentialsButton" buttonType="RAISED" onAction="#viewPotentials" prefHeight="30.0" prefWidth="124.0" ripplerFill="#e8ab28" style="-fx-background-color: #fbc756#fbc756;" text="View potentials" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <JFXButton fx:id="manualMatchingButton" buttonType="RAISED" minWidth="124.0" onAction="#manualMatching" prefHeight="27.0" prefWidth="124.0" ripplerFill="#62b565" style="-fx-background-color: #5fc965#5fc965;" text="Manual matching" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <JFXButton fx:id="editLuggageButton" onAction="#openEditView" prefHeight="27.0" prefWidth="78.0" ripplerFill="#dddddd" style="-fx-background-color: #b8b8b8#b8b8b8;" text="Edit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <JFXButton fx:id="viewPotentialsButton" buttonType="RAISED" minWidth="135.0" onAction="#viewPotentials" prefHeight="17.0" prefWidth="124.0" ripplerFill="#e8ab28" style="-fx-background-color: #fbc756#fbc756;" text="Potential Matches" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                </children>
             </GridPane>
             <JFXTextField fx:id="dateFound" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Date Found" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />

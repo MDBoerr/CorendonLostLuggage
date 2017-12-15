@@ -3,19 +3,11 @@ package is103.lostluggage.Controllers.Service;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.MainApp;
-<<<<<<< HEAD
-import static is103.lostluggage.MainApp.getLanguage;
-import is103.lostluggage.Model.FoundLuggage;
-import is103.lostluggage.Model.FoundLuggageDetails;
-import is103.lostluggage.Model.LostLuggage;
-import is103.lostluggage.Model.LuggageManualMatchFound;
-=======
 import is103.lostluggage.Model.Service.Data.ServiceDataFound;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetailsInstance;
 import is103.lostluggage.Model.Service.Instance.Matching.FoundLuggageManualMatchingInstance;
 import java.io.IOException;
->>>>>>> dad3c85d8f66711a1501493a0133135480028361
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -179,16 +171,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
         FoundLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());        
     }
     
-<<<<<<< HEAD
-    @FXML
-    protected void manualMatching(ActionEvent event){
-        System.out.println("added to manual matching");
-        LostLuggage passObject =  FoundLuggageDetails.getInstance().currentLuggage();
-        LuggageManualMatchFound.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());
-        
-=======
     public void closeStage(){
->>>>>>> dad3c85d8f66711a1501493a0133135480028361
         Stage stage = (Stage) registrationNr.getScene().getWindow();
         stage.close();
     }

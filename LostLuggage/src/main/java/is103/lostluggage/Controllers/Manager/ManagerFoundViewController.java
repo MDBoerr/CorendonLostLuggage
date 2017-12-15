@@ -6,11 +6,7 @@ import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import static is103.lostluggage.MainApp.connectToDatabase;
-<<<<<<< HEAD
-import is103.lostluggage.Model.LostLuggage;
-=======
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
->>>>>>> dad3c85d8f66711a1501493a0133135480028361
 //import is103.lostluggage.Controllers.Service.Luggage;
 import java.io.IOException;
 import java.net.URL;
@@ -44,33 +40,33 @@ import javafx.stage.Stage;
 public class ManagerFoundViewController implements Initializable {
 private final String title = "Overzicht Gevonden Bagage";
     
-    public static ObservableList<LostLuggage> foundLuggageList;
+    public static ObservableList<FoundLuggage> foundLuggageList;
     
     
     //TableView found luggage's colommen
     
     
     @FXML
-    private TableView<LostLuggage> foundLuggage;
+    private TableView<FoundLuggage> foundLuggage;
 
-    @FXML private TableColumn<LostLuggage, String>  managerFoundRegistrationNr;
-    @FXML private TableColumn<LostLuggage, String>  managerFoundDateFound;
-    @FXML private TableColumn<LostLuggage, String>  managerFoundTimeFound;
+    @FXML private TableColumn<FoundLuggage, String>  managerFoundRegistrationNr;
+    @FXML private TableColumn<FoundLuggage, String>  found_dateFound;
+    @FXML private TableColumn<FoundLuggage, String>  found_timeFound;
     
-    @FXML private TableColumn<LostLuggage, String>  managerFoundLuggageTag;
-    @FXML private TableColumn<LostLuggage, String>  managerFoundLuggageType;
-    @FXML private TableColumn<LostLuggage, String>  managerFoundBrand;
-    @FXML private TableColumn<LostLuggage, Integer> managerFoundMainColor;
-    @FXML private TableColumn<LostLuggage, String>  managerFoundSecondColor;
-    @FXML private TableColumn<LostLuggage, Integer> managerFoundSize;
-    @FXML private TableColumn<LostLuggage, String>  managerFoundWeight;
-    @FXML private TableColumn<LostLuggage, String>  managerFoundOtherCharacteristics;
-    @FXML private TableColumn<LostLuggage, Integer> managerFoundPassengerId;
+    @FXML private TableColumn<FoundLuggage, String>  found_luggageTag;
+    @FXML private TableColumn<FoundLuggage, String>  found_luggageType;
+    @FXML private TableColumn<FoundLuggage, String>  found_brand;
+    @FXML private TableColumn<FoundLuggage, Integer> found_mainColor;
+    @FXML private TableColumn<FoundLuggage, String>  found_secondColor;
+    @FXML private TableColumn<FoundLuggage, Integer> found_size;
+    @FXML private TableColumn<FoundLuggage, String>  found_weight;
+    @FXML private TableColumn<FoundLuggage, String>  found_otherCharacteristics;
+    @FXML private TableColumn<FoundLuggage, Integer> found_passengerId;
     
-    @FXML private TableColumn<LostLuggage, String> managerFoundArrivedWithFlight;
-    @FXML private TableColumn<LostLuggage, Integer> managerFoundLocationFound;
-    @FXML private TableColumn<LostLuggage, String> managerFoundEmployeeId;
-    @FXML private TableColumn<LostLuggage, Integer> managerFoundMatchedId;
+    @FXML private TableColumn<FoundLuggage, String> found_arrivedWithFlight;
+    @FXML private TableColumn<FoundLuggage, Integer> found_locationFound;
+    @FXML private TableColumn<FoundLuggage, String> found_employeeId;
+    @FXML private TableColumn<FoundLuggage, Integer> found_matchedId;
 
 
     /**
@@ -93,28 +89,32 @@ private final String title = "Overzicht Gevonden Bagage";
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         } 
         
-        //de data vanuit de database halen     
+        /** -----------------------------------------
+        *    DATA vanuit database in tabel plaatsen
+        * 
+        * @return data vanuit database in tabel.
+       /*----------------------------------------- */       
         
   
-        managerFoundRegistrationNr.setCellValueFactory(new PropertyValueFactory<>("registrationNr"));
-        managerFoundDateFound.setCellValueFactory(new PropertyValueFactory<>("dateFound"));
-        managerFoundTimeFound.setCellValueFactory(new PropertyValueFactory<>("timeFound"));
+        managerFoundRegistrationNr.setCellValueFactory(       new PropertyValueFactory<>("registrationNr"));
+        found_dateFound.setCellValueFactory(            new PropertyValueFactory<>("dateFound"));
+        found_timeFound.setCellValueFactory(            new PropertyValueFactory<>("timeFound"));
         
-        managerFoundLuggageTag.setCellValueFactory(new PropertyValueFactory<>("luggageTag"));
-        managerFoundLuggageType.setCellValueFactory(new PropertyValueFactory<>("luggageType"));
-        managerFoundBrand.setCellValueFactory(new PropertyValueFactory<>("brand"));
-        managerFoundMainColor.setCellValueFactory(new PropertyValueFactory<>("mainColor"));
-        managerFoundSecondColor.setCellValueFactory(new PropertyValueFactory<>("secondColor"));
-        managerFoundSize.setCellValueFactory(new PropertyValueFactory<>("size"));
-        managerFoundWeight.setCellValueFactory(new PropertyValueFactory<>("weight"));
+        found_luggageTag.setCellValueFactory(           new PropertyValueFactory<>("luggageTag"));
+        found_luggageType.setCellValueFactory(          new PropertyValueFactory<>("luggageType"));
+        found_brand.setCellValueFactory(                new PropertyValueFactory<>("brand"));
+        found_mainColor.setCellValueFactory(            new PropertyValueFactory<>("mainColor"));
+        found_secondColor.setCellValueFactory(          new PropertyValueFactory<>("secondColor"));
+        found_size.setCellValueFactory(                 new PropertyValueFactory<>("size"));
+        found_weight.setCellValueFactory(               new PropertyValueFactory<>("weight"));
 
-        managerFoundOtherCharacteristics.setCellValueFactory(new PropertyValueFactory<>("otherCharacteristics"));
-        managerFoundPassengerId.setCellValueFactory(new PropertyValueFactory<>("passengerId"));
+        found_otherCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
+        found_passengerId.setCellValueFactory(          new PropertyValueFactory<>("passengerId"));
         
-        managerFoundArrivedWithFlight.setCellValueFactory(new PropertyValueFactory<>("arrivedWithFlight"));
-        managerFoundLocationFound.setCellValueFactory(new PropertyValueFactory<>("locationFound"));
-        managerFoundEmployeeId.setCellValueFactory(new PropertyValueFactory<>("employeeId"));
-        managerFoundMatchedId.setCellValueFactory(new PropertyValueFactory<>("matchedId"));
+        found_arrivedWithFlight.setCellValueFactory(    new PropertyValueFactory<>("arrivedWithFlight"));
+        found_locationFound.setCellValueFactory(        new PropertyValueFactory<>("locationFound"));
+        found_employeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
+        found_matchedId.setCellValueFactory(             new PropertyValueFactory<>("matchedId"));
 
     
         
@@ -159,11 +159,19 @@ private final String title = "Overzicht Gevonden Bagage";
     
     
     
-    
-     
-    public ObservableList<LostLuggage> getFoundLuggage() {
+    /** *  -----------------------------------------
+     * Vermiste bagage uit de database tabel -> foundLuggage halen
+        Deze gegevens vervolgens (tijdelijk) in variabelen opslaan
+        Deze gegevens in object (FoundLuggage) plaatsen
+ 
+        Resultaten per resultaat (koffer) -> (voor check) uiprinten (console)
+     * 
+     * 
+     * @return luggages --> lijst met data van vermiste koffers
+     /*----------------------------------------- */
+    public ObservableList<FoundLuggage> getFoundLuggage() {
 
-        ObservableList<LostLuggage> foundLuggageList = FXCollections.observableArrayList();
+        ObservableList<FoundLuggage> foundLuggageList = FXCollections.observableArrayList();
         
         try {
              MyJDBC db = connectToDatabase();
@@ -198,7 +206,8 @@ private final String title = "Overzicht Gevonden Bagage";
 
 
                 //Per result -> toevoegen aan Luggages  (observable list) 
-                foundLuggageList.add(new LostLuggage(
+                foundLuggageList.add(
+                        new FoundLuggage(
                                 registrationNr, 
                                 dateFound, 
                                 timeFound, 
@@ -220,7 +229,18 @@ private final String title = "Overzicht Gevonden Bagage";
                             ));
                 
                 
+                // Alle gegevens per result (koffer) (alleen id) om spam te voorkomen) ->  printen
+                System.out.println("Gegevens voor koffer id: "+registrationNr+" |       Zijn: Correct");
+                System.out.println("---------------------------------------------------------------------");
                 
+                // Alle gegevens per result (koffer) ->  printen  --> volledig overzicht
+//                System.out.println("Gegevens voor koffer id: "+get_idfoundLuggage);
+//                System.out.println("Time: "+ get_time + " Airport: " + get_airport+" Datum:"+get_date);
+//                System.out.println("Naam: "+ get_name + " Adress: "+get_adress+"Plaats: "+get_residence);
+//                System.out.println("Postcode: "+get_postalcode+" Land: "+ get_country+" Email: "+get_email);
+//                System.out.println("Labelnum: "+get_labelnumber+" Vlucht: "+get_flightnumber+" Bestemming: "+get_destination);
+//                System.out.println("Type bagage: "+get_type+" Merk: "+get_brand+" Kleur: "+get_color+" Kenmerken: "+get_signatures);
+//                System.out.println(" ---------------------------------------------------------------------");
             
             }//-> stop als er geen resultaten meer zijn!
 

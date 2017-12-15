@@ -25,21 +25,21 @@
         <TableView fx:id="foundLuggage" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowSpan="3">
             <columns>
                 <TableColumn fx:id="managerFoundRegistrationNr" maxWidth="2000.0" prefWidth="30.0" text="ID" />
-                <TableColumn fx:id="managerFoundDateFound" prefWidth="30.0" text="dateFound" />
-                <TableColumn fx:id="managerFoundTimeFound" prefWidth="96.0" text="timeFound" />
-                <TableColumn fx:id="managerFoundLuggageTag" prefWidth="57.72200012207031" text="tag" />
-                <TableColumn fx:id="managerFoundLuggageType" prefWidth="54.84834289550781" text="type" />
-                <TableColumn fx:id="managerFoundBrand" prefWidth="54.671478271484375" text="brand" />
-                <TableColumn fx:id="managerFoundMainColor" prefWidth="71.00393676757812" text="mainColor" />
-                <TableColumn fx:id="managerFoundSecondColor" prefWidth="84.48635864257812" text="secondColor" />
-            <TableColumn fx:id="managerFoundSize" prefWidth="57.0" text="size" />
-            <TableColumn fx:id="managerFoundWeight" prefWidth="95.0" text="weight" />
-            <TableColumn fx:id="managerFoundOtherCharacteristics" prefWidth="69.98828125" text="Characteristics" />
-            <TableColumn fx:id="managerFoundPassengerId" prefWidth="86.01171875" text="passangerId" />
-            <TableColumn fx:id="managerFoundArrivedWithFlight" prefWidth="81.86956787109375" text="flight" />
-            <TableColumn fx:id="managerFoundLocationFound" prefWidth="82.486328125" text="locationFound" />
-            <TableColumn fx:id="managerFoundEmployeeId" prefWidth="65.984375" text="employeeId" />
-            <TableColumn fx:id="managerFoundMatchedId" prefWidth="60.482421875" text="matcheId" />
+                <TableColumn fx:id="found_dateFound" prefWidth="30.0" text="dateFound" />
+                <TableColumn fx:id="found_timeFound" prefWidth="96.0" text="timeFound" />
+                <TableColumn fx:id="found_luggageTag" prefWidth="57.72200012207031" text="tag" />
+                <TableColumn fx:id="found_luggageType" prefWidth="54.84834289550781" text="type" />
+                <TableColumn fx:id="found_brand" prefWidth="54.671478271484375" text="brand" />
+                <TableColumn fx:id="found_mainColor" prefWidth="71.00393676757812" text="mainColor" />
+                <TableColumn fx:id="found_secondColor" prefWidth="84.48635864257812" text="secondColor" />
+            <TableColumn fx:id="found_size" prefWidth="57.0" text="size" />
+            <TableColumn fx:id="found_weight" prefWidth="95.0" text="weight" />
+            <TableColumn fx:id="found_otherCharacteristics" prefWidth="69.98828125" text="Characteristics" />
+            <TableColumn fx:id="found_passengerId" prefWidth="86.01171875" text="passangerId" />
+            <TableColumn fx:id="found_arrivedWithFlight" prefWidth="81.86956787109375" text="flight" />
+            <TableColumn fx:id="found_locationFound" prefWidth="82.486328125" text="locationFound" />
+            <TableColumn fx:id="found_employeeId" prefWidth="65.984375" text="employeeId" />
+            <TableColumn fx:id="found_matchedId" prefWidth="60.482421875" text="matcheId" />
             </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
