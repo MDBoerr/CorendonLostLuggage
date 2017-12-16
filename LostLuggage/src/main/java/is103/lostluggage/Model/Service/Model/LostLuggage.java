@@ -76,6 +76,7 @@ public class LostLuggage {
         this.employeeId = employeeId;
         this.matchedId = matchedId;
     }
+    
 
 
     

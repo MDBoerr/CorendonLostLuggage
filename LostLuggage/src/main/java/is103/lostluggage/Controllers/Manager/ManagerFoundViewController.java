@@ -229,9 +229,7 @@ private final String title = "Overzicht Gevonden Bagage";
                             ));
                 
                 
-                // Alle gegevens per result (koffer) (alleen id) om spam te voorkomen) ->  printen
-                System.out.println("Gegevens voor koffer id: "+registrationNr+" |       Zijn: Correct");
-                System.out.println("---------------------------------------------------------------------");
+                
                 
                 // Alle gegevens per result (koffer) ->  printen  --> volledig overzicht
 //                System.out.println("Gegevens voor koffer id: "+get_idfoundLuggage);
