@@ -46,7 +46,11 @@ import javafx.stage.Stage;
  */
 
 public class ServiceEditFoundLuggageViewController implements Initializable {
-
+    
+            //create dialog content/layout and a textflow for the body
+    private JFXDialogLayout content = new JFXDialogLayout();
+    private TextFlow alertMessage = new TextFlow();
+        
     @FXML private JFXTextField registrationNr;
     @FXML private JFXTextField luggageTag;
     @FXML private JFXTextField brand;
@@ -443,10 +447,6 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         //Remove the first , (comma) and space
         changedFields = changedFields.substring(2);
         
-        
-        //create dialog content/layout and a textflow for the body
-        JFXDialogLayout content = new JFXDialogLayout();
-        TextFlow alertMessage = new TextFlow();
         
         //Set heading of dialog
         content.setHeading(new Text("Warning"));

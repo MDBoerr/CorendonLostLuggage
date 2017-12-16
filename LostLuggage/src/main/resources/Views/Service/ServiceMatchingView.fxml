@@ -68,8 +68,8 @@
                      <children>
                         <GridPane fx:id="manuelGrid" layoutX="12.0" layoutY="8.0" prefHeight="112.0" prefWidth="251.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="748.0" minWidth="10.0" prefWidth="589.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="590.0" minWidth="10.0" prefWidth="590.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1000.0" minWidth="10.0" prefWidth="589.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1000.0" minWidth="10.0" prefWidth="590.0" />
                           </columnConstraints>
                           <rowConstraints>
                               <RowConstraints maxHeight="167.0" minHeight="24.0" prefHeight="24.0" vgrow="SOMETIMES" />
@@ -109,10 +109,10 @@
                                     </Text>
                                  </children>
                               </FlowPane>
-                              <Pane fx:id="foundPane" minHeight="200.0" prefHeight="300.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Pane fx:id="lostPane" minHeight="200.0" prefHeight="300.0" prefWidth="589.0" GridPane.rowIndex="1">
+                              <Pane fx:id="foundPane" minHeight="200.0" minWidth="450.0" prefHeight="300.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                              <Pane fx:id="lostPane" minHeight="200.0" minWidth="450.0" prefHeight="300.0" prefWidth="589.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                  <children>
-                                    <JFXTextArea editable="false" layoutX="66.0" layoutY="21.0" prefHeight="198.0" prefWidth="435.0" text="The manual matching makes the process of checking the last values of a possible match a lot easier! You will be able to see and compare two luggages. 1 Lost and 1 Found in just 2 steps.&#10;&#10;STEP 1&#10;Double click on one of the table row's below.&#10;&#10;STEP 2&#10;On the full details popup click:&#10;At the right bottom: *manual matching*&#10;" />
+                                    <JFXTextArea editable="false" layoutX="66.0" layoutY="21.0" minWidth="300.0" prefHeight="198.0" prefWidth="435.0" text="The manual matching makes the process of checking the last values of a possible match a lot easier! You will be able to see and compare two luggages. 1 Lost and 1 Found in just 2 steps.&#10;&#10;STEP 1&#10;Double click on one of the table row's below.&#10;&#10;STEP 2&#10;On the full details popup click:&#10;At the right bottom: *manual matching*&#10;" />
                                  </children></Pane>
                               <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4189fc;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <children>

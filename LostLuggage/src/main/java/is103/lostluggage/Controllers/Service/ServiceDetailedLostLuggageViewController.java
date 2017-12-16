@@ -51,7 +51,7 @@ public class ServiceDetailedLostLuggageViewController implements Initializable {
     @FXML private JFXTextField dateLost;
     @FXML private JFXTextField flight;
     
-    public Stage popupStageEditingView = new Stage(); 
+    private Stage popupStageEditingView = new Stage(); 
     
     /**
      * Initializes the controller class.
