@@ -23,6 +23,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -142,6 +143,22 @@ public class ServiceMatchingViewController implements Initializable {
 
     
     
+ 
+    
+    @FXML private TableView<MatchLuggage> potentialMatchingTable;
+
+    @FXML private TableColumn<MatchLuggage, String>  potentialIdLost;
+    @FXML private TableColumn<MatchLuggage, String>  potentialIdFound;
+    @FXML private TableColumn<MatchLuggage, String>  potentialTag;
+    
+    @FXML private TableColumn<MatchLuggage, String>  potentialPercentage;
+    @FXML private TableColumn<MatchLuggage, String>  potentialType;
+    @FXML private TableColumn<MatchLuggage, String>  potentialBrand;
+    @FXML private TableColumn<MatchLuggage, Integer> potentialMainColor;
+    @FXML private TableColumn<MatchLuggage, String>  potentialSecondColor;
+    @FXML private TableColumn<MatchLuggage, Integer> potentialSize;
+    @FXML private TableColumn<MatchLuggage, String>  potentialWeight;
+    @FXML private TableColumn<MatchLuggage, String>  potentialCharacteristics;
     /**
      * Initializes the controller class.
      */
@@ -178,6 +195,14 @@ public class ServiceMatchingViewController implements Initializable {
         ServiceDataLost dataListLost;
         ServiceDataFound dataListFound;
         try {
+            
+            
+            
+            setPotentialMatchingTable();
+            
+            
+            
+            
             dataListLost = new ServiceDataLost();
             initializeLostLuggageTable();
             setLostLuggageTable(dataListLost);
@@ -327,6 +352,11 @@ public class ServiceMatchingViewController implements Initializable {
      * @void callMethodes@RateOfTimeLine 
      */
     public void callMethods(){
+        try {
+            setPotentialMatchingTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         //Methodes calling at rate of --> int:  timeRate   //2s
         addToManualFound();
         addToManualLost();
@@ -472,7 +502,33 @@ public class ServiceMatchingViewController implements Initializable {
         matchTabbleView.setItems(matchData.autoMatching(dataListFound.getFoundLuggage(), datalistDataLost.getLostLuggage())); 
     }
     
+    public void initializePotentialLuggageTable(){
+        potentialIdLost.setCellValueFactory(               new PropertyValueFactory<>("registrationNrLost"));
+        potentialIdFound.setCellValueFactory(              new PropertyValueFactory<>("registrationNrFound"));
+        potentialTag.setCellValueFactory(                  new PropertyValueFactory<>("luggageTag"));
+        
+        potentialPercentage.setCellValueFactory(           new PropertyValueFactory<>("matchPercentage"));
+        potentialType.setCellValueFactory(                 new PropertyValueFactory<>("luggageType"));
+        potentialBrand.setCellValueFactory(                new PropertyValueFactory<>("brand"));
+        potentialMainColor.setCellValueFactory(            new PropertyValueFactory<>("mainColor"));
+        potentialSecondColor.setCellValueFactory(          new PropertyValueFactory<>("secondColor"));
+        potentialSize.setCellValueFactory(                 new PropertyValueFactory<>("size"));
+        potentialWeight.setCellValueFactory(               new PropertyValueFactory<>("weight"));
 
+        potentialCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
+       
+        
+        //sort on match percentage
+        //potentialMatchingTable.getSortOrder().add(matchPercentage);
+        
+        //set right matching 
+        setMatchingTab(0);
+    }
+    public void setPotentialMatchingTable() throws SQLException{
+        potentialMatchingTable.setItems(ServiceDetailedLostLuggageViewController.potentialMatchesList);
+        //ServiceDataMatch matchData = new ServiceDataMatch();
+        //matchTabbleView.setItems(matchData.autoMatching(dataListFound.getFoundLuggage(), datalistDataLost.getLostLuggage())); 
+    }
     @FXML
     public void potentialMatches(){
         setMatchingTab(2);

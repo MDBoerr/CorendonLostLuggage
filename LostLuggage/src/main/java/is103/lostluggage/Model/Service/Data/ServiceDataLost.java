@@ -3,6 +3,7 @@ package is103.lostluggage.Model.Service.Data;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Model.LostLuggage;
+import is103.lostluggage.Model.Service.Model.MatchLuggage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -15,21 +16,22 @@ import javafx.collections.ObservableList;
  * @author Thijs Zijdel - 500782165
  */
 public class ServiceDataLost {
-    public static ObservableList<LostLuggage> missedLuggageList = FXCollections.observableArrayList(); 
+    private static ObservableList<LostLuggage> lostLuggageList = FXCollections.observableArrayList(); 
+    private static ObservableList<LostLuggage> resultsetList = FXCollections.observableArrayList(); 
     private static final MyJDBC db = MainApp.connectToDatabase();
     private static ResultSet resultSet;
     
     public ServiceDataLost() throws SQLException{
-        ServiceDataLost.missedLuggageList = setMissedLuggage();
+        ServiceDataLost.lostLuggageList = getLostLuggageList();
     }
     
-    public static ObservableList<LostLuggage> setMissedLuggage() throws SQLException{
+    public static ObservableList<LostLuggage> getLostLuggageList() throws SQLException{
         try {
 
             resultSet = db.executeResultSetQuery("SELECT * FROM lostLuggage");
             
             //clear previous list -> so there wont be any duplicate luggage
-            ServiceDataLost.missedLuggageList.clear();
+            ServiceDataLost.lostLuggageList.clear();
             
             while (resultSet.next()) {
                
@@ -54,7 +56,7 @@ public class ServiceDataLost {
 
                 if (matchedId == 0) {
                 //Per result -> toevoegen aan Luggages  (observable list) 
-                missedLuggageList.add(new LostLuggage(
+                lostLuggageList.add(new LostLuggage(
                                 registrationNr, 
                                 dateLost, 
                                 timeLost, 
@@ -81,12 +83,12 @@ public class ServiceDataLost {
         } catch (SQLException ex) {
             Logger.getLogger(ServiceDataFound.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return missedLuggageList;
+        return lostLuggageList;
     }
       
       
     public static ObservableList<LostLuggage> getLostLuggage(){
-         return ServiceDataLost.missedLuggageList;
+         return ServiceDataLost.lostLuggageList;
     }
      
      public ResultSet getAllDetailsLost(String id) throws SQLException{
@@ -130,7 +132,7 @@ public class ServiceDataLost {
      }
      
     public ObservableList<LostLuggage> getObservableList(ResultSet resultSet) throws SQLException{
-        resultsetList
+        
          while (resultSet.next() ) {
                
                 //Alle gegevens van de database (missedLuggage tabel) in variabelen plaatsen

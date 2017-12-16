@@ -23,10 +23,10 @@ public class ServiceDataFound {
     private String language = MainApp.getLanguage();
 
      public ServiceDataFound() throws SQLException{
-        ServiceDataFound.foundLuggageList = setFoundLuggage();
+        ServiceDataFound.foundLuggageList = getFoundLuggageList();
     }
            
-    public static ObservableList<FoundLuggage> setFoundLuggage() {
+    public static ObservableList<FoundLuggage> getFoundLuggageList() {
 
         try {
             resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage");
