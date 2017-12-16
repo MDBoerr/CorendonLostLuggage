@@ -44,7 +44,7 @@
         </rowConstraints>
          <children>
             <FlowPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #62b565#62b565;" GridPane.columnIndex="1" GridPane.columnSpan="6" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lost Luggage Details" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Lost Luggage Details" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>

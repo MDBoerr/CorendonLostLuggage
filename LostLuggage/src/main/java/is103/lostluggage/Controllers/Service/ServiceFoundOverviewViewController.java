@@ -145,7 +145,7 @@ public class ServiceFoundOverviewViewController implements Initializable {
                 String brand =              resultSet.getString("brand");
                 int mainColor =             resultSet.getInt("mainColor");
                 int secondColor =           resultSet.getInt("secondColor");
-                int size =                  resultSet.getInt("size");
+                String size =               resultSet.getString("size");
                 int weight =                resultSet.getInt("weight");   
                 String otherCharacteristics=resultSet.getString("otherCharacteristics");
                 int passengerId =           resultSet.getInt("passengerId");

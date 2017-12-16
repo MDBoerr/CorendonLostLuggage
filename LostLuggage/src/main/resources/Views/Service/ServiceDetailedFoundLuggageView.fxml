@@ -41,7 +41,7 @@
             <RowConstraints maxHeight="215.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <FlowPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #d81e05#d81e05;" GridPane.columnSpan="6" />
+            <FlowPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4189fc;" GridPane.columnSpan="6" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Found Luggage Details" GridPane.columnSpan="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="22.0" />
