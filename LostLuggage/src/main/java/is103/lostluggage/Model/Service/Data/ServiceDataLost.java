@@ -124,4 +124,57 @@ public class ServiceDataLost {
      }
     //Refresh methode ?
     //Update methode ?
+     
+     public ResultSet getLostResultSet(String id) throws SQLException{
+         return db.executeResultSetQuery("SELECT * FROM lostluggage WHERE registrationNr='"+id+"';");
+     }
+     
+    public ObservableList<LostLuggage> getObservableList(ResultSet resultSet) throws SQLException{
+        resultsetList
+         while (resultSet.next() ) {
+               
+                //Alle gegevens van de database (missedLuggage tabel) in variabelen plaatsen
+                String registrationNr =     resultSet.getString("registrationNr");
+                String dateLost =           resultSet.getString("dateLost");
+                String timeLost =           resultSet.getString("timeLost");
+                
+                String luggageTag =         resultSet.getString("luggageTag");
+                int luggageType =           resultSet.getInt("luggageType");
+                String brand =              resultSet.getString("brand");
+                int mainColor =             resultSet.getInt("mainColor");
+                int secondColor =           resultSet.getInt("secondColor");
+                String size =               resultSet.getString("size");
+                int weight =                resultSet.getInt("weight");   
+                String otherCharacteristics=resultSet.getString("otherCharacteristics");
+                int passengerId =           resultSet.getInt("passengerId");
+                
+                String flight =             resultSet.getString("flight"); 
+                String employeeId =         resultSet.getString("employeeId");
+                int matchedId =             resultSet.getInt("matchedId");
+
+                
+                //Per result -> toevoegen aan Luggages  (observable list) 
+                resultsetList.add(new LostLuggage(
+                                registrationNr, 
+                                dateLost, 
+                                timeLost, 
+                                
+                                luggageTag, 
+                                luggageType, 
+                                brand, 
+                                mainColor, 
+                                secondColor, 
+                                size, 
+                                weight, 
+                                otherCharacteristics, 
+                                passengerId, 
+                                
+                                flight, 
+                                employeeId, 
+                                matchedId
+                            ));   
+                
+         }
+         return resultsetList;
+     }
 }

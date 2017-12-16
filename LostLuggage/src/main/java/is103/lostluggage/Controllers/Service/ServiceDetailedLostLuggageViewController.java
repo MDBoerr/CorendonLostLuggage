@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Data.ServiceDataLost;
+import is103.lostluggage.Model.Service.Data.ServiceDataMatch;
 import is103.lostluggage.Model.Service.Instance.Matching.LostLuggageManualMatchingInstance;
 import is103.lostluggage.Model.Service.Model.LostLuggage;
 import is103.lostluggage.Model.Service.Instance.Details.LostLuggageDetailsInstance;
@@ -148,6 +149,8 @@ public class ServiceDetailedLostLuggageViewController implements Initializable {
     
     @FXML
     protected void viewPotentials(ActionEvent event){
+        ServiceDataMatch lostLuggageItem = new ServiceDataMatch();
+        lostLuggageItem.potentialFoundMatches();
         closeStage();
         //methode starten
         MainApp.serviceChangeValue = 0;

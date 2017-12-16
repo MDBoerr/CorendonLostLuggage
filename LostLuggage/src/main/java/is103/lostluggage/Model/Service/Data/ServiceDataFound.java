@@ -134,5 +134,8 @@ public class ServiceDataFound {
                             "WHERE registrationNr='"+id+"';");
      }
     
+     public ResultSet getFoundResultSet(String id) throws SQLException{
+         return db.executeResultSetQuery("SELECT * FROM foundluggage WHERE registrationNr='"+id+"';");
+     }
     
 }
