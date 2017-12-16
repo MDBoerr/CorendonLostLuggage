@@ -20,10 +20,10 @@ public class FoundLuggage {
     private int 
             mainColor,
             secondColor,
-            size,
             weight;
     
     private String
+            size,
             otherCharaccteristics;
     
     private int 
@@ -50,7 +50,7 @@ public class FoundLuggage {
             String brand, 
             int mainColor, 
             int secondColor, 
-            int size, 
+            String size, 
             int weight, 
             String otherCharaccteristics, 
             int passengerId, 
@@ -198,14 +198,14 @@ public class FoundLuggage {
     /**
      * @return the size
      */
-    public int getSize() {
+    public String getSize() {
         return size;
     }
 
     /**
      * @param size the size to set
      */
-    public void setSize(int size) {
+    public void setSize(String size) {
         this.size = size;
     }
 

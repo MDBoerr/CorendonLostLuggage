@@ -56,10 +56,11 @@ public class ServiceDataMatch {
                     }
                 }
                 
-                if (lost.getSize() != 0 && found.getSize() != 0){
-                    if ( ((lost.getSize()/found.getSize())-1)*100 < 70 ){
+                if (lost.getSize()==found.getSize()
+                                        && lost.getSize() != null 
+                                        && found.getSize() != null){
                         matchingPercentage += 10;
-                    }
+                    
                 }
                 
                 if (lost.getLuggageTag()==found.getLuggageTag() 

@@ -113,8 +113,8 @@ public class ServiceMatchingViewController implements Initializable {
     @FXML private TableColumn<LostLuggage, String>  missedLuggageType;
     @FXML private TableColumn<LostLuggage, String>  missedBrand;
     @FXML private TableColumn<LostLuggage, Integer> missedMainColor;
-    @FXML private TableColumn<LostLuggage, String>  missedSecondColor;
-    @FXML private TableColumn<LostLuggage, Integer> missedSize;
+    @FXML private TableColumn<LostLuggage, Integer> missedSecondColor;
+    @FXML private TableColumn<LostLuggage, String>  missedSize;
     @FXML private TableColumn<LostLuggage, String>  missedWeight;
     @FXML private TableColumn<LostLuggage, String>  missedOtherCharacteristics;
     @FXML private TableColumn<LostLuggage, Integer> missedPassengerId;

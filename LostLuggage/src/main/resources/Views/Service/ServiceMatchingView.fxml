@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -27,11 +28,11 @@
       <RowConstraints maxHeight="148.65740966796875" minHeight="10.0" prefHeight="27.5" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="148.65740966796875" minHeight="10.0" prefHeight="57.5" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="266.5" minHeight="10.0" prefHeight="266.5" valignment="CENTER" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="316.0810241699219" minHeight="3.595653533935547" prefHeight="35.5" valignment="CENTER" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="316.0810241699219" minHeight="20.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
         <RowConstraints minHeight="40.0" prefHeight="45.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="40.0" prefHeight="45.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="135.5" minHeight="0.0" prefHeight="36.5" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="40.0" prefHeight="45.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="135.5" minHeight="20.0" prefHeight="25.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="49.089630126953125" minHeight="40.0" prefHeight="47.791107177734375" vgrow="SOMETIMES" />
       <RowConstraints minHeight="40.0" prefHeight="45.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="94.903076171875" minHeight="27.5" prefHeight="27.5" vgrow="SOMETIMES" />
     </rowConstraints>
@@ -86,46 +87,48 @@
                                   <RowConstraints maxHeight="24.0" minHeight="45.0" prefHeight="50.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <JFXButton buttonType="RAISED" ripplerFill="#318d49" style="-fx-background-color: #46d06b#46d06b;" text="Confirm Match" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                    <JFXButton buttonType="RAISED" prefHeight="35.0" prefWidth="121.0" ripplerFill="#318d49" style="-fx-background-color: #46d06b#46d06b;" text="Confirm Match" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                                     <JFXButton onAction="#removeManualLost" ripplerFill="#9e2626" style="-fx-background-color: #e03434#e03434;" text="Remove " textFill="WHITE">
                                        <GridPane.margin>
                                           <Insets left="15.0" />
                                        </GridPane.margin>
                                     </JFXButton>
-                                    <JFXButton onAction="#removeManualFound" ripplerFill="#9e2626" style="-fx-background-color: #e03434#e03434;" text="Remove " textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+                                    <JFXButton onAction="#removeManualFound" ripplerFill="#518cf2" style="-fx-background-color: #e03434#e03434;" text="Remove " textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
                                        <GridPane.margin>
                                           <Insets right="15.0" />
                                        </GridPane.margin>
                                     </JFXButton>
                                  </children>
                               </GridPane>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lost ">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                                 <GridPane.margin>
-                                    <Insets left="15.0" />
-                                 </GridPane.margin>
-                              </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Found" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                                 <GridPane.margin>
-                                    <Insets right="15.0" />
-                                 </GridPane.margin>
-                              </Text>
+                              <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #62b565#62b565 #62b565#62b565;">
+                                 <children>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Lost ">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </FlowPane>
                               <Pane fx:id="foundPane" minHeight="200.0" prefHeight="300.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Pane fx:id="lostPane" minHeight="200.0" prefHeight="300.0" prefWidth="589.0" GridPane.rowIndex="1">
                                  <children>
                                     <JFXTextArea editable="false" layoutX="66.0" layoutY="21.0" prefHeight="198.0" prefWidth="435.0" text="The manual matching makes the process of checking the last values of a possible match a lot easier! You will be able to see and compare two luggages. 1 Lost and 1 Found in just 2 steps.&#10;&#10;STEP 1&#10;Double click on one of the table row's below.&#10;&#10;STEP 2&#10;On the full details popup click:&#10;At the right bottom: *manual matching*&#10;" />
                                  </children></Pane>
+                              <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4189fc;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                 <children>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Found">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </FlowPane>
                            </children>
                         </GridPane>
                      </children></AnchorPane>
             </content>
           </Tab>
-            <Tab fx:id="relatedTab" text="Related Luggage">
+            <Tab fx:id="relatedTab" text="Potential Matches">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -151,14 +154,6 @@
             </Tab>
         </tabs>
       </TabPane>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lost Luggage" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
-         <font>
-            <Font size="18.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="10.0" />
-         </GridPane.margin>
-      </Text>
       <TableView fx:id="lostLuggageTable" onMouseClicked="#lostRowClicked" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="2">
          <columns>
             <TableColumn fx:id="missedRegistrationNr" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="ID" />
@@ -176,14 +171,6 @@
             <TableColumn fx:id="missedFlight" minWidth="50.0" prefWidth="84.0" text="Flight" />
          </columns>
       </TableView>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Found Luggage" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="10.0" />
-         </GridPane.margin>
-      </Text>
       <TableView fx:id="foundLuggageTable" onMouseClicked="#foundRowClicked" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowIndex="7" GridPane.rowSpan="2">
          <columns>
             <TableColumn fx:id="foundRegistrationNr" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="ID" />
@@ -202,5 +189,29 @@
             <TableColumn fx:id="foundLocationFound" minWidth="60.0" prefWidth="119.0" text="Location" />
          </columns>
       </TableView>
+      <FlowPane prefHeight="22.0" prefWidth="337.0" style="-fx-background-color: #4189fc;" GridPane.columnSpan="2" GridPane.rowIndex="6">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Found Luggage">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <FlowPane.margin>
+                  <Insets left="10.0" />
+               </FlowPane.margin>
+            </Text>
+         </children>
+      </FlowPane>
+      <FlowPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #62b565#62b565 #62b565#62b565 #62b565#62b565 #62b565;" GridPane.columnSpan="2" GridPane.rowIndex="3">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Lost Luggage">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <FlowPane.margin>
+                  <Insets left="10.0" />
+               </FlowPane.margin>
+            </Text>
+         </children>
+      </FlowPane>
     </children>
 </GridPane>
