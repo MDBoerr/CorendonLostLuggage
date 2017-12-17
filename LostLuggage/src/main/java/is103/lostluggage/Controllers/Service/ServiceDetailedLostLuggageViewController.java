@@ -148,18 +148,24 @@ public class ServiceDetailedLostLuggageViewController implements Initializable {
             }
         
     }
-    public static ObservableList<MatchLuggage> potentialMatchesList = FXCollections.observableArrayList(); 
+    public ObservableList<MatchLuggage> potentialMatchesList = FXCollections.observableArrayList(); 
     
     @FXML
     protected void viewPotentials(ActionEvent event) throws SQLException{
-        
+//        ObservableList<MatchLuggage> potentialMatchesList = FXCollections.observableArrayList(); 
         ServiceDataMatch lostLuggageItem = new ServiceDataMatch();
         
         //ServiceMatchingViewController set = new ServiceMatchingViewController();
-        ServiceDetailedLostLuggageViewController.potentialMatchesList = lostLuggageItem.potentialFoundMatches();
+        potentialMatchesList = lostLuggageItem.potentialFoundMatches();
+        
+        //PotentialLuggageMatchingInstance.getInstance().currentList();
         closeStage();
         //methode starten
         MainApp.serviceChangeValue = 0;
+    }
+    
+    public ObservableList<MatchLuggage> getPotentialList(){
+        return potentialMatchesList;
     }
     
     

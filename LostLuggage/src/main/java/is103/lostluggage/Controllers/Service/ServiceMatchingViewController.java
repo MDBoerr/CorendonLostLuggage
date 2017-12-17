@@ -154,9 +154,9 @@ public class ServiceMatchingViewController implements Initializable {
     @FXML private TableColumn<MatchLuggage, String>  potentialPercentage;
     @FXML private TableColumn<MatchLuggage, String>  potentialType;
     @FXML private TableColumn<MatchLuggage, String>  potentialBrand;
-    @FXML private TableColumn<MatchLuggage, Integer> potentialMainColor;
+    @FXML private TableColumn<MatchLuggage, String>  potentialMainColor;
     @FXML private TableColumn<MatchLuggage, String>  potentialSecondColor;
-    @FXML private TableColumn<MatchLuggage, Integer> potentialSize;
+    @FXML private TableColumn<MatchLuggage, String>  potentialSize;
     @FXML private TableColumn<MatchLuggage, String>  potentialWeight;
     @FXML private TableColumn<MatchLuggage, String>  potentialCharacteristics;
     /**
@@ -196,7 +196,7 @@ public class ServiceMatchingViewController implements Initializable {
         ServiceDataFound dataListFound;
         try {
             
-            
+            initializePotentialLuggageTable();
             
             setPotentialMatchingTable();
             
@@ -525,9 +525,11 @@ public class ServiceMatchingViewController implements Initializable {
         setMatchingTab(0);
     }
     public void setPotentialMatchingTable() throws SQLException{
-        potentialMatchingTable.setItems(ServiceDetailedLostLuggageViewController.potentialMatchesList);
+        //System.out.println("get get");
+        //ServiceDetailedLostLuggageViewController methode = new ServiceDetailedLostLuggageViewController();
+        //potentialMatchingTable.setItems(methode.getPotentialList());
         //ServiceDataMatch matchData = new ServiceDataMatch();
-        //matchTabbleView.setItems(matchData.autoMatching(dataListFound.getFoundLuggage(), datalistDataLost.getLostLuggage())); 
+        potentialMatchingTable.setItems(ServiceDataMatch.potentialFoundMatches()); 
     }
     @FXML
     public void potentialMatches(){

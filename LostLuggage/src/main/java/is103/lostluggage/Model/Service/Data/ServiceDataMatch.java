@@ -97,9 +97,11 @@ public class ServiceDataMatch {
         
     }
     
-    public ObservableList<MatchLuggage> potentialFoundMatches() throws SQLException{
-        String id = LostLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
+    
+    public static ObservableList<MatchLuggage> potentialFoundMatches() throws SQLException{
+        String lostId = LostLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
         ObservableList<MatchLuggage> potentialMatchesList = FXCollections.observableArrayList(); 
+        
         ObservableList<LostLuggage> observableItem = FXCollections.observableArrayList(); 
         
         
@@ -108,8 +110,9 @@ public class ServiceDataMatch {
         ObservableList<FoundLuggage> foundList = ServiceDataFound.getFoundLuggage();
         
         ServiceDataLost thisLuggage = new ServiceDataLost();
-        ResultSet resultset = thisLuggage.getLostResultSet(id);
+        ResultSet resultset = thisLuggage.getLostResultSet(lostId);
         observableItem = thisLuggage.getObservableList(resultset);
+        
         while (resultset.next()){
             
         }
@@ -166,7 +169,7 @@ public class ServiceDataMatch {
                         matchingPercentage += 50;
                         if (matchingPercentage >= 100){matchingPercentage=100;System.out.println("Same: luggage tag");}
                     }
-
+                    System.out.println("got match "+matchingPercentage);
                     if (matchingPercentage>10){
                         potentialMatchesList.add(new MatchLuggage(
                             found.getRegistrationNr(), 
@@ -185,6 +188,7 @@ public class ServiceDataMatch {
 
                 });
             });  
+        
         return potentialMatchesList;
     }
 }
