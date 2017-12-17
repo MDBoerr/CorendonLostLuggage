@@ -93,5 +93,14 @@ public class ServiceDataDetails {
         return 0;
     }
     
+    public int getIdValue() throws SQLException{
+        ResultSet resultSetThisField = getServiceDetailsResultSet();
+        int gotten = 0;
+        while (resultSetThisField.next()){
+            gotten =     resultSetThisField.getInt(this.field);
+        }
+        return gotten;
+    }
+    
     
 }

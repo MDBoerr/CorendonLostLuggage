@@ -7,10 +7,9 @@ import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.MainViewController;
-import is103.lostluggage.Model.Service.Data.ServiceDataDetails;
 import is103.lostluggage.Database.MyJDBC;
+import is103.lostluggage.Model.Service.Data.ServiceDataDetails;
 import is103.lostluggage.MainApp;
-import static is103.lostluggage.MainApp.getLanguage;
 import is103.lostluggage.Model.Service.Data.ServiceDataFound;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetailsInstance;
@@ -19,25 +18,18 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -46,10 +38,6 @@ import javafx.stage.Stage;
  */
 
 public class ServiceEditFoundLuggageViewController implements Initializable {
-    
-            //create dialog content/layout and a textflow for the body
-    private JFXDialogLayout content = new JFXDialogLayout();
-    private TextFlow alertMessage = new TextFlow();
         
     @FXML private JFXTextField registrationNr;
     @FXML private JFXTextField luggageTag;
@@ -81,15 +69,29 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
     
     @FXML private JFXButton saveEditings;
     
+    //create dialog content/layout and a textflow for the body
+    private JFXDialogLayout content = new JFXDialogLayout();
+    private TextFlow alertMessage = new TextFlow();
+    
      //view title
     private final String title = "Edit Found Luggage";
     
+    //alert message content (changes)
     private String changedFields = "";
     private int changes = 0;
     private int changeCountDoubleCheck = 0;
     
+    //start values of the initialized text fields
     public String[] startValues;
-    private String language = MainApp.getLanguage();
+    
+    //language of the application
+    private final String LANGUAGE = MainApp.getLanguage();
+    
+    //colors 
+    private String unFocusColor = "#ababab";
+    private String noticeColor = "#4189fc";
+    private String alertColor = "#e03636";
+    
     /**
      * Initializes the controller class.
      */
@@ -103,11 +105,11 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         
         
         //set 3 objects to get the right data from the database 
-        ServiceDataDetails colors = new ServiceDataDetails("color", language, null);
+        ServiceDataDetails colors = new ServiceDataDetails("color", LANGUAGE, null);
         
-        ServiceDataDetails locations = new ServiceDataDetails("location", language, null);
+        ServiceDataDetails locations = new ServiceDataDetails("location", LANGUAGE, null);
         
-        ServiceDataDetails types = new ServiceDataDetails("luggagetype", language, null);
+        ServiceDataDetails types = new ServiceDataDetails("luggagetype", LANGUAGE, null);
         try {
             //initialize found fields 
             initializeFoundFields();
@@ -151,10 +153,10 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
                 String getTimeFound =          resultSet.getString("F.timeFound");
                 
                 String getLuggageTag =         resultSet.getString("F.luggageTag");
-                String getLuggageType =        resultSet.getString("T."+language);
+                String getLuggageType =        resultSet.getString("T."+LANGUAGE);
                 String getBrand =              resultSet.getString("F.brand");
-                String getMainColor =          resultSet.getString("c1."+language);
-                String getSecondColor =        resultSet.getString("c2."+language);
+                String getMainColor =          resultSet.getString("c1."+LANGUAGE);
+                String getSecondColor =        resultSet.getString("c2."+LANGUAGE);
                 String getSize =               resultSet.getString("F.size");
                 String getWeight =                resultSet.getString("F.weight");   
                 String getOtherCharacteristics=resultSet.getString("F.otherCharacteristics");
@@ -170,14 +172,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
                 String getPhone =          resultSet.getString("P.phone");
                 
                 String getFlight =              resultSet.getString("F.arrivedWithFlight"); 
-                String getLocationFound =       resultSet.getString("L."+language);
-                
-                //service employee wont be allalowed to see and change this:
-                //String employeeId =         resultSet.getString("employeeId");
-                //int matchedId =              resultSet.getInt("matchedId");
-                //------
-                
-                
+                String getLocationFound =       resultSet.getString("L."+LANGUAGE);
                 
                 // -> initialize current luggage's data
                 colorPicker1.setValue(getMainColor);
@@ -236,7 +231,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         values[15] = timeFound.getText();
         values[16] = flight.getText();
         
-        values[17] = colorPicker1.getValue().toString();  //--> 
+        values[17] = colorPicker1.getValue().toString(); 
         values[18] = colorPicker2.getValue().toString();
         values[19] = locationPicker.getValue().toString();
         values[20] = typePicker.getValue().toString();
@@ -257,42 +252,74 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
     }
     
     @FXML
-    public void saveEditings() throws SQLException{
-        //-------------------------
-        //CHECK FIELDS + FEEDBACK !!   
-        //-------------------------
+    public void saveEditings() throws SQLException, IOException{
+        //chack changes of the fields
         checkChanges();
-
+        
+        //is pressed to times - > confimered
         if (changeCountDoubleCheck == 2){
             saveEditings.setText("Save changes");
-            //Save is confirmed
-            //Update query
-            //Alert message -> updated confirmed
-        }
-        //will be changed 
-//        MyJDBC db = MainApp.connectToDatabase();
-//        db.executeUpdateQuery("UPDATE `foundluggage` SET "
-//                + "`dateFound`='"+dateFound.getText()+"', "
-//                + "`timeFound`='"+timeFound.getText()+"', "
-//                + "`luggageTag`='"+luggageTag.getText()+"', "
-//                + "`luggageType`='"+typePicker.getValue()+"', "
-//                + "`brand`='"+brand.getText()+"', "
-//                + "`mainColor`='"+colorPicker1.getValue()+"', "
-//                + "`secondColor`='"+colorPicker2.getValue()+"', "
-//                + "`size`='"+size.getText()+"', "
-//                + "`weight`='"+weight.getText()+"', "
-//                + "`otherCharacteristics`='"+signatures.getText()+"', "
-//                + "`arrivedWithFlight`='NULL', "
-//                + "`locationFound`='"+locationPicker.getValue()+"', "
-//                + "`passengerId`='"+ passangerId.getText()+"' "
-//                + "WHERE `registrationNr`='"+registrationNr.getText()+"';");
-        
-        
+            updateLuggage();
+            MainApp.switchView("/Views/Service/ServiceOverviewFoundView.fxml");
+        }  
     }
     
-    public String unFocusColor = "#ababab";
-    public String noticeColor = "#4189fc";
-    public String alertColor = "#e03636";
+    public void updateLuggage() throws SQLException{
+        ServiceDataDetails getRalCode1 = new ServiceDataDetails
+        ("color", "ralCode", "WHERE `"+LANGUAGE+"`='"+colorPicker1.getValue().toString()+"'");
+        int ralCode1 = getRalCode1.getIdValue();
+        
+        ServiceDataDetails getRalCode2 = new ServiceDataDetails
+        ("color", "ralCode", "WHERE `"+LANGUAGE+"`='"+colorPicker2.getValue().toString()+"'");
+        int ralCode2 = getRalCode2.getIdValue();
+        
+        ServiceDataDetails getType = new ServiceDataDetails
+        ("luggagetype", "luggageTypeId", "WHERE `"+LANGUAGE+"`='"+typePicker.getValue().toString()+"'");
+        int typeCode = getType.getIdValue();
+        
+        ServiceDataDetails getLocation = new ServiceDataDetails
+        ("location", "locationId", "WHERE `"+LANGUAGE+"`='"+locationPicker.getValue().toString()+"'");
+        int locationCode = getLocation.getIdValue();
+        
+        if ("unknown".equals(luggageTag.getText())){luggageTag.setText("");}
+        if ("unknown".equals(brand.getText())){brand.setText("");}
+        if ("unknown".equals(size.getText())){size.setText("0");}
+        if ("unknown".equals(weight.getText())){weight.setText("0");}
+        if ("unknown".equals(signatures.getText())){signatures.setText("");}
+        
+        if ("unknown".equals(passangerName.getText())){passangerName.setText("");}
+        if ("unknown".equals(address.getText())){address.setText("");}
+        if ("unknown".equals(place.getText())){place.setText("");}
+        if ("unknown".equals(postalCode.getText())){postalCode.setText("");}
+        if ("unknown".equals(country.getText())){country.setText("");}
+        if ("unknown".equals(email.getText())){email.setText("");}
+        if ("unknown".equals(flight.getText())){flight.setText("");}
+        
+        MyJDBC db = MainApp.connectToDatabase();
+        db.executeUpdateQuery("UPDATE `foundluggage` SET "
+                + "`dateFound`='"+dateFound.getText()+"', "
+                + "`timeFound`='"+timeFound.getText()+"', "
+                + "`luggageTag`='"+luggageTag.getText()+"', "
+                + "`luggageType`='"+typeCode+"', "
+                + "`brand`='"+brand.getText()+"', "
+                + "`mainColor`='"+ralCode1+"', "
+                + "`secondColor`='"+ralCode2+"', "
+                + "`size`='"+size.getText()+"', "
+                + "`weight`='"+weight.getText()+"', "
+                + "`otherCharacteristics`='"+signatures.getText()+"', "
+                + "`locationFound`='"+locationCode+"' "
+                + "WHERE `registrationNr`='"+registrationNr.getText()+"';"); 
+        
+        db.executeUpdateQuery("UPDATE `passenger` SET "
+                + "`name`='"+passangerName.getText()+"', "
+                + "`address`='"+address.getText()+"', "
+                + "`place`='"+place.getText()+"', "
+                + "`postalcode`='"+postalCode.getText()+"', "
+                + "`country`='"+country.getText()+"', "
+                + "`email`='"+email.getText()+"' "
+                + "WHERE `passengerId`='"+passangerId.getText()+"';");
+    }
+   
     
     public void checkChanges(){
         //reset changedfield string and changes count
