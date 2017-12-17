@@ -69,7 +69,7 @@ public class ServiceHomeViewController implements Initializable {
 
     @FXML
     protected void toFoundLuggageView(ActionEvent event) throws IOException {
-        MainApp.switchView("/Views/Service/ServiceFoundOverviewView.fxml");
+        MainApp.switchView("/Views/Service/ServiceOverviewFoundView.fxml");
     }
 
     @FXML

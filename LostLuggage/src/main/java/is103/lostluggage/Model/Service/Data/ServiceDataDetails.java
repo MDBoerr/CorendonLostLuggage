@@ -28,7 +28,7 @@ public class ServiceDataDetails {
         this.condition = condition;
     }
     
-    public ObservableList<String> results = FXCollections.observableArrayList();
+    private ObservableList<String> results = FXCollections.observableArrayList();
     private final MyJDBC db = MainApp.connectToDatabase();
     private ResultSet resultSet;
     

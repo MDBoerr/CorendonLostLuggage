@@ -31,12 +31,12 @@ import javafx.stage.Stage;
  */
 public class ServiceOverviewLostViewController implements Initializable {
 
-            public Stage popupStageLost = new Stage();   
+            private Stage popupStageLost = new Stage();   
 
         //view title
     private final String title = "Overview Lost Luggage";
     
-    public static ObservableList<LostLuggage> MissedLuggageList;
+    private static ObservableList<LostLuggage> MissedLuggageList;
     
     @FXML  
     private JFXTextField searchField;
@@ -91,7 +91,7 @@ public class ServiceOverviewLostViewController implements Initializable {
             dataListLost = new ServiceDataLost();
             initializeMissedLuggageTable(dataListLost.getLostLuggage());
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceFoundOverviewViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceOverviewFoundViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

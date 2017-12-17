@@ -23,6 +23,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -92,7 +93,7 @@ public class ServiceMatchingViewController implements Initializable {
     @FXML private TableColumn<FoundLuggage, String>  foundBrand;
     @FXML private TableColumn<FoundLuggage, Integer> foundMainColor;
     @FXML private TableColumn<FoundLuggage, String>  foundSecondColor;
-    @FXML private TableColumn<FoundLuggage, Integer> foundSize;
+    @FXML private TableColumn<FoundLuggage, String>  foundSize;
     @FXML private TableColumn<FoundLuggage, String>  foundWeight;
     @FXML private TableColumn<FoundLuggage, String>  foundOtherCharacteristics;
     @FXML private TableColumn<FoundLuggage, Integer> foundPassengerId;
@@ -142,6 +143,22 @@ public class ServiceMatchingViewController implements Initializable {
 
     
     
+ 
+    
+    @FXML private TableView<MatchLuggage> potentialMatchingTable;
+
+    @FXML private TableColumn<MatchLuggage, String>  potentialIdLost;
+    @FXML private TableColumn<MatchLuggage, String>  potentialIdFound;
+    @FXML private TableColumn<MatchLuggage, String>  potentialTag;
+    
+    @FXML private TableColumn<MatchLuggage, String>  potentialPercentage;
+    @FXML private TableColumn<MatchLuggage, String>  potentialType;
+    @FXML private TableColumn<MatchLuggage, String>  potentialBrand;
+    @FXML private TableColumn<MatchLuggage, String>  potentialMainColor;
+    @FXML private TableColumn<MatchLuggage, String>  potentialSecondColor;
+    @FXML private TableColumn<MatchLuggage, String>  potentialSize;
+    @FXML private TableColumn<MatchLuggage, String>  potentialWeight;
+    @FXML private TableColumn<MatchLuggage, String>  potentialCharacteristics;
     /**
      * Initializes the controller class.
      */
@@ -178,6 +195,14 @@ public class ServiceMatchingViewController implements Initializable {
         ServiceDataLost dataListLost;
         ServiceDataFound dataListFound;
         try {
+            
+            initializePotentialLuggageTable();
+            
+            setPotentialMatchingTable();
+            
+            
+            
+            
             dataListLost = new ServiceDataLost();
             initializeLostLuggageTable();
             setLostLuggageTable(dataListLost);
@@ -327,6 +352,11 @@ public class ServiceMatchingViewController implements Initializable {
      * @void callMethodes@RateOfTimeLine 
      */
     public void callMethods(){
+        try {
+            setPotentialMatchingTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         //Methodes calling at rate of --> int:  timeRate   //2s
         addToManualFound();
         addToManualLost();
@@ -472,7 +502,35 @@ public class ServiceMatchingViewController implements Initializable {
         matchTabbleView.setItems(matchData.autoMatching(dataListFound.getFoundLuggage(), datalistDataLost.getLostLuggage())); 
     }
     
+    public void initializePotentialLuggageTable(){
+        potentialIdLost.setCellValueFactory(               new PropertyValueFactory<>("registrationNrLost"));
+        potentialIdFound.setCellValueFactory(              new PropertyValueFactory<>("registrationNrFound"));
+        potentialTag.setCellValueFactory(                  new PropertyValueFactory<>("luggageTag"));
+        
+        potentialPercentage.setCellValueFactory(           new PropertyValueFactory<>("matchPercentage"));
+        potentialType.setCellValueFactory(                 new PropertyValueFactory<>("luggageType"));
+        potentialBrand.setCellValueFactory(                new PropertyValueFactory<>("brand"));
+        potentialMainColor.setCellValueFactory(            new PropertyValueFactory<>("mainColor"));
+        potentialSecondColor.setCellValueFactory(          new PropertyValueFactory<>("secondColor"));
+        potentialSize.setCellValueFactory(                 new PropertyValueFactory<>("size"));
+        potentialWeight.setCellValueFactory(               new PropertyValueFactory<>("weight"));
 
+        potentialCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
+       
+        
+        //sort on match percentage
+        //potentialMatchingTable.getSortOrder().add(matchPercentage);
+        
+        //set right matching 
+        setMatchingTab(0);
+    }
+    public void setPotentialMatchingTable() throws SQLException{
+        //System.out.println("get get");
+        //ServiceDetailedLostLuggageViewController methode = new ServiceDetailedLostLuggageViewController();
+        //potentialMatchingTable.setItems(methode.getPotentialList());
+        //ServiceDataMatch matchData = new ServiceDataMatch();
+        potentialMatchingTable.setItems(ServiceDataMatch.potentialFoundMatches()); 
+    }
     @FXML
     public void potentialMatches(){
         setMatchingTab(2);

@@ -192,7 +192,7 @@ private final String title = "Overzicht Gevonden Bagage";
                 String brand =              resultSet.getString("brand");
                 int mainColor =             resultSet.getInt("mainColor");
                 int secondColor =           resultSet.getInt("secondColor");
-                int size =                  resultSet.getInt("size");
+                String size =                  resultSet.getString("size");
                 int weight =                resultSet.getInt("weight");   
                 String otherCharacteristics=resultSet.getString("otherCharacteristics");
                 int passengerId =           resultSet.getInt("passengerId");
@@ -229,20 +229,11 @@ private final String title = "Overzicht Gevonden Bagage";
                             ));
                 
                 
-                // Alle gegevens per result (koffer) (alleen id) om spam te voorkomen) ->  printen
-                System.out.println("Gegevens voor koffer id: "+registrationNr+" |       Zijn: Correct");
-                System.out.println("---------------------------------------------------------------------");
                 
-                // Alle gegevens per result (koffer) ->  printen  --> volledig overzicht
-//                System.out.println("Gegevens voor koffer id: "+get_idfoundLuggage);
-//                System.out.println("Time: "+ get_time + " Airport: " + get_airport+" Datum:"+get_date);
-//                System.out.println("Naam: "+ get_name + " Adress: "+get_adress+"Plaats: "+get_residence);
-//                System.out.println("Postcode: "+get_postalcode+" Land: "+ get_country+" Email: "+get_email);
-//                System.out.println("Labelnum: "+get_labelnumber+" Vlucht: "+get_flightnumber+" Bestemming: "+get_destination);
-//                System.out.println("Type bagage: "+get_type+" Merk: "+get_brand+" Kleur: "+get_color+" Kenmerken: "+get_signatures);
-//                System.out.println(" ---------------------------------------------------------------------");
+                
+
             
-            }//-> stop als er geen resultaten meer zijn!
+            }
 
         } catch (SQLException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);

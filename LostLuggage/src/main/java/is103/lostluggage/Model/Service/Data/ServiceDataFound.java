@@ -23,10 +23,10 @@ public class ServiceDataFound {
     private String language = MainApp.getLanguage();
 
      public ServiceDataFound() throws SQLException{
-        ServiceDataFound.foundLuggageList = setFoundLuggage();
+        ServiceDataFound.foundLuggageList = getFoundLuggageList();
     }
            
-    public static ObservableList<FoundLuggage> setFoundLuggage() {
+    public static ObservableList<FoundLuggage> getFoundLuggageList() {
 
         try {
             resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage");
@@ -134,5 +134,8 @@ public class ServiceDataFound {
                             "WHERE registrationNr='"+id+"';");
      }
     
+     public ResultSet getFoundResultSet(String id) throws SQLException{
+         return db.executeResultSetQuery("SELECT * FROM foundluggage WHERE registrationNr='"+id+"';");
+     }
     
 }
