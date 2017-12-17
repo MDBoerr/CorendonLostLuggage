@@ -1,14 +1,10 @@
 package is103.lostluggage.Model.Service.Data;
 
-import is103.lostluggage.MainApp;
-import is103.lostluggage.Model.Service.Instance.Details.LostLuggageDetailsInstance;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import is103.lostluggage.Model.Service.Model.LostLuggage;
 import is103.lostluggage.Model.Service.Model.MatchLuggage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -17,6 +13,10 @@ import javafx.collections.ObservableList;
  * @author thijszijdel
  */
 public class ServiceDataMatch {
+    //matching list
+    private ObservableList<MatchLuggage> potentialMatchesList = FXCollections.observableArrayList(); 
+    private boolean potentialMatchesReSet = false;
+    
     public ObservableList<MatchLuggage> autoMatching(ObservableList<FoundLuggage> foundList, ObservableList<LostLuggage> lostList){
         ObservableList<MatchLuggage> matchingList = FXCollections.observableArrayList();
         
@@ -98,28 +98,35 @@ public class ServiceDataMatch {
         
     }
     
+    public boolean getPotentialResetStatus(){
+        return this.potentialMatchesReSet;
+    }
+    public ObservableList<MatchLuggage> getPotentialMatchesList(){
+        return this.potentialMatchesList;
+    }
+    public void setPotentialResetStatus(boolean b) {
+        this.potentialMatchesReSet = b;
+    }
     
-    public static ObservableList<MatchLuggage> potentialFoundMatches() throws SQLException{
-        System.out.println("sendd sennd");
-        ObservableList<MatchLuggage> potentialMatchesList = FXCollections.observableArrayList(); 
-        if  (MainApp.serviceChangeValue == 0){
-        String lostId = LostLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
-       
-        
+    
+    
+    public void potentialFoundMatches(String id) throws SQLException{
+        //create lost list 'item'
         ObservableList<LostLuggage> observableItem = FXCollections.observableArrayList(); 
         
         
 
-            
+        //found luggages
         ObservableList<FoundLuggage> foundList = ServiceDataFound.getFoundLuggage();
         
+        
+        //get observable list of the 1 luggage
         ServiceDataLost thisLuggage = new ServiceDataLost();
-        ResultSet resultset = thisLuggage.getLostResultSet(lostId);
+        ResultSet resultset = thisLuggage.getLostResultSet(id);
         observableItem = thisLuggage.getObservableList(resultset);
         
-//        while (resultset.next()){
-//            
-//        }
+        
+        
         observableItem.forEach((lost)-> {
             foundList.forEach((found) -> {
                 
@@ -175,7 +182,7 @@ public class ServiceDataMatch {
                     }
 
                     if (matchingPercentage>10){
-                        potentialMatchesList.add(new MatchLuggage(
+                        this.potentialMatchesList.add(new MatchLuggage(
                             found.getRegistrationNr(), 
                             lost.getRegistrationNr(), 
                             lost.getLuggageTag()+" | "+found.getLuggageTag(), 
@@ -192,7 +199,9 @@ public class ServiceDataMatch {
 
                 });
             });  
-        }
-        return potentialMatchesList;
+        this.potentialMatchesReSet = false;
+        //return this.potentialMatchesList;
     }
+
+    
 }

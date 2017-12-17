@@ -2,6 +2,7 @@ package is103.lostluggage;
 
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
+import is103.lostluggage.Model.Service.Data.ServiceDataMatch;
 import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -35,7 +36,9 @@ public class MainApp extends Application {
     public static boolean resetMatching = true; //true= refresh       -> get's alternated in program
                                                   //false= dont refresh
                                                   //for: manual matching
-
+    //Match object for getting the same data in service pages
+    private static ServiceDataMatch matchData = new ServiceDataMatch();
+    
     private static String dbName = "lostLuggage";
     
     public static String language = "english";
@@ -97,6 +100,10 @@ public class MainApp extends Application {
     
     public static String getLanguage() {
         return language;
+    }
+    
+    public static ServiceDataMatch getMatchData() {
+        return matchData;
     }
 
     public static void checkLoggedInStatus(String user) throws IOException {
