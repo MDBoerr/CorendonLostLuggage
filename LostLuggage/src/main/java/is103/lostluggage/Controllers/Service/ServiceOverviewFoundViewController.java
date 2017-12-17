@@ -34,7 +34,7 @@ import javafx.stage.Stage;
  *
  * @author Thijs Zijdel - 500782165
  */
-public class ServiceFoundOverviewViewController implements Initializable {
+public class ServiceOverviewFoundViewController implements Initializable {
 
         public Stage popupStageFound = new Stage();   
 
@@ -42,8 +42,8 @@ public class ServiceFoundOverviewViewController implements Initializable {
         //view title
     private final String title = "Overview Found Luggage";
     
-    public static ObservableList<FoundLuggage> foundLuggageList;
-    public static ObservableList<FoundLuggage> foundLuggageListSearchResults;
+    private static ObservableList<FoundLuggage> foundLuggageList;
+    private static ObservableList<FoundLuggage> foundLuggageListSearchResults;
     
     @FXML JFXTextField searchField;
     @FXML JFXComboBox searchTypeComboBox;
@@ -104,7 +104,7 @@ public class ServiceFoundOverviewViewController implements Initializable {
             dataListFound = new ServiceDataFound();
             initializeFoundLuggageTable(dataListFound.getFoundLuggage());
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceFoundOverviewViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceOverviewFoundViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
@@ -180,7 +180,7 @@ public class ServiceFoundOverviewViewController implements Initializable {
             foundLuggageTable.setItems(foundLuggageListSearchResults);
             
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceFoundOverviewViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceOverviewFoundViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
          

@@ -4,9 +4,11 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Data.ServiceDataLost;
+import is103.lostluggage.Model.Service.Data.ServiceDataMatch;
 import is103.lostluggage.Model.Service.Instance.Matching.LostLuggageManualMatchingInstance;
 import is103.lostluggage.Model.Service.Model.LostLuggage;
 import is103.lostluggage.Model.Service.Instance.Details.LostLuggageDetailsInstance;
+import is103.lostluggage.Model.Service.Model.MatchLuggage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -14,6 +16,8 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -51,7 +55,7 @@ public class ServiceDetailedLostLuggageViewController implements Initializable {
     @FXML private JFXTextField dateLost;
     @FXML private JFXTextField flight;
     
-    public Stage popupStageEditingView = new Stage(); 
+    private Stage popupStageEditingView = new Stage(); 
     
     /**
      * Initializes the controller class.
@@ -144,13 +148,24 @@ public class ServiceDetailedLostLuggageViewController implements Initializable {
             }
         
     }
-    
+    public ObservableList<MatchLuggage> potentialMatchesList = FXCollections.observableArrayList(); 
     
     @FXML
-    protected void viewPotentials(ActionEvent event){
+    protected void viewPotentials(ActionEvent event) throws SQLException{
+//        ObservableList<MatchLuggage> potentialMatchesList = FXCollections.observableArrayList(); 
+        ServiceDataMatch lostLuggageItem = new ServiceDataMatch();
+        
+        //ServiceMatchingViewController set = new ServiceMatchingViewController();
+        potentialMatchesList = lostLuggageItem.potentialFoundMatches();
+        
+        //PotentialLuggageMatchingInstance.getInstance().currentList();
         closeStage();
         //methode starten
         MainApp.serviceChangeValue = 0;
+    }
+    
+    public ObservableList<MatchLuggage> getPotentialList(){
+        return potentialMatchesList;
     }
     
     
