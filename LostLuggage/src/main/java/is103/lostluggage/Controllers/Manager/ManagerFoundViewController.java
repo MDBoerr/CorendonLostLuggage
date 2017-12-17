@@ -44,7 +44,7 @@ private final String title = "Overzicht Gevonden Bagage";
     
     
     //TableView found luggage's colommen
-    
+   
     
     @FXML
     private TableView<FoundLuggage> foundLuggage;
