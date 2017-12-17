@@ -34,7 +34,7 @@ public class ServiceHomeViewController implements Initializable {
         MainViewController.previousView = "/fxml/SelectUserRoleView.fxml";
         
         //reset refreshing to auto
-        MainApp.refreshMatching = true;
+        MainApp.resetMatching = true;
         
         //titel boven de pagina zetten
         try {

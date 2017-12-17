@@ -198,7 +198,7 @@ public class ServiceMatchingViewController implements Initializable {
             
             initializePotentialLuggageTable();
             
-            setPotentialMatchingTable();
+            //setPotentialMatchingTable();
             
             
             
@@ -236,7 +236,7 @@ public class ServiceMatchingViewController implements Initializable {
     }
 
     public void resetManualMatching(){
-        if (MainApp.refreshMatching == true){
+        if (MainApp.resetMatching == true){
         FoundLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(null);
         LostLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(null);
         }
@@ -362,9 +362,13 @@ public class ServiceMatchingViewController implements Initializable {
         addToManualLost();
         
         if (MainApp.serviceChangeValue != 99){
-            if(MainApp.serviceChangeValue == 0){ //0 = potentialMatches 
-                                                //-> matching tab to 0
-                potentialMatches();
+            if(MainApp.serviceChangeValue == 0){ //0 = potentialMatches
+                                    
+                try {
+                    potentialMatches();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             MainApp.serviceChangeValue = 99;//reset
         }
@@ -529,11 +533,13 @@ public class ServiceMatchingViewController implements Initializable {
         //ServiceDetailedLostLuggageViewController methode = new ServiceDetailedLostLuggageViewController();
         //potentialMatchingTable.setItems(methode.getPotentialList());
         //ServiceDataMatch matchData = new ServiceDataMatch();
+        MainApp.serviceChangeValue = 99;//reset
         potentialMatchingTable.setItems(ServiceDataMatch.potentialFoundMatches()); 
     }
     @FXML
-    public void potentialMatches(){
+    public void potentialMatches() throws SQLException{
         setMatchingTab(2);
+        setPotentialMatchingTable();
     }
 
     

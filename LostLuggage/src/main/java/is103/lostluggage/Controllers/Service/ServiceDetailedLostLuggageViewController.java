@@ -157,11 +157,11 @@ public class ServiceDetailedLostLuggageViewController implements Initializable {
         
         //ServiceMatchingViewController set = new ServiceMatchingViewController();
         potentialMatchesList = lostLuggageItem.potentialFoundMatches();
-        
+        MainApp.serviceChangeValue = 0;
         //PotentialLuggageMatchingInstance.getInstance().currentList();
         closeStage();
         //methode starten
-        MainApp.serviceChangeValue = 0;
+        
     }
     
     public ObservableList<MatchLuggage> getPotentialList(){

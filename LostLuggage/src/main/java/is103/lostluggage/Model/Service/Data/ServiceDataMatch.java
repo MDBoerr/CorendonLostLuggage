@@ -1,5 +1,6 @@
 package is103.lostluggage.Model.Service.Data;
 
+import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Instance.Details.LostLuggageDetailsInstance;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import is103.lostluggage.Model.Service.Model.LostLuggage;
@@ -99,8 +100,11 @@ public class ServiceDataMatch {
     
     
     public static ObservableList<MatchLuggage> potentialFoundMatches() throws SQLException{
-        String lostId = LostLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
+        System.out.println("sendd sennd");
         ObservableList<MatchLuggage> potentialMatchesList = FXCollections.observableArrayList(); 
+        if  (MainApp.serviceChangeValue == 0){
+        String lostId = LostLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
+       
         
         ObservableList<LostLuggage> observableItem = FXCollections.observableArrayList(); 
         
@@ -113,9 +117,9 @@ public class ServiceDataMatch {
         ResultSet resultset = thisLuggage.getLostResultSet(lostId);
         observableItem = thisLuggage.getObservableList(resultset);
         
-        while (resultset.next()){
-            
-        }
+//        while (resultset.next()){
+//            
+//        }
         observableItem.forEach((lost)-> {
             foundList.forEach((found) -> {
                 
@@ -169,7 +173,7 @@ public class ServiceDataMatch {
                         matchingPercentage += 50;
                         if (matchingPercentage >= 100){matchingPercentage=100;System.out.println("Same: luggage tag");}
                     }
-                    System.out.println("got match "+matchingPercentage);
+
                     if (matchingPercentage>10){
                         potentialMatchesList.add(new MatchLuggage(
                             found.getRegistrationNr(), 
@@ -188,7 +192,7 @@ public class ServiceDataMatch {
 
                 });
             });  
-        
+        }
         return potentialMatchesList;
     }
 }

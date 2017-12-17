@@ -180,7 +180,7 @@ public class ServiceEditLostLuggageViewController implements Initializable {
         System.out.println("added to manual matching");
         LostLuggage passObject =  LostLuggageDetailsInstance.getInstance().currentLuggage();
         LostLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());
-        MainApp.refreshMatching = false;
+        MainApp.resetMatching = false;
         
         MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
         

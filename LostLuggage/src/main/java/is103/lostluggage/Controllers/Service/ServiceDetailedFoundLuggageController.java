@@ -83,12 +83,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
     
     @FXML
     private void initializeFoundFields() throws SQLException{
-        
-        //needs to be faster and get more obj options !
-        //less searching in db
-        
         String id = FoundLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
-        System.out.println("iD: "+id);
             //            MyJDBC db = MainApp.connectToDatabase();
             ServiceDataFound detailsItem = new ServiceDataFound();
             ResultSet resultSet = detailsItem.getAllDetailsFound(id);
@@ -160,6 +155,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
     @FXML
     protected void viewPotentials(ActionEvent event){
         closeStage();
+        
         MainApp.serviceChangeValue = 0; //temporary
     }
     
