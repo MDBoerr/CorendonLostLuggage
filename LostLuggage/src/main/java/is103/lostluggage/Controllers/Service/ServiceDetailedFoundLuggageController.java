@@ -4,8 +4,10 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Data.ServiceDataFound;
+import is103.lostluggage.Model.Service.Data.ServiceDataMatch;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetailsInstance;
+import is103.lostluggage.Model.Service.Instance.Details.LostLuggageDetailsInstance;
 import is103.lostluggage.Model.Service.Instance.Matching.FoundLuggageManualMatchingInstance;
 import java.io.IOException;
 import java.net.URL;
@@ -154,13 +156,17 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
    
     
     @FXML
-    protected void viewPotentials(ActionEvent event) throws IOException{
+    protected void viewPotentials(ActionEvent event) throws IOException, SQLException{
+        ServiceDataMatch data = MainApp.getMatchData();
+        data.setPotentialResetStatus(true);
+        String id = FoundLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
+        data.potentialLostMatches(id);
+        
+        //switch view and close
         if (MainApp.isOnMatchingView()==false){
             MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
         }
         closeStage();
-        
-        MainApp.serviceChangeValue = 0; //temporary
     }
     
 
