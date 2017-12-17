@@ -133,7 +133,11 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         //get start values of the fields
         startValues = getFields();
         
+        //otherwise there will be a grey overlay (= not clickable)
         stackPane.setVisible(false);
+        
+        //set screen status
+        MainApp.setOnMatchingView(false);
     }    
     
     

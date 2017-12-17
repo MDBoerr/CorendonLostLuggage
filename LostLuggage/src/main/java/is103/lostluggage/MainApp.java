@@ -32,6 +32,7 @@ public class MainApp extends Application {
 
     public static String user = null;
     
+    public static boolean onMatchingView = false;
     public static int serviceChangeValue = 99;
     public static boolean resetMatching = true; //true= refresh       -> get's alternated in program
                                                   //false= dont refresh
@@ -91,6 +92,13 @@ public class MainApp extends Application {
 
     }
 
+    public static boolean isOnMatchingView(){
+        return onMatchingView;
+    }
+    public static void setOnMatchingView(boolean value){
+        MainApp.onMatchingView = value;
+    }
+    
     public static MyJDBC connectToDatabase() {
 
         MyJDBC db = new MyJDBC(dbName);

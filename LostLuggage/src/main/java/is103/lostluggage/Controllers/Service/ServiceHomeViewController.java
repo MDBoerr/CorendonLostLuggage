@@ -43,14 +43,9 @@ public class ServiceHomeViewController implements Initializable {
             Logger.getLogger(ServiceHomeViewController.class.getName()).log(Level.SEVERE, null, ex);
         }  
         
-            //Optional:
-//        ServiceDataFound dataListFoundMain;
-//        try {
-//            dataListFoundMain = new ServiceDataFound();
-//        } catch (SQLException ex) {
-//            dataListFound = (ServiceDataFound) ServiceDataFound.getFoundLuggage();
-//            Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+
+        //set screen status
+        MainApp.setOnMatchingView(false);
     }
     
     

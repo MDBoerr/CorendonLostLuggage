@@ -221,7 +221,10 @@ public class ServiceMatchingViewController implements Initializable {
         
         //methode
         resetManualMatching();
-    }
+        
+        //setOnMatchingView status
+        MainApp.setOnMatchingView(true);
+    } 
 
     public void resetManualMatching(){
         if (MainApp.resetMatching == true){

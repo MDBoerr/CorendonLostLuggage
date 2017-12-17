@@ -40,6 +40,6 @@
       <Pane prefHeight="32.0" prefWidth="1200.0" style="-fx-background-color: #ced4da#ced4da;" BorderPane.alignment="CENTER" />
    </bottom>
    <center>
-      <Pane prefHeight="657.0" prefWidth="958.0" BorderPane.alignment="CENTER" />
+      <Pane fx:id="centerPane" prefHeight="657.0" prefWidth="958.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

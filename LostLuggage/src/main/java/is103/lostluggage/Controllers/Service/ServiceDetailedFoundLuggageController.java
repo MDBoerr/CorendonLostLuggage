@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.stage.Stage;
 
 
@@ -76,8 +77,8 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
     
     @FXML
     public void openEditView() throws IOException{
-        closeStage();
         MainApp.switchView("/Views/Service/ServiceEditFoundLuggageView.fxml");
+        closeStage();
     }
     
     
@@ -153,7 +154,10 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
    
     
     @FXML
-    protected void viewPotentials(ActionEvent event){
+    protected void viewPotentials(ActionEvent event) throws IOException{
+        if (MainApp.isOnMatchingView()==false){
+            MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
+        }
         closeStage();
         
         MainApp.serviceChangeValue = 0; //temporary
@@ -161,7 +165,10 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
     
 
     @FXML
-    protected void manualMatching(ActionEvent event){
+    protected void manualMatching(ActionEvent event) throws IOException{
+        if (MainApp.isOnMatchingView()==false){
+            MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
+        }
         closeStage();
         FoundLuggage passObject =  FoundLuggageDetailsInstance.getInstance().currentLuggage();
         FoundLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());        

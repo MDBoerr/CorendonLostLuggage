@@ -98,6 +98,9 @@ public class ServiceEditLostLuggageViewController implements Initializable {
         }
         // -> initialize current luggage's data
         //locationPicker.setValue("1");
+        
+        //set screen status
+        MainApp.setOnMatchingView(false);
     }   
     
     @FXML

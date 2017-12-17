@@ -110,7 +110,8 @@ public class ServiceOverviewFoundViewController implements Initializable {
         
 
         
-        
+        //set screen status
+        MainApp.setOnMatchingView(false);
     }
     
     @FXML

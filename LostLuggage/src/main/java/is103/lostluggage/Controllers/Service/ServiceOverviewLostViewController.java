@@ -93,6 +93,9 @@ public class ServiceOverviewLostViewController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(ServiceOverviewFoundViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        //set screen status
+        MainApp.setOnMatchingView(false);
     }
     
     
