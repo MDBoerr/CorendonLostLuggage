@@ -98,6 +98,9 @@ public class ServiceEditLostLuggageViewController implements Initializable {
         }
         // -> initialize current luggage's data
         //locationPicker.setValue("1");
+        
+        //set screen status
+        MainApp.setOnMatchingView(false);
     }   
     
     @FXML
@@ -180,7 +183,7 @@ public class ServiceEditLostLuggageViewController implements Initializable {
         System.out.println("added to manual matching");
         LostLuggage passObject =  LostLuggageDetailsInstance.getInstance().currentLuggage();
         LostLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());
-        MainApp.refreshMatching = false;
+        MainApp.resetMatching = false;
         
         MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
         

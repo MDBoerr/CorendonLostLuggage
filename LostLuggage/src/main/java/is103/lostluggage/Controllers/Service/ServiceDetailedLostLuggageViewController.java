@@ -151,17 +151,19 @@ public class ServiceDetailedLostLuggageViewController implements Initializable {
     public ObservableList<MatchLuggage> potentialMatchesList = FXCollections.observableArrayList(); 
     
     @FXML
-    protected void viewPotentials(ActionEvent event) throws SQLException{
-//        ObservableList<MatchLuggage> potentialMatchesList = FXCollections.observableArrayList(); 
-        ServiceDataMatch lostLuggageItem = new ServiceDataMatch();
+    public void viewPotentials(ActionEvent event) throws SQLException, IOException{
+        ServiceDataMatch data = MainApp.getMatchData();
+        MainApp.setPotentialResetStatus(true);
         
-        //ServiceMatchingViewController set = new ServiceMatchingViewController();
-        potentialMatchesList = lostLuggageItem.potentialFoundMatches();
+        String id = LostLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
+        data.potentialFoundMatches(id);
         
-        //PotentialLuggageMatchingInstance.getInstance().currentList();
+        //switch view and close
+        if (MainApp.isOnMatchingView()==false){
+            MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
+        }
         closeStage();
-        //methode starten
-        MainApp.serviceChangeValue = 0;
+        
     }
     
     public ObservableList<MatchLuggage> getPotentialList(){
@@ -170,11 +172,17 @@ public class ServiceDetailedLostLuggageViewController implements Initializable {
     
     
     @FXML
-    protected void manualMatching(ActionEvent event){
+    protected void manualMatching(ActionEvent event) throws IOException{
+        if (MainApp.isOnMatchingView()==false){
+            MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
+        }
+        closeStage();
+        
         LostLuggage passObject =  LostLuggageDetailsInstance.getInstance().currentLuggage();
         LostLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());
         
-        closeStage();
+       
+        
         
     }
     
@@ -182,8 +190,8 @@ public class ServiceDetailedLostLuggageViewController implements Initializable {
     
     @FXML
     public void openEditView() throws IOException{
-        closeStage();
         MainApp.switchView("/Views/Service/ServiceEditLostLuggageView.fxml");
+        closeStage();
     }
     
     

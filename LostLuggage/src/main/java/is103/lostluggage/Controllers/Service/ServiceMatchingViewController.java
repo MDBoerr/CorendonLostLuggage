@@ -47,24 +47,25 @@ import javafx.util.Duration;
  * @author Thijs Zijdel - 500782165
  */
 public class ServiceMatchingViewController implements Initializable {
-
-
+    //main match data
+    public ServiceDataMatch data = MainApp.getMatchData();
+     
     //view title
-    private final String title = "Matching";
+    private final String TITLE = "Matching";
     
     //popup stage
-    public Stage popupStageFound = new Stage();   
-    public Stage popupStageLost = new Stage(); 
+    private Stage popupStageFound = new Stage();   
+    private Stage popupStageLost = new Stage(); 
     
     //refresh rate                           
-    public static long timeRate = 1; //s
+    private static long REFRESH_TIME = 1; //s
     
     //setup for manual matching -> stop loop
-    public int idCheckFound = 9999;//random value (!= registrationNr) 
-    public int idFound      = 9999;//random value (!= registrationNr)
+    private int idCheckFound = 9999;//random value (!= registrationNr) 
+    private int idFound      = 9999;//random value (!= registrationNr)
     
-    public int idCheckLost = 9999;//random value (!= registrationNr) 
-    public int idLost      = 9999;//random value (!= registrationNr)
+    private int idCheckLost = 9999;//random value (!= registrationNr) 
+    private int idLost      = 9999;//random value (!= registrationNr)
     
     //luggage's lists
     public static ObservableList<FoundLuggage> foundLuggageList;
@@ -72,13 +73,12 @@ public class ServiceMatchingViewController implements Initializable {
     
     
     //Matching tabs -> 1: automatic matching     2: manual matching
-    @FXML public TabPane matchingTabs;
+    @FXML private TabPane matchingTabs;
 
     //Pannels for manual matching
-    @FXML public Pane foundPane;
-    @FXML public Pane lostPane;
-    
-    public TableView[] fixingTables = new TableView[3];
+    @FXML private Pane foundPane;
+    @FXML private Pane lostPane;
+   
     
     //--------------------------------
     //    Table Found initializen
@@ -144,7 +144,8 @@ public class ServiceMatchingViewController implements Initializable {
     
     
  
-    
+    //--------------------------------
+    //    Table potential initializen
     @FXML private TableView<MatchLuggage> potentialMatchingTable;
 
     @FXML private TableColumn<MatchLuggage, String>  potentialIdLost;
@@ -159,84 +160,74 @@ public class ServiceMatchingViewController implements Initializable {
     @FXML private TableColumn<MatchLuggage, String>  potentialSize;
     @FXML private TableColumn<MatchLuggage, String>  potentialWeight;
     @FXML private TableColumn<MatchLuggage, String>  potentialCharacteristics;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //switch to prev view.
-        // -   -   -   -   - 
         MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
         
         //titel boven de pagina zetten
-        // -   -   -   -   -
-        try {MainViewController.getInstance().getTitle(title);} catch (IOException ex) {
+        try {MainViewController.getInstance().getTitle(TITLE);} catch (IOException ex) {
             Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
         //Refresh timer setup
-        // -   -   -   -   - 
-        Timeline refreshTimeLine = new Timeline(new KeyFrame(Duration.seconds(timeRate), ev -> {
+        Timeline refreshTimeLine = new Timeline(new KeyFrame(Duration.seconds(REFRESH_TIME), ev -> {
             //methode to call all timer required methods.
             callMethods();
         })); 
         refreshTimeLine.setCycleCount(Animation.INDEFINITE);    //cycle count-> no end
         refreshTimeLine.play();                                 //start timeline
         
+        
 
-        //Initialize Table & obj lost
-        //          and
-        //Initialize Table & obj found 
-        //          and
-        //initialize matching table 
-        //  & set with dataListFound and dataListLost 
-        // -   -   -   -   -  
         ServiceDataLost dataListLost;
         ServiceDataFound dataListFound;
         try {
-            
+            //Initialize PotentialMatchingTable();
             initializePotentialLuggageTable();
             
-            setPotentialMatchingTable();
-            
-            
-            
-            
+            //Initialize Table & obj lost
             dataListLost = new ServiceDataLost();
             initializeLostLuggageTable();
             setLostLuggageTable(dataListLost);
         
-        
+            //Initialize Table & obj found 
             dataListFound = new ServiceDataFound();
             initializeFoundLuggageTable();
             setFoundLuggageTable(dataListFound);
             
+            //Initialize matching table 
+            //  & set with dataListFound and dataListLost
             initializeMatchingLuggageTable();
             setMatchingLuggageTable(dataListFound,dataListLost);
         } catch (SQLException ex) {
-            //dataListLost = (ServiceDataLost) ServiceDataLost.getMissedLuggage();
-            //dataListFound = (ServiceDataFound) ServiceDataFound.getFoundLuggage();
             Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        System.out.println("");
 
         //Stop Tables from being able to re position/ order
-        // -   -   -   -   -   -   -
+        //Placed them in an array for using same methode for each table
+        TableView[] fixingTables = new TableView[4];
         fixingTables[0]=foundLuggageTable;
         fixingTables[1]=lostLuggageTable;
         fixingTables[2]=matchTabbleView;
+        fixingTables[3]=potentialMatchingTable;
+        for (TableView fixingTable : fixingTables) { fixedTableHeader(fixingTable);}
         
-        for (int i = 0; i < fixingTables.length; i++) {
-            fixedTableHeader(fixingTables[i]);
-        }
-        
+        //methode
         resetManualMatching();
-    }
+        
+        //setOnMatchingView status
+        MainApp.setOnMatchingView(true);
+    } 
 
     public void resetManualMatching(){
-        if (MainApp.refreshMatching == true){
+        if (MainApp.resetMatching == true){
         FoundLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(null);
         LostLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(null);
         }
@@ -344,6 +335,18 @@ public class ServiceMatchingViewController implements Initializable {
                   
             }
         });
+        potentialMatchingTable.setOnMousePressed((MouseEvent event) -> {
+                                //--> event         //--> double click
+            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {  
+
+                //I set the details of the double clicked row (matched here)
+                //In 2 objects, FoundLuggageDetailsInstance & lostLuggageDetails)
+                ServiceDataMore matchDetails = new ServiceDataMore();
+                matchDetails.setDetailsOfRow("match", event, popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "match");
+                matchDetails.setAndOpenPopUpDetails("match", popupStageFound, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "match");
+                  
+            }
+        });
     }
 
     
@@ -360,14 +363,17 @@ public class ServiceMatchingViewController implements Initializable {
         //Methodes calling at rate of --> int:  timeRate   //2s
         addToManualFound();
         addToManualLost();
-        
-        if (MainApp.serviceChangeValue != 99){
-            if(MainApp.serviceChangeValue == 0){ //0 = potentialMatches 
-                                                //-> matching tab to 0
-                potentialMatches();
-            }
-            MainApp.serviceChangeValue = 99;//reset
+        try {
+            setPotentialMatchingTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+//        if (!data.getPotentialResetStatus()){
+//            System.out.println("resetteddd------");
+//            resetPotentialMatchingTable();
+//        }
+        
     }
     
     
@@ -468,6 +474,7 @@ public class ServiceMatchingViewController implements Initializable {
         
         //change tab to givven param    //0: auto   tab
                                         //1: manual tab
+                                        //3: potential tab
         matchingSelectionTabs.select(tab); 
     }
     
@@ -516,25 +523,34 @@ public class ServiceMatchingViewController implements Initializable {
         potentialWeight.setCellValueFactory(               new PropertyValueFactory<>("weight"));
 
         potentialCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
-       
-        
-        //sort on match percentage
-        //potentialMatchingTable.getSortOrder().add(matchPercentage);
-        
-        //set right matching 
-        setMatchingTab(0);
     }
+ 
+    
     public void setPotentialMatchingTable() throws SQLException{
-        //System.out.println("get get");
-        //ServiceDetailedLostLuggageViewController methode = new ServiceDetailedLostLuggageViewController();
-        //potentialMatchingTable.setItems(methode.getPotentialList());
-        //ServiceDataMatch matchData = new ServiceDataMatch();
-        potentialMatchingTable.setItems(ServiceDataMatch.potentialFoundMatches()); 
+
+        potentialMatchingTable.setItems(data.getPotentialMatchesList()); 
+        
     }
-    @FXML
-    public void potentialMatches(){
-        setMatchingTab(2);
+    public void resetPotentialMatchingTable() {
+        
+            potentialMatchingTable.getItems().clear();
+            setMatchingTab(2);
+            MainApp.setPotentialResetStatus(false);
+        
     }
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     
     // Solution by: Alexander Chingarev

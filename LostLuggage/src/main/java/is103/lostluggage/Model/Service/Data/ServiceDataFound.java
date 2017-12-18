@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
  */
 public class ServiceDataFound {
     public static ObservableList<FoundLuggage> foundLuggageList = FXCollections.observableArrayList();
+    private static ObservableList<FoundLuggage> resultsetList = FXCollections.observableArrayList(); 
     private static final MyJDBC db = MainApp.connectToDatabase();
     private static ResultSet resultSet;
     
@@ -138,4 +139,55 @@ public class ServiceDataFound {
          return db.executeResultSetQuery("SELECT * FROM foundluggage WHERE registrationNr='"+id+"';");
      }
     
+     public ObservableList<FoundLuggage> getObservableList(ResultSet resultSet) throws SQLException{
+        
+         while (resultSet.next() ) {
+               
+                //Alle gegevens van de database (missedLuggage tabel) in variabelen plaatsen
+                String registrationNr =     resultSet.getString("registrationNr");
+                String dateFound =          resultSet.getString("dateFound");
+                String timeFound =          resultSet.getString("timeFound");
+                
+                String luggageTag =         resultSet.getString("luggageTag");
+                int luggageType =           resultSet.getInt("luggageType");
+                String brand =              resultSet.getString("brand");
+                int mainColor =             resultSet.getInt("mainColor");
+                int secondColor =           resultSet.getInt("secondColor");
+                String size =               resultSet.getString("size");
+                int weight =                resultSet.getInt("weight");   
+                String otherCharacteristics=resultSet.getString("otherCharacteristics");
+                int passengerId =           resultSet.getInt("passengerId");
+                
+                String arrivedWithFlight =  resultSet.getString("arrivedWithFlight"); 
+                int locationFound =         resultSet.getInt("locationFound");
+                String employeeId =         resultSet.getString("employeeId");
+                int matchedId =             resultSet.getInt("matchedId");
+
+                
+                //Per result -> toevoegen aan Luggages  (observable list) 
+                resultsetList.add(
+                        new FoundLuggage(
+                                registrationNr, 
+                                dateFound, 
+                                timeFound, 
+                                
+                                luggageTag, 
+                                luggageType, 
+                                brand, 
+                                mainColor, 
+                                secondColor, 
+                                size, 
+                                weight, 
+                                otherCharacteristics, 
+                                passengerId, 
+                                
+                                arrivedWithFlight, 
+                                locationFound, 
+                                employeeId, 
+                                matchedId
+                            ));  
+                
+         }
+         return resultsetList;
+     }
 }

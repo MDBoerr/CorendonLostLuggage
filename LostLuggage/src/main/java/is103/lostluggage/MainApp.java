@@ -2,6 +2,7 @@ package is103.lostluggage;
 
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
+import is103.lostluggage.Model.Service.Data.ServiceDataMatch;
 import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -31,12 +32,15 @@ public class MainApp extends Application {
 
     public static String user = null;
     
+    public static boolean onMatchingView = false;
     public static int serviceChangeValue = 99;
-    public static boolean refreshMatching = true; //true= refresh       -> get's alternated in program
+    public static boolean resetMatching = true; //true= refresh       -> get's alternated in program
                                                   //false= dont refresh
                                                   //for: manual matching
-
-    private static String dbName = "lostluggage";
+    //Match object for getting the same data in service pages
+    private static ServiceDataMatch matchData = new ServiceDataMatch();
+    
+    private static String dbName = "lostLuggage";
     
     public static String language = "english";
 
@@ -88,6 +92,13 @@ public class MainApp extends Application {
 
     }
 
+    public static boolean isOnMatchingView(){
+        return onMatchingView;
+    }
+    public static void setOnMatchingView(boolean value){
+        MainApp.onMatchingView = value;
+    }
+    
     public static MyJDBC connectToDatabase() {
 
         MyJDBC db = new MyJDBC(dbName);
@@ -98,6 +109,19 @@ public class MainApp extends Application {
     public static String getLanguage() {
         return language;
     }
+    
+    public static ServiceDataMatch getMatchData() {
+        return matchData;
+    }
+    private static boolean potentialMatchesReSet = false;
+    
+    public static void setPotentialResetStatus(boolean b) {
+        MainApp.potentialMatchesReSet = b;
+    }
+    public static boolean getPotentialResetStatus(){
+        return MainApp.potentialMatchesReSet;
+    }
+    
 
     public static void checkLoggedInStatus(String user) throws IOException {
 
