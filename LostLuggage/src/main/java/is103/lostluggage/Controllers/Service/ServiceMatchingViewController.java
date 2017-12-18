@@ -146,7 +146,7 @@ public class ServiceMatchingViewController implements Initializable {
  
     //--------------------------------
     //    Table potential initializen
-    @FXML private TableView<MatchLuggage> potentialMatchingTable;
+    @FXML public TableView<MatchLuggage> potentialMatchingTable;
 
     @FXML private TableColumn<MatchLuggage, String>  potentialIdLost;
     @FXML private TableColumn<MatchLuggage, String>  potentialIdFound;
@@ -161,6 +161,12 @@ public class ServiceMatchingViewController implements Initializable {
     @FXML private TableColumn<MatchLuggage, String>  potentialWeight;
     @FXML private TableColumn<MatchLuggage, String>  potentialCharacteristics;
     
+    //Create instance
+    public static ServiceMatchingViewController instance = null;
+    //Get instance
+    public static ServiceMatchingViewController getInstance() {
+        return instance;
+    }
     /**
      * Initializes the controller class.
      */
@@ -174,6 +180,8 @@ public class ServiceMatchingViewController implements Initializable {
             Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        //initialize instance
+        instance = this;
         
         //Refresh timer setup
         Timeline refreshTimeLine = new Timeline(new KeyFrame(Duration.seconds(REFRESH_TIME), ev -> {
@@ -363,11 +371,7 @@ public class ServiceMatchingViewController implements Initializable {
         //Methodes calling at rate of --> int:  timeRate   //2s
         addToManualFound();
         addToManualLost();
-        try {
-            setPotentialMatchingTable();
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
         
 //        if (!data.getPotentialResetStatus()){
 //            System.out.println("resetteddd------");
@@ -524,16 +528,32 @@ public class ServiceMatchingViewController implements Initializable {
 
         potentialCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
     }
- 
+    private ObservableList<MatchLuggage> potentialList  = FXCollections.observableArrayList(); 
+    
+    
     
     public void setPotentialMatchingTable() throws SQLException{
-
-        potentialMatchingTable.setItems(data.getPotentialMatchesList()); 
-        
+        if (data.getPotentialMatchesList() != potentialList){
+            if (potentialList.isEmpty()){
+            } else {
+                potentialList.clear();
+            }
+           
+            potentialList = data.getPotentialMatchesList();
+            
+             potentialMatchingTable.setItems( potentialList); 
+        }
+            
+       
+        if (MainApp.getPotentialResetStatus()){
+            resetPotentialMatchingTable();
+        }
     }
     public void resetPotentialMatchingTable() {
-        
+            potentialList.clear();
+            
             potentialMatchingTable.getItems().clear();
+            potentialMatchingTable.refresh();
             setMatchingTab(2);
             MainApp.setPotentialResetStatus(false);
         

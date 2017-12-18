@@ -152,9 +152,20 @@ public class ServiceDetailedLostLuggageViewController implements Initializable {
     
     @FXML
     public void viewPotentials(ActionEvent event) throws SQLException, IOException{
+         //MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
+         
+         
         ServiceDataMatch data = MainApp.getMatchData();
-        MainApp.setPotentialResetStatus(true);
         
+        potentialMatchesList.clear();
+        //-------------------------- FIX THIS ----------------------------// 
+        ServiceMatchingViewController.getInstance().resetPotentialMatchingTable(); // --> instance !!!
+        
+        
+        
+        System.out.println(MainApp.getPotentialResetStatus()+" called ");
+        MainApp.setPotentialResetStatus(true);
+        System.out.println(MainApp.getPotentialResetStatus()+" setted ");
         String id = LostLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
         data.potentialFoundMatches(id);
         
