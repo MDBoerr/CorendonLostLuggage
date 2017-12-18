@@ -1,5 +1,6 @@
 package is103.lostluggage.Model.Service.Data;
 
+import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import is103.lostluggage.Model.Service.Model.LostLuggage;
 import is103.lostluggage.Model.Service.Model.MatchLuggage;
@@ -15,7 +16,6 @@ import javafx.collections.ObservableList;
 public class ServiceDataMatch {
     //matching list
     private ObservableList<MatchLuggage> potentialMatchesList = FXCollections.observableArrayList(); 
-    private boolean potentialMatchesReSet = false;
     
     public ObservableList<MatchLuggage> autoMatching(ObservableList<FoundLuggage> foundList, ObservableList<LostLuggage> lostList){
         ObservableList<MatchLuggage> matchingList = FXCollections.observableArrayList();
@@ -26,14 +26,9 @@ public class ServiceDataMatch {
         
     }
     
-    public boolean getPotentialResetStatus(){
-        return this.potentialMatchesReSet;
-    }
+   
     public ObservableList<MatchLuggage> getPotentialMatchesList(){
         return this.potentialMatchesList;
-    }
-    public void setPotentialResetStatus(boolean b) {
-        this.potentialMatchesReSet = b;
     }
     
     
@@ -56,7 +51,7 @@ public class ServiceDataMatch {
         this.potentialMatchesList.clear();
         this.potentialMatchesList = checkData(observableItem, foundList, 10);
          
-        this.potentialMatchesReSet = false;
+        MainApp.setPotentialResetStatus(false);
         //return this.potentialMatchesList;
     }
     
@@ -79,7 +74,7 @@ public class ServiceDataMatch {
         this.potentialMatchesList.clear();
         this.potentialMatchesList = checkData(lostList, observableItem, 10);
          
-        this.potentialMatchesReSet = false;
+        MainApp.setPotentialResetStatus(false);
     }
 
     

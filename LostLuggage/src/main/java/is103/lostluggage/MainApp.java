@@ -113,6 +113,15 @@ public class MainApp extends Application {
     public static ServiceDataMatch getMatchData() {
         return matchData;
     }
+    private static boolean potentialMatchesReSet = false;
+    
+    public static void setPotentialResetStatus(boolean b) {
+        MainApp.potentialMatchesReSet = b;
+    }
+    public static boolean getPotentialResetStatus(){
+        return MainApp.potentialMatchesReSet;
+    }
+    
 
     public static void checkLoggedInStatus(String user) throws IOException {
 

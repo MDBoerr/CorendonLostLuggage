@@ -535,7 +535,7 @@ public class ServiceMatchingViewController implements Initializable {
         
             potentialMatchingTable.getItems().clear();
             setMatchingTab(2);
-            data.setPotentialResetStatus(false);
+            MainApp.setPotentialResetStatus(false);
         
     }
     

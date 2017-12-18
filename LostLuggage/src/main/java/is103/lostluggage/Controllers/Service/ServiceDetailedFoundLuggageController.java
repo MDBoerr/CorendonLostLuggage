@@ -158,7 +158,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
     @FXML
     protected void viewPotentials(ActionEvent event) throws IOException, SQLException{
         ServiceDataMatch data = MainApp.getMatchData();
-        data.setPotentialResetStatus(true);
+        MainApp.setPotentialResetStatus(true);
         String id = FoundLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
         data.potentialLostMatches(id);
         
