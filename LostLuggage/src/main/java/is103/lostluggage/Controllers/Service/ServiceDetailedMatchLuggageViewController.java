@@ -92,6 +92,7 @@ public class ServiceDetailedMatchLuggageViewController implements Initializable 
                 //try to load initialize methode
         try {
             initializeLostFields();
+            initializeFoundFields();
         } catch (SQLException ex) {
             Logger.getLogger(ServiceDetailedFoundLuggageController.class.getName()).log(Level.SEVERE, null, ex);
         }
