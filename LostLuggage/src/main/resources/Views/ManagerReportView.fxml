@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -29,5 +31,20 @@
                 <NumberAxis side="LEFT" />
             </yAxis>
         </LineChart>
+      <JFXButton onAction="#fifteen" style="-fx-background-color: #4dadf7#4dadf7 #4dadf7#4dadf7 #4dadf7#4dadf7 #4dadf7#4dadf7;" text="2015" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets right="259.0" />
+         </GridPane.margin>
+      </JFXButton>
+      <JFXButton fx:id="six" onAction="#sixteen" style="-fx-background-color: #4dadf7#4dadf7 #4dadf7#4dadf7 #4dadf7#4dadf7 #4dadf7#4dadf7;" text="2016" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets right="346.0" />
+         </GridPane.margin>
+      </JFXButton>
+      <JFXButton onAction="#sevteen" style="-fx-background-color: #4dadf7#4dadf7 #4dadf7#4dadf7 #4dadf7#4dadf7 #4dadf7#4dadf7;" text="2017" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets right="104.0" />
+         </GridPane.margin>
+      </JFXButton>
     </children>
 </GridPane>
