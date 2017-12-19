@@ -23,10 +23,10 @@ import javafx.stage.Stage;
  *
  * @author thijszijdel
  */
-public class ServiceDataMore {
+public class ServiceMoreDetails {
     
         private final int DETAILS_STAGE_H = 675;
-        private final int DETAILS_STAGE_W = 400;
+        private final int DETAILS_STAGE_W = 415;
         
         
         private int matchLuggage = 0;

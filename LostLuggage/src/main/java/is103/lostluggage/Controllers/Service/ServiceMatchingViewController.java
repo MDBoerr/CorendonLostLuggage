@@ -6,7 +6,7 @@ import is103.lostluggage.Model.Service.Data.ServiceDataFound;
 import is103.lostluggage.Model.Service.Data.ServiceDataLost;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Data.ServiceDataMatch;
-import is103.lostluggage.Model.Service.Data.ServiceDataMore;
+import is103.lostluggage.Model.Service.Data.ServiceMoreDetails;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import is103.lostluggage.Model.Service.Instance.Matching.FoundLuggageManualMatchingInstance;
 import is103.lostluggage.Model.Service.Instance.Matching.LostLuggageManualMatchingInstance;
@@ -305,7 +305,7 @@ public class ServiceMatchingViewController implements Initializable {
         foundLuggageTable.setOnMousePressed((MouseEvent event) -> {
                                 //--> event         //--> double click
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                ServiceDataMore foundDetails = new ServiceDataMore();
+                ServiceMoreDetails foundDetails = new ServiceMoreDetails();
                 foundDetails.setDetailsOfRow("found", event, popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
                 foundDetails.setAndOpenPopUpDetails("found", popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
                
@@ -320,7 +320,7 @@ public class ServiceMatchingViewController implements Initializable {
         lostLuggageTable.setOnMousePressed((MouseEvent event) -> {
                                 //--> event         //--> double click
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                ServiceDataMore lostDetails = new ServiceDataMore();
+                ServiceMoreDetails lostDetails = new ServiceMoreDetails();
                 lostDetails.setDetailsOfRow("lost", event, popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "lost");
                 lostDetails.setAndOpenPopUpDetails("lost", popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "lost");
                 
@@ -338,7 +338,7 @@ public class ServiceMatchingViewController implements Initializable {
 
                 //I set the details of the double clicked row (matched here)
                 //In 2 objects, FoundLuggageDetailsInstance & lostLuggageDetails)
-                ServiceDataMore matchDetails = new ServiceDataMore();
+                ServiceMoreDetails matchDetails = new ServiceMoreDetails();
                 matchDetails.setDetailsOfRow("match", event, popupStageMatch, "/Views/Service/ServiceDetailedMatchLuggageView.fxml", "match");
                 matchDetails.setAndOpenPopUpDetails("match", popupStageMatch, "/Views/Service/ServiceDetailedMatchLuggageView.fxml", "match");
                   
@@ -350,7 +350,7 @@ public class ServiceMatchingViewController implements Initializable {
 
                 //I set the details of the double clicked row (matched here)
                 //In 2 objects, FoundLuggageDetailsInstance & lostLuggageDetails)
-                ServiceDataMore matchDetails = new ServiceDataMore();
+                ServiceMoreDetails matchDetails = new ServiceMoreDetails();
                 matchDetails.setDetailsOfRow("match", event, popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "match");
                 matchDetails.setAndOpenPopUpDetails("match", popupStageFound, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "match");
                   
