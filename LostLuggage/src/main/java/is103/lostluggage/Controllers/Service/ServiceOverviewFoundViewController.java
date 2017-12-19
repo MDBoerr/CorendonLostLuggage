@@ -253,8 +253,8 @@ public class ServiceOverviewFoundViewController implements Initializable {
                                 //--> event         //--> double click
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
                 ServiceMoreDetails foundDetails = new ServiceMoreDetails();
-                foundDetails.setDetailsOfRow("found", event, popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
-                foundDetails.setAndOpenPopUpDetails("found", popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
+                foundDetails.setDetailsOfRow("found", event, popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml");
+                foundDetails.setAndOpenPopUpDetails(popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
                
             }
         });

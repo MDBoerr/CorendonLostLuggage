@@ -306,8 +306,8 @@ public class ServiceMatchingViewController implements Initializable {
                                 //--> event         //--> double click
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
                 ServiceMoreDetails foundDetails = new ServiceMoreDetails();
-                foundDetails.setDetailsOfRow("found", event, popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
-                foundDetails.setAndOpenPopUpDetails("found", popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
+                foundDetails.setDetailsOfRow("found", event, popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml");
+                foundDetails.setAndOpenPopUpDetails(popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
                
             }
         });
@@ -321,8 +321,8 @@ public class ServiceMatchingViewController implements Initializable {
                                 //--> event         //--> double click
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
                 ServiceMoreDetails lostDetails = new ServiceMoreDetails();
-                lostDetails.setDetailsOfRow("lost", event, popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "lost");
-                lostDetails.setAndOpenPopUpDetails("lost", popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "lost");
+                lostDetails.setDetailsOfRow("lost", event, popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml");
+                lostDetails.setAndOpenPopUpDetails(popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "lost");
                 
             }
         });
@@ -339,8 +339,8 @@ public class ServiceMatchingViewController implements Initializable {
                 //I set the details of the double clicked row (matched here)
                 //In 2 objects, FoundLuggageDetailsInstance & lostLuggageDetails)
                 ServiceMoreDetails matchDetails = new ServiceMoreDetails();
-                matchDetails.setDetailsOfRow("match", event, popupStageMatch, "/Views/Service/ServiceDetailedMatchLuggageView.fxml", "match");
-                matchDetails.setAndOpenPopUpDetails("match", popupStageMatch, "/Views/Service/ServiceDetailedMatchLuggageView.fxml", "match");
+                matchDetails.setDetailsOfRow("match", event, popupStageMatch, "/Views/Service/ServiceDetailedMatchLuggageView.fxml");
+                matchDetails.setAndOpenPopUpDetails(popupStageMatch, "/Views/Service/ServiceDetailedMatchLuggageView.fxml", "match");
                   
             }
         });
@@ -351,8 +351,8 @@ public class ServiceMatchingViewController implements Initializable {
                 //I set the details of the double clicked row (matched here)
                 //In 2 objects, FoundLuggageDetailsInstance & lostLuggageDetails)
                 ServiceMoreDetails matchDetails = new ServiceMoreDetails();
-                matchDetails.setDetailsOfRow("match", event, popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "match");
-                matchDetails.setAndOpenPopUpDetails("match", popupStageFound, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "match");
+                matchDetails.setDetailsOfRow("match", event, popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml");
+                matchDetails.setAndOpenPopUpDetails(popupStageFound, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "match");
                   
             }
         });
