@@ -21,6 +21,9 @@ public class ServiceDataLost {
     private static final MyJDBC db = MainApp.connectToDatabase();
     private static ResultSet resultSet;
     
+       private String language = MainApp.getLanguage();
+       
+       
     public ServiceDataLost() throws SQLException{
         ServiceDataLost.lostLuggageList = getLostLuggageList();
     }
@@ -97,10 +100,10 @@ public class ServiceDataLost {
                         "COALESCE(NULLIF(F.dateLost,''), 'unknown') as `F.dateLost`, " +
                         "COALESCE(NULLIF(F.timeLost,''), 'unknown') as `F.timeLost`, " +
                         "COALESCE(NULLIF(F.luggageTag,''), 'unknown') as `F.luggageTag`,  " +
-                        "COALESCE(NULLIF(T.dutch,''), 'unknown') as `T.dutch`, " +
+                        "COALESCE(NULLIF(T."+language+",''), 'unknown') as `T."+language+"`, " +
                         "COALESCE(NULLIF(F.brand,''), 'unknown') as `F.brand`," +
-                        "COALESCE(NULLIF(C1.dutch,''), 'unknown') as `C1.dutch`,  " +
-                        "COALESCE(NULLIF(C2.dutch,''), 'none') as `C2.dutch`," +
+                        "COALESCE(NULLIF(C1."+language+",''), 'unknown') as `C1."+language+"`,  " +
+                        "COALESCE(NULLIF(C2."+language+",''), 'none') as `C2."+language+"`," +
                         "COALESCE(NULLIF(F.size,''), 'unknown')	as `F.size`,  " +
                         "COALESCE(NULLIF(F.weight,''), 'unknown') as `F.weight`," +
                         "COALESCE(NULLIF(F.otherCharacteristics,''), 'none') as `F.otherCharacteristics`," +

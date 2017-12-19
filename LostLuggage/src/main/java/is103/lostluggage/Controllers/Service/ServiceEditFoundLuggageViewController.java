@@ -8,7 +8,7 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
-import is103.lostluggage.Model.Service.Data.ServiceDataDetails;
+import is103.lostluggage.Model.Service.Data.ServiceGetDataFromDB;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Data.ServiceDataFound;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
@@ -105,11 +105,11 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         
         
         //set 3 objects to get the right data from the database 
-        ServiceDataDetails colors = new ServiceDataDetails("color", LANGUAGE, null);
+        ServiceGetDataFromDB colors = new ServiceGetDataFromDB("color", LANGUAGE, null);
         
-        ServiceDataDetails locations = new ServiceDataDetails("location", LANGUAGE, null);
+        ServiceGetDataFromDB locations = new ServiceGetDataFromDB("location", LANGUAGE, null);
         
-        ServiceDataDetails types = new ServiceDataDetails("luggagetype", LANGUAGE, null);
+        ServiceGetDataFromDB types = new ServiceGetDataFromDB("luggagetype", LANGUAGE, null);
         try {
             //initialize found fields 
             initializeFoundFields();
@@ -269,19 +269,19 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
     }
     
     public void updateLuggage() throws SQLException{
-        ServiceDataDetails getRalCode1 = new ServiceDataDetails
+        ServiceGetDataFromDB getRalCode1 = new ServiceGetDataFromDB
         ("color", "ralCode", "WHERE `"+LANGUAGE+"`='"+colorPicker1.getValue().toString()+"'");
         int ralCode1 = getRalCode1.getIdValue();
         
-        ServiceDataDetails getRalCode2 = new ServiceDataDetails
+        ServiceGetDataFromDB getRalCode2 = new ServiceGetDataFromDB
         ("color", "ralCode", "WHERE `"+LANGUAGE+"`='"+colorPicker2.getValue().toString()+"'");
         int ralCode2 = getRalCode2.getIdValue();
         
-        ServiceDataDetails getType = new ServiceDataDetails
+        ServiceGetDataFromDB getType = new ServiceGetDataFromDB
         ("luggagetype", "luggageTypeId", "WHERE `"+LANGUAGE+"`='"+typePicker.getValue().toString()+"'");
         int typeCode = getType.getIdValue();
         
-        ServiceDataDetails getLocation = new ServiceDataDetails
+        ServiceGetDataFromDB getLocation = new ServiceGetDataFromDB
         ("location", "locationId", "WHERE `"+LANGUAGE+"`='"+locationPicker.getValue().toString()+"'");
         int locationCode = getLocation.getIdValue();
         

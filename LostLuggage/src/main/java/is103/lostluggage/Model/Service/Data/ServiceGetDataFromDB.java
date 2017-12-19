@@ -13,7 +13,7 @@ import javafx.collections.ObservableList;
 /**
  * @author Thijs Zijdel - 500782165
  */
-public class ServiceDataDetails {
+public class ServiceGetDataFromDB {
     private String table;
     private String field;
     private String condition;
@@ -22,7 +22,7 @@ public class ServiceDataDetails {
     
     private int i =0;
     
-    public ServiceDataDetails(String table, String field, String condition){
+    public ServiceGetDataFromDB(String table, String field, String condition){
         this.table = table;
         this.field = field;
         this.condition = condition;
@@ -72,7 +72,7 @@ public class ServiceDataDetails {
             try {
                 resultArray[this.i]= resultSet.getString(field);
             } catch (SQLException ex) {
-                Logger.getLogger(ServiceDataDetails.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ServiceGetDataFromDB.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
         
