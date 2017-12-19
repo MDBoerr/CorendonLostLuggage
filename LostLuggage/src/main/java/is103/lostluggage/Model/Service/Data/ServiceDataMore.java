@@ -35,6 +35,7 @@ public class ServiceDataMore {
         public Stage overlay = new Stage();
         public Stage popupStageFound = new Stage();   
         public Stage popupStageLost = new Stage(); 
+         public Stage popupStageMatch = new Stage(); 
         
         public void setDetailsOfRow(String type, MouseEvent event, Stage stageType, String stageLink, String popupKey){
         
@@ -82,20 +83,21 @@ public class ServiceDataMore {
     
     public void setAndOpenPopUpDetails(String type, Stage stageType, String stageLink, String popupKey){
         //switchen to selection/ detailed view with: popup
-        if ("found".equals(type) || "lost".equals(type)){
+        if ("found".equals(type) || "lost".equals(type) || "match".equals(type)){
             try {
                 popUpDetails(stageType, stageLink, popupKey);
             } catch (IOException ex) {
                 Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if ("match".equals(type)){
-            try {
-                popUpDetails(popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", popupKey);
-                popUpDetails(popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", popupKey);
-            } catch (IOException ex) {
-                Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
+//        } else if ("match".equals(type)){
+//            try {
+//                popUpDetails(popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", popupKey);
+//                popUpDetails(popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", popupKey);
+//            } catch (IOException ex) {
+//                Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
     }
 
     public void popUpDetails(Stage stage, String viewLink, String type) throws IOException { 
@@ -113,46 +115,50 @@ public class ServiceDataMore {
                 
                 Rectangle2D mainScreenBounds = Screen.getPrimary().getVisualBounds();
 
-                if (null!=type)switch (type) {
-                    case "found"://stage.setX(mainScreenBounds.getMinX() + mainScreenBounds.getWidth() - DETAILS_STAGE_W);
-                        break;
-                    case "lost"://stage.setX(mainScreenBounds.getMinX() - mainScreenBounds.getWidth() - DETAILS_STAGE_W);
-                        break;
-                    case "match":
-                        
-                            //overlay testing
-                            if (overlay.isShowing() == false){
-                                overlay.setWidth(mainScreenBounds.getMaxX());
-                                overlay.setHeight(mainScreenBounds.getMaxY());
-                                //overlay.show();
-                            }
-                            
-                            if (matchLuggage == 0){
-                                //popup stage for lost luggage
-                                stage = popupStageLost;
-                                stage.close();
-                                
-                                //set Stage boundaries to the left side  of the visible bounds of the users (main) screen
-                                //stage.setX(mainScreenBounds.getMinX() - mainScreenBounds.getWidth() - DETAILS_STAGE_W);
-                                matchLuggage ++;
-                            } else {
-                                //popup stage for found luggage
-                                stage = popupStageFound;
-                                stage.close();
-                                
-                                //set Stage boundaries to the right side  of the visible bounds of the users (main) screen
-                                //stage.setX(mainScreenBounds.getMinX() + mainScreenBounds.getWidth() - DETAILS_STAGE_W);
-                                matchLuggage--;
-                            }
-                        break;
-                    default: //top - middle of screen
-                        break;
-                }
+//                if (null!=type)switch (type) {
+//                    case "found"://stage.setX(mainScreenBounds.getMinX() + mainScreenBounds.getWidth() - DETAILS_STAGE_W);
+//                        break;
+//                    case "lost"://stage.setX(mainScreenBounds.getMinX() - mainScreenBounds.getWidth() - DETAILS_STAGE_W);
+//                        break;
+//                    case "dd":
+//                        
+//                            //overlay testing
+//                            if (overlay.isShowing() == false){
+//                                overlay.setWidth(mainScreenBounds.getMaxX());
+//                                overlay.setHeight(mainScreenBounds.getMaxY());
+//                                //overlay.show();
+//                            }
+//                            
+//                            if (matchLuggage == 0){
+//                                //popup stage for lost luggage
+//                                stage = popupStageLost;
+//                                stage.close();
+//                                
+//                                //set Stage boundaries to the left side  of the visible bounds of the users (main) screen
+//                                //stage.setX(mainScreenBounds.getMinX() - mainScreenBounds.getWidth() - DETAILS_STAGE_W);
+//                                matchLuggage ++;
+//                            } else {
+//                                //popup stage for found luggage
+//                                stage = popupStageFound;
+//                                stage.close();
+//                                
+//                                //set Stage boundaries to the right side  of the visible bounds of the users (main) screen
+//                                //stage.setX(mainScreenBounds.getMinX() + mainScreenBounds.getWidth() - DETAILS_STAGE_W);
+//                                matchLuggage--;
+//                            }
+//                        break;
+//                    default: //top - middle of screen
+//                        break;
+//                }
                 
                 //set Stage boundaries to the top  of the visible bounds of the users (main) screen
                 //stage.setY(mainScreenBounds.getMinY() - mainScreenBounds.getHeight() - DETAILS_STAGE_H);
                 
                 stage.setWidth(DETAILS_STAGE_W);
+                
+                if("match".equals(type)){
+                    stage.setWidth(DETAILS_STAGE_W*2);
+                }
                 stage.setHeight(DETAILS_STAGE_H);
                 
                 

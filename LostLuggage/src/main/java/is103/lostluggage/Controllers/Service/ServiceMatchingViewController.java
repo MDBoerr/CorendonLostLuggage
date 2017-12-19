@@ -56,6 +56,7 @@ public class ServiceMatchingViewController implements Initializable {
     //popup stage
     private Stage popupStageFound = new Stage();   
     private Stage popupStageLost = new Stage(); 
+    private Stage popupStageMatch = new Stage(); 
     
     //refresh rate                           
     private static long REFRESH_TIME = 1; //s
@@ -338,8 +339,8 @@ public class ServiceMatchingViewController implements Initializable {
                 //I set the details of the double clicked row (matched here)
                 //In 2 objects, FoundLuggageDetailsInstance & lostLuggageDetails)
                 ServiceDataMore matchDetails = new ServiceDataMore();
-                matchDetails.setDetailsOfRow("match", event, popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "match");
-                matchDetails.setAndOpenPopUpDetails("match", popupStageFound, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "match");
+                matchDetails.setDetailsOfRow("match", event, popupStageMatch, "/Views/Service/ServiceDetailedMatchLuggageView.fxml", "match");
+                matchDetails.setAndOpenPopUpDetails("match", popupStageMatch, "/Views/Service/ServiceDetailedMatchLuggageView.fxml", "match");
                   
             }
         });
