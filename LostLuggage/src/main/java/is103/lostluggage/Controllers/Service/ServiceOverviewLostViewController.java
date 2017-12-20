@@ -178,8 +178,8 @@ public class ServiceOverviewLostViewController implements Initializable {
                                 //--> event         //--> double click
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
                 ServiceMoreDetails lostDetails = new ServiceMoreDetails();
-                lostDetails.setDetailsOfRow("lost", event, popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "lost");
-                lostDetails.setAndOpenPopUpDetails("lost", popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "lost");
+                lostDetails.setDetailsOfRow("lost", event, popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml");
+                lostDetails.setAndOpenPopUpDetails(popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "lost");
                 
             }
         });

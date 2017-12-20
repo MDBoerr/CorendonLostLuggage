@@ -37,7 +37,7 @@ public class ServiceMoreDetails {
         public Stage popupStageLost = new Stage(); 
          public Stage popupStageMatch = new Stage(); 
         
-        public void setDetailsOfRow(String type, MouseEvent event, Stage stageType, String stageLink, String popupKey){
+        public void setDetailsOfRow(String type, MouseEvent event, Stage stageType, String stageLink){
         
              Node node = ((Node) event.getTarget() ).getParent();
              TableRow tableRowGet;
@@ -81,9 +81,9 @@ public class ServiceMoreDetails {
     
     
     
-    public void setAndOpenPopUpDetails(String type, Stage stageType, String stageLink, String popupKey){
+    public void setAndOpenPopUpDetails(Stage stageType, String stageLink, String popupKey){
         //switchen to selection/ detailed view with: popup
-        if ("found".equals(type) || "lost".equals(type) || "match".equals(type)){
+        if ("found".equals(popupKey) || "lost".equals(popupKey) || "match".equals(popupKey)){
             try {
                 popUpDetails(stageType, stageLink, popupKey);
             } catch (IOException ex) {
@@ -107,62 +107,14 @@ public class ServiceMoreDetails {
                 
                 stage.setScene(new Scene(popup));
                 
-                
-                //Possible fix for out of screen on windows 
-                //final int width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
-                //final int height = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
-                
-                
-                Rectangle2D mainScreenBounds = Screen.getPrimary().getVisualBounds();
 
-//                if (null!=type)switch (type) {
-//                    case "found"://stage.setX(mainScreenBounds.getMinX() + mainScreenBounds.getWidth() - DETAILS_STAGE_W);
-//                        break;
-//                    case "lost"://stage.setX(mainScreenBounds.getMinX() - mainScreenBounds.getWidth() - DETAILS_STAGE_W);
-//                        break;
-//                    case "dd":
-//                        
-//                            //overlay testing
-//                            if (overlay.isShowing() == false){
-//                                overlay.setWidth(mainScreenBounds.getMaxX());
-//                                overlay.setHeight(mainScreenBounds.getMaxY());
-//                                //overlay.show();
-//                            }
-//                            
-//                            if (matchLuggage == 0){
-//                                //popup stage for lost luggage
-//                                stage = popupStageLost;
-//                                stage.close();
-//                                
-//                                //set Stage boundaries to the left side  of the visible bounds of the users (main) screen
-//                                //stage.setX(mainScreenBounds.getMinX() - mainScreenBounds.getWidth() - DETAILS_STAGE_W);
-//                                matchLuggage ++;
-//                            } else {
-//                                //popup stage for found luggage
-//                                stage = popupStageFound;
-//                                stage.close();
-//                                
-//                                //set Stage boundaries to the right side  of the visible bounds of the users (main) screen
-//                                //stage.setX(mainScreenBounds.getMinX() + mainScreenBounds.getWidth() - DETAILS_STAGE_W);
-//                                matchLuggage--;
-//                            }
-//                        break;
-//                    default: //top - middle of screen
-//                        break;
-//                }
-                
-                //set Stage boundaries to the top  of the visible bounds of the users (main) screen
-                //stage.setY(mainScreenBounds.getMinY() - mainScreenBounds.getHeight() - DETAILS_STAGE_H);
-                
                 stage.setWidth(DETAILS_STAGE_W);
                 
                 if("match".equals(type)){
                     stage.setWidth(DETAILS_STAGE_W*2);
                 }
                 stage.setHeight(DETAILS_STAGE_H);
-                
-                
-                
+                 
                 //no functies -> close / fullscreen/ topbar
                 //stage.initStyle(StageStyle.TRANSPARENT); //off
 
