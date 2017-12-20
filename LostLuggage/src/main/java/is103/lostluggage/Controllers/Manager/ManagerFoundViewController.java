@@ -1,5 +1,6 @@
 package is103.lostluggage.Controllers.Manager;
 
+import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.Admin.HomeUserViewController;
 import is103.lostluggage.Controllers.MainViewController;
@@ -68,6 +69,7 @@ private final String title = "Overzicht Gevonden Bagage";
     @FXML private TableColumn<FoundLuggage, String> found_employeeId;
     @FXML private TableColumn<FoundLuggage, Integer> found_matchedId;
 
+    
 
     /**
      * Initializes the controller class.
@@ -115,7 +117,7 @@ private final String title = "Overzicht Gevonden Bagage";
         found_locationFound.setCellValueFactory(        new PropertyValueFactory<>("locationFound"));
         found_employeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
         found_matchedId.setCellValueFactory(             new PropertyValueFactory<>("matchedId"));
-
+       
     
         
         
@@ -125,7 +127,7 @@ private final String title = "Overzicht Gevonden Bagage";
             @Override
             public void handle(MouseEvent event) {
 
-                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
                     Node node = ((Node) event.getTarget()).getParent();
 
                     TableRow row;
