@@ -78,10 +78,10 @@ public class ServiceManualMatchingLostViewController implements Initializable {
                 String getTimeLost =          resultSet.getString("F.timeLost");
                 
                 String getLuggageTag =         resultSet.getString("F.luggageTag");
-                String getLuggageType =        resultSet.getString("T.dutch");
+                String getLuggageType =        resultSet.getString("T."+language+"");
                 String getBrand =              resultSet.getString("F.brand");
-                String getMainColor =          resultSet.getString("c1.dutch");
-                String getSecondColor =        resultSet.getString("c2.dutch");
+                String getMainColor =          resultSet.getString("c1."+language+"");
+                String getSecondColor =        resultSet.getString("c2."+language+"");
                 String getSize =               resultSet.getString("F.size");
                 String getWeight =                resultSet.getString("F.weight");   
                 String getOtherCharacteristics=resultSet.getString("F.otherCharacteristics");

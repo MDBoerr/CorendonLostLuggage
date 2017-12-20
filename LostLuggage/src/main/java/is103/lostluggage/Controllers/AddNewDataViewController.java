@@ -7,8 +7,8 @@ package is103.lostluggage.Controllers;
 
 import is103.lostluggage.Controllers.Service.ServiceEditFoundLuggageViewController;
 import is103.lostluggage.MainApp;
-import is103.lostluggage.Model.Service.Data.ServiceDataDetails;
-import is103.lostluggage.Model.Service.Data.ServiceDataMore;
+import is103.lostluggage.Model.Service.Data.ServiceGetDataFromDB;
+import is103.lostluggage.Model.Service.Data.ServiceMoreDetails;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -42,7 +42,7 @@ public class AddNewDataViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        ServiceDataDetails colors = new ServiceDataDetails("color", "*", null);
+        ServiceGetDataFromDB colors = new ServiceGetDataFromDB("color", "*", null);
         try {
             ResultSet colorResultSet = colors.getServiceDetailsResultSet();
             while (colorResultSet.next()){

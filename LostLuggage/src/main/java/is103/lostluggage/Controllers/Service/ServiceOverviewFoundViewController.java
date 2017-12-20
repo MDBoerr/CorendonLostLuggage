@@ -19,7 +19,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import is103.lostluggage.Database.MyJDBC;
-import is103.lostluggage.Model.Service.Data.ServiceDataMore;
+import is103.lostluggage.Model.Service.Data.ServiceMoreDetails;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -252,7 +252,7 @@ public class ServiceOverviewFoundViewController implements Initializable {
         foundLuggageTable.setOnMousePressed((MouseEvent event) -> {
                                 //--> event         //--> double click
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                ServiceDataMore foundDetails = new ServiceDataMore();
+                ServiceMoreDetails foundDetails = new ServiceMoreDetails();
                 foundDetails.setDetailsOfRow("found", event, popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
                 foundDetails.setAndOpenPopUpDetails("found", popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
                

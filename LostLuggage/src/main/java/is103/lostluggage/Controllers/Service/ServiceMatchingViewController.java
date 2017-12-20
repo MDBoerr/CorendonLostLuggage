@@ -6,7 +6,7 @@ import is103.lostluggage.Model.Service.Data.ServiceDataFound;
 import is103.lostluggage.Model.Service.Data.ServiceDataLost;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Data.ServiceDataMatch;
-import is103.lostluggage.Model.Service.Data.ServiceDataMore;
+import is103.lostluggage.Model.Service.Data.ServiceMoreDetails;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import is103.lostluggage.Model.Service.Instance.Matching.FoundLuggageManualMatchingInstance;
 import is103.lostluggage.Model.Service.Instance.Matching.LostLuggageManualMatchingInstance;
@@ -56,6 +56,7 @@ public class ServiceMatchingViewController implements Initializable {
     //popup stage
     private Stage popupStageFound = new Stage();   
     private Stage popupStageLost = new Stage(); 
+    private Stage popupStageMatch = new Stage(); 
     
     //refresh rate                           
     private static long REFRESH_TIME = 1; //s
@@ -146,7 +147,7 @@ public class ServiceMatchingViewController implements Initializable {
  
     //--------------------------------
     //    Table potential initializen
-    @FXML private TableView<MatchLuggage> potentialMatchingTable;
+    @FXML public TableView<MatchLuggage> potentialMatchingTable;
 
     @FXML private TableColumn<MatchLuggage, String>  potentialIdLost;
     @FXML private TableColumn<MatchLuggage, String>  potentialIdFound;
@@ -161,6 +162,12 @@ public class ServiceMatchingViewController implements Initializable {
     @FXML private TableColumn<MatchLuggage, String>  potentialWeight;
     @FXML private TableColumn<MatchLuggage, String>  potentialCharacteristics;
     
+    //Create instance
+    public static ServiceMatchingViewController instance = null;
+    //Get instance
+    public static ServiceMatchingViewController getInstance() {
+        return instance;
+    }
     /**
      * Initializes the controller class.
      */
@@ -174,6 +181,8 @@ public class ServiceMatchingViewController implements Initializable {
             Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        //initialize instance
+        instance = this;
         
         //Refresh timer setup
         Timeline refreshTimeLine = new Timeline(new KeyFrame(Duration.seconds(REFRESH_TIME), ev -> {
@@ -296,7 +305,7 @@ public class ServiceMatchingViewController implements Initializable {
         foundLuggageTable.setOnMousePressed((MouseEvent event) -> {
                                 //--> event         //--> double click
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                ServiceDataMore foundDetails = new ServiceDataMore();
+                ServiceMoreDetails foundDetails = new ServiceMoreDetails();
                 foundDetails.setDetailsOfRow("found", event, popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
                 foundDetails.setAndOpenPopUpDetails("found", popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
                
@@ -311,7 +320,7 @@ public class ServiceMatchingViewController implements Initializable {
         lostLuggageTable.setOnMousePressed((MouseEvent event) -> {
                                 //--> event         //--> double click
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                ServiceDataMore lostDetails = new ServiceDataMore();
+                ServiceMoreDetails lostDetails = new ServiceMoreDetails();
                 lostDetails.setDetailsOfRow("lost", event, popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "lost");
                 lostDetails.setAndOpenPopUpDetails("lost", popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "lost");
                 
@@ -329,9 +338,9 @@ public class ServiceMatchingViewController implements Initializable {
 
                 //I set the details of the double clicked row (matched here)
                 //In 2 objects, FoundLuggageDetailsInstance & lostLuggageDetails)
-                ServiceDataMore matchDetails = new ServiceDataMore();
-                matchDetails.setDetailsOfRow("match", event, popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "match");
-                matchDetails.setAndOpenPopUpDetails("match", popupStageFound, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "match");
+                ServiceMoreDetails matchDetails = new ServiceMoreDetails();
+                matchDetails.setDetailsOfRow("match", event, popupStageMatch, "/Views/Service/ServiceDetailedMatchLuggageView.fxml", "match");
+                matchDetails.setAndOpenPopUpDetails("match", popupStageMatch, "/Views/Service/ServiceDetailedMatchLuggageView.fxml", "match");
                   
             }
         });
@@ -341,7 +350,7 @@ public class ServiceMatchingViewController implements Initializable {
 
                 //I set the details of the double clicked row (matched here)
                 //In 2 objects, FoundLuggageDetailsInstance & lostLuggageDetails)
-                ServiceDataMore matchDetails = new ServiceDataMore();
+                ServiceMoreDetails matchDetails = new ServiceMoreDetails();
                 matchDetails.setDetailsOfRow("match", event, popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "match");
                 matchDetails.setAndOpenPopUpDetails("match", popupStageFound, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "match");
                   
@@ -363,11 +372,7 @@ public class ServiceMatchingViewController implements Initializable {
         //Methodes calling at rate of --> int:  timeRate   //2s
         addToManualFound();
         addToManualLost();
-        try {
-            setPotentialMatchingTable();
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
         
 //        if (!data.getPotentialResetStatus()){
 //            System.out.println("resetteddd------");
@@ -524,16 +529,32 @@ public class ServiceMatchingViewController implements Initializable {
 
         potentialCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
     }
- 
+    private ObservableList<MatchLuggage> potentialList  = FXCollections.observableArrayList(); 
+    
+    
     
     public void setPotentialMatchingTable() throws SQLException{
-
-        potentialMatchingTable.setItems(data.getPotentialMatchesList()); 
-        
+        if (data.getPotentialMatchesList() != potentialList){
+            if (potentialList.isEmpty()){
+            } else {
+                potentialList.clear();
+            }
+           
+            potentialList = data.getPotentialMatchesList();
+            
+             potentialMatchingTable.setItems( potentialList); 
+        }
+            
+       
+        if (MainApp.getPotentialResetStatus()){
+            resetPotentialMatchingTable();
+        }
     }
     public void resetPotentialMatchingTable() {
-        
+            potentialList.clear();
+            
             potentialMatchingTable.getItems().clear();
+            potentialMatchingTable.refresh();
             setMatchingTab(2);
             MainApp.setPotentialResetStatus(false);
         

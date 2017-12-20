@@ -9,6 +9,7 @@ import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetailsInstance;
 import is103.lostluggage.Model.Service.Instance.Details.LostLuggageDetailsInstance;
 import is103.lostluggage.Model.Service.Instance.Matching.FoundLuggageManualMatchingInstance;
+import is103.lostluggage.Model.Service.Model.MatchLuggage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -16,6 +17,8 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -154,11 +157,21 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
     
     
    
-    
+    public ObservableList<MatchLuggage> potentialMatchesList = FXCollections.observableArrayList(); 
     @FXML
     protected void viewPotentials(ActionEvent event) throws IOException, SQLException{
         ServiceDataMatch data = MainApp.getMatchData();
+
+        
+        
+        potentialMatchesList.clear();
+        //-------------------------- FIX THIS ----------------------------// 
+        ServiceMatchingViewController.getInstance().resetPotentialMatchingTable(); // --> instance !!!
+        
+        System.out.println(MainApp.getPotentialResetStatus()+" called ");
         MainApp.setPotentialResetStatus(true);
+        System.out.println(MainApp.getPotentialResetStatus()+" setted ");
+        
         String id = FoundLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
         data.potentialLostMatches(id);
         
