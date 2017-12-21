@@ -39,7 +39,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
          <children>
-            <Label fx:id="passengerInformationLbl" text="Passenger" underline="true" GridPane.halignment="CENTER">
+            <Label fx:id="passengerInformationLbl" text="Passenger information" underline="true" GridPane.halignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
@@ -98,12 +98,12 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <JFXDatePicker fx:id="dateJFXDatePicker" promptText="Date" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+            <JFXDatePicker fx:id="dateJFXDatePicker" promptText="Date" GridPane.hgrow="NEVER" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </JFXDatePicker>
-            <JFXComboBox fx:id="airportJFXComboBox" GridPane.rowIndex="3">
+            <JFXComboBox fx:id="airportJFXComboBox" labelFloat="true" promptText="Airport" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
@@ -161,7 +161,7 @@
                   <Insets left="10.0" right="10.0" />
                </GridPane.margin>
             </JFXTextField>
-            <JFXComboBox fx:id="flightJFXComboBox" promptText="Flight" GridPane.rowIndex="2">
+            <JFXComboBox fx:id="flightJFXComboBox" labelFloat="true" promptText="Flight" GridPane.rowIndex="2">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -169,14 +169,19 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </JFXComboBox>
-            <JFXComboBox fx:id="destinationJFXComboBox" promptText="Destination" GridPane.rowIndex="3">
+            <JFXComboBox fx:id="destinationJFXComboBox" labelFloat="true" promptText="Destination" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </JFXComboBox>
-            <JFXComboBox fx:id="secondColorJFXComboBox" promptText="Second Color" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <JFXComboBox fx:id="secondColorJFXComboBox" labelFloat="true" promptText="Second Color" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <GridPane.margin>
-                  <Insets />
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </JFXComboBox>
+            <JFXComboBox fx:id="locationJFXComboBox" labelFloat="true" promptText="Location" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <GridPane.margin>
+                  <Insets left="10.0" />
                </GridPane.margin>
             </JFXComboBox>
          </children>

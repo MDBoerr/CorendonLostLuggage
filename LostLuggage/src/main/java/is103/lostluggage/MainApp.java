@@ -2,6 +2,7 @@ package is103.lostluggage;
 
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
+import java.io.File;
 import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -16,12 +17,14 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 
 
 /**
  * Main class
  *
  * @author Michael de Boer
+ * Arthur & Daron = selectFileToSave
  *
  */
 
@@ -36,9 +39,17 @@ public class MainApp extends Application {
                                                   //false= dont refresh
                                                   //for: manual matching
 
-    private static String dbName = "lostluggage";
+    
+    //name of the database.. we only connect to 1 database
+    final private static String DB_NAME = "lostluggage";
     
     public static String language = "english";
+    
+    //Database instance
+    public static MyJDBC db;
+    
+    //Mainstage of the application...used to select save location of pdf
+    public static Stage mainStage;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -46,12 +57,18 @@ public class MainApp extends Application {
         //Uncomment line below to create a Database on local SQL Server -> See READ ME for help 
         //MyJDBC.createLostLuggageDatabase(dbName);
         
+        //Set the mainstage as a property
+        MainApp.mainStage = stage;
         
         //set root
         root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
 
         //switchView("/fxml/SelectUserRoleView.fxml");
         checkLoggedInStatus(user);
+        
+        //Database instance is property of mainapp.
+        db = new MyJDBC(DB_NAME);
+
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
@@ -87,12 +104,32 @@ public class MainApp extends Application {
         root.setCenter(fxmlView);
 
     }
+    
+    public static File selectFileToSave(String defaultFileName){
+
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Select file to save into");
+            
+            //todo: provide the file selection dialog to the user
+            File file = fileChooser.showSaveDialog(mainStage);
+            
+            //File selected? return the file, else return null
+            if(file != null){
+                return file;
+            }else{
+                return null;
+            }
+    }
 
     public static MyJDBC connectToDatabase() {
 
-        MyJDBC db = new MyJDBC(dbName);
+        MyJDBC db = new MyJDBC(DB_NAME);
 
         return db;
+    }
+    
+    public static  MyJDBC getDb(){
+        return MainApp.db;
     }
     
     public static String getLanguage() {
