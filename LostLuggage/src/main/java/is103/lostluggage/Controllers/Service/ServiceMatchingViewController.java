@@ -166,11 +166,19 @@ public class ServiceMatchingViewController implements Initializable {
     @FXML private TableColumn<MatchLuggage, String>  potentialWeight;
     @FXML private TableColumn<MatchLuggage, String>  potentialCharacteristics;
     
-    //Create instance
+    //Create instance of this class
     public static ServiceMatchingViewController instance = null;
     
     //Get instance
     public static ServiceMatchingViewController getInstance() {
+        //check if the instance already is setted
+        if (instance == null) {
+            synchronized(ServiceMatchingViewController.class) {
+                if (instance == null) {
+                    instance = new ServiceMatchingViewController();
+                }
+            }
+        }
         return instance;
     }
     
@@ -429,7 +437,7 @@ public class ServiceMatchingViewController implements Initializable {
      */
     public void setMatchingLuggageTable(ServiceDataFound dataListFound, ServiceDataLost datalistDataLost) throws SQLException{
         ServiceDataMatch matchData = new ServiceDataMatch();
-        matchTabbleView.setItems(matchData.autoMatching(dataListFound.getFoundLuggage(), datalistDataLost.getLostLuggage())); 
+        matchTabbleView.setItems(matchData.autoMatching(dataListFound.getFoundLuggage(), datalistDataLost.getLostLuggage(), 10)); 
     }
     
     

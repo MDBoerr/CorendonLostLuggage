@@ -31,7 +31,7 @@ public class ServiceDataLost {
     public static ObservableList<LostLuggage> getLostLuggageList() throws SQLException{
         try {
 
-            resultSet = db.executeResultSetQuery("SELECT * FROM lostLuggage");
+            resultSet = db.executeResultSetQuery("SELECT * FROM lostluggage");
             
             //clear previous list -> so there wont be any duplicate luggage
             ServiceDataLost.lostLuggageList.clear();

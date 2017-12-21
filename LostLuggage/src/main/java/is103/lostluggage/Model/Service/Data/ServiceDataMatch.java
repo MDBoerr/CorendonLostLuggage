@@ -14,72 +14,139 @@ import javafx.collections.ObservableList;
  * @author thijszijdel
  */
 public class ServiceDataMatch {
-    //matching list
+    
+    
+    //Potential matching list
     private ObservableList<MatchLuggage> potentialMatchesList = FXCollections.observableArrayList(); 
     
-    public ObservableList<MatchLuggage> autoMatching(ObservableList<FoundLuggage> foundList, ObservableList<LostLuggage> lostList){
+    
+    
+    //create lost list 'item'
+    ObservableList<LostLuggage> observableLostLuggage = FXCollections.observableArrayList(); 
+    
+    ObservableList<FoundLuggage> foundList = FXCollections.observableArrayList();
+    
+     
+        //create lost list 'item'
+    ObservableList<FoundLuggage> observableFoundLuggage = FXCollections.observableArrayList(); 
+    
+    ObservableList<LostLuggage> lostList = FXCollections.observableArrayList();
+    
+    
+    
+     /**  
+     * Here are two different observable lists being compared  
+     * This will be checked in a private method
+     * 
+     * @param foundList            list of found luggage that will be compared
+     * @param lostList             list of lost luggage that will be compared
+     * @param matchPercentage      percentage that is required to be a match
+     * @return ObservableList      of the type: match luggage  
+     */
+    public ObservableList<MatchLuggage> autoMatching(ObservableList<FoundLuggage> foundList, ObservableList<LostLuggage> lostList, int matchPercentage){
+        //initializing a match list 
         ObservableList<MatchLuggage> matchingList = FXCollections.observableArrayList();
         
-        matchingList = checkData(lostList, foundList, 10);
+        //match list wil be get from  checkData()
+        matchingList = checkData(lostList, foundList, matchPercentage);
         
+        //the match list will be returned
+        //Note: only matches higher than the matchPercentage
         return matchingList;
+    }
+   
+    
+    
+    /**  
+     * Here will the potential matches list been formed for lost luggage
+     * the @param id is for getting the right resultSet to compare
+     * Note: this method is being called from the lost luggage detail view
+     * Note: the previous lists will also be cleared.
+     * 
+     * @param id            the luggage that needs to be compared
+     * @void                the potentialMatchesList of this object will be set 
+     */
+    public void potentialMatchesForLostLuggage(String id) throws SQLException{
+        //Clear the previous lists
+        this.potentialMatchesList.clear();
+        observableLostLuggage.clear();
+
+        //get the found luggages list
+        foundList = ServiceDataFound.getFoundLuggage();
         
+        //create observable list of the giving lost luggage
+        ServiceDataLost thisLuggage = new ServiceDataLost();
+        //get the  resultset of the giving lost luggage
+        ResultSet resultset = thisLuggage.getLostResultSet(id);
+        
+        //get lost luggage's observable list 
+        observableLostLuggage = thisLuggage.getObservableList(resultset);
+        
+        //check wich luggages match in checkData()
+        this.potentialMatchesList = checkData(observableLostLuggage, foundList, 10);
+         
+        //set the reset status to false so there wont be a reset.
+        MainApp.setPotentialResetStatus(false);
     }
     
+    
    
+    
+    /**  
+     * Here will the potential matches list been formed for found luggage
+     * the @param id is for getting the right resultSet to compare
+     * Note: this method is being called from the found luggage detail view
+     * Note: the previous lists will also be cleared.
+     * 
+     * @param id            the luggage that needs to be compared
+     * @void                the potentialMatchesList of this object will be set
+     */
+    public void potentialMatchesForFoundLuggage(String id) throws SQLException {
+        //Clear the previous lists
+        this.potentialMatchesList.clear();
+        observableFoundLuggage.clear();
+        
+        //get the lost luggages list
+        lostList = ServiceDataLost.getLostLuggage();
+        
+        
+        
+        //create observable list of the giving found luggage
+        ServiceDataFound thisLuggage = new ServiceDataFound();
+        //get the  resultset of the giving found luggage
+        ResultSet resultset = thisLuggage.getFoundResultSet(id);
+        
+        //get found luggage's observable list 
+        observableFoundLuggage = thisLuggage.getObservableList(resultset);
+        
+        //check wich luggages match in checkData()
+        this.potentialMatchesList = checkData(lostList, observableFoundLuggage, 10);
+         
+        //set the reset status to false so there wont be a reset.
+        MainApp.setPotentialResetStatus(false);
+    }
+
+    
+    /**  
+     * Method to get the potentialMatchesList from the object
+     * 
+     * @return ObservableList<MatchLuggage> this
+     */
     public ObservableList<MatchLuggage> getPotentialMatchesList(){
         return this.potentialMatchesList;
     }
-    
-    
-    //is beeing called by a LOST luggage (details screen)
-    public void potentialFoundMatches(String id) throws SQLException{
-        //create lost list 'item'
-        ObservableList<LostLuggage> observableItem = FXCollections.observableArrayList(); 
         
-        
-
-        //found luggages
-        ObservableList<FoundLuggage> foundList = ServiceDataFound.getFoundLuggage();
-        
-        
-        //get observable list of the 1 luggage
-        ServiceDataLost thisLuggage = new ServiceDataLost();
-        ResultSet resultset = thisLuggage.getLostResultSet(id);
-        observableItem = thisLuggage.getObservableList(resultset);
-        
-        this.potentialMatchesList.clear();
-        this.potentialMatchesList = checkData(observableItem, foundList, 10);
-         
-        MainApp.setPotentialResetStatus(false);
-        //return this.potentialMatchesList;
-    }
-    
-     //is beeing called by a FOUND luggage (details screen)
-    public void potentialLostMatches(String id) throws SQLException {
-                //create lost list 'item'
-        ObservableList<FoundLuggage> observableItem = FXCollections.observableArrayList(); 
-        
-        
-
-        //lost luggages
-        ObservableList<LostLuggage> lostList = ServiceDataLost.getLostLuggage();
-        
-        
-        //get observable list of the 1 luggage
-        ServiceDataFound thisLuggage = new ServiceDataFound();
-        ResultSet resultset = thisLuggage.getFoundResultSet(id);
-        observableItem = thisLuggage.getObservableList(resultset);
-        
-        this.potentialMatchesList.clear();
-        this.potentialMatchesList = checkData(lostList, observableItem, 10);
-         
-        MainApp.setPotentialResetStatus(false);
-    }
-
-    
-    
+    /**  
+     * Here are two different observable lists actually being compared  
+     * 
+     * @param foundList            list of found luggage that will be compared
+     * @param lostList             list of lost luggage that will be compared
+     * @param minPercentage        percentage that is required to be a match
+     * @return ObservableList      of the type: matched luggage ! 
+     */
     private ObservableList<MatchLuggage> checkData(ObservableList<LostLuggage> lostList, ObservableList<FoundLuggage> foundList, int minPercentage){
+        potentialMatchesList.clear();
+        this.potentialMatchesList.clear();
         lostList.forEach((lost)-> {
             foundList.forEach((found) -> {
                 

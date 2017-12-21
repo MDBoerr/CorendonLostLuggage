@@ -173,7 +173,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
         System.out.println(MainApp.getPotentialResetStatus()+" setted ");
         
         String id = FoundLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
-        data.potentialLostMatches(id);
+        data.potentialMatchesForFoundLuggage(id);
         
         //switch view and close
         if (MainApp.isOnMatchingView()==false){
