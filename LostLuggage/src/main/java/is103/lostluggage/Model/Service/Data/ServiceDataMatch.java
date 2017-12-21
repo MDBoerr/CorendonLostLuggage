@@ -10,31 +10,29 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- *
- * @author thijszijdel
+ * Data model for the match related table views
+ * -Automatic matching
+ * -Potential matching 
+ * (both are matched on the same way)
+ * 
+ * @author Thijs Zijdel - 500782165
  */
 public class ServiceDataMatch {
-    
-    
     //Potential matching list
     private ObservableList<MatchLuggage> potentialMatchesList = FXCollections.observableArrayList(); 
     
-    
-    
     //create lost list 'item'
     private ObservableList<LostLuggage> observableLostLuggage = FXCollections.observableArrayList(); 
-    
+    //create found luggage list 
     private ObservableList<FoundLuggage> foundList = FXCollections.observableArrayList();
     
-     
-        //create lost list 'item'
+    //create lost list 'item'
     private ObservableList<FoundLuggage> observableFoundLuggage = FXCollections.observableArrayList(); 
-    
+    //create lost luggage list 
     private ObservableList<LostLuggage> lostList = FXCollections.observableArrayList();
     
     
-    
-     /**  
+    /**  
      * Here are two different observable lists being compared  
      * This will be checked in a private method
      * 
@@ -55,8 +53,6 @@ public class ServiceDataMatch {
         return matchingList;
     }
    
-    
-    
     /**  
      * Here will the potential matches list been formed for lost luggage
      * the @param id is for getting the right resultSet to compare
@@ -88,9 +84,6 @@ public class ServiceDataMatch {
         //set the reset status to false so there wont be a reset.
         MainApp.setPotentialResetStatus(false);
     }
-    
-    
-   
     
     /**  
      * Here will the potential matches list been formed for found luggage
@@ -126,7 +119,6 @@ public class ServiceDataMatch {
         MainApp.setPotentialResetStatus(false);
     }
 
-    
     /**  
      * Method to get the potentialMatchesList from the object
      * 
