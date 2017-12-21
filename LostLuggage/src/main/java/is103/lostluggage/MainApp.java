@@ -40,6 +40,12 @@ public class MainApp extends Application {
     //Match object for getting the same data in service pages
     private static ServiceDataMatch matchData = new ServiceDataMatch();
     
+    //Database instance
+    private static MyJDBC db;
+    
+    //Name of the database
+    final private static String DB_NAME = "lostluggage";
+    
     private static String dbName = "lostLuggage";
     
     public static String language = "english";
@@ -47,8 +53,8 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        //Uncomment line below to create a Database on local SQL Server -> See READ ME for help 
-        //MyJDBC.createLostLuggageDatabase(dbName);
+        //Method to set the db property
+        setDb();
         
         
         //set root
@@ -99,6 +105,20 @@ public class MainApp extends Application {
         MainApp.onMatchingView = value;
     }
     
+    //get the db instance
+    public static MyJDBC getDb(){
+        return MainApp.db;
+    }
+    
+    //set the database instance
+    public static void setDb(){
+        
+        MyJDBC db = new MyJDBC(MainApp.DB_NAME);
+
+        MainApp.db = db;
+    }
+    
+    //method to connect to the database
     public static MyJDBC connectToDatabase() {
 
         MyJDBC db = new MyJDBC(dbName);

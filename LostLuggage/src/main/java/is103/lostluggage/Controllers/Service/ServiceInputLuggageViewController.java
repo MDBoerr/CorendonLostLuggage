@@ -50,8 +50,6 @@ public class ServiceInputLuggageViewController implements Initializable {
             postalcodeJFXTextField, countryJFXTextField, phoneJFXTextField, emailJFXTextField, labelnumberJFXTextField, brandJFXTextField,
             characterJFXTextField;
   
-            
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -94,7 +92,7 @@ public class ServiceInputLuggageViewController implements Initializable {
         missingFoundComboBox.setValue("Missing");
                 
         //Color combo box
-        ResultSet colorResultSet = MainApp.db.executeResultSetQuery("SELECT * FROM color");
+        ResultSet colorResultSet = MainApp.getDb().executeResultSetQuery("SELECT * FROM color");
         
         //add the colors to the combo box
         while(colorResultSet.next()){
@@ -102,35 +100,35 @@ public class ServiceInputLuggageViewController implements Initializable {
         }
         
         //secondColor combo box
-        ResultSet secondColorResultSet = MainApp.db.executeResultSetQuery("SELECT * FROM color");
+        ResultSet secondColorResultSet = MainApp.getDb().executeResultSetQuery("SELECT * FROM color");
         
         while(secondColorResultSet.next()){
             secondColorJFXComboBox.getItems().add(secondColorResultSet.getString(2));
         }
         
         //Location combo box
-        ResultSet locationResultSet = MainApp.db.executeResultSetQuery("SELECT * FROM location");
+        ResultSet locationResultSet = MainApp.getDb().executeResultSetQuery("SELECT * FROM location");
         
         while(locationResultSet.next()){
             locationJFXComboBox.getItems().add(locationResultSet.getString(2));
         }
         
         //Flight combo box
-        ResultSet flightResultSet = MainApp.db.executeResultSetQuery("SELECT * FROM flight");
+        ResultSet flightResultSet = MainApp.getDb().executeResultSetQuery("SELECT * FROM flight");
         
         while(flightResultSet.next()){
             flightJFXComboBox.getItems().add(flightResultSet.getString(1));
         }
         
         //Luggagetype combo box
-        ResultSet typeResultSet = MainApp.db.executeResultSetQuery("SELECT * FROM luggagetype");
+        ResultSet typeResultSet = MainApp.getDb().executeResultSetQuery("SELECT * FROM luggagetype");
         
         while(typeResultSet.next()){
             typeJFXComboBox.getItems().add(typeResultSet.getString(2));
         }
         
         //Airport/destination combobox
-        ResultSet airportResultSet = MainApp.db.executeResultSetQuery("SELECT * FROM destination");
+        ResultSet airportResultSet = MainApp.getDb().executeResultSetQuery("SELECT * FROM destination");
         
         while(airportResultSet.next()){
             airportJFXComboBox.getItems().add(airportResultSet.getString(2));
@@ -273,13 +271,13 @@ public class ServiceInputLuggageViewController implements Initializable {
             
             String query = "";
             
-            int affectedRows = MainApp.db.executeUpdateQuery(query);
+            int affectedRows = MainApp.getDb().executeUpdateQuery(query);
         }else{
             
             //Query to add the passenger
             String addPassengerQuery = "INSERT INTO passenger VALUES(NULL ,'"+name+"', '"+address+"', '"+place+"', '"+postalcode+"', '"+country+"', '"+email+"', '"+phone+"')";
                         
-            int affectedRows = MainApp.db.executeUpdateQuery(addPassengerQuery);
+            int affectedRows = MainApp.getDb().executeUpdateQuery(addPassengerQuery);
             
             //Query to add the missing luggage
             String addMissingLuggageQuery = "INSERT INTO missingluggage VALUES()";
