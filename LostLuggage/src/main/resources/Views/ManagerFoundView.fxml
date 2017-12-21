@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -9,43 +13,48 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <GridPane prefHeight="586.0" prefWidth="1179.0" style="-fx-background-color: fff;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Manager.ManagerFoundViewController">
     <columnConstraints>
-        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="957.3544311523438" minWidth="10.0" prefWidth="472.0338439941406" />
-        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="777.9694519042969" minWidth="10.0" prefWidth="707.4661560058594" />
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="777.9694519042969" minWidth="10.0" prefWidth="430.33331298828125" />
+        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="957.3544311523438" minWidth="10.0" prefWidth="748.6666870117188" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints maxHeight="148.65740966796875" minHeight="10.0" prefHeight="81.10185241699219" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="265.3981475830078" minHeight="10.0" prefHeight="200.0" valignment="CENTER" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="316.0810241699219" minHeight="10.0" prefHeight="200.0" valignment="CENTER" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="403.0" minHeight="10.0" prefHeight="403.0" valignment="CENTER" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="316.0810241699219" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="33.31011962890625" minHeight="100.0" prefHeight="9.034820556640625" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <TableView fx:id="foundLuggage" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="2" GridPane.rowSpan="3">
+        <TableView fx:id="foundLuggage" prefHeight="401.0" prefWidth="729.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowSpan="3">
             <columns>
                 <TableColumn fx:id="managerFoundRegistrationNr" maxWidth="2000.0" prefWidth="30.0" text="ID" />
-                <TableColumn fx:id="found_dateFound" prefWidth="30.0" text="dateFound" />
-                <TableColumn fx:id="found_timeFound" prefWidth="96.0" text="timeFound" />
-                <TableColumn fx:id="found_luggageTag" prefWidth="57.72200012207031" text="tag" />
+                <TableColumn fx:id="found_dateFound" prefWidth="76.0" resizable="false" text="dateFound" />
+                <TableColumn fx:id="found_timeFound" prefWidth="46.66668701171875" resizable="false" text="timeFound" />
+                <TableColumn fx:id="found_luggageTag" prefWidth="49.33331298828125" text="tag" />
                 <TableColumn fx:id="found_luggageType" prefWidth="54.84834289550781" text="type" />
                 <TableColumn fx:id="found_brand" prefWidth="54.671478271484375" text="brand" />
-                <TableColumn fx:id="found_mainColor" prefWidth="71.00393676757812" text="mainColor" />
-                <TableColumn fx:id="found_secondColor" prefWidth="84.48635864257812" text="secondColor" />
-            <TableColumn fx:id="found_size" prefWidth="57.0" text="size" />
-            <TableColumn fx:id="found_weight" prefWidth="95.0" text="weight" />
-            <TableColumn fx:id="found_otherCharacteristics" prefWidth="69.98828125" text="Characteristics" />
-            <TableColumn fx:id="found_passengerId" prefWidth="86.01171875" text="passangerId" />
-            <TableColumn fx:id="found_arrivedWithFlight" prefWidth="81.86956787109375" text="flight" />
-            <TableColumn fx:id="found_locationFound" prefWidth="82.486328125" text="locationFound" />
-            <TableColumn fx:id="found_employeeId" prefWidth="65.984375" text="employeeId" />
-            <TableColumn fx:id="found_matchedId" prefWidth="60.482421875" text="matcheId" />
+                <TableColumn fx:id="found_mainColor" prefWidth="71.00393676757812" resizable="false" text="mainColor" />
+                <TableColumn fx:id="found_secondColor" prefWidth="84.48635864257812" resizable="false" text="secondColor" />
+            <TableColumn fx:id="found_size" prefWidth="57.0" resizable="false" text="size" />
+            <TableColumn fx:id="found_weight" prefWidth="95.0" resizable="false" text="weight" />
+            <TableColumn fx:id="found_otherCharacteristics" prefWidth="69.98828125" resizable="false" text="Characteristics" />
+            <TableColumn fx:id="found_passengerId" prefWidth="86.01171875" resizable="false" text="passangerId" />
+            <TableColumn fx:id="found_arrivedWithFlight" prefWidth="81.86956787109375" resizable="false" text="flight" />
+            <TableColumn fx:id="found_locationFound" prefWidth="82.486328125" resizable="false" text="locationFound" />
+            <TableColumn fx:id="found_employeeId" prefWidth="65.984375" resizable="false" text="employeeId" />
+            <TableColumn fx:id="found_matchedId" prefWidth="60.482421875" resizable="false" text="matcheId" />
             </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
+         <GridPane.margin>
+            <Insets top="85.0" />
+         </GridPane.margin>
         </TableView>
-      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
          <children>
             <VBox minWidth="150.0" prefHeight="200.0" prefWidth="100.0">
                <children>
@@ -57,5 +66,108 @@
             <Separator opacity="0.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="75.0" />
          </children>
       </HBox>
+      <JFXDatePicker GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets right="400.0" top="37.0" />
+         </GridPane.margin>
+      </JFXDatePicker>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pick two dates for an overview" wrappingWidth="223.47003173828125" GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets bottom="40.0" right="260.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <JFXDatePicker GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets right="200.0" top="37.0" />
+         </GridPane.margin>
+      </JFXDatePicker>
+      <GridPane GridPane.rowIndex="1">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <JFXButton prefHeight="35.0" prefWidth="75.0" ripplerFill="WHITE" style="-fx-background-color: #4dadf7#4dadf7 #4dadf7#4dadf7;" text="Edit" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <JFXTextField fx:id="lastnameField" focusColor="#4dadf7" promptText="Last name" text="0234" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="lastnameField2" focusColor="#4dadf7" prefHeight="25.0" prefWidth="199.0" promptText="Last name" text="Arthur Krom" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="lastnameField3" focusColor="#4dadf7" promptText="l" text="0" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="lastnameField4" focusColor="#4dadf7" promptText="Last name" text="DHL" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="lastnameField5" focusColor="#4dadf7" promptText="Last name" text="Poek93ligthart@hotmail.com" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXDatePicker prefHeight="28.0" prefWidth="245.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID" textAlignment="RIGHT" wrappingWidth="167.03643226623535">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Formulier-ID" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="1">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="5">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Customer" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="2">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="4">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Deliverer" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="3">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Address" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="6">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
+            <JFXTextField fx:id="lastnameField51" focusColor="#4dadf7" promptText="Last name" text="Amsterdam, Netherlands" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+         </children>
+      </GridPane>
     </children>
 </GridPane>

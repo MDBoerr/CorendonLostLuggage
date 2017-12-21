@@ -6,7 +6,7 @@ import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Model.Service.Data.ServiceDataLost;
 import is103.lostluggage.MainApp;
-import is103.lostluggage.Model.Service.Data.ServiceDataMore;
+import is103.lostluggage.Model.Service.Data.ServiceMoreDetails;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -31,12 +31,12 @@ import javafx.stage.Stage;
  */
 public class ServiceOverviewLostViewController implements Initializable {
 
-            public Stage popupStageLost = new Stage();   
+            private Stage popupStageLost = new Stage();   
 
         //view title
     private final String title = "Overview Lost Luggage";
     
-    public static ObservableList<LostLuggage> MissedLuggageList;
+    private static ObservableList<LostLuggage> MissedLuggageList;
     
     @FXML  
     private JFXTextField searchField;
@@ -91,8 +91,11 @@ public class ServiceOverviewLostViewController implements Initializable {
             dataListLost = new ServiceDataLost();
             initializeMissedLuggageTable(dataListLost.getLostLuggage());
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceFoundOverviewViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceOverviewFoundViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        //set screen status
+        MainApp.setOnMatchingView(false);
     }
     
     
@@ -174,9 +177,9 @@ public class ServiceOverviewLostViewController implements Initializable {
         missedLuggageTable.setOnMousePressed((MouseEvent event) -> {
                                 //--> event         //--> double click
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                ServiceDataMore lostDetails = new ServiceDataMore();
-                lostDetails.setDetailsOfRow("lost", event, popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "lost");
-                lostDetails.setAndOpenPopUpDetails("lost", popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "lost");
+                ServiceMoreDetails lostDetails = new ServiceMoreDetails();
+                lostDetails.setDetailsOfRow("lost", event, popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml");
+                lostDetails.setAndOpenPopUpDetails(popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "lost");
                 
             }
         });

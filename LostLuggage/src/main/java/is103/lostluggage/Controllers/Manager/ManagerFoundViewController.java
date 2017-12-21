@@ -1,5 +1,6 @@
 package is103.lostluggage.Controllers.Manager;
 
+import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.Admin.HomeUserViewController;
 import is103.lostluggage.Controllers.MainViewController;
@@ -44,7 +45,7 @@ private final String title = "Overzicht Gevonden Bagage";
     
     
     //TableView found luggage's colommen
-    
+   
     
     @FXML
     private TableView<FoundLuggage> foundLuggage;
@@ -68,6 +69,7 @@ private final String title = "Overzicht Gevonden Bagage";
     @FXML private TableColumn<FoundLuggage, String> found_employeeId;
     @FXML private TableColumn<FoundLuggage, Integer> found_matchedId;
 
+    
 
     /**
      * Initializes the controller class.
@@ -115,7 +117,7 @@ private final String title = "Overzicht Gevonden Bagage";
         found_locationFound.setCellValueFactory(        new PropertyValueFactory<>("locationFound"));
         found_employeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
         found_matchedId.setCellValueFactory(             new PropertyValueFactory<>("matchedId"));
-
+       
     
         
         
@@ -125,7 +127,7 @@ private final String title = "Overzicht Gevonden Bagage";
             @Override
             public void handle(MouseEvent event) {
 
-                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
                     Node node = ((Node) event.getTarget()).getParent();
 
                     TableRow row;
@@ -192,7 +194,7 @@ private final String title = "Overzicht Gevonden Bagage";
                 String brand =              resultSet.getString("brand");
                 int mainColor =             resultSet.getInt("mainColor");
                 int secondColor =           resultSet.getInt("secondColor");
-                int size =                  resultSet.getInt("size");
+                String size =                  resultSet.getString("size");
                 int weight =                resultSet.getInt("weight");   
                 String otherCharacteristics=resultSet.getString("otherCharacteristics");
                 int passengerId =           resultSet.getInt("passengerId");
@@ -231,16 +233,9 @@ private final String title = "Overzicht Gevonden Bagage";
                 
                 
                 
-                // Alle gegevens per result (koffer) ->  printen  --> volledig overzicht
-//                System.out.println("Gegevens voor koffer id: "+get_idfoundLuggage);
-//                System.out.println("Time: "+ get_time + " Airport: " + get_airport+" Datum:"+get_date);
-//                System.out.println("Naam: "+ get_name + " Adress: "+get_adress+"Plaats: "+get_residence);
-//                System.out.println("Postcode: "+get_postalcode+" Land: "+ get_country+" Email: "+get_email);
-//                System.out.println("Labelnum: "+get_labelnumber+" Vlucht: "+get_flightnumber+" Bestemming: "+get_destination);
-//                System.out.println("Type bagage: "+get_type+" Merk: "+get_brand+" Kleur: "+get_color+" Kenmerken: "+get_signatures);
-//                System.out.println(" ---------------------------------------------------------------------");
+
             
-            }//-> stop als er geen resultaten meer zijn!
+            }
 
         } catch (SQLException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);

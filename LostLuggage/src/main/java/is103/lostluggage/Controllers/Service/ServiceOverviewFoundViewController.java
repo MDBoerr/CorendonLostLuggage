@@ -19,7 +19,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import is103.lostluggage.Database.MyJDBC;
-import is103.lostluggage.Model.Service.Data.ServiceDataMore;
+import is103.lostluggage.Model.Service.Data.ServiceMoreDetails;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,7 +34,7 @@ import javafx.stage.Stage;
  *
  * @author Thijs Zijdel - 500782165
  */
-public class ServiceFoundOverviewViewController implements Initializable {
+public class ServiceOverviewFoundViewController implements Initializable {
 
         public Stage popupStageFound = new Stage();   
 
@@ -42,8 +42,8 @@ public class ServiceFoundOverviewViewController implements Initializable {
         //view title
     private final String title = "Overview Found Luggage";
     
-    public static ObservableList<FoundLuggage> foundLuggageList;
-    public static ObservableList<FoundLuggage> foundLuggageListSearchResults;
+    private static ObservableList<FoundLuggage> foundLuggageList;
+    private static ObservableList<FoundLuggage> foundLuggageListSearchResults;
     
     @FXML JFXTextField searchField;
     @FXML JFXComboBox searchTypeComboBox;
@@ -104,13 +104,14 @@ public class ServiceFoundOverviewViewController implements Initializable {
             dataListFound = new ServiceDataFound();
             initializeFoundLuggageTable(dataListFound.getFoundLuggage());
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceFoundOverviewViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceOverviewFoundViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
 
         
-        
+        //set screen status
+        MainApp.setOnMatchingView(false);
     }
     
     @FXML
@@ -180,7 +181,7 @@ public class ServiceFoundOverviewViewController implements Initializable {
             foundLuggageTable.setItems(foundLuggageListSearchResults);
             
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceFoundOverviewViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceOverviewFoundViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
          
@@ -251,9 +252,9 @@ public class ServiceFoundOverviewViewController implements Initializable {
         foundLuggageTable.setOnMousePressed((MouseEvent event) -> {
                                 //--> event         //--> double click
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                ServiceDataMore foundDetails = new ServiceDataMore();
-                foundDetails.setDetailsOfRow("found", event, popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
-                foundDetails.setAndOpenPopUpDetails("found", popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
+                ServiceMoreDetails foundDetails = new ServiceMoreDetails();
+                foundDetails.setDetailsOfRow("found", event, popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml");
+                foundDetails.setAndOpenPopUpDetails(popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
                
             }
         });

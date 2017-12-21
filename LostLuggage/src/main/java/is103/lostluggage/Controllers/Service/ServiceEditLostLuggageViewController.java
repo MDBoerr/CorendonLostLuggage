@@ -4,7 +4,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.MainViewController;
-import is103.lostluggage.Model.Service.Data.ServiceDataDetails;
+import is103.lostluggage.Model.Service.Data.ServiceGetDataFromDB;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import static is103.lostluggage.MainApp.getLanguage;
@@ -74,7 +74,7 @@ public class ServiceEditLostLuggageViewController implements Initializable {
             Logger.getLogger(ServiceDetailedFoundLuggageController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        ServiceDataDetails colors = new ServiceDataDetails("color", "dutch", null);
+        ServiceGetDataFromDB colors = new ServiceGetDataFromDB("color", "dutch", null);
         try {
             ObservableList<String> colorsStringList = colors.getStringList();
             colorPicker1.getItems().addAll(colorsStringList);
@@ -89,7 +89,7 @@ public class ServiceEditLostLuggageViewController implements Initializable {
          
 
         
-        ServiceDataDetails types = new ServiceDataDetails("luggagetype", "dutch", null);
+        ServiceGetDataFromDB types = new ServiceGetDataFromDB("luggagetype", "dutch", null);
         try {
             ObservableList<String> luggageStringList = types.getStringList();
             typePicker.getItems().addAll(luggageStringList);
@@ -98,6 +98,9 @@ public class ServiceEditLostLuggageViewController implements Initializable {
         }
         // -> initialize current luggage's data
         //locationPicker.setValue("1");
+        
+        //set screen status
+        MainApp.setOnMatchingView(false);
     }   
     
     @FXML
@@ -180,7 +183,7 @@ public class ServiceEditLostLuggageViewController implements Initializable {
         System.out.println("added to manual matching");
         LostLuggage passObject =  LostLuggageDetailsInstance.getInstance().currentLuggage();
         LostLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());
-        MainApp.refreshMatching = false;
+        MainApp.resetMatching = false;
         
         MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
         

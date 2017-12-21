@@ -4,9 +4,12 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Data.ServiceDataFound;
+import is103.lostluggage.Model.Service.Data.ServiceDataMatch;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetailsInstance;
+import is103.lostluggage.Model.Service.Instance.Details.LostLuggageDetailsInstance;
 import is103.lostluggage.Model.Service.Instance.Matching.FoundLuggageManualMatchingInstance;
+import is103.lostluggage.Model.Service.Model.MatchLuggage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -14,9 +17,12 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.stage.Stage;
 
 
@@ -76,19 +82,14 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
     
     @FXML
     public void openEditView() throws IOException{
-        closeStage();
         MainApp.switchView("/Views/Service/ServiceEditFoundLuggageView.fxml");
+        closeStage();
     }
     
     
     @FXML
     private void initializeFoundFields() throws SQLException{
-        
-        //needs to be faster and get more obj options !
-        //less searching in db
-        
         String id = FoundLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
-        System.out.println("iD: "+id);
             //            MyJDBC db = MainApp.connectToDatabase();
             ServiceDataFound detailsItem = new ServiceDataFound();
             ResultSet resultSet = detailsItem.getAllDetailsFound(id);
@@ -156,16 +157,37 @@ public class ServiceDetailedFoundLuggageController implements Initializable {
     
     
    
-    
+    public ObservableList<MatchLuggage> potentialMatchesList = FXCollections.observableArrayList(); 
     @FXML
-    protected void viewPotentials(ActionEvent event){
+    protected void viewPotentials(ActionEvent event) throws IOException, SQLException{
+        ServiceDataMatch data = MainApp.getMatchData();
+
+        
+        
+        potentialMatchesList.clear();
+        //-------------------------- FIX THIS ----------------------------// 
+        ServiceMatchingViewController.getInstance().resetPotentialMatchingTable(); // --> instance !!!
+        
+        System.out.println(MainApp.getPotentialResetStatus()+" called ");
+        MainApp.setPotentialResetStatus(true);
+        System.out.println(MainApp.getPotentialResetStatus()+" setted ");
+        
+        String id = FoundLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
+        data.potentialMatchesForFoundLuggage(id);
+        
+        //switch view and close
+        if (MainApp.isOnMatchingView()==false){
+            MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
+        }
         closeStage();
-        MainApp.serviceChangeValue = 0; //temporary
     }
     
 
     @FXML
-    protected void manualMatching(ActionEvent event){
+    protected void manualMatching(ActionEvent event) throws IOException{
+        if (MainApp.isOnMatchingView()==false){
+            MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
+        }
         closeStage();
         FoundLuggage passObject =  FoundLuggageDetailsInstance.getInstance().currentLuggage();
         FoundLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());        

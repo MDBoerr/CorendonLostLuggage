@@ -2,7 +2,7 @@ package is103.lostluggage;
 
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
-import java.io.File;
+import is103.lostluggage.Model.Service.Data.ServiceDataMatch;
 import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -17,14 +17,12 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.FileChooser;
 
 
 /**
  * Main class
  *
  * @author Michael de Boer
- * Arthur & Daron = selectFileToSave
  *
  */
 
@@ -34,22 +32,17 @@ public class MainApp extends Application {
 
     public static String user = null;
     
+    public static boolean onMatchingView = false;
     public static int serviceChangeValue = 99;
-    public static boolean refreshMatching = true; //true= refresh       -> get's alternated in program
+    public static boolean resetMatching = true; //true= refresh       -> get's alternated in program
                                                   //false= dont refresh
                                                   //for: manual matching
-
+    //Match object for getting the same data in service pages
+    private static ServiceDataMatch matchData = new ServiceDataMatch();
     
-    //name of the database.. we only connect to 1 database
-    final private static String DB_NAME = "lostluggage";
+    private static String dbName = "lostLuggage";
     
     public static String language = "english";
-    
-    //Database instance
-    public static MyJDBC db;
-    
-    //Mainstage of the application...used to select save location of pdf
-    public static Stage mainStage;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -57,18 +50,12 @@ public class MainApp extends Application {
         //Uncomment line below to create a Database on local SQL Server -> See READ ME for help 
         //MyJDBC.createLostLuggageDatabase(dbName);
         
-        //Set the mainstage as a property
-        MainApp.mainStage = stage;
         
         //set root
         root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
 
         //switchView("/fxml/SelectUserRoleView.fxml");
         checkLoggedInStatus(user);
-        
-        //Database instance is property of mainapp.
-        db = new MyJDBC(DB_NAME);
-
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
@@ -104,37 +91,37 @@ public class MainApp extends Application {
         root.setCenter(fxmlView);
 
     }
-    
-    public static File selectFileToSave(String defaultFileName){
 
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Select file to save into");
-            
-            //todo: provide the file selection dialog to the user
-            File file = fileChooser.showSaveDialog(mainStage);
-            
-            //File selected? return the file, else return null
-            if(file != null){
-                return file;
-            }else{
-                return null;
-            }
+    public static boolean isOnMatchingView(){
+        return onMatchingView;
     }
-
+    public static void setOnMatchingView(boolean value){
+        MainApp.onMatchingView = value;
+    }
+    
     public static MyJDBC connectToDatabase() {
 
-        MyJDBC db = new MyJDBC(DB_NAME);
+        MyJDBC db = new MyJDBC(dbName);
 
         return db;
-    }
-    
-    public static  MyJDBC getDb(){
-        return MainApp.db;
     }
     
     public static String getLanguage() {
         return language;
     }
+    
+    public static ServiceDataMatch getMatchData() {
+        return matchData;
+    }
+    private static boolean potentialMatchesReSet = false;
+    
+    public static void setPotentialResetStatus(boolean b) {
+        MainApp.potentialMatchesReSet = b;
+    }
+    public static boolean getPotentialResetStatus(){
+        return MainApp.potentialMatchesReSet;
+    }
+    
 
     public static void checkLoggedInStatus(String user) throws IOException {
 

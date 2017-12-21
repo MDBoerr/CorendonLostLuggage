@@ -13,7 +13,7 @@ import javafx.collections.ObservableList;
 /**
  * @author Thijs Zijdel - 500782165
  */
-public class ServiceDataDetails {
+public class ServiceGetDataFromDB {
     private String table;
     private String field;
     private String condition;
@@ -22,13 +22,13 @@ public class ServiceDataDetails {
     
     private int i =0;
     
-    public ServiceDataDetails(String table, String field, String condition){
+    public ServiceGetDataFromDB(String table, String field, String condition){
         this.table = table;
         this.field = field;
         this.condition = condition;
     }
     
-    public ObservableList<String> results = FXCollections.observableArrayList();
+    private ObservableList<String> results = FXCollections.observableArrayList();
     private final MyJDBC db = MainApp.connectToDatabase();
     private ResultSet resultSet;
     
@@ -72,7 +72,7 @@ public class ServiceDataDetails {
             try {
                 resultArray[this.i]= resultSet.getString(field);
             } catch (SQLException ex) {
-                Logger.getLogger(ServiceDataDetails.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ServiceGetDataFromDB.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
         
@@ -91,6 +91,15 @@ public class ServiceDataDetails {
              return hits;
         }
         return 0;
+    }
+    
+    public int getIdValue() throws SQLException{
+        ResultSet resultSetThisField = getServiceDetailsResultSet();
+        int gotten = 0;
+        while (resultSetThisField.next()){
+            gotten =     resultSetThisField.getInt(this.field);
+        }
+        return gotten;
     }
     
     
