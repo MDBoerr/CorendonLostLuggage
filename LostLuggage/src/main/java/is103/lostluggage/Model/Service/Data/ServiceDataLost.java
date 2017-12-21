@@ -18,7 +18,7 @@ import javafx.collections.ObservableList;
 public class ServiceDataLost {
     private static ObservableList<LostLuggage> lostLuggageList = FXCollections.observableArrayList(); 
     private static ObservableList<LostLuggage> resultsetList = FXCollections.observableArrayList(); 
-    private static final MyJDBC db = MainApp.connectToDatabase();
+    private static final MyJDBC db = MainApp.getDatabase();
     private static ResultSet resultSet;
     
        private String language = MainApp.getLanguage();

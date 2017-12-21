@@ -108,7 +108,7 @@ public class ServiceEditLostLuggageViewController implements Initializable {
         String id = LostLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
 
         System.out.println("iD: "+id);
-            //            MyJDBC db = MainApp.connectToDatabase();
+            //            MyJDBC db = MainApp.getDatabase();
             ServiceDataLost detailsItem = new ServiceDataLost();
             ResultSet resultSet = detailsItem.getAllDetailsLost(id);
             
@@ -198,7 +198,7 @@ public class ServiceEditLostLuggageViewController implements Initializable {
 //        String luggageSignatures = signaturesField.getText();
 //        
 //        
-//        MyJDBC db = MainApp.connectToDatabase();
+//        MyJDBC db = MainApp.getDatabase();
 //        ResultSet resultSet;
 //        resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage WHERE idfoundLuggage='"+luggageId+"'");
 //        System.out.println("result is:"+resultSet);

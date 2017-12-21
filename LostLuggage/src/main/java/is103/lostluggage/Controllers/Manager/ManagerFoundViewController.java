@@ -6,7 +6,6 @@ import is103.lostluggage.Controllers.Admin.HomeUserViewController;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
-import static is103.lostluggage.MainApp.connectToDatabase;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
 //import is103.lostluggage.Controllers.Service.Luggage;
 import java.io.IOException;
@@ -32,6 +31,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import static is103.lostluggage.MainApp.getDatabase;
 
 /**
  * FXML Controller class
@@ -176,7 +176,7 @@ private final String title = "Overzicht Gevonden Bagage";
         ObservableList<FoundLuggage> foundLuggageList = FXCollections.observableArrayList();
         
         try {
-             MyJDBC db = connectToDatabase();
+             MyJDBC db = getDatabase();
 
             ResultSet resultSet;
 

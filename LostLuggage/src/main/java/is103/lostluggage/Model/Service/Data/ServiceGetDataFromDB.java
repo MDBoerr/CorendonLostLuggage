@@ -29,7 +29,7 @@ public class ServiceGetDataFromDB {
     }
     
     private ObservableList<String> results = FXCollections.observableArrayList();
-    private final MyJDBC db = MainApp.connectToDatabase();
+    private final MyJDBC db = MainApp.getDatabase();
     private ResultSet resultSet;
     
 //    public ServiceDataLost() throws SQLException{

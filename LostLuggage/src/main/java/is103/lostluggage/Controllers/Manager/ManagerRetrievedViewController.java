@@ -105,7 +105,7 @@ public class ManagerRetrievedViewController implements Initializable {
         ObservableList<RetrievedLuggage> retrievedList = FXCollections.observableArrayList();
 
         try {
-            MyJDBC db = MainApp.connectToDatabase();
+            MyJDBC db = MainApp.getDatabase();
 
             ResultSet resultSet;
 

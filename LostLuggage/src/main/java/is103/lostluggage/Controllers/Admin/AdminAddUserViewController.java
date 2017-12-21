@@ -230,7 +230,7 @@ public class AdminAddUserViewController implements Initializable {
             String roleString = role.toString();
             String statusString = status.toString();
 
-            MyJDBC db = MainApp.connectToDatabase();
+            MyJDBC db = MainApp.getDatabase();
 
             String query = String.format("INSERT INTO User VALUES ('%s', '%s', '%s', '%s', '%s', '%s')", id, firstname, lastname, location, statusString, roleString);
 

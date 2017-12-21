@@ -99,7 +99,7 @@ public class OverviewUserController implements Initializable {
         ObservableList<User> users = FXCollections.observableArrayList();
 
         try {
-            MyJDBC db = MainApp.connectToDatabase();
+            MyJDBC db = MainApp.getDatabase();
 
             ResultSet resultSet;
 

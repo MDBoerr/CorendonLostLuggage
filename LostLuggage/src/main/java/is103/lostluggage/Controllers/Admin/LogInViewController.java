@@ -64,7 +64,7 @@ public class LogInViewController implements Initializable {
 
     public void loggingIn() throws IOException {
 
-        MyJDBC db = MainApp.connectToDatabase();
+        MyJDBC db = MainApp.getDatabase();
         String id = idTextField.getText();
         String password = passwordField.getText();
         String role = null;

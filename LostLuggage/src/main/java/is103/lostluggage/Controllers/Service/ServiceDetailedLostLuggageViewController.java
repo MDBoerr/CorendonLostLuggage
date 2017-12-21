@@ -83,7 +83,7 @@ public class ServiceDetailedLostLuggageViewController implements Initializable {
         String id = LostLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
 
         System.out.println("iD: "+id);
-//            MyJDBC db = MainApp.connectToDatabase();
+//            MyJDBC db = MainApp.getDatabase();
             ServiceDataLost detailsItem = new ServiceDataLost();
             ResultSet resultSet = detailsItem.getAllDetailsLost(id);
             

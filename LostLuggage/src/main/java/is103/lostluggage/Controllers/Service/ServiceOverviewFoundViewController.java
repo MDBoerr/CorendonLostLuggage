@@ -131,7 +131,7 @@ public class ServiceOverviewFoundViewController implements Initializable {
         
 
         try {
-            MyJDBC db = MainApp.connectToDatabase();
+            MyJDBC db = MainApp.getDatabase();
             ResultSet resultSet;
             resultSet = db.executeResultSetQuery(finalQuery);
             

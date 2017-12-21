@@ -106,7 +106,7 @@ public class ServiceDetailedMatchLuggageViewController implements Initializable 
         String id = LostLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
 
         System.out.println("iD: "+id);
-//            MyJDBC db = MainApp.connectToDatabase();
+//            MyJDBC db = MainApp.getDatabase();
             ServiceDataLost detailsItem = new ServiceDataLost();
             ResultSet resultSet = detailsItem.getAllDetailsLost(id);
             
@@ -177,7 +177,7 @@ public class ServiceDetailedMatchLuggageViewController implements Initializable 
     
     private void initializeFoundFields() throws SQLException{
         String id = FoundLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
-            //            MyJDBC db = MainApp.connectToDatabase();
+            //            MyJDBC db = MainApp.getDatabase();
             ServiceDataFound detailsItem = new ServiceDataFound();
             ResultSet resultSet = detailsItem.getAllDetailsFound(id);
             

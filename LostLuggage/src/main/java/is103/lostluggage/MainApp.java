@@ -45,16 +45,14 @@ public class MainApp extends Application {
     
     //Name of the database
     final private static String DB_NAME = "lostluggage";
-    
-    private static String dbName = "lostLuggage";
-    
+        
     public static String language = "english";
 
     @Override
     public void start(Stage stage) throws Exception {
 
         //Method to set the db property
-        setDb();
+        setDatabase();
         
         
         //set root
@@ -105,13 +103,8 @@ public class MainApp extends Application {
         MainApp.onMatchingView = value;
     }
     
-    //get the db instance
-    public static MyJDBC getDb(){
-        return MainApp.db;
-    }
-    
     //set the database instance
-    public static void setDb(){
+    public static void setDatabase(){
         
         MyJDBC db = new MyJDBC(MainApp.DB_NAME);
 
@@ -119,9 +112,9 @@ public class MainApp extends Application {
     }
     
     //method to connect to the database
-    public static MyJDBC connectToDatabase() {
+    public static MyJDBC getDatabase() {
 
-        MyJDBC db = new MyJDBC(dbName);
+        MyJDBC db = new MyJDBC(DB_NAME);
 
         return db;
     }

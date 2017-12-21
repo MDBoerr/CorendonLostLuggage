@@ -145,7 +145,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
     private void initializeFoundFields() throws SQLException{
         String id = FoundLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
         System.out.println("iD: "+id);
-            //            MyJDBC db = MainApp.connectToDatabase();
+            //            MyJDBC db = MainApp.getDatabase();
             ServiceDataFound detailsItem = new ServiceDataFound();
             ResultSet resultSet = detailsItem.getAllDetailsFound(id);
             
@@ -299,7 +299,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         if ("unknown".equals(email.getText())){email.setText("");}
         if ("unknown".equals(flight.getText())){flight.setText("");}
         
-        MyJDBC db = MainApp.connectToDatabase();
+        MyJDBC db = MainApp.getDatabase();
         db.executeUpdateQuery("UPDATE `foundluggage` SET "
                 + "`dateFound`='"+dateFound.getText()+"', "
                 + "`timeFound`='"+timeFound.getText()+"', "

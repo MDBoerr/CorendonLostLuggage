@@ -71,7 +71,7 @@ public class ServiceManualMatchingFoundController implements Initializable {
     @FXML
     private void initializeFoundFields() throws SQLException{
         String id = FoundLuggageManualMatchingInstance.getInstance().currentLuggage().getRegistrationNr();
-            //            MyJDBC db = MainApp.connectToDatabase();
+            //            MyJDBC db = MainApp.getDatabase();
             ServiceDataFound detailsItem = new ServiceDataFound();
             ResultSet resultSet = detailsItem.getAllDetailsFound(id);
             

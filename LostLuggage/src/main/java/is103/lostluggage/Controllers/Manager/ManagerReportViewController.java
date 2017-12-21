@@ -47,7 +47,7 @@ public class ManagerReportViewController implements Initializable {
      * Initializes the controller class.
      */
     public String mon;
-    public MyJDBC db = MainApp.connectToDatabase();
+    public MyJDBC db = MainApp.getDatabase();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
