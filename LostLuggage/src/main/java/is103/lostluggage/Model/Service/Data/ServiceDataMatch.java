@@ -22,15 +22,15 @@ public class ServiceDataMatch {
     
     
     //create lost list 'item'
-    ObservableList<LostLuggage> observableLostLuggage = FXCollections.observableArrayList(); 
+    private ObservableList<LostLuggage> observableLostLuggage = FXCollections.observableArrayList(); 
     
-    ObservableList<FoundLuggage> foundList = FXCollections.observableArrayList();
+    private ObservableList<FoundLuggage> foundList = FXCollections.observableArrayList();
     
      
         //create lost list 'item'
-    ObservableList<FoundLuggage> observableFoundLuggage = FXCollections.observableArrayList(); 
+    private ObservableList<FoundLuggage> observableFoundLuggage = FXCollections.observableArrayList(); 
     
-    ObservableList<LostLuggage> lostList = FXCollections.observableArrayList();
+    private ObservableList<LostLuggage> lostList = FXCollections.observableArrayList();
     
     
     
