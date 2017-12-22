@@ -16,12 +16,17 @@ import javafx.collections.ObservableList;
  * @author Thijs Zijdel - 500782165
  */
 public class ServiceDataFound {
+    //observable lists
     public static ObservableList<FoundLuggage> foundLuggageList = FXCollections.observableArrayList();
     private static ObservableList<FoundLuggage> resultsetList = FXCollections.observableArrayList(); 
-    private static final MyJDBC db = MainApp.getDatabase();
+
     private static ResultSet resultSet;
     
-    private String language = MainApp.getLanguage();
+    //connection to database
+    private static final MyJDBC DB = MainApp.getDatabase();
+    
+    //getting the main language
+    private final String LANGUAGE = MainApp.getLanguage();
     
     /**  
      * Here will the found luggage list been set with the data from the db
@@ -52,11 +57,9 @@ public class ServiceDataFound {
      * @return ResultSet           resultSet of the right luggage  
      */
     public ResultSet getFoundResultSet(String id) throws SQLException{
-         return db.executeResultSetQuery("SELECT * FROM foundluggage WHERE registrationNr='"+id+"';");
+         return DB.executeResultSetQuery("SELECT * FROM foundluggage WHERE registrationNr='"+id+"';");
     }
-         
-         
-      
+          
     /**  
      * Method to get the full details of found luggage  
      * Note: innerJoints are used for getting the full data of a luggage
@@ -66,20 +69,20 @@ public class ServiceDataFound {
      * @return resultSet           for the given id
      */ 
     public ResultSet getAllDetailsFound(String id) throws SQLException{
-        return db.executeResultSetQuery("SELECT " +
+        return DB.executeResultSetQuery("SELECT " +
             "COALESCE(NULLIF(F.registrationNr,''), 0) as `F.registrationNr`," +
             "COALESCE(NULLIF(F.dateFound,''), 'unknown') as `F.dateFound`, " +
             "COALESCE(NULLIF(F.timeFound,''), 'unknown') as `F.timeFound`, " +
             "COALESCE(NULLIF(F.luggageTag,''), 'unknown') as `F.luggageTag`,  " +
-            "COALESCE(NULLIF(T."+language+",''), 'unknown') as `T."+language+"`, " +
+            "COALESCE(NULLIF(T."+LANGUAGE+",''), 'unknown') as `T."+LANGUAGE+"`, " +
             "COALESCE(NULLIF(F.brand,''), 'unknown') as `F.brand`," +
-            "COALESCE(NULLIF(C1."+language+",''), 0) as `C1."+language+"`,  " +
-            "COALESCE(NULLIF(C2."+language+",''), 0) as `C2."+language+"`," +
+            "COALESCE(NULLIF(C1."+LANGUAGE+",''), 0) as `C1."+LANGUAGE+"`,  " +
+            "COALESCE(NULLIF(C2."+LANGUAGE+",''), 0) as `C2."+LANGUAGE+"`," +
             "COALESCE(NULLIF(F.size,''), 'unknown')	as `F.size`,  " +
             "COALESCE(NULLIF(F.weight,''), 'unknown') as `F.weight`," +
             "COALESCE(NULLIF(F.otherCharacteristics,''), 'none') as `F.otherCharacteristics`," +
             "COALESCE(NULLIF(F.arrivedWithFlight,''), 'unknown') as `F.arrivedWithFlight`," +
-            "COALESCE(NULLIF(L."+language+" ,''), 'unknown') as `L."+language+"`," +
+            "COALESCE(NULLIF(L."+LANGUAGE+" ,''), 'unknown') as `L."+LANGUAGE+"`," +
             "COALESCE(NULLIF(F.passengerId,''), 0) as `F.passengerId`," +
             "COALESCE(NULLIF(P.name,''), 'unknown')  as `P.name`," +
             "COALESCE(NULLIF(P.address,''), 'unknown') as `P.address`," +
@@ -173,7 +176,7 @@ public class ServiceDataFound {
     public static ObservableList<FoundLuggage> getFoundLuggageList() throws SQLException{
         try {
             //get the resultset of all the found luggage s
-            resultSet = db.executeResultSetQuery("SELECT * FROM foundLuggage");
+            resultSet = DB.executeResultSetQuery("SELECT * FROM foundLuggage");
             
             //clear previous list -> so there wont be any duplicate luggage
             ServiceDataFound.foundLuggageList.clear();

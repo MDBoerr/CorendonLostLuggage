@@ -41,7 +41,10 @@ public class ServiceDataMatch {
      * @param matchPercentage      percentage that is required to be a match
      * @return ObservableList      of the type: match luggage  
      */
-    public ObservableList<MatchLuggage> autoMatching(ObservableList<FoundLuggage> foundList, ObservableList<LostLuggage> lostList, int matchPercentage){
+    public ObservableList<MatchLuggage> autoMatching(
+                                        ObservableList<FoundLuggage> foundList, 
+                                        ObservableList<LostLuggage> lostList, 
+                                        int matchPercentage){
         //initializing a match list 
         ObservableList<MatchLuggage> matchingList = FXCollections.observableArrayList();
         
@@ -136,7 +139,10 @@ public class ServiceDataMatch {
      * @param minPercentage        percentage that is required to be a match
      * @return ObservableList      of the type: matched luggage ! 
      */
-    private ObservableList<MatchLuggage> checkData(ObservableList<LostLuggage> lostList, ObservableList<FoundLuggage> foundList, int minPercentage){
+    private ObservableList<MatchLuggage> checkData(
+                                        ObservableList<LostLuggage> lostList, 
+                                        ObservableList<FoundLuggage> foundList, 
+                                        int minPercentage){
         potentialMatchesList.clear();
         this.potentialMatchesList.clear();
         lostList.forEach((lost)-> {
@@ -190,7 +196,10 @@ public class ServiceDataMatch {
                                             && lost.getLuggageTag() != null 
                                             && found.getLuggageTag() != null ){
                         matchingPercentage += 50;
-                        if (matchingPercentage >= 100){matchingPercentage=100;System.out.println("Same: luggage tag");}
+                        if (matchingPercentage >= 100){
+                            matchingPercentage=100;
+                            System.out.println("Same: luggage tag");
+                        }
                     }
 
                     if (matchingPercentage>minPercentage){

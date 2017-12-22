@@ -437,7 +437,12 @@ public class ServiceMatchingViewController implements Initializable {
      */
     public void setMatchingLuggageTable(ServiceDataFound dataListFound, ServiceDataLost datalistDataLost) throws SQLException{
         ServiceDataMatch matchData = new ServiceDataMatch();
-        matchTabbleView.setItems(matchData.autoMatching(dataListFound.getFoundLuggage(), datalistDataLost.getLostLuggage(), 10)); 
+        matchTabbleView.setItems(
+                            matchData.autoMatching(
+                                dataListFound.getFoundLuggage(), 
+                                datalistDataLost.getLostLuggage(), 
+                                10)
+                            ); 
     }
     
     
@@ -463,9 +468,11 @@ public class ServiceMatchingViewController implements Initializable {
                 //Make a more details object called foundDetails.
                 ServiceMoreDetails foundDetails = new ServiceMoreDetails();
                 //Set the detailes of the clicked row and pass a stage and link
-                foundDetails.setDetailsOfRow("found", event, popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml");
+                foundDetails.setDetailsOfRow("found", event, popupStageFound, 
+                            "/Views/Service/ServiceDetailedFoundLuggageView.fxml");
                 //Open the more details pop up.
-                foundDetails.setAndOpenPopUpDetails(popupStageFound, "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
+                foundDetails.setAndOpenPopUpDetails(popupStageFound, 
+                            "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
                
             }
         });
@@ -486,9 +493,11 @@ public class ServiceMatchingViewController implements Initializable {
                 //Make a more details object called lostDetails.
                 ServiceMoreDetails lostDetails = new ServiceMoreDetails();
                 //Set the detailes of the clicked row and pass a stage and link
-                lostDetails.setDetailsOfRow("lost", event, popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml");
+                lostDetails.setDetailsOfRow("lost", event, popupStageLost, 
+                            "/Views/Service/ServiceDetailedLostLuggageView.fxml");
                 //Open the more details pop up.
-                lostDetails.setAndOpenPopUpDetails(popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "lost");
+                lostDetails.setAndOpenPopUpDetails(popupStageLost, 
+                            "/Views/Service/ServiceDetailedLostLuggageView.fxml", "lost");
                 
             }
         });
@@ -511,9 +520,11 @@ public class ServiceMatchingViewController implements Initializable {
                 // note: this is a match row so a lost and found id will be setted
                 ServiceMoreDetails matchDetails = new ServiceMoreDetails();
                 //Set the detailes of the clicked row and pass a stage and link
-                matchDetails.setDetailsOfRow("match", event, popupStageMatch, "/Views/Service/ServiceDetailedMatchLuggageView.fxml");
+                matchDetails.setDetailsOfRow("match", event, popupStageMatch, 
+                            "/Views/Service/ServiceDetailedMatchLuggageView.fxml");
                 //Open the more details pop up.
-                matchDetails.setAndOpenPopUpDetails(popupStageMatch, "/Views/Service/ServiceDetailedMatchLuggageView.fxml", "match");
+                matchDetails.setAndOpenPopUpDetails(popupStageMatch, 
+                            "/Views/Service/ServiceDetailedMatchLuggageView.fxml", "match");
                   
             }
         });
@@ -525,8 +536,10 @@ public class ServiceMatchingViewController implements Initializable {
                 // note: this is a match row so a lost and found id will be setted
                 ServiceMoreDetails matchDetails = new ServiceMoreDetails();
                 //Set the detailes of the clicked row and pass a stage and link
-                matchDetails.setDetailsOfRow("match", event, popupStageMatch, "/Views/Service/ServiceDetailedMatchLuggageView.fxml");
-                matchDetails.setAndOpenPopUpDetails(popupStageMatch, "/Views/Service/ServiceDetailedMatchLuggageView.fxml", "match");
+                matchDetails.setDetailsOfRow("match", event, popupStageMatch, 
+                            "/Views/Service/ServiceDetailedMatchLuggageView.fxml");
+                matchDetails.setAndOpenPopUpDetails(popupStageMatch, 
+                            "/Views/Service/ServiceDetailedMatchLuggageView.fxml", "match");
                   
             }
         });
@@ -575,7 +588,8 @@ public class ServiceMatchingViewController implements Initializable {
         String idManualMatching = LostLuggageManualMatchingInstance.getInstance().currentLuggage().getRegistrationNr();
         //idCheckLost will be setted trough addToManualMatching
         //Note: This id will be checked in this function. 
-        idCheckLost = addToManualMatching(lostPane, 1, idCheckLost, idLost, idManualMatching, "/Views/Service/ServiceManualMatchingLostView.fxml");
+        idCheckLost = addToManualMatching(lostPane, 1, idCheckLost, idLost, idManualMatching, 
+                                        "/Views/Service/ServiceManualMatchingLostView.fxml");
     } 
     
     
@@ -630,7 +644,8 @@ public class ServiceMatchingViewController implements Initializable {
      * @param   viewLink = link of fxml that needs to be set in the @paneType
      * @return  idCheck to stop the loop from going to far 
      */
-    public int addToManualMatching(Pane paneType, int tab, int idCheck, int idObj, String idDataObj, String viewLink){
+    public int addToManualMatching(Pane paneType, int tab, int idCheck, int idObj, 
+                                                String idDataObj, String viewLink){
         //if found luggage added to manual matching-> asign: iD found to this.id
         if (idDataObj != null) {
             idObj = Integer.parseInt(""+idDataObj+"");

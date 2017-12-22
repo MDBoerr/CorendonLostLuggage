@@ -16,12 +16,17 @@ import javafx.collections.ObservableList;
  * @author Thijs Zijdel - 500782165
  */
 public class ServiceDataLost {
+    //observable lists
     private static ObservableList<LostLuggage> lostLuggageList = FXCollections.observableArrayList(); 
     private static ObservableList<LostLuggage> resultsetList = FXCollections.observableArrayList(); 
-    private static final MyJDBC db = MainApp.getDatabase();
+    
     private static ResultSet resultSet;
     
-    private String language = MainApp.getLanguage();
+    //connection to database
+    private static final MyJDBC DB = MainApp.getDatabase();
+    
+    //getting the main language
+    private final String LANGUAGE = MainApp.getLanguage();
        
     /**  
      * Here will the lost luggage list been set with the data from the db
@@ -52,11 +57,9 @@ public class ServiceDataLost {
      * @return ResultSet           resultSet of the right luggage  
      */
     public ResultSet getLostResultSet(String id) throws SQLException{
-        return db.executeResultSetQuery("SELECT * FROM lostluggage WHERE registrationNr='"+id+"';");
+        return DB.executeResultSetQuery("SELECT * FROM lostluggage WHERE registrationNr='"+id+"';");
     }
-         
-         
-      
+ 
     /**  
      * Method to get the full details of lost luggage  
      * Note: innerJoints are used for getting the full data of a luggage
@@ -66,15 +69,15 @@ public class ServiceDataLost {
      * @return resultSet           for the given id
      */ 
     public ResultSet getAllDetailsLost(String id) throws SQLException{
-        return db.executeResultSetQuery("SELECT " +
+        return DB.executeResultSetQuery("SELECT " +
             "COALESCE(NULLIF(F.registrationNr,''), 'none') as `F.registrationNr`," +
             "COALESCE(NULLIF(F.dateLost,''), 'unknown') as `F.dateLost`, " +
             "COALESCE(NULLIF(F.timeLost,''), 'unknown') as `F.timeLost`, " +
             "COALESCE(NULLIF(F.luggageTag,''), 'unknown') as `F.luggageTag`,  " +
-            "COALESCE(NULLIF(T."+language+",''), 'unknown') as `T."+language+"`, " +
+            "COALESCE(NULLIF(T."+LANGUAGE+",''), 'unknown') as `T."+LANGUAGE+"`, " +
             "COALESCE(NULLIF(F.brand,''), 'unknown') as `F.brand`," +
-            "COALESCE(NULLIF(C1."+language+",''), 'unknown') as `C1."+language+"`,  " +
-            "COALESCE(NULLIF(C2."+language+",''), 'none') as `C2."+language+"`," +
+            "COALESCE(NULLIF(C1."+LANGUAGE+",''), 'unknown') as `C1."+LANGUAGE+"`,  " +
+            "COALESCE(NULLIF(C2."+LANGUAGE+",''), 'none') as `C2."+LANGUAGE+"`," +
             "COALESCE(NULLIF(F.size,''), 'unknown')	as `F.size`,  " +
             "COALESCE(NULLIF(F.weight,''), 'unknown') as `F.weight`," +
             "COALESCE(NULLIF(F.otherCharacteristics,''), 'none') as `F.otherCharacteristics`," +
@@ -166,7 +169,7 @@ public class ServiceDataLost {
     public static ObservableList<LostLuggage> getLostLuggageList() throws SQLException{
         try {
             //get the resultset of all the lost luggage s
-            resultSet = db.executeResultSetQuery("SELECT * FROM lostluggage");
+            resultSet = DB.executeResultSetQuery("SELECT * FROM lostluggage");
             
             //clear previous list -> so there wont be any duplicate luggage
             ServiceDataLost.lostLuggageList.clear();
