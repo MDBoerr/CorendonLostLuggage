@@ -84,6 +84,7 @@ public class ServiceInputLuggageViewController implements Initializable {
     public void setComboBox() throws SQLException{
         
         //Missing or Found combobox
+        System.out.println("Saysomthing");
         
         //Add options to choicebox
         missingFoundComboBox.getItems().addAll("Found", "Missing");
@@ -99,7 +100,7 @@ public class ServiceInputLuggageViewController implements Initializable {
             colorJFXComboBox.getItems().add(colorResultSet.getString(2));
         }
         
-        //secondColor combo box
+        //secondColor combo boxs
         ResultSet secondColorResultSet = MainApp.getDatabase().executeResultSetQuery("SELECT * FROM color");
         
         while(secondColorResultSet.next()){
