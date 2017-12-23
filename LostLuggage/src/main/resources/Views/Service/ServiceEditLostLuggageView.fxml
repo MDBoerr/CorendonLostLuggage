@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 
 <!--  @author Thijs Zijdel - 500782165 -->
 
@@ -66,8 +67,8 @@
                   <JFXTextField fx:id="email" focusColor="#a7a7a7" labelFloat="true" promptText="Email" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#ababab" GridPane.columnIndex="3" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
                   <JFXTextField fx:id="phone" focusColor="#a7a7a7" labelFloat="true" promptText="Phone" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#ababab" GridPane.columnIndex="3" GridPane.rowIndex="8" GridPane.valignment="BOTTOM" />
                   <JFXTextField fx:id="flight" focusColor="#a7a7a7" labelFloat="true" promptText="Flight" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#ababab" GridPane.columnIndex="3" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />
-                  <JFXTextField fx:id="dateLost" focusColor="#a7a7a7" labelFloat="true" promptText="Date Lost" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#ababab" GridPane.columnIndex="3" GridPane.rowIndex="9" GridPane.valignment="BOTTOM" />
-                  <JFXTextField fx:id="timeLost" focusColor="#a7a7a7" labelFloat="true" promptText="Time Lost" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#ababab" GridPane.columnIndex="3" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />
+                  <JFXTextField fx:id="dateLost" editable="false" focusColor="#a7a7a7" labelFloat="true" promptText="Date Lost" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#ababab" GridPane.columnIndex="3" GridPane.rowIndex="9" GridPane.valignment="BOTTOM" />
+                  <JFXTextField fx:id="timeLost" editable="false" focusColor="#a7a7a7" labelFloat="true" promptText="Time Lost" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#ababab" GridPane.columnIndex="3" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />
                   <GridPane prefHeight="27.0" prefWidth="446.0" GridPane.columnSpan="6" GridPane.rowIndex="12">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="513.9365234375" minWidth="10.0" prefWidth="361.0" />
@@ -92,7 +93,7 @@
                         <RowConstraints />
                      </rowConstraints>
                      <children>
-                        <JFXButton fx:id="saveEditings" buttonType="RAISED" disable="true" onAction="#saveEditings" prefHeight="15.0" prefWidth="136.0" ripplerFill="#62b565" style="-fx-background-color: #5fc965#5fc965;" text="Save changes" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <JFXButton fx:id="saveEditings" buttonType="RAISED" onAction="#saveEditings" prefHeight="15.0" prefWidth="136.0" ripplerFill="#62b565" style="-fx-background-color: #5fc965#5fc965;" text="Save changes" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                         <JFXButton fx:id="manualMatch" buttonType="RAISED" onAction="#manualMatch" prefHeight="32.0" prefWidth="256.0" ripplerFill="#dddddd" style="-fx-background-color: DDD;" text="Manual matching with other luggages" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                         <JFXButton fx:id="viewPotentialsButton" buttonType="RAISED" prefHeight="30.0" prefWidth="124.0" ripplerFill="#e8ab28" style="-fx-background-color: #fbc756#fbc756;" text="View potentials" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                      </children>
@@ -102,6 +103,7 @@
                   <JFXComboBox fx:id="typePicker" focusColor="#a7a7a7" labelFloat="true" maxWidth="364.0" minWidth="125.0" prefWidth="175.0" promptText="Type" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#ababab" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
                </children>
             </GridPane>
+            <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
    </children>

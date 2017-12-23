@@ -87,10 +87,18 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
     //language of the application
     private final String LANGUAGE = MainApp.getLanguage();
     
+    //conection to the main database
+    private final MyJDBC DB = MainApp.getDatabase();
+    
     //colors 
-    private String unFocusColor = "#ababab";
-    private String noticeColor = "#4189fc";
-    private String alertColor = "#e03636";
+    private final String UN_FOCUS_COLOR = "#ababab";
+    private final String NOTICE_COLOR = "#4189fc";
+    private final String ALERT_COLOR = "#e03636";
+    
+    //amount of field 
+    private final int AMOUNT_OF_FIELDS = 21;
+    
+    int passengerCount=0;
     
     /**
      * Initializes the controller class.
@@ -112,7 +120,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         ServiceGetDataFromDB types = new ServiceGetDataFromDB("luggagetype", LANGUAGE, null);
         try {
             //initialize found fields 
-            initializeFoundFields();
+            setFoundFields(getManualFoundLuggageResultSet());
                     
             //get the right string list for each combo box         
             ObservableList<String> colorsStringList = colors.getStringList();
@@ -138,80 +146,99 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         
         //set screen status
         MainApp.setOnMatchingView(false);
+        
+        //passenger field check
+        checkPassengerId();
     }    
     
-    
-    @FXML
-    private void initializeFoundFields() throws SQLException{
-        String id = FoundLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
-        System.out.println("iD: "+id);
-            //            MyJDBC db = MainApp.getDatabase();
-            ServiceDataFound detailsItem = new ServiceDataFound();
-            ResultSet resultSet = detailsItem.getAllDetailsFound(id);
-            
-            
-            
-            while (resultSet.next()) {             
-                int getRegistrationNr =     resultSet.getInt("F.registrationNr");
-                String getDateFound =          resultSet.getString("F.dateFound");
-                String getTimeFound =          resultSet.getString("F.timeFound");
-                
-                String getLuggageTag =         resultSet.getString("F.luggageTag");
-                String getLuggageType =        resultSet.getString("T."+LANGUAGE);
-                String getBrand =              resultSet.getString("F.brand");
-                String getMainColor =          resultSet.getString("c1."+LANGUAGE);
-                String getSecondColor =        resultSet.getString("c2."+LANGUAGE);
-                String getSize =               resultSet.getString("F.size");
-                String getWeight =                resultSet.getString("F.weight");   
-                String getOtherCharacteristics=resultSet.getString("F.otherCharacteristics");
-                
-                int getPassengerId =           resultSet.getInt("F.passengerId");
-                
-                String getName =          resultSet.getString("P.name");
-                String getAddress =          resultSet.getString("P.address");
-                String getPlace =          resultSet.getString("P.place");
-                String getPostalcode =          resultSet.getString("P.postalcode");
-                String getCountry =          resultSet.getString("P.country");
-                String getEmail =          resultSet.getString("P.email");
-                String getPhone =          resultSet.getString("P.phone");
-                
-                String getFlight =              resultSet.getString("F.arrivedWithFlight"); 
-                String getLocationFound =       resultSet.getString("L."+LANGUAGE);
-                
-                // -> initialize current luggage's data
-                colorPicker1.setValue(getMainColor);
-                colorPicker2.setValue(getSecondColor);
-                locationPicker.setValue(getLocationFound);
-                typePicker.setValue(getLuggageType);
-
-                registrationNr.setText( Integer.toString(getRegistrationNr) );  
-                luggageTag.setText(getLuggageTag);
-
-                brand.setText(getBrand);
-
-                size.setText(getSize);
-                weight.setText(getWeight);
-                signatures.setText(getOtherCharacteristics);
-                
-                passangerId.setText( Integer.toString(getPassengerId) );
-                passangerName.setText(getName);
-                address.setText(getAddress);
-                place.setText(getPlace);
-                postalCode.setText(getPostalcode);
-                country.setText(getCountry);
-                email.setText(getEmail);
-                phone.setText(getPhone);
-
-                dateFound.setText(getDateFound);
-                timeFound.setText(getTimeFound);
-                flight.setText(getFlight);
-            }
-
+    /**  
+     * Here will the resultSet of the found manual matching luggage be get 
+     * For getting the right resultSet the correct instance id will be passed
+     * 
+     * @return resultSet     resultSet for the right luggage
+     */  
+    private ResultSet getManualFoundLuggageResultSet() throws SQLException{
+        ServiceDataFound detailsItem = new ServiceDataFound();
         
+        String id = FoundLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
+       
+        ResultSet resultSet = detailsItem.getAllDetailsFound(id);
+        return resultSet;
     }
     
+    /**  
+     * Here are all the detail fields been set with the right data from:
+     * The resultSet given
+     * 
+     * @param resultSet         this will be converted to temp strings and integers
+     * @void no direct          the fields will be set within this method
+     */    
+    @FXML
+    private void setFoundFields(ResultSet resultSet) throws SQLException{ 
+        //loop trough all the luggages in the resultSet
+        //Note: there will be only one
+        while (resultSet.next()) {             
+            int getRegistrationNr =         resultSet.getInt("F.registrationNr");
+            String getDateFound =           resultSet.getString("F.dateFound");
+            String getTimeFound =           resultSet.getString("F.timeFound");
+
+            String getLuggageTag =          resultSet.getString("F.luggageTag");
+            String getLuggageType =         resultSet.getString("T."+LANGUAGE);
+            String getBrand =               resultSet.getString("F.brand");
+            String getMainColor =           resultSet.getString("c1."+LANGUAGE);
+            String getSecondColor =         resultSet.getString("c2."+LANGUAGE);
+            String getSize =                resultSet.getString("F.size");
+            String getWeight =              resultSet.getString("F.weight");   
+            String getOtherCharacteristics= resultSet.getString("F.otherCharacteristics");
+
+            int getPassengerId =            resultSet.getInt("F.passengerId");
+            String getName =                resultSet.getString("P.name");
+            String getAddress =             resultSet.getString("P.address");
+            String getPlace =               resultSet.getString("P.place");
+            String getPostalcode =          resultSet.getString("P.postalcode");
+            String getCountry =             resultSet.getString("P.country");
+            String getEmail =               resultSet.getString("P.email");
+            String getPhone =               resultSet.getString("P.phone");
+
+            String getFlight =              resultSet.getString("F.arrivedWithFlight"); 
+            String getLocationFound =       resultSet.getString("L."+LANGUAGE);
+
+            // -> set current luggage's data
+            colorPicker1.setValue(getMainColor);
+            colorPicker2.setValue(getSecondColor);
+            locationPicker.setValue(getLocationFound);
+            typePicker.setValue(getLuggageType);
+
+            registrationNr.setText( Integer.toString(getRegistrationNr) );  
+            luggageTag.setText(getLuggageTag);
+
+            brand.setText(getBrand);
+            size.setText(getSize);
+            weight.setText(getWeight);
+            signatures.setText(getOtherCharacteristics);
+
+            passangerId.setText( Integer.toString(getPassengerId) );
+            passangerName.setText(getName);
+            address.setText(getAddress);
+            place.setText(getPlace);
+            postalCode.setText(getPostalcode);
+            country.setText(getCountry);
+            email.setText(getEmail);
+            phone.setText(getPhone);
+
+            dateFound.setText(getDateFound);
+            timeFound.setText(getTimeFound);
+            flight.setText(getFlight);
+        }   
+    }
+    
+    /**  
+     * Here will all the values of the fields be get and stored in an array
+     * 
+     * @return String[]        all the string values of the fields
+     */ 
     public String[] getFields(){
-        String[] values = new String[21];
+        String[] values = new String[AMOUNT_OF_FIELDS];
 
         values[0] = registrationNr.getText();
         values[1] = luggageTag.getText();
@@ -244,86 +271,52 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
     }
 
     
-    @FXML
-    public void manualMatch() throws IOException{
-        System.out.println("added to manual matching");
+    /**  
+     * This method is activated by the 'add to manual matching ' button
+     * The view will be switched and the right instance be set
+     * 
+     * @throws java.io.IOException      switching views
+     * @void no direct output 
+     */ 
+    @FXML public void manualMatch() throws IOException{
+        //initialize the right id in the manual found instance 
         FoundLuggage passObject =  FoundLuggageDetailsInstance.getInstance().currentLuggage();
         FoundLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());
+        
+        //set the reset status to false, no reset needed
         MainApp.resetMatching = false;
         
+        //switch to the matching view
         MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
         
     }
     
+    /**  
+     * This method is activated by the 'save/ confirm changes ' button
+     * The changes will be checked and if the changeCountDoubleCheck count is 2 or higher:
+     *      update the luggage and switch the view 
+     * 
+     * @throws java.io.IOException      (possible) switching views
+     * @void no direct output 
+     */ 
     @FXML
     public void saveEditings() throws SQLException, IOException{
         //chack changes of the fields
         checkChanges();
         
-        //is pressed to times - > confimered
-        if (changeCountDoubleCheck == 2){
+        //is pressed two times - > confimered
+        if (changeCountDoubleCheck >= 2){
+            //reset the label of the button
             saveEditings.setText("Save changes");
+            
+            //update the luggage 
             updateLuggage();
+            
+            //switch the view 
             MainApp.switchView("/Views/Service/ServiceOverviewFoundView.fxml");
         }  
     }
-    
-    public void updateLuggage() throws SQLException{
-        ServiceGetDataFromDB getRalCode1 = new ServiceGetDataFromDB
-        ("color", "ralCode", "WHERE `"+LANGUAGE+"`='"+colorPicker1.getValue().toString()+"'");
-        int ralCode1 = getRalCode1.getIdValue();
-        
-        ServiceGetDataFromDB getRalCode2 = new ServiceGetDataFromDB
-        ("color", "ralCode", "WHERE `"+LANGUAGE+"`='"+colorPicker2.getValue().toString()+"'");
-        int ralCode2 = getRalCode2.getIdValue();
-        
-        ServiceGetDataFromDB getType = new ServiceGetDataFromDB
-        ("luggagetype", "luggageTypeId", "WHERE `"+LANGUAGE+"`='"+typePicker.getValue().toString()+"'");
-        int typeCode = getType.getIdValue();
-        
-        ServiceGetDataFromDB getLocation = new ServiceGetDataFromDB
-        ("location", "locationId", "WHERE `"+LANGUAGE+"`='"+locationPicker.getValue().toString()+"'");
-        int locationCode = getLocation.getIdValue();
-        
-        if ("unknown".equals(luggageTag.getText())){luggageTag.setText("");}
-        if ("unknown".equals(brand.getText())){brand.setText("");}
-        if ("unknown".equals(size.getText())){size.setText("0");}
-        if ("unknown".equals(weight.getText())){weight.setText("0");}
-        if ("unknown".equals(signatures.getText())){signatures.setText("");}
-        
-        if ("unknown".equals(passangerName.getText())){passangerName.setText("");}
-        if ("unknown".equals(address.getText())){address.setText("");}
-        if ("unknown".equals(place.getText())){place.setText("");}
-        if ("unknown".equals(postalCode.getText())){postalCode.setText("");}
-        if ("unknown".equals(country.getText())){country.setText("");}
-        if ("unknown".equals(email.getText())){email.setText("");}
-        if ("unknown".equals(flight.getText())){flight.setText("");}
-        
-        MyJDBC db = MainApp.getDatabase();
-        db.executeUpdateQuery("UPDATE `foundluggage` SET "
-                + "`dateFound`='"+dateFound.getText()+"', "
-                + "`timeFound`='"+timeFound.getText()+"', "
-                + "`luggageTag`='"+luggageTag.getText()+"', "
-                + "`luggageType`='"+typeCode+"', "
-                + "`brand`='"+brand.getText()+"', "
-                + "`mainColor`='"+ralCode1+"', "
-                + "`secondColor`='"+ralCode2+"', "
-                + "`size`='"+size.getText()+"', "
-                + "`weight`='"+weight.getText()+"', "
-                + "`otherCharacteristics`='"+signatures.getText()+"', "
-                + "`locationFound`='"+locationCode+"' "
-                + "WHERE `registrationNr`='"+registrationNr.getText()+"';"); 
-        
-        db.executeUpdateQuery("UPDATE `passenger` SET "
-                + "`name`='"+passangerName.getText()+"', "
-                + "`address`='"+address.getText()+"', "
-                + "`place`='"+place.getText()+"', "
-                + "`postalcode`='"+postalCode.getText()+"', "
-                + "`country`='"+country.getText()+"', "
-                + "`email`='"+email.getText()+"' "
-                + "WHERE `passengerId`='"+passangerId.getText()+"';");
-    }
-   
+
     
     public void checkChanges(){
         //reset changedfield string and changes count
@@ -339,47 +332,47 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
             if (startValues[i].equals(newValues[i])){
                 //use an switch to set that field to the right unFocusColor
                 switch (i) {
-                    case 0: registrationNr.setUnFocusColor(Paint.valueOf(unFocusColor));
+                    case 0: registrationNr.setUnFocusColor(Paint.valueOf(UN_FOCUS_COLOR));
                             break;
-                    case 1: luggageTag.setUnFocusColor(Paint.valueOf(unFocusColor));
+                    case 1: luggageTag.setUnFocusColor(Paint.valueOf(UN_FOCUS_COLOR));
                             break;
-                    case 2: brand.setUnFocusColor(Paint.valueOf(unFocusColor));
+                    case 2: brand.setUnFocusColor(Paint.valueOf(UN_FOCUS_COLOR));
                             break;
-                    case 3: size.setUnFocusColor(Paint.valueOf(unFocusColor));
+                    case 3: size.setUnFocusColor(Paint.valueOf(UN_FOCUS_COLOR));
                             break;
-                    case 4: weight.setUnFocusColor(Paint.valueOf(unFocusColor));
+                    case 4: weight.setUnFocusColor(Paint.valueOf(UN_FOCUS_COLOR));
                             break;
-                    case 5: signatures.setUnFocusColor(Paint.valueOf(unFocusColor));
+                    case 5: signatures.setUnFocusColor(Paint.valueOf(UN_FOCUS_COLOR));
                             break;
-                    case 6: passangerId.setUnFocusColor(Paint.valueOf(unFocusColor));
+                    case 6: passangerId.setUnFocusColor(Paint.valueOf(UN_FOCUS_COLOR));
                             break;
-                    case 7: passangerName.setUnFocusColor(Paint.valueOf(unFocusColor));
+                    case 7: passangerName.setUnFocusColor(Paint.valueOf(UN_FOCUS_COLOR));
                             break;
-                    case 8: address.setUnFocusColor(Paint.valueOf(unFocusColor));
+                    case 8: address.setUnFocusColor(Paint.valueOf(UN_FOCUS_COLOR));
                             break;
-                    case 9: place.setUnFocusColor(Paint.valueOf(unFocusColor));
+                    case 9: place.setUnFocusColor(Paint.valueOf(UN_FOCUS_COLOR));
                             break;
-                    case 10:postalCode.setUnFocusColor(Paint.valueOf(unFocusColor));
+                    case 10:postalCode.setUnFocusColor(Paint.valueOf(UN_FOCUS_COLOR));
                             break;
-                    case 11:country.setUnFocusColor(Paint.valueOf(unFocusColor));
+                    case 11:country.setUnFocusColor(Paint.valueOf(UN_FOCUS_COLOR));
                             break;
-                    case 12:email.setUnFocusColor(Paint.valueOf(unFocusColor));
+                    case 12:email.setUnFocusColor(Paint.valueOf(UN_FOCUS_COLOR));
                             break;
-                    case 13:phone.setUnFocusColor(Paint.valueOf(unFocusColor));
+                    case 13:phone.setUnFocusColor(Paint.valueOf(UN_FOCUS_COLOR));
                             break;
-                    case 14:dateFound.setUnFocusColor(Paint.valueOf(unFocusColor));
+                    case 14:dateFound.setUnFocusColor(Paint.valueOf(UN_FOCUS_COLOR));
                             break;
-                    case 15:timeFound.setUnFocusColor(Paint.valueOf(unFocusColor));
+                    case 15:timeFound.setUnFocusColor(Paint.valueOf(UN_FOCUS_COLOR));
                             break;
-                    case 16:flight.setUnFocusColor(Paint.valueOf(unFocusColor));
+                    case 16:flight.setUnFocusColor(Paint.valueOf(UN_FOCUS_COLOR));
                             break;
-                    case 17:colorPicker1.setUnFocusColor(Paint.valueOf(unFocusColor));
+                    case 17:colorPicker1.setUnFocusColor(Paint.valueOf(UN_FOCUS_COLOR));
                             break;
-                    case 18:colorPicker2.setUnFocusColor(Paint.valueOf(unFocusColor));
+                    case 18:colorPicker2.setUnFocusColor(Paint.valueOf(UN_FOCUS_COLOR));
                             break;
-                    case 19:locationPicker.setUnFocusColor(Paint.valueOf(unFocusColor));
+                    case 19:locationPicker.setUnFocusColor(Paint.valueOf(UN_FOCUS_COLOR));
                             break;
-                    case 20:typePicker.setUnFocusColor(Paint.valueOf(unFocusColor));
+                    case 20:typePicker.setUnFocusColor(Paint.valueOf(UN_FOCUS_COLOR));
                             break;
                 }
             } else {
@@ -388,67 +381,67 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
                 //use an switch to set that field to the right noticeColor
                 //And add the right field to the changed field string for the alert
                 switch (i) {
-                    case 0: registrationNr.setUnFocusColor(Paint.valueOf(noticeColor));
+                    case 0: registrationNr.setUnFocusColor(Paint.valueOf(NOTICE_COLOR));
                             changedFields += "registrationNr";
                             break;
-                    case 1: luggageTag.setUnFocusColor(Paint.valueOf(noticeColor));
+                    case 1: luggageTag.setUnFocusColor(Paint.valueOf(NOTICE_COLOR));
                             changedFields += ", luggageTag";
                             break;
-                    case 2: brand.setUnFocusColor(Paint.valueOf(noticeColor));
+                    case 2: brand.setUnFocusColor(Paint.valueOf(NOTICE_COLOR));
                             changedFields += ", brand";
                             break;
-                    case 3: size.setUnFocusColor(Paint.valueOf(noticeColor));
+                    case 3: size.setUnFocusColor(Paint.valueOf(NOTICE_COLOR));
                             changedFields += ", size";
                             break;
-                    case 4: weight.setUnFocusColor(Paint.valueOf(noticeColor));
+                    case 4: weight.setUnFocusColor(Paint.valueOf(NOTICE_COLOR));
                             changedFields += ", weight";
                             break;
-                    case 5: signatures.setUnFocusColor(Paint.valueOf(noticeColor));
+                    case 5: signatures.setUnFocusColor(Paint.valueOf(NOTICE_COLOR));
                             changedFields += ", signatures";
                             break;
-                    case 6: passangerId.setUnFocusColor(Paint.valueOf(noticeColor));
+                    case 6: passangerId.setUnFocusColor(Paint.valueOf(NOTICE_COLOR));
                             changedFields += ", id ";
                             break;
-                    case 7: passangerName.setUnFocusColor(Paint.valueOf(noticeColor));
+                    case 7: passangerName.setUnFocusColor(Paint.valueOf(NOTICE_COLOR));
                             changedFields += ", name";
                             break;
-                    case 8: address.setUnFocusColor(Paint.valueOf(noticeColor));
+                    case 8: address.setUnFocusColor(Paint.valueOf(NOTICE_COLOR));
                             changedFields += ", registrationNr";
                             break;
-                    case 9: place.setUnFocusColor(Paint.valueOf(noticeColor));
+                    case 9: place.setUnFocusColor(Paint.valueOf(NOTICE_COLOR));
                             changedFields += ", place";
                             break;
-                    case 10:postalCode.setUnFocusColor(Paint.valueOf(noticeColor));
+                    case 10:postalCode.setUnFocusColor(Paint.valueOf(NOTICE_COLOR));
                             changedFields += ", postal code";
                             break;
-                    case 11:country.setUnFocusColor(Paint.valueOf(noticeColor));
+                    case 11:country.setUnFocusColor(Paint.valueOf(NOTICE_COLOR));
                             changedFields += ", registrationNr";
                             break;
-                    case 12:email.setUnFocusColor(Paint.valueOf(noticeColor));
+                    case 12:email.setUnFocusColor(Paint.valueOf(NOTICE_COLOR));
                             changedFields += ", Email";
                             break;
-                    case 13:phone.setUnFocusColor(Paint.valueOf(noticeColor));
+                    case 13:phone.setUnFocusColor(Paint.valueOf(NOTICE_COLOR));
                             changedFields += ", phone";
                             break;
-                    case 14:dateFound.setUnFocusColor(Paint.valueOf(noticeColor));
+                    case 14:dateFound.setUnFocusColor(Paint.valueOf(NOTICE_COLOR));
                             changedFields += ", date";
                             break;
-                    case 15:timeFound.setUnFocusColor(Paint.valueOf(noticeColor));
+                    case 15:timeFound.setUnFocusColor(Paint.valueOf(NOTICE_COLOR));
                             changedFields += ", time";
                             break;
-                    case 16:flight.setUnFocusColor(Paint.valueOf(noticeColor));
+                    case 16:flight.setUnFocusColor(Paint.valueOf(NOTICE_COLOR));
                             changedFields += ", flight";
                             break;
-                    case 17:colorPicker1.setUnFocusColor(Paint.valueOf(noticeColor));
+                    case 17:colorPicker1.setUnFocusColor(Paint.valueOf(NOTICE_COLOR));
                             changedFields += ", main color";
                             break;
-                    case 18:colorPicker2.setUnFocusColor(Paint.valueOf(noticeColor));
+                    case 18:colorPicker2.setUnFocusColor(Paint.valueOf(NOTICE_COLOR));
                             changedFields += ", secondary color";
                             break;
-                    case 19:locationPicker.setUnFocusColor(Paint.valueOf(noticeColor));
+                    case 19:locationPicker.setUnFocusColor(Paint.valueOf(NOTICE_COLOR));
                             changedFields += ", location";
                             break;
-                    case 20:typePicker.setUnFocusColor(Paint.valueOf(noticeColor));
+                    case 20:typePicker.setUnFocusColor(Paint.valueOf(NOTICE_COLOR));
                             changedFields += ", type";
                             break;
                     default://no more
@@ -466,6 +459,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         if (changes == 0){
             changeCountDoubleCheck++;
         } else {
+            saveEditings.setText("Save changes");
             //if there are some changes:
             //Alert this with an dialog
             alertDialog(changedFields, changes); 
@@ -474,30 +468,47 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         }
     }
     
+    /**  
+     * Here will the luggage be updated 
+     * 
+     *      update the luggage and switch the view 
+     * 
+     * @param changedFields
+     * @param changes
+     * @void no direct output, only a alert dialog 
+     */
     public void alertDialog(String changedFields, int changes){
         //Remove the first , (comma) and space
         changedFields = changedFields.substring(2);
         
+        //Clear the previous message
+        content.getHeading().clear();
+        alertMessage.getChildren().clear();
         
         //Set heading of dialog
         content.setHeading(new Text("Warning"));
+        
         //Set the right text for the dialog body.
-        String textPart;
-        if (changes == 1){
-            textPart = "There is "+changes+" change made. \n"
+        String introAlert,outroAlert;
+        if (changes == 1){                                      //singular
+            introAlert = "There is "+changes+" change made. \n"
                 + "The changed field is the following: \n\n";
-        } else {
-            textPart = "There are "+changes+" changes made. \n"
+            outroAlert = "\n\nPlease check and confirm it.";
+        } else {                                                //plural
+            introAlert = "There are "+changes+" changes made. \n"
                 + "The changed fields are the following: \n\n";
+            outroAlert = "\n\nPlease check and confirm them.";
         }
-        Text textPart1 = new Text(textPart);
-        Text textPart2 = new Text(changedFields);
-        Text textPart3 = new Text("\n\nPlease check and confirm them.");
+        
+        Text intro = new Text(introAlert);
+        Text changed = new Text(changedFields);
+        Text outro = new Text(outroAlert);
+        
         //set text color of changed field string to red
-        textPart2.setFill(Color.web("#e03636"));  
+        changed.setFill(Color.web(ALERT_COLOR));  
         
         //combine the text parts
-        alertMessage.getChildren().addAll(textPart1, textPart2, textPart3);
+        alertMessage.getChildren().addAll(intro, changed, outro);
         //set the text parts (alert message) in the content
         content.setBody(alertMessage);
         
@@ -524,8 +535,109 @@ public class ServiceEditFoundLuggageViewController implements Initializable {
         saveEditings.setText("Confirm Changes");
     }
     
+    
+    /**  
+     * Here will the all the fields be updated 
+     * The unknown fields are also cleared 
+     * 
+     * 
+     * @throws SQLException      executing multiple update query s 
+     * @void no direct output 
+     */ 
+    public void updateLuggage() throws SQLException{
+        //Initializing 4 objects with the right fields to get the idCode
+        //Note: To get the id the Where statement is also configured for each
+        ServiceGetDataFromDB getRalCode1 = new ServiceGetDataFromDB
+        ("color", "ralCode", "WHERE `"+LANGUAGE+"`='"+colorPicker1.getValue().toString()+"'");
+        int ralCode1 = getRalCode1.getIdValue();
+        
+        ServiceGetDataFromDB getRalCode2 = new ServiceGetDataFromDB
+        ("color", "ralCode", "WHERE `"+LANGUAGE+"`='"+colorPicker2.getValue().toString()+"'");
+        int ralCode2 = getRalCode2.getIdValue();
+        
+        ServiceGetDataFromDB getType = new ServiceGetDataFromDB
+        ("luggagetype", "luggageTypeId", "WHERE `"+LANGUAGE+"`='"+typePicker.getValue().toString()+"'");
+        int typeCode = getType.getIdValue();
+        
+        ServiceGetDataFromDB getLocation = new ServiceGetDataFromDB
+        ("location", "locationId", "WHERE `"+LANGUAGE+"`='"+locationPicker.getValue().toString()+"'");
+        int locationCode = getLocation.getIdValue();
+        
+        //check if one of the updated fields contains the "unknown" string
+        if ("unknown".equals(luggageTag.getText())){luggageTag.setText("");}
+        if ("unknown".equals(brand.getText())){brand.setText("");}
+        if ("unknown".equals(size.getText())){size.setText("0");}
+        if ("unknown".equals(weight.getText())){weight.setText("0");}
+        if ("unknown".equals(signatures.getText())){signatures.setText("");}
+        
+        if ("unknown".equals(passangerName.getText())){passangerName.setText("");}
+        if ("unknown".equals(address.getText())){address.setText("");}
+        if ("unknown".equals(place.getText())){place.setText("");}
+        if ("unknown".equals(postalCode.getText())){postalCode.setText("");}
+        if ("unknown".equals(country.getText())){country.setText("");}
+        if ("unknown".equals(email.getText())){email.setText("");}
+        if ("unknown".equals(phone.getText())){phone.setText("");}
+        if ("unknown".equals(flight.getText())){flight.setText("");}
+        
+        //Update the luggage itself with the right data
+        DB.executeUpdateQuery("UPDATE `foundluggage` SET "
+                + "`dateFound`='"+dateFound.getText()+"', "
+                + "`timeFound`='"+timeFound.getText()+"', "
+                + "`luggageTag`='"+luggageTag.getText()+"', "
+                + "`luggageType`='"+typeCode+"', "
+                + "`brand`='"+brand.getText()+"', "
+                + "`mainColor`='"+ralCode1+"', "
+                + "`secondColor`='"+ralCode2+"', "
+                + "`size`='"+size.getText()+"', "
+                + "`weight`='"+weight.getText()+"', "
+                + "`otherCharacteristics`='"+signatures.getText()+"', "
+                + "`locationFound`='"+locationCode+"' "
+                + "WHERE `registrationNr`='"+registrationNr.getText()+"';"); 
+        
+//        if ("".equals(passangerId.getText()) || 0 == Integer.parseInt(passangerId.getText())){
+//            ResultSet countResultSet = DB.executeResultSetQuery("SELECT COUNT(passengerId) AS 'count' FROM passenger");
+//            while (countResultSet.next()){passengerCount = countResultSet.getInt("count");}
+//            passengerCount ++;
+//            DB.executeUpdateQuery("INSERT INTO `passenger` "
+//                    + " (`passengerId`, `name`, `address`, `place`, `postalcode`, `country`, `email`) "
+//                    + " VALUES ('"+passengerCount+"', '', '', '', '', '', '');");
+//            System.out.println("inserted ");
+//        }
+        //Update the passenger with the right data 
+        DB.executeUpdateQuery("UPDATE `passenger` SET "
+                + "`name`='"+passangerName.getText()+"', "
+                + "`address`='"+address.getText()+"', "
+                + "`place`='"+place.getText()+"', "
+                + "`postalcode`='"+postalCode.getText()+"', "
+                + "`country`='"+country.getText()+"', "
+                + "`email`='"+email.getText()+"' "
+                + "WHERE `passengerId`='"+passangerId.getText()+"';");
+    }
+    
+    /**  
+     * Check if the passenger is set or not 
+     * If there isn't a passenger set:
+     *     disable all the passenger related fields
+     *     so there can't be a new inserted
+     * 
+     * @void
+     */  
+    private void checkPassengerId(){
+        //if the passenger id is empty or zero, disable them
+        if ("".equals(passangerId.getText()) || 0 == Integer.parseInt(passangerId.getText())){
+            passangerId.setDisable(true);
+            passangerName.setDisable(true);
+            address.setDisable(true);     
+            place.setDisable(true);
+            postalCode.setDisable(true);
+            country.setDisable(true);
+            email.setDisable(true);
+            phone.setDisable(true);
+        }
+    }
+    
     @FXML
     public void closeStackpane(){
-            stackPane.setVisible(false); 
+        stackPane.setVisible(false); 
     }
 }
