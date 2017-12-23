@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package is103.lostluggage.Controllers.Service;
 
 import com.jfoenix.controls.JFXTextArea;
@@ -34,6 +29,7 @@ import javafx.stage.Stage;
  * @author thijszijdel
  */
 public class ServiceDetailedMatchLuggageViewController implements Initializable {
+    //al the lost fields
     @FXML private JFXTextField registrationNr;
     @FXML private JFXTextField luggageTag;
     @FXML private JFXTextField type;
@@ -57,6 +53,9 @@ public class ServiceDetailedMatchLuggageViewController implements Initializable 
     @FXML private JFXTextField dateLost;
     @FXML private JFXTextField flight;
     
+    
+    //Al the found fields
+    //Note: 1 -> so they are alternated 
     @FXML private JFXTextField registrationNr1;
     @FXML private JFXTextField luggageTag1;
     @FXML private JFXTextField type1;
@@ -80,19 +79,19 @@ public class ServiceDetailedMatchLuggageViewController implements Initializable 
     @FXML private JFXTextField dateFound;
     @FXML private JFXTextField locationFound;
     @FXML private JFXTextField flight1;
+
+    private final String LANGUAGE = MainApp.getLanguage();  
     
     
-    
-          private String language = MainApp.getLanguage();  
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-                //try to load initialize methode
+        //try to load initialize methode
         try {
-            initializeLostFields();
-            initializeFoundFields();
+            setLostFields(getManualLostLuggageResultSet());
+            setFoundFields(getManualFoundLuggageResultSet());
         } catch (SQLException ex) {
             Logger.getLogger(ServiceDetailedFoundLuggageController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -100,165 +99,195 @@ public class ServiceDetailedMatchLuggageViewController implements Initializable 
 
         
     }
+    
+    
+    /**  
+     * Here will the resultSet of the lost manual matching luggage be get 
+     * For getting the right resultSet the correct instance id will be passed
+     * 
+     * @return resultSet     resultSet for the right luggage
+     */  
+    private ResultSet getManualLostLuggageResultSet() throws SQLException{
+        String id = LostLuggageManualMatchingInstance.getInstance().currentLuggage().getRegistrationNr();
 
+        ServiceDataLost detailsItem = new ServiceDataLost();
+        ResultSet resultSet = detailsItem.getAllDetailsLost(id);
+        return resultSet;
+    }
+
+    /**  
+     * Here are all the detail fields been set with the right data from:
+     * The resultSet given
+     * 
+     * @param resultSet         this will be converted to temp strings and integers
+     * @void no direct          the fields will be set within this method
+     */       
     @FXML
-    private void initializeLostFields() throws SQLException{
-        String id = LostLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
+    private void setLostFields(ResultSet resultSet) throws SQLException{
+        //loop trough all the luggages in the resultSet
+        //Note: there will be only one 
+        while (resultSet.next()) {             
+            int getRegistrationNr =        resultSet.getInt("F.registrationNr");
+            String getDateLost =           resultSet.getString("F.dateLost");
+            String getTimeLost =           resultSet.getString("F.timeLost");
 
-        System.out.println("iD: "+id);
-//            MyJDBC db = MainApp.getDatabase();
-            ServiceDataLost detailsItem = new ServiceDataLost();
-            ResultSet resultSet = detailsItem.getAllDetailsLost(id);
-            
-            while (resultSet.next()) {             
-                int getRegistrationNr =     resultSet.getInt("F.registrationNr");
-                String getDateLost =          resultSet.getString("F.dateLost");
-                String getTimeLost =          resultSet.getString("F.timeLost");
-                
-                String getLuggageTag =         resultSet.getString("F.luggageTag");
-                String getLuggageType =        resultSet.getString("T."+language+"");
-                String getBrand =              resultSet.getString("F.brand");
-                String getMainColor =          resultSet.getString("c1."+language+"");
-                String getSecondColor =        resultSet.getString("c2."+language+"");
-                String getSize =               resultSet.getString("F.size");
-                String getWeight =                resultSet.getString("F.weight");   
-                String getOtherCharacteristics=resultSet.getString("F.otherCharacteristics");
-                
-                int getPassengerId =           resultSet.getInt("F.passengerId");
-                
-                String getName =          resultSet.getString("P.name");
-                String getAddress =          resultSet.getString("P.address");
-                String getPlace =          resultSet.getString("P.place");
-                String getPostalcode =          resultSet.getString("P.postalcode");
-                String getCountry =          resultSet.getString("P.country");
-                String getEmail =          resultSet.getString("P.email");
-                String getPhone =          resultSet.getString("P.phone");
-                
-                String getFlight =              resultSet.getString("F.Flight"); 
-                //String employeeId =         resultSet.getString("employeeId");
-                //int matchedId =              resultSet.getInt("matchedId");
+            String getLuggageTag =         resultSet.getString("F.luggageTag");
+            String getLuggageType =        resultSet.getString("T."+LANGUAGE+"");
+            String getBrand =              resultSet.getString("F.brand");
+            String getMainColor =          resultSet.getString("c1."+LANGUAGE+"");
+            String getSecondColor =        resultSet.getString("c2."+LANGUAGE+"");
+            String getSize =               resultSet.getString("F.size");
+            String getWeight =             resultSet.getString("F.weight");   
+            String getOtherCharacteristics=resultSet.getString("F.otherCharacteristics");
 
-            
-                
-            registrationNr.setText( Integer.toString(getRegistrationNr) );  
-            luggageTag.setText(getLuggageTag);
-            
-            type.setText(getLuggageType);
-            brand.setText(getBrand);
-             
-            mainColor.setText(getMainColor);
-            secondColor.setText(getSecondColor);
-            size.setText(getSize);
-            weight.setText(getWeight);
-            signatures.setText(getOtherCharacteristics);
+            int getPassengerId =           resultSet.getInt("F.passengerId");
+            String getName =               resultSet.getString("P.name");
+            String getAddress =            resultSet.getString("P.address");
+            String getPlace =              resultSet.getString("P.place");
+            String getPostalcode =         resultSet.getString("P.postalcode");
+            String getCountry =            resultSet.getString("P.country");
+            String getEmail =              resultSet.getString("P.email");
+            String getPhone =              resultSet.getString("P.phone");
 
-            passangerId.setText( Integer.toString(getPassengerId) );
-            passangerName.setText(getName);
-            address.setText(getAddress);
-            place.setText(getPlace);
-            postalCode.setText(getPostalcode);
-            country.setText(getCountry);
-            email.setText(getEmail);
-            phone.setText(getPhone);
-            
-            //locationFound.setText(getLocationFound);
-            dateLost.setText(getDateLost);
-            timeLost.setText(getTimeLost);
-            flight.setText(getFlight);
-            
-            
-            
-            
+            String getFlight =             resultSet.getString("F.Flight"); 
 
-            }
+        //set al the fields
+        registrationNr.setText( Integer.toString(getRegistrationNr) );  
+        luggageTag.setText(getLuggageTag);
+
+        type.setText(getLuggageType);
+        brand.setText(getBrand);
+
+        mainColor.setText(getMainColor);
+        secondColor.setText(getSecondColor);
+        size.setText(getSize);
+        weight.setText(getWeight);
+        signatures.setText(getOtherCharacteristics);
+
+        passangerId.setText( Integer.toString(getPassengerId) );
+        passangerName.setText(getName);
+        address.setText(getAddress);
+        place.setText(getPlace);
+        postalCode.setText(getPostalcode);
+        country.setText(getCountry);
+        email.setText(getEmail);
+        phone.setText(getPhone);
+
+        //locationFound.setText(getLocationFound);
+        dateLost.setText(getDateLost);
+        timeLost.setText(getTimeLost);
+        flight.setText(getFlight);
+        }
         
     }  
     
     
-    private void initializeFoundFields() throws SQLException{
-        String id = FoundLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
-            //            MyJDBC db = MainApp.getDatabase();
-            ServiceDataFound detailsItem = new ServiceDataFound();
-            ResultSet resultSet = detailsItem.getAllDetailsFound(id);
+    
+    /**  
+     * Here will the resultSet of the found manual matching luggage be get 
+     * For getting the right resultSet the correct instance id will be passed
+     * 
+     * @return resultSet     resultSet for the right luggage
+     */  
+    private ResultSet getManualFoundLuggageResultSet() throws SQLException{
+        String id = FoundLuggageManualMatchingInstance.getInstance().currentLuggage().getRegistrationNr();
+        ServiceDataFound detailsItem = new ServiceDataFound();
+        ResultSet resultSet = detailsItem.getAllDetailsFound(id);
             
-            
-            
-            while (resultSet.next()) {             
-                int getRegistrationNr =     resultSet.getInt("F.registrationNr");
-                String getDateFound =          resultSet.getString("F.dateFound");
-                String getTimeFound =          resultSet.getString("F.timeFound");
-                
-                String getLuggageTag =         resultSet.getString("F.luggageTag");
-                String getLuggageType =        resultSet.getString("T."+language+"");
-                String getBrand =              resultSet.getString("F.brand");
-                String getMainColor =          resultSet.getString("c1."+language+"");
-                String getSecondColor =        resultSet.getString("c2."+language+"");
-                String getSize =               resultSet.getString("F.size");
-                String getWeight =                resultSet.getString("F.weight");   
-                String getOtherCharacteristics=resultSet.getString("F.otherCharacteristics");
-                
-                String getPassengerId =           resultSet.getString("F.passengerId");
-                
-                String getName =          resultSet.getString("P.name");
-                String getAddress =          resultSet.getString("P.address");
-                String getPlace =          resultSet.getString("P.place");
-                String getPostalcode =          resultSet.getString("P.postalcode");
-                String getCountry =          resultSet.getString("P.country");
-                String getEmail =          resultSet.getString("P.email");
-                String getPhone =          resultSet.getString("P.phone");
-                
-                String getFlight =              resultSet.getString("F.arrivedWithFlight"); 
-                String getLocationFound =       resultSet.getString("L."+language+"");
-                //String employeeId =         resultSet.getString("employeeId");
-                //int matchedId =              resultSet.getInt("matchedId");
-
-            
-                
-            registrationNr1.setText( Integer.toString(getRegistrationNr) );  
-            luggageTag1.setText(getLuggageTag);
-            
-            type1.setText(getLuggageType);
-            brand1.setText(getBrand);
-             
-            mainColor1.setText(getMainColor);
-            secondColor1.setText(getSecondColor);
-            size1.setText(getSize);
-            weight1.setText(getWeight);
-            signatures1.setText(getOtherCharacteristics);
-
-            passangerId1.setText( getPassengerId );
-            passangerName1.setText(getName);
-            address1.setText(getAddress);
-            place1.setText(getPlace);
-            postalCode1.setText(getPostalcode);
-            country1.setText(getCountry);
-            email1.setText(getEmail);
-            phone1.setText(getPhone);
-            
-            locationFound.setText(getLocationFound);
-            dateFound.setText(getDateFound);
-            timeFound.setText(getTimeFound);
-            flight1.setText(getFlight);
-            }
+        return resultSet;
     }
     
-        @FXML
+    /**  
+     * Here are all the detail fields been set with the right data from:
+     * The resultSet given
+     * 
+     * @param resultSet         this will be converted to temp strings and integers
+     * @void no direct          the fields will be set within this method
+     */    
+    @FXML
+    private void setFoundFields(ResultSet resultSet) throws SQLException{ 
+        //loop trough all the luggages in the resultSet
+        //Note: there will be only one
+        while (resultSet.next()) {             
+            int getRegistrationNr =        resultSet.getInt("F.registrationNr");
+            String getDateFound =          resultSet.getString("F.dateFound");
+            String getTimeFound =          resultSet.getString("F.timeFound");
+
+            String getLuggageTag =         resultSet.getString("F.luggageTag");
+            String getLuggageType =        resultSet.getString("T."+LANGUAGE+"");
+            String getBrand =              resultSet.getString("F.brand");
+            String getMainColor =          resultSet.getString("c1."+LANGUAGE+"");
+            String getSecondColor =        resultSet.getString("c2."+LANGUAGE+"");
+            String getSize =               resultSet.getString("F.size");
+            String getWeight =             resultSet.getString("F.weight");   
+            String getOtherCharacteristics=resultSet.getString("F.otherCharacteristics");
+
+            String getPassengerId =        resultSet.getString("F.passengerId");
+
+            String getName =               resultSet.getString("P.name");
+            String getAddress =            resultSet.getString("P.address");
+            String getPlace =              resultSet.getString("P.place");
+            String getPostalcode =         resultSet.getString("P.postalcode");
+            String getCountry =            resultSet.getString("P.country");
+            String getEmail =              resultSet.getString("P.email");
+            String getPhone =              resultSet.getString("P.phone");
+
+            String getFlight =             resultSet.getString("F.arrivedWithFlight"); 
+            String getLocationFound =      resultSet.getString("L."+LANGUAGE+"");
+        
+        //set al the fields
+        registrationNr1.setText( Integer.toString(getRegistrationNr) );  
+        luggageTag1.setText(getLuggageTag);
+
+        type1.setText(getLuggageType);
+        brand1.setText(getBrand);
+
+        mainColor1.setText(getMainColor);
+        secondColor1.setText(getSecondColor);
+        size1.setText(getSize);
+        weight1.setText(getWeight);
+        signatures1.setText(getOtherCharacteristics);
+
+        passangerId1.setText( getPassengerId );
+        passangerName1.setText(getName);
+        address1.setText(getAddress);
+        place1.setText(getPlace);
+        postalCode1.setText(getPostalcode);
+        country1.setText(getCountry);
+        email1.setText(getEmail);
+        phone1.setText(getPhone);
+
+        locationFound.setText(getLocationFound);
+        dateFound.setText(getDateFound);
+        timeFound.setText(getTimeFound);
+        flight1.setText(getFlight);
+        }
+    }
+    
+    
+    /**  
+     * When the 'manual match ' button is clicked the instances will be set
+     * And the stage will be closed
+     * 
+     * @param event             when the button is clicked 
+     */   
+    @FXML
     protected void manualMatching(ActionEvent event) throws IOException{
+        //if the user is not on the matching view, switch to that view
         if (MainApp.isOnMatchingView()==false){
             MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
         }
+        
+        //initialize the instances with the right luggage
+        FoundLuggage passFoundLuggage =  FoundLuggageDetailsInstance.getInstance().currentLuggage();
+        FoundLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(passFoundLuggage.getRegistrationNr());   
+        
+        
+        LostLuggage passLostLuggage =  LostLuggageDetailsInstance.getInstance().currentLuggage();
+        LostLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(passLostLuggage.getRegistrationNr());
+        
+        //close this stage
         closeStage();
-        
-         FoundLuggage passObject2 =  FoundLuggageDetailsInstance.getInstance().currentLuggage();
-        FoundLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(passObject2.getRegistrationNr());   
-        
-        
-        LostLuggage passObject =  LostLuggageDetailsInstance.getInstance().currentLuggage();
-        LostLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());
-        
-       
-        
-        
     }
     
     
@@ -274,13 +303,20 @@ public class ServiceDetailedMatchLuggageViewController implements Initializable 
         MainApp.switchView("/Views/Service/ServiceEditFoundLuggageView.fxml");
         closeStage();
     }
+    
+    @FXML 
+    public void viewDetails(){
+        //this is already the detailed view..
+    }
+    
+    /**  
+     * Close the current stage by getting the window of a fields scene's
+     * And casting this to a stage, and close this stage
+     * 
+     */ 
     public void closeStage(){
         Stage stage = (Stage) registrationNr.getScene().getWindow();
         stage.close();
-    }
-    @FXML 
-    public void viewDetails(){
-        System.out.println("details joee hoee");
     }
     
 }
