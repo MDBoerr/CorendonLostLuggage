@@ -791,7 +791,10 @@ public class ServiceMatchingViewController implements Initializable {
     
     
     
-    
+    @FXML
+    protected void confirmMatch(ActionEvent event) throws IOException {
+        MainApp.switchView("/Views/Service/ServiceConfirmedMatchLuggageView.fxml");
+    }
     
     
     

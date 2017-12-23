@@ -28,7 +28,7 @@ import javafx.stage.Stage;
  *
  * @author thijszijdel
  */
-public class ServiceDetailedMatchLuggageViewController implements Initializable {
+public class ServiceConfirmedMatchLuggageViewController implements Initializable {
     //al the lost fields
     @FXML private JFXTextField registrationNr;
     @FXML private JFXTextField luggageTag;
@@ -90,8 +90,8 @@ public class ServiceDetailedMatchLuggageViewController implements Initializable 
     public void initialize(URL url, ResourceBundle rb) {
         //try to load initialize methode
         try {
-            setLostFields(getDetailsLostLuggageResultSet());
-            setFoundFields(getDetailsFoundLuggageResultSet());
+            setLostFields(getManualLostLuggageResultSet());
+            setFoundFields(getManualFoundLuggageResultSet());
         } catch (SQLException ex) {
             Logger.getLogger(ServiceDetailedFoundLuggageController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -107,8 +107,8 @@ public class ServiceDetailedMatchLuggageViewController implements Initializable 
      * 
      * @return resultSet     resultSet for the right luggage
      */  
-    private ResultSet getDetailsLostLuggageResultSet() throws SQLException{
-        String id = LostLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
+    private ResultSet getManualLostLuggageResultSet() throws SQLException{
+        String id = LostLuggageManualMatchingInstance.getInstance().currentLuggage().getRegistrationNr();
 
         ServiceDataLost detailsItem = new ServiceDataLost();
         ResultSet resultSet = detailsItem.getAllDetailsLost(id);
@@ -189,8 +189,8 @@ public class ServiceDetailedMatchLuggageViewController implements Initializable 
      * 
      * @return resultSet     resultSet for the right luggage
      */  
-    private ResultSet getDetailsFoundLuggageResultSet() throws SQLException{
-        String id = FoundLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
+    private ResultSet getManualFoundLuggageResultSet() throws SQLException{
+        String id = FoundLuggageManualMatchingInstance.getInstance().currentLuggage().getRegistrationNr();
         ServiceDataFound detailsItem = new ServiceDataFound();
         ResultSet resultSet = detailsItem.getAllDetailsFound(id);
             

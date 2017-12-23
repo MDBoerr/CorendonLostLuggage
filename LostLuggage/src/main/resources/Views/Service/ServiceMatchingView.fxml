@@ -87,7 +87,7 @@
                                   <RowConstraints maxHeight="24.0" minHeight="45.0" prefHeight="50.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <JFXButton buttonType="RAISED" prefHeight="35.0" prefWidth="121.0" ripplerFill="#318d49" style="-fx-background-color: #46d06b#46d06b;" text="Confirm Match" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                    <JFXButton buttonType="RAISED" onAction="#confirmMatch" prefHeight="35.0" prefWidth="121.0" ripplerFill="#318d49" style="-fx-background-color: #46d06b#46d06b;" text="Confirm Match" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                                     <JFXButton onAction="#removeManualLost" ripplerFill="#9e2626" style="-fx-background-color: #e03434#e03434;" text="Remove " textFill="WHITE">
                                        <GridPane.margin>
                                           <Insets left="15.0" />
