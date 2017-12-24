@@ -88,7 +88,7 @@ public class ServiceConfirmedMatchLuggageViewController implements Initializable
     @FXML private JFXTextField flight1;
     
     
-    
+    //Detail fields
     @FXML private JFXTextField detailsMatcheId;
     @FXML private JFXTextField detailsName;
     @FXML private JFXTextField detailsPhone;
@@ -101,9 +101,10 @@ public class ServiceConfirmedMatchLuggageViewController implements Initializable
     @FXML private JFXComboBox detailsDeliverer;
     
     
-
+    //getting the main language of the application
     private final String LANGUAGE = MainApp.getLanguage();  
     
+    //page title 
     private final String TITLE = "Matched luggage";
     
     //conection to the main database
@@ -113,66 +114,90 @@ public class ServiceConfirmedMatchLuggageViewController implements Initializable
     //current date 
     private String currentDate;
     
+    //the match id that will be generated and asigned
     private int matcheID;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //Try to set the title of the page
         try {
             MainViewController.getInstance().getTitle(TITLE);
         } catch (IOException ex) {
             Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //try to load initialize methode
-        try {
-            setLostFields(getManualLostLuggageResultSet());
-            setFoundFields(getManualFoundLuggageResultSet());
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceDetailedFoundLuggageController.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
-        System.out.println("date");
+        //getting the current data
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         LocalDate localDate = LocalDate.now();
         currentDate = dtf.format(localDate);
+
+        //try to load initialize methodes
         try {
+            setLostFields(getManualLostLuggageResultSet());
+            setFoundFields(getManualFoundLuggageResultSet());
+            
             generateMatcheId();
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceConfirmedMatchLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        setDetails();
-        try {
+            setDetails();
             setMatched();
         } catch (SQLException ex) {
             Logger.getLogger(ServiceConfirmedMatchLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
+    /**  
+     * Here will the matcheId be generated
+     * Note: the checking will also be done here
+     * 
+     * @throws SQLException     getting a resultSet from the db 
+     * @void no direct output 
+     */
     private void generateMatcheId() throws SQLException{
         ResultSet resultSet = DB.executeResultSetQuery("SELECT COUNT(*) AS 'count' FROM matched;");
         while (resultSet.next()){
+            //get the amount of matches in the db
             int count = resultSet.getInt("count");
             
+            //expect that the matcheId's are: 0,1,2,3.. etc.
+            //So assign to the matcheID the amount of matches + 1
             matcheID = count++; 
         }
+        //check the matche id at least one time
         do {
             matcheID++;
-        } while (!checkMatcheId());
+            //if the return (of the check) is not true
+            //add 1 to the matcheId and check it again
+        } while (!checkMatcheId()); 
         
     }
     
+    /**  
+     * Here will be checked if the (semi) generated matcheId already exists
+     * 
+     * @throws SQLException     getting a resultSet from the db 
+     * @return boolean          if the match id already exist 
+     */
     private boolean checkMatcheId() throws SQLException{
         ResultSet resultSetCheck = DB.executeResultSetQuery("SELECT COUNT(*) AS 'check' FROM matched WHERE matchedid = '"+matcheID+"';");
         while (resultSetCheck.next()){
             int check = resultSetCheck.getInt("check");
             
+            //if the check does not exists, return true
+            //The count of exsiting matches with the same id is than zero
             return check == 0;
         }
+        //if there wasn't any resultset return false
         return false;
     }
     
+    /**  
+     * Here will all the detail fields be set
+     * Note: the passenger data from the lost luggage is used
+     * 
+     * @void   no direct output 
+     */
     private void setDetails() {
         detailsName.setText(passangerName.getText());
         detailsPhone.setText(phone.getText());
@@ -183,16 +208,25 @@ public class ServiceConfirmedMatchLuggageViewController implements Initializable
         detailsCountry.setText(country.getText());
         
         detailsMatcheId.setText(Integer.toString(matcheID));
-//        ObservableList<String> colorsStringList = colors.getStringList();
-//            colorPicker1.getItems().addAll(colorsStringList);
+
+        //list of deliverers (can be changed to a table in the db)
         ObservableList<String> deliverers = FXCollections.observableArrayList();
         deliverers.add("DHL");
         deliverers.add("Post NL");
         deliverers.add("Correndon");
         deliverers.add("Self service");
-        
+        //add the deliverers to the combo box 
         detailsDeliverer.getItems().addAll(deliverers);
     }
+    
+    
+    /**  
+     * Here will the lost and found luggage be added to the matched table
+     * And the id will also be set in the lost & found tables 
+     * 
+     * @throws SQLException     updating data in the db 
+     * @void   no direct output 
+     */
     private void setMatched() throws SQLException {
         DB.executeUpdateQuery("INSERT INTO `matched` "
                 + " (`matchedId`, `foundluggage`, `lostluggage`, `employeeId`, `dateMatched`, `delivery`) "
@@ -200,6 +234,13 @@ public class ServiceConfirmedMatchLuggageViewController implements Initializable
         DB.executeUpdateQuery("UPDATE `lostluggage` SET `matchedId`='"+matcheID+"' WHERE `registrationNr`='"+registrationNr.getText()+"';");
         DB.executeUpdateQuery("UPDATE `foundluggage` SET `matchedId`='"+matcheID+"' WHERE `registrationNr`='"+registrationNr1.getText()+"';");
     }
+    
+    /**  
+     * Here will the the deliverer be updated in the table on the current id
+     * 
+     * @throws SQLException     updating (setting) data in the db 
+     * @void   no direct output 
+     */
     @FXML
     protected void confirmDeliverer() throws SQLException {
         DB.executeUpdateQuery("UPDATE `matched` SET "
@@ -425,19 +466,5 @@ public class ServiceConfirmedMatchLuggageViewController implements Initializable
         Stage stage = (Stage) registrationNr.getScene().getWindow();
         stage.close();
     }
-    
-    
-    
+   
 }
-
-
-
-//          FIX that luggage is added to :
-/*          matched 
-with:       matchedId
-            foundluggage
-            lostluggage
-            employeeId
-            dateMatched
-            delivery
-*/

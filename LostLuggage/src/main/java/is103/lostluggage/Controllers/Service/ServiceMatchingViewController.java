@@ -771,6 +771,22 @@ public class ServiceMatchingViewController implements Initializable {
         
     }
     
+    /**
+     * Confirming the manual matches.
+     * Note: the instances and panes will be checked if they are not empty
+     * 
+     * @param event                 on click of the confirm match button
+     * @void No direct output       only switching the view        
+     */
+    @FXML
+    protected void confirmMatch(ActionEvent event) throws IOException {
+        //check the panes != empty
+        if (FoundLuggageManualMatchingInstance.getInstance().currentLuggage().getRegistrationNr()!=null &
+            LostLuggageManualMatchingInstance.getInstance().currentLuggage().getRegistrationNr() !=null ) {
+            
+            MainApp.switchView("/Views/Service/ServiceConfirmedMatchLuggageView.fxml");
+        }
+    }
 
     /*--------------------------------------------------------------------------
                               Switch view buttons
@@ -789,31 +805,8 @@ public class ServiceMatchingViewController implements Initializable {
     protected void switchToMissed(ActionEvent event) throws IOException {
         MainApp.switchView("/Views/Service/ServiceOverviewLostView.fxml");
     }
-    
-    
-    
-    
-    
-   
-    
-    
-    
-    
-    @FXML
-    protected void confirmMatch(ActionEvent event) throws IOException {
-        
-        //Check if there are manual matches inputted 
-        
-        
-        MainApp.switchView("/Views/Service/ServiceConfirmedMatchLuggageView.fxml");
-    }
-    
-    
-    
-    
-    
-    
 
+   
     
     // Solution by: Alexander Chingarev
     // for stopping the fx tables to resize and move collumns 
