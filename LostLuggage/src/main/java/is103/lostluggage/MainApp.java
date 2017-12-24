@@ -113,10 +113,7 @@ public class MainApp extends Application {
     
     //method to connect to the database
     public static MyJDBC getDatabase() {
-
-        MyJDBC db = new MyJDBC(DB_NAME);
-
-        return db;
+        return MainApp.db;
     }
     
     public static String getLanguage() {

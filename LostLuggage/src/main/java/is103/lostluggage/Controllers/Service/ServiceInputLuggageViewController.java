@@ -48,11 +48,10 @@ public class ServiceInputLuggageViewController implements Initializable {
     @FXML
     private JFXTextField nameJFXTextField, addressJFXTextField, placeJFXTextField, 
             postalcodeJFXTextField, countryJFXTextField, phoneJFXTextField, emailJFXTextField, labelnumberJFXTextField, brandJFXTextField,
-            characterJFXTextField;
+            characterJFXTextField, sizeJFXTextField, weightJFXTextField;
   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
         
         //Define the previous view
         MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
@@ -66,7 +65,6 @@ public class ServiceInputLuggageViewController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(ServiceInputLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
     
     
@@ -82,10 +80,7 @@ public class ServiceInputLuggageViewController implements Initializable {
     
     //This method sets all the values for the comboboxes.
     public void setComboBox() throws SQLException{
-        
-        //Missing or Found combobox
-        System.out.println("Saysomthing");
-        
+       
         //Add options to choicebox
         missingFoundComboBox.getItems().addAll("Found", "Missing");
 
@@ -200,7 +195,9 @@ public class ServiceInputLuggageViewController implements Initializable {
         String name = "", address = "", place = "", postalcode = "", country = "", phone = "", email = "";
 
         //Luggage information
-        String labelnumber = "", flight = "", destination = "", type = "", brand = "", color = "", secondColor = "", characteristics = "";
+        String labelnumber = "", flight = "", destination = "", type = "", brand = "", color = "", secondColor = "", size = "", characteristics = "", location = "";
+        
+        int weight = 0;
         
         
         //Get the date        
@@ -261,32 +258,68 @@ public class ServiceInputLuggageViewController implements Initializable {
             secondColor = secondColorJFXComboBox.getValue().toString();
         }
         
+        if(locationJFXComboBox.getValue() != null && !locationJFXComboBox.getValue().toString().isEmpty()){
+            location = locationJFXComboBox.getValue().toString();
+        }
+        
+        size = sizeJFXTextField.getText();
+        
+        //weight is being entered in a textfield so it has to be parsed to an int
+        weight = Integer.parseInt(weightJFXTextField.getText());
+        
         characteristics = characterJFXTextField.getText();
         
         //Print the information
         System.out.println("Luggage information \nLabel: " + labelnumber + "\nFlight: " + flight + "\nDestination: " + destination + "\nType: " + type + "\nBrand: " + brand + "\nColor: " + color
-        + "\nSecond Color: " + secondColor + "\nCharacteristics: " + characteristics + "\n");
+        + "\nSecond Color: " + secondColor + "\nSize:  " + size + "\nWeight: "+ weight + "\nCharacteristics: " + characteristics + "\n");
         
         //Is it found luggage? else its missing
         if(formtype == "Found"){
+                        
+            //Query to add the passenger
+            String addPassengerQuery = "INSERT INTO passenger VALUES(NULL ,'"+name+"', '"+address+"', '"+place+"', '"+postalcode+"', '"+country+"', '"+email+"', '"+phone+"')";
+                        
+            //Execute the query to add a passenger to the database
+            int affectedRowsPassengerQuery = MainApp.getDatabase().executeUpdateQuery(addPassengerQuery);
             
-            String query = "";
+            //select the id of the passenger we just added by email address
+            String selectPassengerQuery = "SELECT * FROM passenger WHERE email = '" +email+ "'";
             
-            int affectedRows = MainApp.getDatabase().executeUpdateQuery(query);
+            //execute the query to select the recently added passenger, the String we get back is the id of that user
+            String passengerId = MainApp.getDatabase().executeStringQuery(selectPassengerQuery);
+            
+            //Query to add the missing luggage to the database
+            String addMissingLuggageQuery = "INSERT INTO foundluggage VALUES(NULL, '"+date+"','"+time+"', '"+labelnumber+"', (SELECT luggageTypeId FROM luggagetype WHERE english ='"+type+"'), "
+                    + "'"+brand+"'"
+                    + ", (SELECT ralCode FROM color WHERE english = '"+color+"'), (SELECT ralCode FROM COLOR WHERE english = '"+secondColor+"'), '"+size+"', '"+weight+"', '"+characteristics+"', "
+                    + "'"+flight+"', (SELECT locationId FROM location WHERE english ='"+location+"'), 'aa', '"+passengerId+"', NULL )";
+            
+            //execute the missing luggage query
+            int affectedRowsLuggageQuery = MainApp.getDatabase().executeUpdateQuery(addMissingLuggageQuery);
+            
         }else{
             
             //Query to add the passenger
             String addPassengerQuery = "INSERT INTO passenger VALUES(NULL ,'"+name+"', '"+address+"', '"+place+"', '"+postalcode+"', '"+country+"', '"+email+"', '"+phone+"')";
                         
-            int affectedRows = MainApp.getDatabase().executeUpdateQuery(addPassengerQuery);
+            //Execute the query to add a passenger to the database
+            int affectedRowsPassengerQuery = MainApp.getDatabase().executeUpdateQuery(addPassengerQuery);
             
-            //Query to add the missing luggage
-            String addMissingLuggageQuery = "INSERT INTO missingluggage VALUES()";
+            //select the id of the passenger we just added by email address
+            String selectPassengerQuery = "SELECT * FROM passenger WHERE email = '" +email+ "'";
             
-            //TODO:Check whether the user has already registered with this e-mailaddress
-         
+            //execute the query to select the recently added passenger, the String we get back is the id of that user
+            String passengerId = MainApp.getDatabase().executeStringQuery(selectPassengerQuery);
             
-
+            //Query to add the missing luggage to the database
+            String addMissingLuggageQuery = "INSERT INTO lostluggage VALUES(NULL, '"+date+"','"+time+"', '"+labelnumber+"', (SELECT luggageTypeId FROM luggagetype WHERE english ='"+type+"'), "
+                    + "'"+brand+"'"
+                    + ", (SELECT ralCode FROM color WHERE english = '"+color+"'), (SELECT ralCode FROM COLOR WHERE english = '"+secondColor+"'), '"+size+"', '"+weight+"', '"+characteristics+"', "
+                    + "'"+flight+"', 'aa', '"+passengerId+"', NULL )";
+            
+            //execute the missing luggage query
+            int affectedRowsLuggageQuery = MainApp.getDatabase().executeUpdateQuery(addMissingLuggageQuery);
+        
         }
         
         
