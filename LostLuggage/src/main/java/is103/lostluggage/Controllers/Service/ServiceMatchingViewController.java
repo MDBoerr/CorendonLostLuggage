@@ -207,7 +207,7 @@ public class ServiceMatchingViewController implements Initializable {
         //switch to prev view.
         MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
         
-        //titel boven de pagina zetten
+        //try to set the titel above the view
         try {MainViewController.getInstance().getTitle(TITLE);} catch (IOException ex) {
             Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -252,13 +252,14 @@ public class ServiceMatchingViewController implements Initializable {
 
         //Stop Tables from being able to re position/ order
         //Placed them in an array for using same methode for each table
-        TableView[] fixingTables = new TableView[4];
-        fixingTables[0]=foundLuggageTable;
-        fixingTables[1]=lostLuggageTable;
-        fixingTables[2]=matchTabbleView;
-        fixingTables[3]=potentialMatchingTable;
+        TableView[] fixingTables = {
+            foundLuggageTable, 
+            lostLuggageTable, 
+            matchTabbleView, 
+            potentialMatchingTable
+        };
         for (TableView fixingTable : fixingTables) { fixedTableHeader(fixingTable);}
-        
+
         //methode
         resetManualMatching();
         
@@ -791,8 +792,19 @@ public class ServiceMatchingViewController implements Initializable {
     
     
     
+    
+    
+   
+    
+    
+    
+    
     @FXML
     protected void confirmMatch(ActionEvent event) throws IOException {
+        
+        //Check if there are manual matches inputted 
+        
+        
         MainApp.switchView("/Views/Service/ServiceConfirmedMatchLuggageView.fxml");
     }
     

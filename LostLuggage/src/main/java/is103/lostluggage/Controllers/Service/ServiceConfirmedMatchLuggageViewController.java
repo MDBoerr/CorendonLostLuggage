@@ -1,7 +1,10 @@
 package is103.lostluggage.Controllers.Service;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import is103.lostluggage.Controllers.MainViewController;
+import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Data.ServiceDataFound;
 import is103.lostluggage.Model.Service.Data.ServiceDataLost;
@@ -15,9 +18,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -79,15 +86,44 @@ public class ServiceConfirmedMatchLuggageViewController implements Initializable
     @FXML private JFXTextField dateFound;
     @FXML private JFXTextField locationFound;
     @FXML private JFXTextField flight1;
+    
+    
+    
+    @FXML private JFXTextField detailsMatcheId;
+    @FXML private JFXTextField detailsName;
+    @FXML private JFXTextField detailsPhone;
+    @FXML private JFXTextField detailsEmail;
+    @FXML private JFXTextField detailsAddress;
+    @FXML private JFXTextField detailsPlace;
+    @FXML private JFXTextField detailsCode;
+    @FXML private JFXTextField detailsCountry;
+    
+    @FXML private JFXComboBox detailsDeliverer;
+    
+    
 
     private final String LANGUAGE = MainApp.getLanguage();  
     
+    private final String TITLE = "Matched luggage";
     
+    //conection to the main database
+    private final MyJDBC DB = MainApp.getDatabase();
+    
+    
+    //current date 
+    private String currentDate;
+    
+    private int matcheID;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        try {
+            MainViewController.getInstance().getTitle(TITLE);
+        } catch (IOException ex) {
+            Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         //try to load initialize methode
         try {
             setLostFields(getManualLostLuggageResultSet());
@@ -96,10 +132,81 @@ public class ServiceConfirmedMatchLuggageViewController implements Initializable
             Logger.getLogger(ServiceDetailedFoundLuggageController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-
+        System.out.println("date");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDate localDate = LocalDate.now();
+        currentDate = dtf.format(localDate);
+        try {
+            generateMatcheId();
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceConfirmedMatchLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        setDetails();
+        try {
+            setMatched();
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceConfirmedMatchLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void generateMatcheId() throws SQLException{
+        ResultSet resultSet = DB.executeResultSetQuery("SELECT COUNT(*) AS 'count' FROM matched;");
+        while (resultSet.next()){
+            int count = resultSet.getInt("count");
+            
+            matcheID = count++; 
+        }
+        do {
+            matcheID++;
+        } while (!checkMatcheId());
         
     }
     
+    private boolean checkMatcheId() throws SQLException{
+        ResultSet resultSetCheck = DB.executeResultSetQuery("SELECT COUNT(*) AS 'check' FROM matched WHERE matchedid = '"+matcheID+"';");
+        while (resultSetCheck.next()){
+            int check = resultSetCheck.getInt("check");
+            
+            return check == 0;
+        }
+        return false;
+    }
+    
+    private void setDetails() {
+        detailsName.setText(passangerName.getText());
+        detailsPhone.setText(phone.getText());
+        detailsEmail.setText(email.getText());
+        detailsAddress.setText(address.getText());
+        detailsPlace.setText(place.getText());
+        detailsCode.setText(postalCode.getText());
+        detailsCountry.setText(country.getText());
+        
+        detailsMatcheId.setText(Integer.toString(matcheID));
+//        ObservableList<String> colorsStringList = colors.getStringList();
+//            colorPicker1.getItems().addAll(colorsStringList);
+        ObservableList<String> deliverers = FXCollections.observableArrayList();
+        deliverers.add("DHL");
+        deliverers.add("Post NL");
+        deliverers.add("Correndon");
+        deliverers.add("Self service");
+        
+        detailsDeliverer.getItems().addAll(deliverers);
+    }
+    private void setMatched() throws SQLException {
+        DB.executeUpdateQuery("INSERT INTO `matched` "
+                + " (`matchedId`, `foundluggage`, `lostluggage`, `employeeId`, `dateMatched`, `delivery`) "
+                + "VALUES ('"+matcheID+"', '"+registrationNr1.getText()+"', '"+registrationNr.getText()+"', 'TZ', '"+currentDate+"', '');");
+        DB.executeUpdateQuery("UPDATE `lostluggage` SET `matchedId`='"+matcheID+"' WHERE `registrationNr`='"+registrationNr.getText()+"';");
+        DB.executeUpdateQuery("UPDATE `foundluggage` SET `matchedId`='"+matcheID+"' WHERE `registrationNr`='"+registrationNr1.getText()+"';");
+    }
+    @FXML
+    protected void confirmDeliverer() throws SQLException {
+        DB.executeUpdateQuery("UPDATE `matched` SET "
+                + " `delivery`='"+detailsDeliverer.getValue().toString()+"' "
+                        + "WHERE `matchedId`='"+detailsMatcheId.getText()+"';");
+       
+    }
     
     /**  
      * Here will the resultSet of the lost manual matching luggage be get 
@@ -319,4 +426,18 @@ public class ServiceConfirmedMatchLuggageViewController implements Initializable
         stage.close();
     }
     
+    
+    
 }
+
+
+
+//          FIX that luggage is added to :
+/*          matched 
+with:       matchedId
+            foundluggage
+            lostluggage
+            employeeId
+            dateMatched
+            delivery
+*/
