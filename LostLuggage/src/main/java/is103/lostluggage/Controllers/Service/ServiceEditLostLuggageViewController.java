@@ -14,6 +14,7 @@ import is103.lostluggage.Model.Service.Data.ServiceDataLost;
 import is103.lostluggage.Model.Service.Instance.Matching.LostLuggageManualMatchingInstance;
 import is103.lostluggage.Model.Service.Model.LostLuggage;
 import is103.lostluggage.Model.Service.Instance.Details.LostLuggageDetailsInstance;
+import is103.lostluggage.Model.Service.Interface.LostLuggageFields;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -36,7 +37,7 @@ import javafx.scene.text.TextFlow;
  *
  * @author Thijs Zijdel - 500782165
  */
-public class ServiceEditLostLuggageViewController implements Initializable {
+public class ServiceEditLostLuggageViewController implements Initializable, LostLuggageFields {
 
     @FXML private JFXTextField registrationNr;
     @FXML private JFXTextField luggageTag;
@@ -155,8 +156,10 @@ public class ServiceEditLostLuggageViewController implements Initializable {
      * For getting the right resultSet the correct instance id will be passed
      * 
      * @return resultSet     resultSet for the right luggage
+     * @throws java.sql.SQLException
      */  
-    private ResultSet getManualLostLuggageResultSet() throws SQLException{
+    @Override
+    public ResultSet getManualLostLuggageResultSet() throws SQLException{
         ServiceDataLost detailsItem = new ServiceDataLost();
         
         String id = LostLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
@@ -170,10 +173,12 @@ public class ServiceEditLostLuggageViewController implements Initializable {
      * The resultSet given
      * 
      * @param resultSet         this will be converted to temp strings and integers
+     * @throws java.sql.SQLException
      * @void no direct          the fields will be set within this method
      */    
     @FXML
-    private void setLostFields(ResultSet resultSet) throws SQLException{ 
+    @Override
+    public void setLostFields(ResultSet resultSet) throws SQLException{ 
         //loop trough all the luggages in the resultSet
         //Note: there will be only one
         while (resultSet.next()) {                 

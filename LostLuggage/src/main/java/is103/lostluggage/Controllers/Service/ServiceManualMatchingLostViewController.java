@@ -6,6 +6,7 @@ import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Data.ServiceDataLost;
 import is103.lostluggage.Model.Service.Instance.Matching.LostLuggageManualMatchingInstance;
+import is103.lostluggage.Model.Service.Interface.LostLuggageFields;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +21,7 @@ import javafx.fxml.Initializable;
  *
  * @author Thijs Zijdel - 500782165
  */
-public class ServiceManualMatchingLostViewController implements Initializable {
+public class ServiceManualMatchingLostViewController implements Initializable, LostLuggageFields {
     
     //getting the main language for the application
     private final String LANGUAGE = MainApp.getLanguage();
@@ -55,7 +56,7 @@ public class ServiceManualMatchingLostViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
                 //try to load initialize methode
         try {
-            initializeFoundFields(getManualLostLuggageResultSet());
+            setLostFields(getManualLostLuggageResultSet());
         } catch (SQLException ex) {
             Logger.getLogger(ServiceDetailedFoundLuggageController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -67,8 +68,10 @@ public class ServiceManualMatchingLostViewController implements Initializable {
      * For getting the right resultSet the correct instance id will be passed
      * 
      * @return resultSet     resultSet for the right luggage
+     * @throws java.sql.SQLException
      */  
-    private ResultSet getManualLostLuggageResultSet() throws SQLException{
+    @Override
+    public ResultSet getManualLostLuggageResultSet() throws SQLException{
         String id = LostLuggageManualMatchingInstance.getInstance().currentLuggage().getRegistrationNr();
 
         ServiceDataLost detailsItem = new ServiceDataLost();
@@ -81,10 +84,12 @@ public class ServiceManualMatchingLostViewController implements Initializable {
      * The resultSet given
      * 
      * @param resultSet         this will be converted to temp strings and integers
+     * @throws java.sql.SQLException
      * @void no direct          the fields will be set within this method
      */       
     @FXML
-    private void initializeFoundFields(ResultSet resultSet) throws SQLException{
+    @Override
+    public void setLostFields(ResultSet resultSet) throws SQLException{
         //loop trough all the luggages in the resultSet
         //Note: there will be only one 
         while (resultSet.next()) {             

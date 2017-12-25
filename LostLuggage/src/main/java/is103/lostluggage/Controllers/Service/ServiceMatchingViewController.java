@@ -10,6 +10,8 @@ import is103.lostluggage.Model.Service.Data.ServiceMoreDetails;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import is103.lostluggage.Model.Service.Instance.Matching.FoundLuggageManualMatchingInstance;
 import is103.lostluggage.Model.Service.Instance.Matching.LostLuggageManualMatchingInstance;
+import is103.lostluggage.Model.Service.Interface.FoundLuggageTable;
+import is103.lostluggage.Model.Service.Interface.LostLuggageTable;
 import is103.lostluggage.Model.Service.Model.MatchLuggage;
 import is103.lostluggage.Model.Service.Model.LostLuggage;
 import java.io.IOException;
@@ -46,7 +48,7 @@ import javafx.util.Duration;
  * 
  * @author Thijs Zijdel - 500782165
  */
-public class ServiceMatchingViewController implements Initializable {
+public class ServiceMatchingViewController implements Initializable, FoundLuggageTable, LostLuggageTable {
     //main match data
     public ServiceDataMatch data = MainApp.getMatchData();
      
@@ -334,6 +336,7 @@ public class ServiceMatchingViewController implements Initializable {
      * 
      * @void - No direct output 
      */
+    @Override
     public void initializeLostLuggageTable(){
         missedRegistrationNr.setCellValueFactory(      new PropertyValueFactory<>("registrationNr"));
         missedDateLost.setCellValueFactory(            new PropertyValueFactory<>("dateFound"));  //-> lost
@@ -357,9 +360,11 @@ public class ServiceMatchingViewController implements Initializable {
      * Here will the lost luggage table be set with the right data
      * The data (observable<lostluggage>list) comes from the dataListLost
      * 
+     * @param dataListLost
      * @void - No direct output 
      * @call - set lostLuggageTable             
      */
+    @Override
     public void setLostLuggageTable(ServiceDataLost dataListLost){
         lostLuggageTable.setItems(dataListLost.getLostLuggage());   
     }
@@ -369,6 +374,7 @@ public class ServiceMatchingViewController implements Initializable {
      * 
      * @void - No direct output 
      */
+    @Override
     public void initializeFoundLuggageTable(){
         foundRegistrationNr.setCellValueFactory(       new PropertyValueFactory<>("registrationNr"));
         foundDateFound.setCellValueFactory(            new PropertyValueFactory<>("dateFound"));
@@ -393,9 +399,11 @@ public class ServiceMatchingViewController implements Initializable {
      * Here will the found luggage table be set with the right data
      * The data (observable<foundluggage>list) comes from the dataListFound
      * 
+     * @param dataListFound
      * @void - No direct output 
      * @call - set foundLuggageTable             
      */
+    @Override
     public void setFoundLuggageTable(ServiceDataFound dataListFound){
         foundLuggageTable.setItems(dataListFound.getFoundLuggage());
     }
@@ -433,6 +441,9 @@ public class ServiceMatchingViewController implements Initializable {
      * Here will the (automatic) matching luggage table be set with the right data
      * The data (observable<matchluggage>list) comes from the dataListMatch
      * 
+     * @param dataListFound
+     * @param datalistDataLost
+     * @throws java.sql.SQLException
      * @void - No direct output 
      * @call - set matching table              
      */

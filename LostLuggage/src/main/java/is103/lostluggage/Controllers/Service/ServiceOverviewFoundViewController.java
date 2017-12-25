@@ -20,6 +20,7 @@ import javafx.scene.control.TableView;
 
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.Model.Service.Data.ServiceMoreDetails;
+import is103.lostluggage.Model.Service.Interface.FoundLuggageTable;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,7 +35,7 @@ import javafx.stage.Stage;
  *
  * @author Thijs Zijdel - 500782165
  */
-public class ServiceOverviewFoundViewController implements Initializable {
+public class ServiceOverviewFoundViewController implements Initializable, FoundLuggageTable {
 
         public Stage popupStageFound = new Stage();   
 
@@ -101,8 +102,10 @@ public class ServiceOverviewFoundViewController implements Initializable {
         
         ServiceDataFound dataListFound;
         try {
+                        //Initialize Table & obj found 
             dataListFound = new ServiceDataFound();
-            initializeFoundLuggageTable(dataListFound.getFoundLuggage());
+            initializeFoundLuggageTable();
+            setFoundLuggageTable(dataListFound);
         } catch (SQLException ex) {
             Logger.getLogger(ServiceOverviewFoundViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -217,11 +220,14 @@ public class ServiceOverviewFoundViewController implements Initializable {
         
         return "NonSelected - failed";
     }
-    
-    /**  
-     * @void 
-     */
-    public void initializeFoundLuggageTable(ObservableList<FoundLuggage> dataListFound){
+
+        @Override
+    public void setFoundLuggageTable(ServiceDataFound dataListFound) {
+         foundLuggageTable.setItems(dataListFound.getFoundLuggage());
+    }
+
+    @Override
+    public void initializeFoundLuggageTable() {
         foundRegistrationNr.setCellValueFactory(       new PropertyValueFactory<>("registrationNr"));
         foundDateFound.setCellValueFactory(            new PropertyValueFactory<>("dateFound"));
         foundTimeFound.setCellValueFactory(            new PropertyValueFactory<>("timeFound"));
@@ -242,9 +248,7 @@ public class ServiceOverviewFoundViewController implements Initializable {
         foundEmployeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
         foundMatchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId"));
 
-        foundLuggageTable.setItems(dataListFound);
     }
-    
     /**  
      * @void doubleClickFoundRow
      */

@@ -7,6 +7,7 @@ import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Model.Service.Data.ServiceDataLost;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Data.ServiceMoreDetails;
+import is103.lostluggage.Model.Service.Interface.LostLuggageTable;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -29,7 +30,7 @@ import javafx.stage.Stage;
  *
  * @author Thijs Zijdel - 500782165
  */
-public class ServiceOverviewLostViewController implements Initializable {
+public class ServiceOverviewLostViewController implements Initializable, LostLuggageTable {
 
             private Stage popupStageLost = new Stage();   
 
@@ -88,8 +89,10 @@ public class ServiceOverviewLostViewController implements Initializable {
            
         ServiceDataLost dataListLost;
         try {
+                        //Initialize Table & obj lost
             dataListLost = new ServiceDataLost();
-            initializeMissedLuggageTable(dataListLost.getLostLuggage());
+            initializeLostLuggageTable();
+            setLostLuggageTable(dataListLost);
         } catch (SQLException ex) {
             Logger.getLogger(ServiceOverviewFoundViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -100,28 +103,11 @@ public class ServiceOverviewLostViewController implements Initializable {
     
     
     
-    public void initializeMissedLuggageTable(ObservableList<LostLuggage> dataList){
-        missedRegistrationNr.setCellValueFactory(       new PropertyValueFactory<>("registrationNr"));
-        missedDateLost.setCellValueFactory(            new PropertyValueFactory<>("dateLost"));
-        missedTimeLost.setCellValueFactory(            new PropertyValueFactory<>("timeLost"));
-        
-        missedLuggageTag.setCellValueFactory(           new PropertyValueFactory<>("luggageTag"));
-        missedLuggageType.setCellValueFactory(          new PropertyValueFactory<>("luggageType"));
-        missedBrand.setCellValueFactory(                new PropertyValueFactory<>("brand"));
-        missedMainColor.setCellValueFactory(            new PropertyValueFactory<>("mainColor"));
-        missedSecondColor.setCellValueFactory(          new PropertyValueFactory<>("secondColor"));
-        missedSize.setCellValueFactory(                 new PropertyValueFactory<>("size"));
-        missedWeight.setCellValueFactory(               new PropertyValueFactory<>("weight"));
-
-        missedOtherCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
-        missedPassengerId.setCellValueFactory(          new PropertyValueFactory<>("passengerId"));
-        
-        missedFlight.setCellValueFactory(               new PropertyValueFactory<>("flight"));
-        missedEmployeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
-        missedMatchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId")); 
-
-        missedLuggageTable.setItems(dataList);
-    }
+//    public void initializeMissedLuggageTable(ObservableList<LostLuggage> dataList){
+// 
+//
+//       
+//    }
  
 
     @FXML
@@ -183,6 +169,46 @@ public class ServiceOverviewLostViewController implements Initializable {
                 
             }
         });
+    }
+
+    /**  
+     * Here is lost luggage table overview initialized with the right values
+     * 
+     * @void - No direct output 
+     */
+    @Override
+    public void initializeLostLuggageTable(){
+        missedRegistrationNr.setCellValueFactory(       new PropertyValueFactory<>("registrationNr"));
+        missedDateLost.setCellValueFactory(            new PropertyValueFactory<>("dateLost"));
+        missedTimeLost.setCellValueFactory(            new PropertyValueFactory<>("timeLost"));
+        
+        missedLuggageTag.setCellValueFactory(           new PropertyValueFactory<>("luggageTag"));
+        missedLuggageType.setCellValueFactory(          new PropertyValueFactory<>("luggageType"));
+        missedBrand.setCellValueFactory(                new PropertyValueFactory<>("brand"));
+        missedMainColor.setCellValueFactory(            new PropertyValueFactory<>("mainColor"));
+        missedSecondColor.setCellValueFactory(          new PropertyValueFactory<>("secondColor"));
+        missedSize.setCellValueFactory(                 new PropertyValueFactory<>("size"));
+        missedWeight.setCellValueFactory(               new PropertyValueFactory<>("weight"));
+
+        missedOtherCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
+        missedPassengerId.setCellValueFactory(          new PropertyValueFactory<>("passengerId"));
+        
+        missedFlight.setCellValueFactory(               new PropertyValueFactory<>("flight"));
+        missedEmployeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
+        missedMatchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId"));
+            
+    }
+    /**  
+     * Here will the lost luggage table be set with the right data
+     * The data (observable<lostluggage>list) comes from the dataListLost
+     * 
+     * @param dataListLost
+     * @void - No direct output 
+     * @call - set lostLuggageTable             
+     */
+    @Override
+    public void setLostLuggageTable(ServiceDataLost dataListLost){
+        missedLuggageTable.setItems(dataListLost.getLostLuggage());   
     }
     
    

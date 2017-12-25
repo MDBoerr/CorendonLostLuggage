@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Data.ServiceDataFound;
 import is103.lostluggage.Model.Service.Instance.Matching.FoundLuggageManualMatchingInstance;
+import is103.lostluggage.Model.Service.Interface.FoundLuggageFields;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +20,7 @@ import javafx.fxml.Initializable;
  *
  * @author Thijs Zijdel - 500782165
  */
-public class ServiceManualMatchingFoundController implements Initializable {
+public class ServiceManualMatchingFoundController implements Initializable, FoundLuggageFields {
     
     //getting the main language of the application
     private final String LANGUAGE = MainApp.getLanguage();
@@ -69,8 +70,10 @@ public class ServiceManualMatchingFoundController implements Initializable {
      * For getting the right resultSet the correct instance id will be passed
      * 
      * @return resultSet     resultSet for the right luggage
+     * @throws java.sql.SQLException
      */  
-    private ResultSet getManualFoundLuggageResultSet() throws SQLException{
+    @Override
+    public ResultSet getManualFoundLuggageResultSet() throws SQLException{
         String id = FoundLuggageManualMatchingInstance.getInstance().currentLuggage().getRegistrationNr();
         ServiceDataFound detailsItem = new ServiceDataFound();
         ResultSet resultSet = detailsItem.getAllDetailsFound(id);
@@ -83,10 +86,12 @@ public class ServiceManualMatchingFoundController implements Initializable {
      * The resultSet given
      * 
      * @param resultSet         this will be converted to temp strings and integers
+     * @throws java.sql.SQLException
      * @void no direct          the fields will be set within this method
      */    
     @FXML
-    private void setFoundFields(ResultSet resultSet) throws SQLException{ 
+    @Override
+    public void setFoundFields(ResultSet resultSet) throws SQLException{ 
         //loop trough all the luggages in the resultSet
         //Note: there will be only one 
         while (resultSet.next()) {             
