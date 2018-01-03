@@ -59,6 +59,23 @@ public class ServiceDataFound {
     public ResultSet getFoundResultSet(String id) throws SQLException{
          return DB.executeResultSetQuery("SELECT * FROM foundluggage WHERE registrationNr='"+id+"';");
     }
+    
+    /**  
+     * Way of getting the found luggage resultSet for matched 
+     * when matched is is true, only matched luggage will be gotten
+     * 
+     * @throws SQLException        getting the resultSet from the db
+     * @param  matched             boolean for getting the matched items or not
+     * @return ResultSet           resultSet of the matched of not matched luggage  
+     */
+    public ResultSet getFoundResultSet(Boolean matched) throws SQLException{
+        if (matched == true){
+            return DB.executeResultSetQuery("SELECT * FROM foundluggage WHERE matchedId IS NOT NULL;");
+        } else {
+            return DB.executeResultSetQuery("SELECT * FROM foundluggage WHERE matchedId IS NULL OR matchedId = '0';");
+        }
+    }
+    
           
     /**  
      * Method to get the full details of found luggage  
@@ -114,6 +131,9 @@ public class ServiceDataFound {
      * @return ObservableList      of the type: found luggage  
      */ 
     public ObservableList<FoundLuggage> getObservableList(ResultSet resultSet) throws SQLException{
+        //clear the previous list 
+        resultsetList.clear();
+        
         //loop trough al the items of the resultset
         while (resultSet.next() ) {
                
@@ -137,7 +157,7 @@ public class ServiceDataFound {
             String employeeId =         resultSet.getString("employeeId");
             int matchedId =             resultSet.getInt("matchedId");
 
-
+            
             //add the data in a found luggage objects and put that in the list 
             resultsetList.add(
                     new FoundLuggage(
