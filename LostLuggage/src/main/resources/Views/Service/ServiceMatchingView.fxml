@@ -212,5 +212,15 @@
             </Text>
          </children>
       </FlowPane>
+      <JFXButton buttonType="RAISED" minWidth="110.0" onAction="#switchToLostOverview" prefHeight="14.0" prefWidth="110.0" ripplerFill="#62b565" style="-fx-background-color: #4c904d#4c904d;" text="See full overview &gt;" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" minWidth="110.0" onAction="#switchToFoundOverview" prefHeight="14.0" prefWidth="110.0" ripplerFill="#4189fc" style="-fx-background-color: #2e66b5#2e66b5;" text="See full overview &gt;" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </JFXButton>
     </children>
 </GridPane>
