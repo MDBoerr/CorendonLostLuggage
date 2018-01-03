@@ -804,16 +804,17 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     --------------------------------------------------------------------------*/
     @FXML
     protected void switchToInput(ActionEvent event) throws IOException {
+        MainViewController.previousView = "/Views/Service/ServiceMatchingView.fxml";
         MainApp.switchView("/Views/Service/ServiceInputView.fxml");
     }
-    
     @FXML
-    protected void switchToFound(ActionEvent event) throws IOException {
-        MainApp.switchView("/Views/Service/ServiceFoundOverviewView.fxml");
+    protected void switchToFoundOverview(ActionEvent event) throws IOException {
+        MainViewController.previousView = "/Views/Service/ServiceMatchingView.fxml";
+        MainApp.switchView("/Views/Service/ServiceOverviewFoundView.fxml");
     }
-
     @FXML
-    protected void switchToMissed(ActionEvent event) throws IOException {
+    protected void switchToLostOverview(ActionEvent event) throws IOException {
+        MainViewController.previousView = "/Views/Service/ServiceMatchingView.fxml";
         MainApp.switchView("/Views/Service/ServiceOverviewLostView.fxml");
     }
 
