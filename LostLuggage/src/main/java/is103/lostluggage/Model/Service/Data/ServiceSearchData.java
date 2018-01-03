@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package is103.lostluggage.Model.Service.Data;
 
 import is103.lostluggage.Controllers.Service.ServiceOverviewFoundViewController;
@@ -23,13 +18,9 @@ import javafx.collections.ObservableList;
 public class ServiceSearchData {
     ResultSet searchResultSet;
     
-    
-//    public 
+    //connection to database
+    private static final MyJDBC DB = MainApp.getDatabase();      
 
-//    initializeFoundLuggageTable();
-//    setFoundLuggageTable(dataList);
-
-    
     
     public ObservableList<FoundLuggage> getSearchList(ResultSet resultSet){
         ServiceDataFound dataList;
@@ -44,129 +35,73 @@ public class ServiceSearchData {
     
     
     public String getSearchQuery(String value, String search, String luggageType) throws SQLException{
-        
-        
+
         value = value.toLowerCase();
         if ("".equals(value) || value == null){
             value = "*";
         }
-        String query = null;
+        String query = "SELECT * FROM tablename WHERE ";
         switch (value) {
             case "all fields":
-                query = "SELECT * FROM tablename WHERE "
-                    + " registrationNr LIKE '%replace%' OR "
+                query += "registrationNr LIKE '%replace%' OR "
                     + " luggageTag LIKE '%replace%' OR "
                     + " brand LIKE '%replace%' OR "
                     + " mainColor LIKE '%replace%' OR "
-                    + " otherCharacteristics LIKE '%replace%' ;";
-                query = generateColorQuery(search);
-                query = generatePassengerQuery(search);
+                    + " otherCharacteristics LIKE '%replace%' OR ";
+                query += generateColorQuery(search);
+                query += generatePassengerQuery(search);
                 
                 break;
             case "registrationnr":
-                query = "SELECT * FROM tablename WHERE "
-                    + "registrationNr LIKE '%replace%';";
+                query += "registrationNr LIKE '%replace%' OR ";
                 break;
             case "luggagetag":
-                query = "SELECT * FROM tablename WHERE "
-                    + "luggageTag LIKE '%replace%';";
+                query = "luggageTag LIKE '%replace%' OR ";
                 break;    
             case "brand":
-                query = "SELECT * FROM tablename WHERE "
-                    + "brand LIKE '%replace%';";
+                query = "brand LIKE '%replace%' OR";
                 break;
             case "color":
-//                String colorQuery = "SELECT ralCode FROM color WHERE "
-//                        + " english LIKE '%replace%' OR "
-//                        + " dutch LIKE '%replace%' OR "
-//                        + " ralCode LIKE '%replace%';";
-//                
-//                colorQuery = colorQuery.replaceAll("replace", search);
-//
-//                ResultSet resultSetColor = DB.executeResultSetQuery(colorQuery);
-//                ObservableList<String> stringList =  FXCollections.observableArrayList(); 
-//                
-//                while (resultSetColor.next()){
-//                    String colorId = resultSetColor.getString("ralCode");
-//                    stringList.add(colorId);
-//                }
-//                query = "SELECT * FROM tablename WHERE ";  
-//                for (String colorListItem : stringList) {
-//                    query += " mainColor LIKE '%"+colorListItem+"%' OR "
-//                           + " secondColor LIKE '%"+colorListItem+"%' OR ";          
-//                }
-//                query += " mainColor LIKE '99999999';";
-                                   
+                
                 query = generateColorQuery(search);
                 
                 break;
             case "characteristics":
-                query = "SELECT * FROM tablename WHERE "
-                    + "otherCharacteristics LIKE '%replace%';";
+                query = "otherCharacteristics LIKE '%replace%' OR ";
                 break;
             case "weight":
-                query = "SELECT * FROM tablename WHERE "
-                    + "weight LIKE '%replace%';";
+                query = "weight LIKE '%replace%' OR ";
                 break;
             case "date":
                 if ("foundluggage".equals(luggageType.toLowerCase())){
-                    query = "SELECT * FROM tablename WHERE "
-                    + " dateFound LIKE '%replace%' OR"
-                    + " timeFound LIKE '%replace%';";
+                    query = "dateFound LIKE '%replace%' OR "
+                    + " timeFound LIKE '%replace%' OR ";
                 } else if ("lostluggage".equals(luggageType.toLowerCase())) {
-                    query = "SELECT * FROM tablename WHERE "
-                    + " dateLost LIKE '%replace%' OR"
-                    + " timeLost LIKE '%replace%';";
+                    query = "dateLost LIKE '%replace%' OR "
+                    + " timeLost LIKE '%replace%' OR ";
                 } else {
-                    query = "SELECT * FROM tablename WHERE "
-                    + " date LIKE '%replace%' OR"
-                    + " time LIKE '%replace%';";
+                    query = "date LIKE '%replace%' OR "
+                    + " time LIKE '%replace%' OR ";
                 }
                 break;
             case "passenger":
-                query = generatePassengerQuery(search);
-//                String passengerQuery = "SELECT passengerId FROM passenger WHERE "
-//                        + " name LIKE '%replace%' OR "
-//                        + " address LIKE '%replace%' OR "
-//                        + " place LIKE '%replace%' OR "
-//                        + " address LIKE '%replace%' OR "
-//                        + " place LIKE '%replace%' OR "
-//                        + " postalcode LIKE '%replace%' OR "
-//                        + " country LIKE '%replace%' OR "
-//                        + " email LIKE '%replace%' OR "
-//                        + " phone LIKE '%replace%';";
-//                
-//                passengerQuery = passengerQuery.replaceAll("replace", search);
-//
-//                ResultSet resultSetPassenger = DB.executeResultSetQuery(passengerQuery);
-//                ObservableList<String> stringListPassenger =  FXCollections.observableArrayList(); 
-//                
-//                while (resultSetPassenger.next()){
-//                    String colorId = resultSetPassenger.getString("passengerId");
-//                    stringListPassenger.add(colorId);
-//                }
-//                
-//                query = "SELECT * FROM tablename WHERE ";  
-//                for (String passengerListItem : stringListPassenger) {
-//                    query += " passengerId LIKE '"+passengerListItem+"' OR ";          
-//                }
-//                query += " passengerId LIKE '99999999';";
                 
+                query = generatePassengerQuery(search);
                 
                 break;
             default:
-                query = "SELECT * FROM tablename WHERE "
-                    + " registrationNr LIKE '%replace%' OR "
+                query = "registrationNr LIKE '%replace%' OR "
                     + " luggageTag LIKE '%replace%' OR "
                     + " brand LIKE '%replace%' OR "
                     + " mainColor LIKE '%replace%' OR "
-                    + " otherCharacteristics LIKE '%replace%' ;";
+                    + " otherCharacteristics LIKE '%replace%' OR ";
         }
-        //if ("foundluggage".equals(luggageType.toLowerCase())){
-            query = query.replaceAll("tablename", luggageType);
-//        } else if (){
-//            
-//        }
+        
+        query = query.substring(0,query.lastIndexOf("OR"));
+        
+        query += ";";
+        
+        query = query.replaceAll("tablename", luggageType.toLowerCase());
         
         String finalQuery = query.replaceAll("replace", search);
         
@@ -175,12 +110,9 @@ public class ServiceSearchData {
         }
         return finalQuery;
     }
-    
-      //connection to database
-    private static final MyJDBC DB = MainApp.getDatabase();  
 
     private String generateColorQuery(String search) throws SQLException{
-        String generateQuery;
+        String generateQuery = "";
         String colorQuery = "SELECT ralCode FROM color WHERE "
                 + " english LIKE '%replace%' OR "
                 + " dutch LIKE '%replace%' OR "
@@ -195,17 +127,17 @@ public class ServiceSearchData {
             String colorId = resultSetColor.getString("ralCode");
             stringList.add(colorId);
         }
-        generateQuery = "SELECT * FROM tablename WHERE ";  
+
         for (String colorListItem : stringList) {
             generateQuery += " mainColor LIKE '%"+colorListItem+"%' OR "
                    + " secondColor LIKE '%"+colorListItem+"%' OR ";          
         }
-        generateQuery += " mainColor LIKE '99999999';";
+
         return generateQuery;
     }
 
     private String generatePassengerQuery(String search) throws SQLException{
-        String generateQuery;
+        String generateQuery = "";
         String passengerQuery = "SELECT passengerId FROM passenger WHERE "
                 + " name LIKE '%replace%' OR "
                 + " address LIKE '%replace%' OR "
@@ -227,11 +159,10 @@ public class ServiceSearchData {
             stringListPassenger.add(colorId);
         }
 
-        generateQuery = "SELECT * FROM tablename WHERE ";  
         for (String passengerListItem : stringListPassenger) {
             generateQuery += " passengerId LIKE '"+passengerListItem+"' OR ";          
         }
-        generateQuery += " passengerId LIKE '99999999';";
+
         return generateQuery;
     }
 }
