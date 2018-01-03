@@ -56,28 +56,28 @@ public class ServiceSearchData {
                 query += "registrationNr LIKE '%replace%' OR ";
                 break;
             case "luggagetag":
-                query = "luggageTag LIKE '%replace%' OR ";
+                query += "luggageTag LIKE '%replace%' OR ";
                 break;    
             case "brand":
-                query = "brand LIKE '%replace%' OR";
+                query += "brand LIKE '%replace%' OR";
                 break;
             case "color":
                 
-                query = generateColorQuery(search);
+                query += generateColorQuery(search);
                 
                 break;
             case "characteristics":
-                query = "otherCharacteristics LIKE '%replace%' OR ";
+                query += "otherCharacteristics LIKE '%replace%' OR ";
                 break;
             case "weight":
-                query = "weight LIKE '%replace%' OR ";
+                query += "weight LIKE '%replace%' OR ";
                 break;
             case "date":
                 if ("foundluggage".equals(luggageType.toLowerCase())){
-                    query = "dateFound LIKE '%replace%' OR "
+                    query += "dateFound LIKE '%replace%' OR "
                     + " timeFound LIKE '%replace%' OR ";
                 } else if ("lostluggage".equals(luggageType.toLowerCase())) {
-                    query = "dateLost LIKE '%replace%' OR "
+                    query += "dateLost LIKE '%replace%' OR "
                     + " timeLost LIKE '%replace%' OR ";
                 } else {
                     query = "date LIKE '%replace%' OR "
@@ -86,19 +86,25 @@ public class ServiceSearchData {
                 break;
             case "passenger":
                 
-                query = generatePassengerQuery(search);
+                query += generatePassengerQuery(search);
                 
                 break;
             default:
-                query = "registrationNr LIKE '%replace%' OR "
+                query += "registrationNr LIKE '%replace%' OR "
                     + " luggageTag LIKE '%replace%' OR "
                     + " brand LIKE '%replace%' OR "
                     + " mainColor LIKE '%replace%' OR "
                     + " otherCharacteristics LIKE '%replace%' OR ";
         }
         
-        query = query.substring(0,query.lastIndexOf("OR"));
         
+        
+        if (!query.contains("OR")){
+            //query = query.substring(0,(query.indexOf("WHERE")));
+            query += "mainColor LIKE '%99999%'";
+        } else {
+            query = query.substring(0,query.lastIndexOf("OR"));
+        }
         query += ";";
         
         query = query.replaceAll("tablename", luggageType.toLowerCase());
@@ -132,7 +138,7 @@ public class ServiceSearchData {
             generateQuery += " mainColor LIKE '%"+colorListItem+"%' OR "
                    + " secondColor LIKE '%"+colorListItem+"%' OR ";          
         }
-
+        
         return generateQuery;
     }
 
