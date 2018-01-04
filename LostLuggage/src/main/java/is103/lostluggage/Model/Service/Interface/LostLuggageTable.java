@@ -1,31 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package is103.lostluggage.Model.Service.Interface;
 
-import is103.lostluggage.Model.Service.Data.ServiceDataLost;
+import is103.lostluggage.Model.Service.Model.LostLuggage;
+import javafx.collections.ObservableList;
 
 /**
  *
  * @author thijszijdel
  */
-public interface LostLuggageTable {
-    
-    
-    /* COMMENTS WILL BE CHANGED HERE */
-    
+public interface LostLuggageTable {   
     
     /**  
-     * Here will the lost luggage table be set with the right data
-     * The data (observable<lostluggage>list) comes from the dataListLost
+     * Here will be insured that lost luggage table be set with the right data
      * 
-     * @param dataListLost
+     * @param  list of the type found luggage
      * @void - No direct output 
      * @call - set lostLuggageTable             
      */
-    public void setLostLuggageTable(ServiceDataLost dataListLost);
+    public void setLostLuggageTable(ObservableList<LostLuggage> list);
     
     /**  
      * Here is lost luggage table overview initialized with the right values
