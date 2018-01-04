@@ -5,7 +5,8 @@
  */
 package is103.lostluggage.Model.Service.Interface;
 
-import is103.lostluggage.Model.Service.Data.ServiceDataFound;
+import is103.lostluggage.Model.Service.Model.FoundLuggage;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -18,17 +19,16 @@ public interface FoundLuggageTable {
     
     
     /**  
-     * Here will the found luggage table be set with the right data
-     * The data (observable<foundLuggage>list) comes from the dataListFound
+     * Here will be insured that found luggage table be set with the right data
      * 
-     * @param dataListFound
+     * @param  list of the type found luggage
      * @void - No direct output 
      * @call - set lostLuggageTable             
      */    
-    public void setFoundLuggageTable(ServiceDataFound dataListFound);
+    public void setFoundLuggageTable(ObservableList<FoundLuggage> list);
     
     /**  
-     * Here is found luggage table overview initialized with the right values
+     * Here will be insured that found luggage table overview initialized with the right values
      * 
      * @void - No direct output 
      */

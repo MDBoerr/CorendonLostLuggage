@@ -241,7 +241,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
             //Initialize Table & obj found 
             dataListFound = new ServiceDataFound();
             initializeFoundLuggageTable();
-            setFoundLuggageTable(dataListFound);
+            setFoundLuggageTable(dataListFound.getFoundLuggage());
             
             //Initialize matching table 
             //  & set with dataListFound and dataListLost
@@ -404,8 +404,8 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
      * @call - set foundLuggageTable             
      */
     @Override
-    public void setFoundLuggageTable(ServiceDataFound dataListFound){
-        foundLuggageTable.setItems(dataListFound.getFoundLuggage());
+    public void setFoundLuggageTable(ObservableList<FoundLuggage> list) {
+         foundLuggageTable.setItems(list);
     }
     
     /**  

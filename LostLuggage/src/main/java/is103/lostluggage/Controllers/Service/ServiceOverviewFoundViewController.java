@@ -193,7 +193,7 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
     
     
 
-    //@Override
+    @Override
     public void setFoundLuggageTable(ObservableList<FoundLuggage> list) {
          foundLuggageTable.setItems(list);
     }
@@ -247,9 +247,5 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
         MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
     }
 
-    @Override
-    public void setFoundLuggageTable(ServiceDataFound dataListFound) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
 }
