@@ -94,7 +94,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     @FXML private TableColumn<FoundLuggage, String>  foundLuggageTag;
     @FXML private TableColumn<FoundLuggage, String>  foundLuggageType;
     @FXML private TableColumn<FoundLuggage, String>  foundBrand;
-    @FXML private TableColumn<FoundLuggage, Integer> foundMainColor;
+    @FXML private TableColumn<FoundLuggage, String>  foundMainColor;
     @FXML private TableColumn<FoundLuggage, String>  foundSecondColor;
     @FXML private TableColumn<FoundLuggage, String>  foundSize;
     @FXML private TableColumn<FoundLuggage, String>  foundWeight;
@@ -118,8 +118,8 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     @FXML private TableColumn<LostLuggage, String>  missedLuggageTag;
     @FXML private TableColumn<LostLuggage, String>  missedLuggageType;
     @FXML private TableColumn<LostLuggage, String>  missedBrand;
-    @FXML private TableColumn<LostLuggage, Integer> missedMainColor;
-    @FXML private TableColumn<LostLuggage, Integer> missedSecondColor;
+    @FXML private TableColumn<LostLuggage, String>  missedMainColor;
+    @FXML private TableColumn<LostLuggage, String>  missedSecondColor;
     @FXML private TableColumn<LostLuggage, String>  missedSize;
     @FXML private TableColumn<LostLuggage, String>  missedWeight;
     @FXML private TableColumn<LostLuggage, String>  missedOtherCharacteristics;
@@ -141,9 +141,9 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     @FXML private TableColumn<MatchLuggage, String>  matchPercentage;
     @FXML private TableColumn<MatchLuggage, String>  matchType;
     @FXML private TableColumn<MatchLuggage, String>  matchBrand;
-    @FXML private TableColumn<MatchLuggage, Integer> matchMainColor;
+    @FXML private TableColumn<MatchLuggage, String>  matchMainColor;
     @FXML private TableColumn<MatchLuggage, String>  matchSecondColor;
-    @FXML private TableColumn<MatchLuggage, Integer> matchSize;
+    @FXML private TableColumn<MatchLuggage, String>  matchSize;
     @FXML private TableColumn<MatchLuggage, String>  matchWeight;
     @FXML private TableColumn<MatchLuggage, String>  matchOtherCharacteristics;
     @FXML private TableColumn<MatchLuggage, Integer> matchId;
@@ -339,8 +339,8 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     @Override
     public void initializeLostLuggageTable(){
         missedRegistrationNr.setCellValueFactory(      new PropertyValueFactory<>("registrationNr"));
-        missedDateLost.setCellValueFactory(            new PropertyValueFactory<>("dateFound"));  //-> lost
-        missedTimeLost.setCellValueFactory(            new PropertyValueFactory<>("timeFound"));
+        missedDateLost.setCellValueFactory(            new PropertyValueFactory<>("dateLost"));  //-> lost
+        missedTimeLost.setCellValueFactory(            new PropertyValueFactory<>("timeLost"));
         
         missedLuggageTag.setCellValueFactory(           new PropertyValueFactory<>("luggageTag"));
         missedLuggageType.setCellValueFactory(          new PropertyValueFactory<>("luggageType"));

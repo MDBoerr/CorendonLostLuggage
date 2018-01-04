@@ -17,10 +17,10 @@ public class FoundLuggage {
     private String
             brand;
     
-    private int 
-            mainColor,
-            secondColor,
-            weight;
+    private String mainColor,
+            secondColor;
+    
+    private int       weight;
     
     private String
             size,
@@ -30,12 +30,8 @@ public class FoundLuggage {
             passengerId;
             
     private String 
-            arrivedWithFlight;
-    
-    private int 
-            locationFound;
-    
-    private String
+            arrivedWithFlight,
+            locationFound,
             employeeId;
     
     private int
@@ -48,14 +44,14 @@ public class FoundLuggage {
             String luggageTag, 
             int luggageType, 
             String brand, 
-            int mainColor, 
-            int secondColor, 
+            String mainColor, 
+            String secondColor, 
             String size, 
             int weight, 
             String otherCharaccteristics, 
             int passengerId, 
             String arrivedWithFlight, 
-            int locationFound, 
+            String locationFound, 
             String employeeId, 
             int matchedId) {
         this.registrationNr = registrationNr;
@@ -170,28 +166,28 @@ public class FoundLuggage {
     /**
      * @return the mainColor
      */
-    public int getMainColor() {
+    public String getMainColor() {
         return mainColor;
     }
 
     /**
      * @param mainColor the mainColor to set
      */
-    public void setMainColor(int mainColor) {
+    public void setMainColor(String mainColor) {
         this.mainColor = mainColor;
     }
 
     /**
      * @return the secondColor
      */
-    public int getSecondColor() {
+    public String getSecondColor() {
         return secondColor;
     }
 
     /**
      * @param secondColor the secondColor to set
      */
-    public void setSecondColor(int secondColor) {
+    public void setSecondColor(String secondColor) {
         this.secondColor = secondColor;
     }
 
@@ -254,7 +250,7 @@ public class FoundLuggage {
     /**
      * @return the arrivedWithFlight
      */
-    public String getArrivedWithFlight() {
+    public String getFlight() {
         return arrivedWithFlight;
     }
 
@@ -268,14 +264,14 @@ public class FoundLuggage {
     /**
      * @return the locationFound
      */
-    public int getLocationFound() {
+    public String getLocationFound() {
         return locationFound;
     }
 
     /**
      * @param locationFound the locationFound to set
      */
-    public void setLocationFound(int locationFound) {
+    public void setLocationFound(String locationFound) {
         this.locationFound = locationFound;
     }
 

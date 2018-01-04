@@ -122,8 +122,8 @@ public class ServiceDataLost {
             String luggageTag =         resultSet.getString("luggageTag");
             int luggageType =           resultSet.getInt("luggageType");
             String brand =              resultSet.getString("brand");
-            int mainColor =             resultSet.getInt("mainColor");
-            int secondColor =           resultSet.getInt("secondColor");
+            String mainColor =             resultSet.getString("mainColor");
+            String secondColor =           resultSet.getString("secondColor");
             String size =               resultSet.getString("size");
             int weight =                resultSet.getInt("weight");   
             String otherCharacteristics=resultSet.getString("otherCharacteristics");
@@ -167,9 +167,30 @@ public class ServiceDataLost {
      * @return ObservableList      of the type: lost luggage  
      */
     public static ObservableList<LostLuggage> getLostLuggageList() throws SQLException{
+        //get the main app's language again, from this static method
+        final String LANGUAGE = MainApp.getLanguage();
         try {
             //get the resultset of all the lost luggage s
-            resultSet = DB.executeResultSetQuery("SELECT * FROM lostluggage");
+            resultSet = DB.executeResultSetQuery("SELECT "+
+            "COALESCE(NULLIF(L.registrationNr,''), '') as registrationNr, "+
+            "COALESCE(NULLIF(L.dateLost,''), '') as dateLost, "+
+            "COALESCE(NULLIF(L.timeLost,''), '') as timeLost, "+
+            "COALESCE(NULLIF(L.luggageTag,''), '') as luggageTag, "+
+            "COALESCE(NULLIF(L.luggageType,''), '') as luggageType, "+
+            "COALESCE(NULLIF(L.brand,''), '') as brand," +
+            "COALESCE(NULLIF(C1."+LANGUAGE+",''), '') as mainColor,  " +
+            "COALESCE(NULLIF(C2."+LANGUAGE+",''), '') as secondColor, " +
+            "COALESCE(NULLIF(L.size,''), '') as size, "+
+            "COALESCE(NULLIF(L.weight,''), '') as weight, "+
+            "COALESCE(NULLIF(L.otherCharacteristics,''), '') as otherCharacteristics, "+
+            "COALESCE(NULLIF(L.flight,''), '') as flight, " +
+            "COALESCE(NULLIF(L.employeeId,''), '') as employeeId, "+
+            "COALESCE(NULLIF(L.matchedId,''), '') as matchedId, "+
+            "COALESCE(NULLIF(L.passengerId,''), '') as passengerId " +     
+                "FROM lostluggage AS L " +
+                    "LEFT JOIN color AS C1 ON L.mainColor = C1.ralCode " +
+                    "LEFT JOIN color AS C2 ON L.secondColor = C2.ralCode;");
+            
             
             //clear previous list -> so there wont be any duplicate luggage
             ServiceDataLost.lostLuggageList.clear();
@@ -181,12 +202,12 @@ public class ServiceDataLost {
                 String registrationNr =     resultSet.getString("registrationNr");
                 String dateLost =           resultSet.getString("dateLost");
                 String timeLost =           resultSet.getString("timeLost");
-                
+
                 String luggageTag =         resultSet.getString("luggageTag");
                 int luggageType =           resultSet.getInt("luggageType");
                 String brand =              resultSet.getString("brand");
-                int mainColor =             resultSet.getInt("mainColor");
-                int secondColor =           resultSet.getInt("secondColor");
+                String mainColor =             resultSet.getString("mainColor");
+                String secondColor =           resultSet.getString("secondColor");
                 String size =               resultSet.getString("size");
                 int weight =                resultSet.getInt("weight");   
                 String otherCharacteristics=resultSet.getString("otherCharacteristics");

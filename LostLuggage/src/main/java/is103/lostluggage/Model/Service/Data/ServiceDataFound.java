@@ -145,15 +145,15 @@ public class ServiceDataFound {
             String luggageTag =         resultSet.getString("luggageTag");
             int luggageType =           resultSet.getInt("luggageType");
             String brand =              resultSet.getString("brand");
-            int mainColor =             resultSet.getInt("mainColor");
-            int secondColor =           resultSet.getInt("secondColor");
+            String mainColor =             resultSet.getString("mainColor");
+            String secondColor =           resultSet.getString("secondColor");
             String size =               resultSet.getString("size");
             int weight =                resultSet.getInt("weight");   
             String otherCharacteristics=resultSet.getString("otherCharacteristics");
             int passengerId =           resultSet.getInt("passengerId");
 
             String arrivedWithFlight =  resultSet.getString("arrivedWithFlight"); 
-            int locationFound =         resultSet.getInt("locationFound");
+            String locationFound =         resultSet.getString("locationFound");
             String employeeId =         resultSet.getString("employeeId");
             int matchedId =             resultSet.getInt("matchedId");
 
@@ -189,14 +189,37 @@ public class ServiceDataFound {
     /**  
      * Method to get the full list of found luggage s in the db   
      * Note: the resultSet will be converted to the right list
+     * NOTE: FOUND LUGGAGE LIST -> so already matched luggage wont be shown
      * 
      * @throws SQLException        data will be get from db
      * @return ObservableList      of the type: found luggage  
      */
     public static ObservableList<FoundLuggage> getFoundLuggageList() throws SQLException{
+        //get the main app's language again, from this static method
+        final String LANGUAGE = MainApp.getLanguage();
         try {
             //get the resultset of all the found luggage s
-            resultSet = DB.executeResultSetQuery("SELECT * FROM foundLuggage");
+            resultSet = DB.executeResultSetQuery("SELECT "+
+            "COALESCE(NULLIF(F.registrationNr,''), '') as registrationNr, "+
+            "COALESCE(NULLIF(F.dateFound,''), '') as dateFound, "+
+            "COALESCE(NULLIF(F.timeFound,''), '') as timeFound,"+
+            "COALESCE(NULLIF(F.luggageTag,''), '') as luggageTag, "+
+            "COALESCE(NULLIF(F.luggageType,''), '') as luggageType, "+
+            "COALESCE(NULLIF(F.brand,''), ' ') as brand, " +
+            "COALESCE(NULLIF(C1."+LANGUAGE+",''), '') as mainColor,  " +
+            "COALESCE(NULLIF(C2."+LANGUAGE+",''), '') as secondColor, " +
+            "COALESCE(NULLIF(F.size,''), ' ') as size, "+
+            "COALESCE(NULLIF(F.weight,''), '') as weight, "+
+            "COALESCE(NULLIF(F.otherCharacteristics,''), '') as otherCharacteristics, "+
+            "COALESCE(NULLIF(F.arrivedWithFlight,''), '') as arrivedWithFlight," +
+            "COALESCE(NULLIF(L."+LANGUAGE+" ,''), 'unknown') AS locationFound, " +
+            "COALESCE(NULLIF(F.employeeId,''), '') as employeeId, "+
+            "COALESCE(NULLIF(F.matchedId,''), '') as matchedId, "+
+            "COALESCE(NULLIF(F.passengerId,''), '') as passengerId " +     
+                "FROM foundLuggage AS F " +
+                    "LEFT JOIN color AS C1 ON F.mainColor = C1.ralCode " +
+                    "LEFT JOIN color AS C2 ON F.secondColor = C2.ralCode " +
+                    "LEFT JOIN location AS L ON F.locationFound = L.locationId;");
             
             //clear previous list -> so there wont be any duplicate luggage
             ServiceDataFound.foundLuggageList.clear();
@@ -211,20 +234,20 @@ public class ServiceDataFound {
                 String luggageTag =         resultSet.getString("luggageTag");
                 int luggageType =           resultSet.getInt("luggageType");
                 String brand =              resultSet.getString("brand");
-                int mainColor =             resultSet.getInt("mainColor");
-                int secondColor =           resultSet.getInt("secondColor");
+                String mainColor =             resultSet.getString("mainColor");
+                String secondColor =           resultSet.getString("secondColor");
                 String size =               resultSet.getString("size");
                 int weight =                resultSet.getInt("weight");   
                 String otherCharacteristics=resultSet.getString("otherCharacteristics");
                 int passengerId =           resultSet.getInt("passengerId");
                 
                 String arrivedWithFlight =  resultSet.getString("arrivedWithFlight"); 
-                int locationFound =         resultSet.getInt("locationFound");
+                String locationFound =         resultSet.getString("locationFound");
                 String employeeId =         resultSet.getString("employeeId");
                 int matchedId =             resultSet.getInt("matchedId");
 
                 //if the match id is unasigned put the luggage in the list
-                if (matchedId == 0) {
+                if (matchedId == 0 || "".equals(matchedId)) {
                 //add the data in a found luggage objects and put that in the list 
                 foundLuggageList.add(
                         new FoundLuggage(
