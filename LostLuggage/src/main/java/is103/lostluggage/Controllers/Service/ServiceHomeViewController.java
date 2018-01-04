@@ -30,8 +30,8 @@ public class ServiceHomeViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //To Previous Scene
-        MainViewController.previousView = "/fxml/SelectUserRoleView.fxml";
+        //set switch to prev view.
+        MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
         
         //reset refreshing to auto
         MainApp.resetMatching = true;

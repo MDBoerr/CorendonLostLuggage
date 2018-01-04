@@ -103,7 +103,7 @@
                   <JFXComboBox fx:id="typePicker" focusColor="#a7a7a7" labelFloat="true" maxWidth="364.0" minWidth="125.0" prefWidth="175.0" promptText="Type" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#ababab" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
                </children>
             </GridPane>
-            <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <StackPane fx:id="stackPane" onMouseClicked="#closeStackpane" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
    </children>

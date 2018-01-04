@@ -53,7 +53,7 @@ public class MainApp extends Application {
 
         //Method to set the db property
         setDatabase();
-        db.executeUpdateQuery("RENAME TABLE missingluggage TO lostluggage;");
+        //db.executeUpdateQuery("RENAME TABLE missingluggage TO lostluggage;");
         
         //set root
         root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));

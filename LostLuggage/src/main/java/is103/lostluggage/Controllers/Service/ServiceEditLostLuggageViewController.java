@@ -63,7 +63,7 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
     @FXML private JFXComboBox colorPicker2;
     @FXML private JFXComboBox typePicker;
     
-    @FXML private StackPane stackPane;
+    @FXML private StackPane stackPane;   
     
     @FXML private JFXButton saveEditings;
     
@@ -125,11 +125,6 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
             ObservableList<String> colorsStringList = colors.getStringList();
             colorPicker1.getItems().addAll(colorsStringList);
             colorPicker2.getItems().addAll(colorsStringList);
-            
-            
-            //ObservableList<String> locationStringList = locations.getStringList();
-            //locationPicker.getItems().addAll(locationStringList);
-            
             
             ObservableList<String> luggageStringList = types.getStringList();
             typePicker.getItems().addAll(luggageStringList);
@@ -587,15 +582,28 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
         if ("unknown".equals(phone.getText())){phone.setText("");}
         if ("unknown".equals(flight.getText())){flight.setText("");}
         
+        if (typeCode != 0){
+            DB.executeUpdateQuery("UPDATE `foundluggage` SET "
+                    + " `luggageType`='"+typeCode+"' "
+            + " WHERE `registrationNr`='"+registrationNr.getText()+"';");
+        }
+        if (ralCode1 != 0){
+            DB.executeUpdateQuery("UPDATE `foundluggage` SET "
+                    + " `mainColor`='"+ralCode1+"' "
+            + " WHERE `registrationNr`='"+registrationNr.getText()+"';");
+        }
+        if (ralCode2 != 0){
+            DB.executeUpdateQuery("UPDATE `foundluggage` SET "
+                    + " `secondColor`='"+ralCode2+"' "
+            + " WHERE `registrationNr`='"+registrationNr.getText()+"';");
+        }
+        
         //Update the luggage itself with the right data
         DB.executeUpdateQuery("UPDATE `lostluggage` SET "
                 + "`dateLost`='"+dateLost.getText()+"', "
                 + "`timeLost`='"+timeLost.getText()+"', "
                 + "`luggageTag`='"+luggageTag.getText()+"', "
-                + "`luggageType`='"+typeCode+"', "
                 + "`brand`='"+brand.getText()+"', "
-                + "`mainColor`='"+ralCode1+"', "
-                + "`secondColor`='"+ralCode2+"', "
                 + "`size`='"+size.getText()+"', "
                 + "`weight`='"+weight.getText()+"', "
                 + "`otherCharacteristics`='"+signatures.getText()+"' "
