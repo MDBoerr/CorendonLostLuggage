@@ -61,6 +61,23 @@ public class ServiceDataLost {
     }
  
     /**  
+     * Way of getting the lost luggage resultSet for matched 
+     * when matched is is true, only matched luggage will be gotten
+     * 
+     * @throws SQLException        getting the resultSet from the db
+     * @param  matched             boolean for getting the matched items or not
+     * @return ResultSet           resultSet of the matched of not matched luggage  
+     */
+    public ResultSet getLostResultSet(Boolean matched) throws SQLException{
+        if (matched == true){
+            return DB.executeResultSetQuery("SELECT * FROM lostluggage WHERE matchedId IS NOT NULL;");
+        } else {
+            return DB.executeResultSetQuery("SELECT * FROM lostluggage WHERE matchedId IS NULL OR matchedId = '0';");
+        }
+    }
+    
+    
+    /**  
      * Method to get the full details of lost luggage  
      * Note: innerJoints are used for getting the full data of a luggage
      * 
@@ -111,6 +128,9 @@ public class ServiceDataLost {
      * @return ObservableList      of the type: lost luggage  
      */ 
     public ObservableList<LostLuggage> getObservableList(ResultSet resultSet) throws SQLException{
+        //clear the previous list 
+        resultsetList.clear();
+        
         //loop trough al the items of the resultSet
         while (resultSet.next() ) {
                

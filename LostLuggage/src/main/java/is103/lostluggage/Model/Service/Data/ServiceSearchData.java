@@ -4,6 +4,7 @@ import is103.lostluggage.Controllers.Service.ServiceOverviewFoundViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
+import is103.lostluggage.Model.Service.Model.LostLuggage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -21,11 +22,24 @@ public class ServiceSearchData {
     //connection to database
     private static final MyJDBC DB = MainApp.getDatabase();      
 
+    //get the main app's language again, from this static method
+    private final String LANGUAGE = MainApp.getLanguage();
     
-    public ObservableList<FoundLuggage> getSearchList(ResultSet resultSet){
+    public ObservableList<FoundLuggage> getFoundLuggageSearchList(ResultSet resultSet){
         ServiceDataFound dataList;
         try { 
             dataList = new ServiceDataFound();
+            return dataList.getObservableList(resultSet);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceOverviewFoundViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public ObservableList<LostLuggage> getLostLuggageSearchList(ResultSet resultSet){
+        ServiceDataLost dataList;
+        try { 
+            dataList = new ServiceDataLost();
             return dataList.getObservableList(resultSet);
         } catch (SQLException ex) {
             Logger.getLogger(ServiceOverviewFoundViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -41,6 +55,50 @@ public class ServiceSearchData {
             value = "*";
         }
         String query = "SELECT * FROM tablename WHERE ";
+        
+        if ("foundluggage".equals(luggageType)){
+            query = "SELECT "+
+                "COALESCE(NULLIF(F.registrationNr,''), '') as registrationNr, "+
+                "COALESCE(NULLIF(F.dateFound,''), '') as dateFound, "+
+                "COALESCE(NULLIF(F.timeFound,''), '') as timeFound,"+
+                "COALESCE(NULLIF(F.luggageTag,''), '') as luggageTag, "+
+                "COALESCE(NULLIF(F.luggageType,''), '') as luggageType, "+
+                "COALESCE(NULLIF(F.brand,''), ' ') as brand, " +
+                "COALESCE(NULLIF(C1."+LANGUAGE+",''), '') as mainColor,  " +
+                "COALESCE(NULLIF(C2."+LANGUAGE+",''), '') as secondColor, " +
+                "COALESCE(NULLIF(F.size,''), ' ') as size, "+
+                "COALESCE(NULLIF(F.weight,''), '') as weight, "+
+                "COALESCE(NULLIF(F.otherCharacteristics,''), '') as otherCharacteristics, "+
+                "COALESCE(NULLIF(F.arrivedWithFlight,''), '') as arrivedWithFlight," +
+                "COALESCE(NULLIF(L."+LANGUAGE+" ,''), 'unknown') AS locationFound, " +
+                "COALESCE(NULLIF(F.employeeId,''), '') as employeeId, "+
+                "COALESCE(NULLIF(F.matchedId,''), '') as matchedId, "+
+                "COALESCE(NULLIF(F.passengerId,''), '') as passengerId " +     
+                    "FROM tablename AS F " +
+                        "LEFT JOIN color AS C1 ON F.mainColor = C1.ralCode " +
+                        "LEFT JOIN color AS C2 ON F.secondColor = C2.ralCode " +
+                        "LEFT JOIN location AS L ON F.locationFound = L.locationId WHERE ";
+        } else if ("lostluggage".equals(luggageType)){
+            query = "SELECT "+
+                "COALESCE(NULLIF(L.registrationNr,''), '') as registrationNr, "+
+                "COALESCE(NULLIF(L.dateLost,''), '') as dateLost, "+
+                "COALESCE(NULLIF(L.timeLost,''), '') as timeLost, "+
+                "COALESCE(NULLIF(L.luggageTag,''), '') as luggageTag, "+
+                "COALESCE(NULLIF(L.luggageType,''), '') as luggageType, "+
+                "COALESCE(NULLIF(L.brand,''), '') as brand," +
+                "COALESCE(NULLIF(C1."+LANGUAGE+",''), '') as mainColor,  " +
+                "COALESCE(NULLIF(C2."+LANGUAGE+",''), '') as secondColor, " +
+                "COALESCE(NULLIF(L.size,''), '') as size, "+
+                "COALESCE(NULLIF(L.weight,''), '') as weight, "+
+                "COALESCE(NULLIF(L.otherCharacteristics,''), '') as otherCharacteristics, "+
+                "COALESCE(NULLIF(L.flight,''), '') as flight, " +
+                "COALESCE(NULLIF(L.employeeId,''), '') as employeeId, "+
+                "COALESCE(NULLIF(L.matchedId,''), '') as matchedId, "+
+                "COALESCE(NULLIF(L.passengerId,''), '') as passengerId " +     
+                    "FROM tablename AS L " +
+                        "LEFT JOIN color AS C1 ON L.mainColor = C1.ralCode " +
+                        "LEFT JOIN color AS C2 ON L.secondColor = C2.ralCode WHERE ";
+        }
         switch (value) {
             case "all fields":
                 query += "registrationNr LIKE '%replace%' OR "

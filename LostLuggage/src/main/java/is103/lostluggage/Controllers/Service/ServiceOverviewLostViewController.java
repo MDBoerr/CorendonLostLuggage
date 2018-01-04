@@ -1,19 +1,26 @@
 package is103.lostluggage.Controllers.Service;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Model.Service.Model.LostLuggage;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.MainViewController;
+import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.Model.Service.Data.ServiceDataLost;
 import is103.lostluggage.MainApp;
+import is103.lostluggage.Model.Service.Data.ServiceDataFound;
 import is103.lostluggage.Model.Service.Data.ServiceMoreDetails;
+import is103.lostluggage.Model.Service.Data.ServiceSearchData;
 import is103.lostluggage.Model.Service.Interface.LostLuggageTable;
+import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,13 +44,15 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
         //view title
     private final String title = "Overview Lost Luggage";
     
-    private static ObservableList<LostLuggage> MissedLuggageList;
+    private static ObservableList<LostLuggage> foundLuggageList;
+    private static ObservableList<LostLuggage> lostLuggageListSearchResults = FXCollections.observableArrayList();
     
-    @FXML  
-    private JFXTextField searchField;
+    @FXML JFXTextField searchField;
+    @FXML JFXComboBox searchTypeComboBox;
     
-    //value of input
-    private String searchInput; 
+    
+//    //value of input
+//    private String searchInput; 
     
     /* -----------------------------------------
          TableView missed luggage's colommen
@@ -69,7 +78,9 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
     @FXML private TableColumn<LostLuggage, String>  missedEmployeeId;
     @FXML private TableColumn<LostLuggage, Integer> missedMatchedId;
     
-   
+    public ServiceDataLost dataListLost;
+    private boolean showMatchedLuggage = false;
+    private ResultSet matchedLuggageResultSet;
 
     
     /**
@@ -87,73 +98,88 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
            
-        ServiceDataLost dataListLost;
-        try {
-                        //Initialize Table & obj lost
-            dataListLost = new ServiceDataLost();
-            initializeLostLuggageTable();
-            setLostLuggageTable(dataListLost);
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceOverviewFoundViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
         //set screen status
         MainApp.setOnMatchingView(false);
+        
+        
+        
+        
+            searchTypeComboBox.getItems().addAll(
+                "All fields",
+                "RegistrationNr", 
+                "LuggageTag", 
+                "Brand",
+                "Color",
+                "Weight",
+                "Date",
+                "Passenger",
+                "Characteristics");
+        searchTypeComboBox.setValue("All fields");
+
+        try {
+            //Initialize Table & obj lost 
+            dataListLost = new ServiceDataLost();
+            initializeLostLuggageTable();
+            
+
+            setLostLuggageTable(dataListLost.getLostLuggage());
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceOverviewLostViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
-    
-    
-//    public void initializeMissedLuggageTable(ObservableList<LostLuggage> dataList){
-// 
-//
-//       
-//    }
+
+    @FXML
+    protected void showOnlyMatchedLuggage() throws SQLException{
+        if (showMatchedLuggage == false){
+            showMatchedLuggage = true;
+            
+            matchedLuggageResultSet = dataListLost.getLostResultSet(showMatchedLuggage);
+        
+        setLostLuggageTable(dataListLost.getObservableList(matchedLuggageResultSet));
+        
+        
+        } else if (showMatchedLuggage == true){
+            showMatchedLuggage = false;
+
+
+            
+        matchedLuggageResultSet = dataListLost.getLostResultSet(showMatchedLuggage);
+        
+        setLostLuggageTable(dataListLost.getObservableList(matchedLuggageResultSet));
+        }
+        
+    }
  
-
     @FXML
-    protected void backHomeButton(ActionEvent event) throws IOException {
-        try {
-            MainApp.switchView("/fxml/ServiceHomeView.fxml");
-        } catch (IOException ex) {
-            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-
-    @FXML
-    protected void switchToInput(ActionEvent event) throws IOException {
-        try {
-            MainApp.switchView("/fxml/ServiceInvoerView.fxml");
-        } catch (IOException ex) {
-            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    
-    @FXML
-    protected void switchToMatching(ActionEvent event) throws IOException {
-        try {
-            MainApp.switchView("/fxml/ServiceMatchingView.fxml");
-        } catch (IOException ex) {
-            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    
-    @FXML
-    protected void searchStarted(ActionEvent event) throws IOException {
-        if (searchField.getText().isEmpty()) {
-            System.out.println("Pleas fill something in the search box");
-            searchField.setUnFocusColor(Paint.valueOf("#f03e3e"));
-            searchField.setFocusColor(Paint.valueOf("#f03e3e"));
-        } else {
-            searchInput = searchField.getText();
-            System.out.println("Search for: "+searchInput);
-            searchField.setUnFocusColor(Paint.valueOf("#4d4d4d"));
-            searchField.setFocusColor(Paint.valueOf("#4d4d4d"));
-        }
+    public void search() throws SQLException{
+        String value = searchTypeComboBox.getValue().toString();
+        String search = searchField.getText();
+         
+        ServiceSearchData searchData = new ServiceSearchData();
+        
+       
+        
+        String finalQuery = searchData.getSearchQuery(value, search, "lostluggage");
         
         
+        lostLuggageListSearchResults.clear();
+        
+
+        try {
+            MyJDBC db = MainApp.getDatabase();
+            ResultSet resultSet;
+            resultSet = db.executeResultSetQuery(finalQuery);
+            
+            lostLuggageListSearchResults=searchData.getLostLuggageSearchList(resultSet);
+            missedLuggageTable.setItems(lostLuggageListSearchResults);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceOverviewLostViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+         
     }
     
     /**  
@@ -207,10 +233,19 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
      * @call - set lostLuggageTable             
      */
     @Override
-    public void setLostLuggageTable(ServiceDataLost dataListLost){
-        missedLuggageTable.setItems(dataListLost.getLostLuggage());   
+    public void setLostLuggageTable(ObservableList<LostLuggage> list){
+        missedLuggageTable.setItems(list);  
     }
     
-   
+       
+    @FXML
+    protected void switchToInput(ActionEvent event) throws IOException {
+        MainApp.switchView("/Views/Service/ServiceInputLuggageView.fxml");
+    }
+    
+    @FXML
+    protected void switchToMatching(ActionEvent event) throws IOException {
+        MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
+    }
 
 }
