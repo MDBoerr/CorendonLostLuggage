@@ -159,18 +159,6 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
         String finalQuery = searchData.getSearchQuery(value, search, "foundluggage");
         
         
-        
-        
-        System.out.println(finalQuery);
-        
-        
-        
-        
-       
-        
-        //System.out.println("Query: " +finalQuery);
-        
-        
         foundLuggageListSearchResults.clear();
         
 
@@ -179,7 +167,7 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
             ResultSet resultSet;
             resultSet = db.executeResultSetQuery(finalQuery);
             
-            foundLuggageListSearchResults=searchData.getSearchList(resultSet);
+            foundLuggageListSearchResults=searchData.getFoundLuggageSearchList(resultSet);
             foundLuggageTable.setItems(foundLuggageListSearchResults);
             
         } catch (SQLException ex) {
