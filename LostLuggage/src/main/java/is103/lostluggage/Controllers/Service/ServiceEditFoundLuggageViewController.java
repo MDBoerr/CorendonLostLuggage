@@ -585,19 +585,35 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
         if ("unknown".equals(phone.getText())){phone.setText("");}
         if ("unknown".equals(flight.getText())){flight.setText("");}
         
+        if (typeCode != 0){
+            DB.executeUpdateQuery("UPDATE `foundluggage` SET "
+                    + " `luggageType`='"+typeCode+"' "
+            + " WHERE `registrationNr`='"+registrationNr.getText()+"';");
+        }
+        if (ralCode1 != 0){
+            DB.executeUpdateQuery("UPDATE `foundluggage` SET "
+                    + " `mainColor`='"+ralCode1+"' "
+            + " WHERE `registrationNr`='"+registrationNr.getText()+"';");
+        }
+        if (ralCode2 != 0){
+            DB.executeUpdateQuery("UPDATE `foundluggage` SET "
+                    + " `secondColor`='"+ralCode2+"' "
+            + " WHERE `registrationNr`='"+registrationNr.getText()+"';");
+        }
+        if (locationCode != 0){
+            DB.executeUpdateQuery("UPDATE `foundluggage` SET "
+                    + " `locationFound`='"+locationCode+"' "
+            + " WHERE `registrationNr`='"+registrationNr.getText()+"';");
+        }
         //Update the luggage itself with the right data
         DB.executeUpdateQuery("UPDATE `foundluggage` SET "
                 + "`dateFound`='"+dateFound.getText()+"', "
                 + "`timeFound`='"+timeFound.getText()+"', "
                 + "`luggageTag`='"+luggageTag.getText()+"', "
-                + "`luggageType`='"+typeCode+"', "
                 + "`brand`='"+brand.getText()+"', "
-                + "`mainColor`='"+ralCode1+"', "
-                + "`secondColor`='"+ralCode2+"', "
                 + "`size`='"+size.getText()+"', "
                 + "`weight`='"+weight.getText()+"', "
-                + "`otherCharacteristics`='"+signatures.getText()+"', "
-                + "`locationFound`='"+locationCode+"' "
+                + "`otherCharacteristics`='"+signatures.getText()+"' "
                 + "WHERE `registrationNr`='"+registrationNr.getText()+"';"); 
         
 //        if ("".equals(passangerId.getText()) || 0 == Integer.parseInt(passangerId.getText())){
