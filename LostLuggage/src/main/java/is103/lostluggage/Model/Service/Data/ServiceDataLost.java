@@ -131,52 +131,7 @@ public class ServiceDataLost {
         //clear the previous list 
         resultsetList.clear();
         
-        //loop trough al the items of the resultSet
-        while (resultSet.next() ) {
-               
-            //Set all the columns to the right variables
-            String registrationNr =     resultSet.getString("registrationNr");
-            String dateLost =           resultSet.getString("dateLost");
-            String timeLost =           resultSet.getString("timeLost");
-
-            String luggageTag =         resultSet.getString("luggageTag");
-            int luggageType =           resultSet.getInt("luggageType");
-            String brand =              resultSet.getString("brand");
-            String mainColor =             resultSet.getString("mainColor");
-            String secondColor =           resultSet.getString("secondColor");
-            String size =               resultSet.getString("size");
-            int weight =                resultSet.getInt("weight");   
-            String otherCharacteristics=resultSet.getString("otherCharacteristics");
-            int passengerId =           resultSet.getInt("passengerId");
-
-            String flight =             resultSet.getString("flight"); 
-            String employeeId =         resultSet.getString("employeeId");
-            int matchedId =             resultSet.getInt("matchedId");
-
-
-            //add the data in a lost luggage objects and put that in the list
-            resultsetList.add(new LostLuggage(
-                            registrationNr, 
-                            dateLost, 
-                            timeLost, 
-
-                            luggageTag, 
-                            luggageType, 
-                            brand, 
-                            mainColor, 
-                            secondColor, 
-                            size, 
-                            weight, 
-                            otherCharacteristics, 
-                            passengerId, 
-
-                            flight, 
-                            employeeId, 
-                            matchedId
-                        ));   
-                
-         }
-         return resultsetList;
+        return resultsetList = loopTroughResultSet(resultSet, false);
     }
     
     /**  
@@ -189,7 +144,6 @@ public class ServiceDataLost {
     public static ObservableList<LostLuggage> getLostLuggageList() throws SQLException{
         //get the main app's language again, from this static method
         final String LANGUAGE = MainApp.getLanguage();
-        try {
             //get the resultset of all the lost luggage s
             resultSet = DB.executeResultSetQuery("SELECT "+
             "COALESCE(NULLIF(L.registrationNr,''), '') as registrationNr, "+
@@ -212,13 +166,29 @@ public class ServiceDataLost {
                     "LEFT JOIN color AS C2 ON L.secondColor = C2.ralCode;");
             
             
-            //clear previous list -> so there wont be any duplicate luggage
-            ServiceDataLost.lostLuggageList.clear();
-            
-            //loop trough al the items of the resultset
-            while (resultSet.next()) {
-               
-                //Set all the columns to the right variables
+        //clear previous list -> so there wont be any duplicate luggage
+        ServiceDataLost.lostLuggageList.clear();
+
+        //the full list
+        return lostLuggageList = loopTroughResultSet(resultSet, true);
+    }
+    
+    /**  
+     * Method where will be looped trough the given resultSet  
+     * 
+     * @throws SQLException        a resultSet will be read
+     * @param resultSet            given resultSet that will be read
+     * @param checkIfMatched       if this is true > get only the not matched 
+     * @return ObservableList      of the type: lost luggage  
+     */
+    public static ObservableList<LostLuggage> loopTroughResultSet(
+                                            ResultSet resultSet, 
+                                            boolean checkIfMatched) throws SQLException{
+        //create a temporary list
+        ObservableList<LostLuggage> list = FXCollections.observableArrayList(); 
+        //loop trough al the results of the resultSet
+        while (resultSet.next()) {
+            //Set all the columns to the right variables
                 String registrationNr =     resultSet.getString("registrationNr");
                 String dateLost =           resultSet.getString("dateLost");
                 String timeLost =           resultSet.getString("timeLost");
@@ -236,11 +206,14 @@ public class ServiceDataLost {
                 String flight =             resultSet.getString("flight"); 
                 String employeeId =         resultSet.getString("employeeId");
                 int matchedId =             resultSet.getInt("matchedId");
-
+            
+            //if check matched is true, filter the result
+            if (checkIfMatched == true){
                 //if the match id is unasigned put the luggage in the list
-                if (matchedId == 0) {
-                //add the data in a lost luggage objects and put that in the list
-                lostLuggageList.add(new LostLuggage(
+                if (matchedId == 0 || "".equals(matchedId)) {
+                    //add the data in a found luggage objects and put that in the list 
+                    list.add(
+                        new LostLuggage(
                                 registrationNr, 
                                 dateLost, 
                                 timeLost, 
@@ -258,16 +231,33 @@ public class ServiceDataLost {
                                 flight, 
                                 employeeId, 
                                 matchedId
-                            ));   
-                } else {
-                    //Luggage is already matched
-                }
-            }
+                            )); 
+                    } else {
+                        //Luggage is already matched
+                    }
+            } else {
+                list.add(
+                    new LostLuggage(
+                        registrationNr, 
+                        dateLost, 
+                        timeLost, 
 
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceDataFound.class.getName()).log(Level.SEVERE, null, ex);
+                        luggageTag, 
+                        luggageType, 
+                        brand, 
+                        mainColor, 
+                        secondColor, 
+                        size, 
+                        weight, 
+                        otherCharacteristics, 
+                        passengerId, 
+
+                        flight, 
+                        employeeId, 
+                        matchedId
+                    ));
+            }
         }
-        //the full list
-        return lostLuggageList;
+        return list;
     }
 }
