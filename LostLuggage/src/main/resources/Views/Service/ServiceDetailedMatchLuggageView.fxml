@@ -101,7 +101,7 @@
                   </GridPane>
                   <JFXTextField fx:id="dateLost" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Date Lost" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="9" GridPane.valignment="BOTTOM" />
                   <JFXTextField fx:id="timeLost" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Time Lost" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />
-               </children>
+                </children>
             </GridPane>
             <GridPane maxWidth="400.0" minWidth="415.0" prefHeight="650.0" prefWidth="415.0">
                <columnConstraints>
@@ -187,7 +187,7 @@
                   </GridPane>
                   <JFXTextField fx:id="dateFound" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Date Found" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />
                   <JFXTextField fx:id="timeFound" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Time Found" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />
-               </children>
+              </children>
             </GridPane>
          </children>
       </HBox>

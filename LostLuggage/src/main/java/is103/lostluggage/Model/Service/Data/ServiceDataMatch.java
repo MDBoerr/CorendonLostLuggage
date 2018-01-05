@@ -158,43 +158,40 @@ public class ServiceDataMatch {
                                             && found.getLuggageType() != 0){
                         matchingPercentage += 10;
                     }
-                    if (lost.getBrand().equals(found.getBrand())
-                                            && lost.getBrand() != null 
-                                            && found.getBrand() != null){
+                    //check if they are equal and both not null
+                    if (lost.getBrand() == null ? found.getBrand() == null : 
+                            lost.getBrand().equals(found.getBrand()) &&
+                            lost.getBrand().trim().length() > 0 && found.getBrand().trim().length() > 0){
                         matchingPercentage += 10;
                     }
-                    if (lost.getMainColor()==found.getMainColor()
-                                            && lost.getMainColor() != 0 
-                                            && found.getMainColor() != 0){
+                    if (lost.getMainColor() == null ? found.getMainColor() == null :
+                            lost.getMainColor().equals(found.getMainColor()) &&
+                            lost.getMainColor().trim().length() > 0 && found.getMainColor().trim().length() > 0){
                         matchingPercentage += 10;
                     }
-                    if (lost.getSecondColor()==found.getSecondColor()
-                                            && lost.getSecondColor() != 0 
-                                            && found.getSecondColor() != 0){
+                    if ((lost.getSecondColor() == null ? found.getSecondColor() == null : 
+                            lost.getSecondColor().equals(found.getSecondColor())) &&
+                            lost.getSecondColor().trim().length() > 0 && found.getSecondColor().trim().length() > 0){
                         matchingPercentage += 10;
                     }
-                    if (lost.getFlight()==found.getArrivedWithFlight()
-                                            && lost.getFlight() != null 
-                                            && found.getArrivedWithFlight() != null){
+                    if (lost.getFlight() == null ? found.getFlight() == null : 
+                            lost.getFlight().equals(found.getFlight()) &&
+                            lost.getFlight().trim().length() > 0 && found.getFlight().trim().length() > 0){
                         matchingPercentage += 10;
                     }
-
                     if (lost.getWeight() != 0 && found.getWeight() != 0){
                         if ( ((lost.getWeight()/found.getWeight())-1)*100 < 50 ){
                             matchingPercentage += 10;
                         }
                     }
-
-                    if (lost.getSize()==found.getSize()
-                                            && lost.getSize() != null 
-                                            && found.getSize() != null){
+                    if (lost.getSize() == null ? found.getSize() == null : 
+                            lost.getSize().equals(found.getSize()) &&
+                            lost.getSize().trim().length() > 0 && found.getSize().trim().length() > 0){
                             matchingPercentage += 10;
-
                     }
-
-                    if (lost.getLuggageTag()==found.getLuggageTag() 
-                                            && lost.getLuggageTag() != null 
-                                            && found.getLuggageTag() != null ){
+                    if ((lost.getLuggageTag() == null ? found.getLuggageTag() == null : 
+                            lost.getLuggageTag().equals(found.getLuggageTag())) &&
+                            lost.getLuggageTag().length()>5 && found.getLuggageTag().length()>5){
                         matchingPercentage += 50;
                         if (matchingPercentage >= 100){
                             matchingPercentage=100;
