@@ -20,12 +20,14 @@ import javafx.scene.control.TableView;
 
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.Model.Service.Data.ServiceMoreDetails;
+import is103.lostluggage.Model.Service.Data.ServiceSearchData;
 import is103.lostluggage.Model.Service.Interface.FoundLuggageTable;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -44,7 +46,7 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
     private final String title = "Overview Found Luggage";
     
     private static ObservableList<FoundLuggage> foundLuggageList;
-    private static ObservableList<FoundLuggage> foundLuggageListSearchResults;
+    private static ObservableList<FoundLuggage> foundLuggageListSearchResults = FXCollections.observableArrayList();
     
     @FXML JFXTextField searchField;
     @FXML JFXComboBox searchTypeComboBox;
@@ -70,16 +72,15 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
     @FXML private TableColumn<FoundLuggage, String>  foundEmployeeId;
     @FXML private TableColumn<FoundLuggage, Integer> foundMatchedId;
 
-
-         
+    public ServiceDataFound dataListFound;
+    private boolean showMatchedLuggage = false;
+    private ResultSet matchedLuggageResultSet;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //switch to previous view
-        MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
-        
         //titel boven de pagina zetten
         try {
             MainViewController.getInstance().getTitle(title);
@@ -94,18 +95,23 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
                 "LuggageTag", 
                 "Brand",
                 "Color",
+                "Weight",
+                "Date",
+                "Passenger",
                 "Characteristics");
         searchTypeComboBox.setValue("All fields");
         
         
+        searchTypeComboBox.setValue("All fields");
         
-        
-        ServiceDataFound dataListFound;
+//        ServiceDataFound dataListFound;
         try {
                         //Initialize Table & obj found 
             dataListFound = new ServiceDataFound();
             initializeFoundLuggageTable();
-            setFoundLuggageTable(dataListFound);
+            
+//            dataListFound.getFoundLuggage();
+            setFoundLuggageTable(dataListFound.getFoundLuggage());
         } catch (SQLException ex) {
             Logger.getLogger(ServiceOverviewFoundViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -116,21 +122,44 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
         //set screen status
         MainApp.setOnMatchingView(false);
     }
-    
+
     @FXML
-    public void search(){
-        String query = searchType();
-        System.out.println(query);
+    protected void showOnlyMatchedLuggage() throws SQLException{
+        if (showMatchedLuggage == false){
+            showMatchedLuggage = true;
+            
+            matchedLuggageResultSet = dataListFound.getFoundResultSet(showMatchedLuggage);
         
+        setFoundLuggageTable(dataListFound.getObservableList(matchedLuggageResultSet));
+        
+        
+        } else if (showMatchedLuggage == true){
+            showMatchedLuggage = false;
+
+
+            
+        matchedLuggageResultSet = dataListFound.getFoundResultSet(showMatchedLuggage);
+        
+        setFoundLuggageTable(dataListFound.getObservableList(matchedLuggageResultSet));
+        }
+        
+    }
+
+    
+     
+    @FXML
+    public void search() throws SQLException{
+        String value = searchTypeComboBox.getValue().toString();
         String search = searchField.getText();
+         
+        ServiceSearchData searchData = new ServiceSearchData();
+        
+       
+        
+        String finalQuery = searchData.getSearchQuery(value, search, "foundluggage");
         
         
-        String finalQuery = query.replaceAll("replace", search);
-        
-        System.out.println("Query: " +finalQuery);
-        
-        
-        
+        foundLuggageListSearchResults.clear();
         
 
         try {
@@ -138,49 +167,7 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
             ResultSet resultSet;
             resultSet = db.executeResultSetQuery(finalQuery);
             
-            System.out.println("Resultset:   "+resultSet);
-            while (resultSet.next()) {
-                String registrationNr =     resultSet.getString("registrationNr");
-                String dateFound =          resultSet.getString("dateFound");
-                String timeFound =          resultSet.getString("timeFound");
-                
-                String luggageTag =         resultSet.getString("luggageTag");
-                int luggageType =           resultSet.getInt("luggageType");
-                String brand =              resultSet.getString("brand");
-                int mainColor =             resultSet.getInt("mainColor");
-                int secondColor =           resultSet.getInt("secondColor");
-                String size =               resultSet.getString("size");
-                int weight =                resultSet.getInt("weight");   
-                String otherCharacteristics=resultSet.getString("otherCharacteristics");
-                int passengerId =           resultSet.getInt("passengerId");
-                
-                String arrivedWithFlight =  resultSet.getString("arrivedWithFlight"); 
-                int locationFound =         resultSet.getInt("locationFound");
-                String employeeId =         resultSet.getString("employeeId");
-                int matchedId =             resultSet.getInt("matchedId");
-
-                foundLuggageListSearchResults.add(
-                        new FoundLuggage(
-                                registrationNr, 
-                                dateFound, 
-                                timeFound, 
-                                
-                                luggageTag, 
-                                luggageType, 
-                                brand, 
-                                mainColor, 
-                                secondColor, 
-                                size, 
-                                weight, 
-                                otherCharacteristics, 
-                                passengerId, 
-                                
-                                arrivedWithFlight, 
-                                locationFound, 
-                                employeeId, 
-                                matchedId
-                            ));
-            }
+            foundLuggageListSearchResults=searchData.getFoundLuggageSearchList(resultSet);
             foundLuggageTable.setItems(foundLuggageListSearchResults);
             
         } catch (SQLException ex) {
@@ -190,40 +177,13 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
          
     }
     
-    public String searchType(){
-        
-      String value = searchTypeComboBox.getValue().toString();
-      
-        if("All fields".equals(value)){
-            return "SELECT * FROM foundluggage WHERE * LIKE '%replace%'";
-        }
-        
-        if("RegistrationNr".equals(value)){
-            return "SELECT * FROM foundluggage WHERE registrationNr LIKE '%replace%'";
-        }
-        
-        if ("LuggageTag".equals(value)){
-            return "SELECT * FROM foundluggage WHERE luggageTag LIKE '%replace%'";
-        }
-        
-        if ("Brand".equals(value)){
-            return "SELECT * FROM foundluggage WHERE brand LIKE '%replace%'";
-        }
-        
-        if ("Color".equals(value)){
-            return "SELECT * FROM foundluggage WHERE mainColor LIKE '%replace%'";
-        }
-        
-        if ("Characteristics".equals(value)){
-            return "SELECT * FROM foundluggage WHERE otherCharacteristics LIKE '%replace%'";
-        }
-        
-        return "NonSelected - failed";
-    }
+    
+    
+    
 
-        @Override
-    public void setFoundLuggageTable(ServiceDataFound dataListFound) {
-         foundLuggageTable.setItems(dataListFound.getFoundLuggage());
+    @Override
+    public void setFoundLuggageTable(ObservableList<FoundLuggage> list) {
+         foundLuggageTable.setItems(list);
     }
 
     @Override
@@ -267,12 +227,13 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
     
     @FXML
     protected void switchToInput(ActionEvent event) throws IOException {
-        MainApp.switchView("/Views/Service/ServiceInvoerView.fxml");
+        MainApp.switchView("/Views/Service/ServiceInputLuggageView.fxml");
     }
     
     @FXML
     protected void switchToMatching(ActionEvent event) throws IOException {
         MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
     }
+
     
 }

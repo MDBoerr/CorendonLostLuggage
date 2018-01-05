@@ -192,15 +192,15 @@ private final String title = "Overzicht Gevonden Bagage";
                 String luggageTag =         resultSet.getString("luggageTag");
                 int luggageType =           resultSet.getInt("luggageType");
                 String brand =              resultSet.getString("brand");
-                int mainColor =             resultSet.getInt("mainColor");
-                int secondColor =           resultSet.getInt("secondColor");
+                String mainColor =             resultSet.getString("mainColor");
+                String secondColor =           resultSet.getString("secondColor");
                 String size =                  resultSet.getString("size");
                 int weight =                resultSet.getInt("weight");   
                 String otherCharacteristics=resultSet.getString("otherCharacteristics");
                 int passengerId =           resultSet.getInt("passengerId");
                 
                 String arrivedWithFlight =  resultSet.getString("arrivedWithFlight"); 
-                int locationFound =         resultSet.getInt("locationFound");
+                String locationFound =         resultSet.getString("locationFound");
                 String employeeId =         resultSet.getString("employeeId");
                 int matchedId =              resultSet.getInt("matchedId");
 

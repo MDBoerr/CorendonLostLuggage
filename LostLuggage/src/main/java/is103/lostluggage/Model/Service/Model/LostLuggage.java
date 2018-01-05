@@ -19,11 +19,10 @@ public class LostLuggage {
             luggageType;
     
     private String
-            brand;
-    
-    private int 
+            brand,
             mainColor,
-            secondColor,
+            secondColor;
+    private int        
             weight;
     
     private String
@@ -51,8 +50,8 @@ public class LostLuggage {
             String luggageTag, 
             int luggageType, 
             String brand, 
-            int mainColor, 
-            int secondColor, 
+            String mainColor, 
+            String secondColor, 
             String size, 
             int weight, 
             String otherCharaccteristics, 
@@ -172,28 +171,28 @@ public class LostLuggage {
     /**
      * @return the mainColor
      */
-    public int getMainColor() {
+    public String getMainColor() {
         return mainColor;
     }
 
     /**
      * @param mainColor the mainColor to set
      */
-    public void setMainColor(int mainColor) {
+    public void setMainColor(String mainColor) {
         this.mainColor = mainColor;
     }
 
     /**
      * @return the secondColor
      */
-    public int getSecondColor() {
+    public String getSecondColor() {
         return secondColor;
     }
 
     /**
      * @param secondColor the secondColor to set
      */
-    public void setSecondColor(int secondColor) {
+    public void setSecondColor(String secondColor) {
         this.secondColor = secondColor;
     }
 

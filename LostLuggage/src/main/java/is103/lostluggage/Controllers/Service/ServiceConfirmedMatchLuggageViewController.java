@@ -453,8 +453,8 @@ public class ServiceConfirmedMatchLuggageViewController implements Initializable
     }
     
     @FXML 
-    public void viewDetails(){
-        //this is already the detailed view..
+    public void contactedPassenger(){
+        // set switch before this   DISABLED
     }
     
     /**  
