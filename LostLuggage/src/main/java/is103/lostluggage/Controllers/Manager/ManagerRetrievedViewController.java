@@ -8,6 +8,7 @@ import is103.lostluggage.MainApp;
 //import is103.lostluggage.Controllers.Service.Luggage;
 import java.io.IOException;
 import java.net.URL;
+import static java.sql.JDBCType.NULL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -110,9 +111,13 @@ public class ManagerRetrievedViewController implements Initializable {
             ResultSet resultSet;
 
             resultSet = db.executeResultSetQuery("SELECT delivery, dateMatched, employee.firstname, foundluggage.registrationNr, passenger.name  FROM matched INNER JOIN employee ON matched.employeeId = employee.employeeId INNER JOIN foundluggage ON matched.foundluggage = foundluggage.registrationNr INNER JOIN passenger ON foundluggage.passengerId = passenger.passengerId");
-
+            
+            
+                
+            
             while (resultSet.next()) {
-
+             String delivercheck = resultSet.getString("matched.delivery");
+             if (!"".equals(delivercheck)) {
                 int registrationnr = resultSet.getInt("foundluggage.registrationNr");
                 String date = resultSet.getString("matched.dateMatched");
                 String passengername = resultSet.getString("passenger.name");
@@ -128,10 +133,11 @@ public class ManagerRetrievedViewController implements Initializable {
                                 delivered));
 
             }
-
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ManagerReportViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return retrievedList;
     }
+    
 }
