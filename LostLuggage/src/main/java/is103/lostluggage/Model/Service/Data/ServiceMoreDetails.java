@@ -62,30 +62,39 @@ public class ServiceMoreDetails {
                tableRowGet = (TableRow) node.getParent();
         }
         
-        //check wich type is given as a param
-        if ("lost".equals(type)){
-            //get the right found luggage object -> place this in getDetailObj
-            LostLuggage getDetailObj = (LostLuggage) tableRowGet.getItem();
-            
-            //Detail object setten -> so it is posible to take this in the next fxml
-            LostLuggage route = LostLuggageDetailsInstance.getInstance().currentLuggage();
-            route.setRegistrationNr(getDetailObj.getRegistrationNr());
-       
-        }else if ("found".equals(type)){
-            //get the right obj -> place this in getDet. repeat.. 
-            FoundLuggage getDetailObj = (FoundLuggage) tableRowGet.getItem();
-            
-            //repeat.. 
-            FoundLuggageDetailsInstance.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNr());
-                
-        } else if ("match".equals(type)){
-            //      match to manual matching
-            //  -   -   -   -   -   -   -   -   -
-            MatchLuggage getDetailObj = (MatchLuggage) tableRowGet.getItem();
-            FoundLuggageDetailsInstance.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNrFound());
-            LostLuggageDetailsInstance.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNrLost());
-        } else {
+        if (null == type){
             System.out.println("unsuported type given for the detail object");
+        }else //check wich type is given as a param
+        switch (type) {
+            case "lost":
+                {
+                    //get the right found luggage object -> place this in getDetailObj
+                    LostLuggage getDetailObj = (LostLuggage) tableRowGet.getItem();
+                    //Detail object setten -> so it is posible to take this in the next fxml
+                    LostLuggage route = LostLuggageDetailsInstance.getInstance().currentLuggage();
+                    route.setRegistrationNr(getDetailObj.getRegistrationNr());
+                    break;
+                }
+            case "found":
+                {
+                    //get the right obj -> place this in getDet. repeat..
+                    FoundLuggage getDetailObj = (FoundLuggage) tableRowGet.getItem();
+                    //repeat..
+                    FoundLuggageDetailsInstance.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNr());
+                    break;
+                }
+            case "match":
+                {
+                    //      match to manual matching
+                    //  -   -   -   -   -   -   -   -   -
+                    MatchLuggage getDetailObj = (MatchLuggage) tableRowGet.getItem();
+                    FoundLuggageDetailsInstance.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNrFound());
+                    LostLuggageDetailsInstance.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNrLost());
+                    break;
+                }
+            default:
+                System.out.println("unsuported type given for the detail object");
+                break;
         }
     }
     

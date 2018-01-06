@@ -23,7 +23,6 @@ import java.util.logging.Logger;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,6 +30,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -98,7 +98,6 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     @FXML private TableColumn<FoundLuggage, String>  foundSecondColor;
     @FXML private TableColumn<FoundLuggage, String>  foundSize;
     @FXML private TableColumn<FoundLuggage, String>  foundWeight;
-    @FXML private TableColumn<FoundLuggage, String>  foundOtherCharacteristics;
     @FXML private TableColumn<FoundLuggage, Integer> foundPassengerId;
     
     @FXML private TableColumn<FoundLuggage, String>  foundArrivedWithFlight;
@@ -111,21 +110,20 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     //    Table Lost initializen
     @FXML private TableView<LostLuggage> lostLuggageTable;
 
-    @FXML private TableColumn<LostLuggage, String>  missedRegistrationNr;
-    @FXML private TableColumn<LostLuggage, String>  missedDateLost;
-    @FXML private TableColumn<LostLuggage, String>  missedTimeLost;
+    @FXML private TableColumn<LostLuggage, String>  lostRegistrationNr;
+    @FXML private TableColumn<LostLuggage, String>  DateLost;
+    @FXML private TableColumn<LostLuggage, String>  TimeLost;
     
-    @FXML private TableColumn<LostLuggage, String>  missedLuggageTag;
-    @FXML private TableColumn<LostLuggage, String>  missedLuggageType;
-    @FXML private TableColumn<LostLuggage, String>  missedBrand;
-    @FXML private TableColumn<LostLuggage, String>  missedMainColor;
-    @FXML private TableColumn<LostLuggage, String>  missedSecondColor;
-    @FXML private TableColumn<LostLuggage, String>  missedSize;
-    @FXML private TableColumn<LostLuggage, String>  missedWeight;
-    @FXML private TableColumn<LostLuggage, String>  missedOtherCharacteristics;
-    @FXML private TableColumn<LostLuggage, Integer> missedPassengerId;
+    @FXML private TableColumn<LostLuggage, String>  lostLuggageTag;
+    @FXML private TableColumn<LostLuggage, String>  lostLuggageType;
+    @FXML private TableColumn<LostLuggage, String>  lostBrand;
+    @FXML private TableColumn<LostLuggage, String>  lostMainColor;
+    @FXML private TableColumn<LostLuggage, String>  lostSecondColor;
+    @FXML private TableColumn<LostLuggage, String>  lostSize;
+    @FXML private TableColumn<LostLuggage, String>  lostWeight;
+    @FXML private TableColumn<LostLuggage, Integer> lostPassengerId;
     
-    @FXML private TableColumn<LostLuggage, String>  missedFlight;
+    @FXML private TableColumn<LostLuggage, String>  lostFlight;
     
     
     
@@ -145,7 +143,6 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     @FXML private TableColumn<MatchLuggage, String>  matchSecondColor;
     @FXML private TableColumn<MatchLuggage, String>  matchSize;
     @FXML private TableColumn<MatchLuggage, String>  matchWeight;
-    @FXML private TableColumn<MatchLuggage, String>  matchOtherCharacteristics;
     @FXML private TableColumn<MatchLuggage, Integer> matchId;
 
     
@@ -166,7 +163,6 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     @FXML private TableColumn<MatchLuggage, String>  potentialSecondColor;
     @FXML private TableColumn<MatchLuggage, String>  potentialSize;
     @FXML private TableColumn<MatchLuggage, String>  potentialWeight;
-    @FXML private TableColumn<MatchLuggage, String>  potentialCharacteristics;
     
     //Create instance of this class
     public static ServiceMatchingViewController instance = null;
@@ -203,6 +199,8 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
      * - Set the on matching view to true
      * 
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -248,7 +246,8 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
             initializeMatchingLuggageTable();
             setMatchingLuggageTable(dataListFound,dataListLost);
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceMatchingViewController.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
 
 
@@ -299,7 +298,8 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
         try {
             setPotentialMatchingTable();
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceMatchingViewController.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
         //Methodes calling at rate of --> int:  timeRate   //2s
         addToManualFound();
@@ -338,29 +338,30 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
      */
     @Override
     public void initializeLostLuggageTable(){
-        missedRegistrationNr.setCellValueFactory(      new PropertyValueFactory<>("registrationNr"));
-        missedDateLost.setCellValueFactory(            new PropertyValueFactory<>("dateLost"));  //-> lost
-        missedTimeLost.setCellValueFactory(            new PropertyValueFactory<>("timeLost"));
+        lostRegistrationNr.setCellValueFactory(      new PropertyValueFactory<>("registrationNr"));
+        DateLost.setCellValueFactory(            new PropertyValueFactory<>("dateLost"));  //-> lost
+        TimeLost.setCellValueFactory(            new PropertyValueFactory<>("timeLost"));
         
-        missedLuggageTag.setCellValueFactory(           new PropertyValueFactory<>("luggageTag"));
-        missedLuggageType.setCellValueFactory(          new PropertyValueFactory<>("luggageType"));
-        missedBrand.setCellValueFactory(                new PropertyValueFactory<>("brand"));
-        missedMainColor.setCellValueFactory(            new PropertyValueFactory<>("mainColor"));
-        missedSecondColor.setCellValueFactory(          new PropertyValueFactory<>("secondColor"));
-        missedSize.setCellValueFactory(                 new PropertyValueFactory<>("size"));
-        missedWeight.setCellValueFactory(               new PropertyValueFactory<>("weight"));
+        lostLuggageTag.setCellValueFactory(           new PropertyValueFactory<>("luggageTag"));
+        lostLuggageType.setCellValueFactory(          new PropertyValueFactory<>("luggageType"));
+        lostBrand.setCellValueFactory(                new PropertyValueFactory<>("brand"));
+        lostMainColor.setCellValueFactory(            new PropertyValueFactory<>("mainColor"));
+        lostSecondColor.setCellValueFactory(          new PropertyValueFactory<>("secondColor"));
+        lostSize.setCellValueFactory(                 new PropertyValueFactory<>("size"));
+        lostWeight.setCellValueFactory(               new PropertyValueFactory<>("weight"));
 
-        missedOtherCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
-        missedPassengerId.setCellValueFactory(          new PropertyValueFactory<>("passengerId"));
+        lostPassengerId.setCellValueFactory(          new PropertyValueFactory<>("passengerId"));
         
-        missedFlight.setCellValueFactory(               new PropertyValueFactory<>("flight"));
-            
+        lostFlight.setCellValueFactory(               new PropertyValueFactory<>("flight"));
+        
+        //set place holder text when there are no results
+        lostLuggageTable.setPlaceholder(new Label("No lost luggage's to display"));
     }
     /**  
      * Here will the lost luggage table be set with the right data
-     * The data (observable<lostluggage>list) comes from the dataListLost
+     * The data (observable< lostluggage>list) comes from the dataListLost
      * 
-     * @param dataListLost
+     * @param list
      * @void - No direct output 
      * @call - set lostLuggageTable             
      */
@@ -388,18 +389,20 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
         foundSize.setCellValueFactory(                 new PropertyValueFactory<>("size"));
         foundWeight.setCellValueFactory(               new PropertyValueFactory<>("weight"));
 
-        foundOtherCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
         foundPassengerId.setCellValueFactory(          new PropertyValueFactory<>("passengerId"));
         
         foundArrivedWithFlight.setCellValueFactory(    new PropertyValueFactory<>("arrivedWithFlight"));
         foundLocationFound.setCellValueFactory(        new PropertyValueFactory<>("locationFound"));
+        
+        //set place holder text when there are no results
+        foundLuggageTable.setPlaceholder(new Label("No found luggage's to display"));
     }
     
     /**  
      * Here will the found luggage table be set with the right data
-     * The data (observable<foundluggage>list) comes from the dataListFound
+     * The data (observable< foundluggage>list) comes from the dataListFound
      * 
-     * @param dataListFound
+     * @param list
      * @void - No direct output 
      * @call - set foundLuggageTable             
      */
@@ -427,8 +430,10 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
         matchSize.setCellValueFactory(                 new PropertyValueFactory<>("size"));
         matchWeight.setCellValueFactory(               new PropertyValueFactory<>("weight"));
 
-        matchOtherCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
         matchId.setCellValueFactory(                   new PropertyValueFactory<>("matchedId"));
+        
+        //set place holder text when there are no results
+        matchTabbleView.setPlaceholder(new Label("No automatic matches found"));
         
         //sort on match percentage
         matchTabbleView.getSortOrder().add(matchPercentage);
@@ -439,7 +444,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     
     /**  
      * Here will the (automatic) matching luggage table be set with the right data
-     * The data (observable<matchluggage>list) comes from the dataListMatch
+     * The data (observable< matchluggage>list) comes from the dataListMatch
      * 
      * @param dataListFound
      * @param datalistDataLost
@@ -447,14 +452,18 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
      * @void - No direct output 
      * @call - set matching table              
      */
-    public void setMatchingLuggageTable(ServiceDataFound dataListFound, ServiceDataLost datalistDataLost) throws SQLException{
+    public void setMatchingLuggageTable(
+                                ServiceDataFound dataListFound, 
+                                ServiceDataLost datalistDataLost) 
+                                                throws SQLException{
+        
         ServiceDataMatch matchData = new ServiceDataMatch();
         matchTabbleView.setItems(
-                            matchData.autoMatching(
-                                dataListFound.getFoundLuggage(), 
-                                datalistDataLost.getLostLuggage(), 
-                                10)
-                            ); 
+            matchData.autoMatching(
+                dataListFound.getFoundLuggage(), 
+                datalistDataLost.getLostLuggage(), 
+                10)
+            ); 
     }
     
     
@@ -690,7 +699,8 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
                     return idCheck;
                     
                 } catch (IOException ex) {
-                    Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ServiceMatchingViewController.class.getName())
+                            .log(Level.SEVERE, null, ex);
                 }
             } else {
                 //id is the same
@@ -724,14 +734,16 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
         potentialSecondColor.setCellValueFactory(          new PropertyValueFactory<>("secondColor"));
         potentialSize.setCellValueFactory(                 new PropertyValueFactory<>("size"));
         potentialWeight.setCellValueFactory(               new PropertyValueFactory<>("weight"));
-
-        potentialCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
+        
+        //set place holder text when there are no results
+        potentialMatchingTable.setPlaceholder(new Label("No potential matches found"));
     }
     
     /**  
      * Here will the potential matching luggage table be set with the right data
-     * The data (observable<matchluggage>list) comes from the potentialList
+     * The data (observable< matchluggage>list) comes from the potentialList
      * 
+     * @throws java.sql.SQLException
      * @void - No direct output 
      * @call - getPotentialMatchesList
      * @call - set potential matching table              
@@ -765,10 +777,10 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
         //clear the list 
         this.potentialList.clear();
             
-            //testing 
-            System.out.println("-               -");
-            System.out.println("should be cleared");
-            System.out.println("-               -");
+//            //testing 
+//            System.out.println("-               -");
+//            System.out.println("should be cleared");
+//            System.out.println("-               -");
             
             
         //clear the table
@@ -787,6 +799,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
      * Note: the instances and panes will be checked if they are not empty
      * 
      * @param event                 on click of the confirm match button
+     * @throws java.io.IOException
      * @void No direct output       only switching the view        
      */
     @FXML
@@ -826,18 +839,13 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     //link:
     // https://stackoverflow.com/questions/22202782/how-to-prevent-tableview-from-doing-tablecolumn-re-order-in-javafx-8?answertab=active#tab-top
     public void fixedTableHeader(TableView table){
-        table.widthProperty().addListener(new ChangeListener<Number>(){
-            @Override
-            public void changed(ObservableValue<? extends Number> source, Number oldWidth, Number newWidth)
-            {
-                TableHeaderRow header = (TableHeaderRow) table.lookup("TableHeaderRow");
-                header.reorderingProperty().addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                        header.setReordering(false);
-                    }
-                });
-            }
+        table.widthProperty().addListener((ObservableValue
+                <? extends Number> source, Number oldWidth, Number newWidth) -> {
+            TableHeaderRow header = (TableHeaderRow) table.lookup("TableHeaderRow");
+            header.reorderingProperty().addListener((ObservableValue
+                    <? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                header.setReordering(false);
+            });
         });
     }
     

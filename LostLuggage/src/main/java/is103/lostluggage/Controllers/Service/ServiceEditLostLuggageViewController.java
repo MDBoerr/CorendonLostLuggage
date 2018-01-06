@@ -39,6 +39,7 @@ import javafx.scene.text.TextFlow;
  */
 public class ServiceEditLostLuggageViewController implements Initializable, LostLuggageFields {
 
+    //get al the jfxtextFields, areas and comboboxes
     @FXML private JFXTextField registrationNr;
     @FXML private JFXTextField luggageTag;
     @FXML private JFXTextField brand;
@@ -97,41 +98,33 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
     //amount of field 
     private final int AMOUNT_OF_FIELDS = 20;
     
+    //count for the amount of passengers
     int passengerCount=0;
     
     /**
-     * Initializes the controller class.
+     * Initializes the edit lost luggage controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //set the view title
         try {
             MainViewController.getInstance().getTitle(title);
         } catch (IOException ex) {
             Logger.getLogger(ServiceHomeViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+       
+        //initialize and set al the comboboxes
+        initializeComboBoxes();
         
-        
-        //set 3 objects to get the right data from the database 
-        ServiceGetDataFromDB colors = new ServiceGetDataFromDB("color", LANGUAGE, null);
-        
-        //ServiceGetDataFromDB locations = new ServiceGetDataFromDB("location", LANGUAGE, null);
-        
-        ServiceGetDataFromDB types = new ServiceGetDataFromDB("luggagetype", LANGUAGE, null);
+        //try to set the lost fields
         try {
-            //initialize lost fields 
             setLostFields(getManualLostLuggageResultSet());
-                    
-            //get the right string list for each combo box         
-            ObservableList<String> colorsStringList = colors.getStringList();
-            colorPicker1.getItems().addAll(colorsStringList);
-            colorPicker2.getItems().addAll(colorsStringList);
-            
-            ObservableList<String> luggageStringList = types.getStringList();
-            typePicker.getItems().addAll(luggageStringList);
         } catch (SQLException ex) {
             Logger.getLogger(ServiceEditLostLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+            
         //get start values of the fields
         startValues = getFields();
         
@@ -143,7 +136,36 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
         
         //passenger field check
         checkPassengerId();
-    }   
+    }  
+    
+    /**  
+     * Here are all the combo boxes set with the right data
+     * 
+     * @void initializing
+     */ 
+    private void initializeComboBoxes(){
+        //set 2 objects to get the right data for the database          //color
+        ServiceGetDataFromDB colors = new ServiceGetDataFromDB("color", LANGUAGE, null);
+                                                                        //types
+        ServiceGetDataFromDB types = new ServiceGetDataFromDB("luggagetype", LANGUAGE, null);
+                                                                                //location
+        //ServiceGetDataFromDB locations = new ServiceGetDataFromDB("location", LANGUAGE, null);
+        
+        //try to get the data from the database and set it 
+        try {                    
+            //get the right string list for each combo box         
+            ObservableList<String> colorsStringList = colors.getStringList();
+            ObservableList<String> luggageStringList = types.getStringList();
+               
+            //set the string lists to the combo boxes
+            colorPicker1.getItems().addAll(colorsStringList);
+            colorPicker2.getItems().addAll(colorsStringList);
+           
+            typePicker.getItems().addAll(luggageStringList);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceEditLostLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+    }
     
     
     /**  

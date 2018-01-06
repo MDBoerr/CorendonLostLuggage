@@ -65,7 +65,7 @@ public class ServiceGetDataFromDB {
      * Getting a ObservableStringList based on the objects resultSet  
      * 
      * @throws SQLException             getting the resultSet from the object
-     * @return ObservableList<String>   objects data in a observable string list   
+     * @return ObservableList< String>  objects data in a observable string list   
      */
     public ObservableList<String> getStringList() throws SQLException{ 
         //getting the resultset

@@ -93,9 +93,9 @@ public class ServiceManualMatchingLostViewController implements Initializable, L
         //loop trough all the luggages in the resultSet
         //Note: there will be only one 
         while (resultSet.next()) {             
-            int getRegistrationNr =     resultSet.getInt("F.registrationNr");
-            String getDateLost =          resultSet.getString("F.dateLost");
-            String getTimeLost =          resultSet.getString("F.timeLost");
+            int getRegistrationNr =        resultSet.getInt("F.registrationNr");
+            String getDateLost =           resultSet.getString("F.dateLost");
+            String getTimeLost =           resultSet.getString("F.timeLost");
 
             String getLuggageTag =         resultSet.getString("F.luggageTag");
             String getLuggageType =        resultSet.getString("T."+LANGUAGE+"");
@@ -103,19 +103,19 @@ public class ServiceManualMatchingLostViewController implements Initializable, L
             String getMainColor =          resultSet.getString("c1."+LANGUAGE+"");
             String getSecondColor =        resultSet.getString("c2."+LANGUAGE+"");
             String getSize =               resultSet.getString("F.size");
-            String getWeight =                resultSet.getString("F.weight");   
+            String getWeight =             resultSet.getString("F.weight");   
             String getOtherCharacteristics=resultSet.getString("F.otherCharacteristics");
 
             int getPassengerId =           resultSet.getInt("F.passengerId");
-            String getName =          resultSet.getString("P.name");
-            String getAddress =          resultSet.getString("P.address");
-            String getPlace =          resultSet.getString("P.place");
-            String getPostalcode =          resultSet.getString("P.postalcode");
-            String getCountry =          resultSet.getString("P.country");
-            String getEmail =          resultSet.getString("P.email");
-            String getPhone =          resultSet.getString("P.phone");
+            String getName =               resultSet.getString("P.name");
+            String getAddress =            resultSet.getString("P.address");
+            String getPlace =              resultSet.getString("P.place");
+            String getPostalcode =         resultSet.getString("P.postalcode");
+            String getCountry =            resultSet.getString("P.country");
+            String getEmail =              resultSet.getString("P.email");
+            String getPhone =              resultSet.getString("P.phone");
 
-            String getFlight =              resultSet.getString("F.Flight"); 
+            String getFlight =             resultSet.getString("F.Flight"); 
             
         //set all the fields with the right data
         registrationNr.setText( Integer.toString(getRegistrationNr) );  

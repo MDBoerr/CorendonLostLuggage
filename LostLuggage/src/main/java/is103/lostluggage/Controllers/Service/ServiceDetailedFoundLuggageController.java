@@ -32,7 +32,7 @@ import javafx.stage.Stage;
  * @author Thijs Zijdel - 500782165
  */
 public class ServiceDetailedFoundLuggageController implements Initializable, FoundLuggageFields {
-
+    //get al the jfxtextfields (and a text area)
     @FXML private JFXTextField registrationNr;
     @FXML private JFXTextField luggageTag;
     @FXML private JFXTextField type;
@@ -57,13 +57,16 @@ public class ServiceDetailedFoundLuggageController implements Initializable, Fou
     @FXML private JFXTextField locationFound;
     @FXML private JFXTextField flight;
     
-
+    //get the main application's language
     private final String LANGUAGE = MainApp.getLanguage();  
     
+    //create a potentialmatche list 
     public ObservableList<MatchLuggage> potentialMatchesList = FXCollections.observableArrayList(); 
     
     /**
-     * Initializes the controller class.
+     * Initializes the detailed found luggage view controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {

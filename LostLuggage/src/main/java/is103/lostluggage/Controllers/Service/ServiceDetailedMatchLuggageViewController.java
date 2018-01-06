@@ -84,7 +84,9 @@ public class ServiceDetailedMatchLuggageViewController implements Initializable 
     
     
     /**
-     * Initializes the controller class.
+     * Initializes the detailed matched luggage view controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {

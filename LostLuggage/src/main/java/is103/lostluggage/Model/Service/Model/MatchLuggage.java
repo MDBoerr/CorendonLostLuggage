@@ -7,7 +7,7 @@ package is103.lostluggage.Model.Service.Model;
 public class MatchLuggage {
     private String  
             registrationNrFound, 
-            registrationNrMissed,
+            registrationNrLost,
             luggageTag;
     
     private int 
@@ -15,9 +15,7 @@ public class MatchLuggage {
     
     private String
             luggageType,
-            brand;
-    
-    private String 
+            brand,
             mainColor,
             secondColor,
             size,
@@ -31,7 +29,7 @@ public class MatchLuggage {
 
     public MatchLuggage(
             String registrationNrFound, 
-            String registrationNrMissed, 
+            String registrationNrLost, 
             String luggageTag, 
             int matchPercentage, 
             String luggageType, 
@@ -43,7 +41,7 @@ public class MatchLuggage {
             String characcteristics,
             int matchedId) {
         this.registrationNrFound = registrationNrFound;
-        this.registrationNrMissed = registrationNrMissed;
+        this.registrationNrLost = registrationNrLost;
         this.luggageTag = luggageTag;
         this.matchPercentage = matchPercentage;
         this.luggageType = luggageType;
@@ -71,17 +69,17 @@ public class MatchLuggage {
     }
 
     /**
-     * @return the registrationNrMissed
+     * @return the registrationNrLost
      */
     public String getRegistrationNrLost() {
-        return registrationNrMissed;
+        return registrationNrLost;
     }
 
     /**
-     * @param registrationNrMissed the registrationNrMissed to set
+     * @param registrationNrLost the registrationNrLost to set
      */
-    public void setRegistrationNrMissed(String registrationNrMissed) {
-        this.registrationNrMissed = registrationNrMissed;
+    public void setRegistrationNrLost(String registrationNrLost) {
+        this.registrationNrLost = registrationNrLost;
     }
 
     /**

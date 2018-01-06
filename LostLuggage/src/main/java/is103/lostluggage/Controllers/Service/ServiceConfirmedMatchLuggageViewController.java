@@ -31,9 +31,9 @@ import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
+ * FXML Controller class 
  *
- * @author thijszijdel
+ * @author Thijs Zijdel - 500782165
  */
 public class ServiceConfirmedMatchLuggageViewController implements Initializable {
     //al the lost fields
@@ -118,7 +118,9 @@ public class ServiceConfirmedMatchLuggageViewController implements Initializable
     private int matcheID;
     
     /**
-     * Initializes the controller class.
+     * Initializes the confirmedMatchLuggageView controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -134,7 +136,7 @@ public class ServiceConfirmedMatchLuggageViewController implements Initializable
         LocalDate localDate = LocalDate.now();
         currentDate = dtf.format(localDate);
 
-        //try to load initialize methodes
+        //try to load initialize and set methodes
         try {
             setLostFields(getManualLostLuggageResultSet());
             setFoundFields(getManualFoundLuggageResultSet());
@@ -180,7 +182,11 @@ public class ServiceConfirmedMatchLuggageViewController implements Initializable
      * @return boolean          if the match id already exist 
      */
     private boolean checkMatcheId() throws SQLException{
-        ResultSet resultSetCheck = DB.executeResultSetQuery("SELECT COUNT(*) AS 'check' FROM matched WHERE matchedid = '"+matcheID+"';");
+        ResultSet resultSetCheck = DB.executeResultSetQuery(""
+                + "SELECT COUNT(*) AS 'check' "
+                + "FROM matched WHERE matchedid = '"+matcheID+"';");
+        
+        //loop trough the resultset 
         while (resultSetCheck.next()){
             int check = resultSetCheck.getInt("check");
             
@@ -228,11 +234,24 @@ public class ServiceConfirmedMatchLuggageViewController implements Initializable
      * @void   no direct output 
      */
     private void setMatched() throws SQLException {
+        //insert the match in the matched table with the right data
         DB.executeUpdateQuery("INSERT INTO `matched` "
                 + " (`matchedId`, `foundluggage`, `lostluggage`, `employeeId`, `dateMatched`, `delivery`) "
-                + "VALUES ('"+matcheID+"', '"+registrationNr1.getText()+"', '"+registrationNr.getText()+"', 'TZ', '"+currentDate+"', '');");
-        DB.executeUpdateQuery("UPDATE `lostluggage` SET `matchedId`='"+matcheID+"' WHERE `registrationNr`='"+registrationNr.getText()+"';");
-        DB.executeUpdateQuery("UPDATE `foundluggage` SET `matchedId`='"+matcheID+"' WHERE `registrationNr`='"+registrationNr1.getText()+"';");
+                + "VALUES ("
+                + " '"+matcheID+"', "
+                + " '"+registrationNr1.getText()+"', "
+                + " '"+registrationNr.getText()+"', "
+                + " 'TZ', '"+currentDate+"', "
+                + " '');");
+        
+        //update the lost luggage item with the right matcheId
+        DB.executeUpdateQuery("UPDATE `lostluggage` "
+                + " SET `matchedId`='"+matcheID+"' "
+                + " WHERE `registrationNr`='"+registrationNr.getText()+"';");
+        //update the found luggage item with the right matcheId
+        DB.executeUpdateQuery("UPDATE `foundluggage` "
+                + " SET `matchedId`='"+matcheID+"' "
+                + " WHERE `registrationNr`='"+registrationNr1.getText()+"';");
     }
     
     /**  
