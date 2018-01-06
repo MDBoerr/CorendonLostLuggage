@@ -92,7 +92,7 @@ public class ManagerReportViewController implements Initializable {
             ResultSet retrievedSet;
 
             resultSet = db.executeResultSetQuery("SELECT count(dateFound) as quantityfound, extract(month FROM dateFound) as months from foundluggage   WHERE extract(year from dateFound) = '2016' GROUP BY extract(month from dateFound)");
-            lostSet = db.executeResultSetQuery("SELECT count(dateLost) as quantitylost, extract(month FROM dateLost) as months from missingluggage WHERE extract(year from dateLost) = '2016'  GROUP BY extract(month from dateLost)");
+            lostSet = db.executeResultSetQuery("SELECT count(dateLost) as quantitylost, extract(month FROM dateLost) as months from lostluggage WHERE extract(year from dateLost) = '2016'  GROUP BY extract(month from dateLost)");
             retrievedSet = db.executeResultSetQuery("SELECT count(delivery) as quantityretrieved, extract(month FROM dateMatched) as months from matched   WHERE extract(year from dateMatched) = '2016' GROUP BY extract(month from dateMatched)");
 
             while (resultSet.next()) {
@@ -149,7 +149,7 @@ public class ManagerReportViewController implements Initializable {
             ResultSet retrievedSet;
 
             resultSet = db.executeResultSetQuery("SELECT count(dateFound) as quantityfound, extract(month FROM dateFound) as months from foundluggage   WHERE extract(year from dateFound) = '2015' GROUP BY extract(month from dateFound)");
-            lostSet = db.executeResultSetQuery("SELECT count(dateLost) as quantitylost, extract(month FROM dateLost) as months from missingluggage WHERE extract(year from dateLost) = '2015'  GROUP BY extract(month from dateLost)");
+            lostSet = db.executeResultSetQuery("SELECT count(dateLost) as quantitylost, extract(month FROM dateLost) as months from lostluggage WHERE extract(year from dateLost) = '2015'  GROUP BY extract(month from dateLost)");
             retrievedSet = db.executeResultSetQuery("SELECT count(delivery) as quantityretrieved, extract(month FROM dateMatched) as months from matched   WHERE extract(year from dateMatched) = '2015' GROUP BY extract(month from dateMatched)");
 
             while (resultSet.next()) {
@@ -207,7 +207,7 @@ public class ManagerReportViewController implements Initializable {
             ResultSet retrievedSet;
 
             resultSet = db.executeResultSetQuery("SELECT count(dateFound) as quantityfound, extract(month FROM dateFound) as months from foundluggage   WHERE extract(year from dateFound) = '2017' GROUP BY extract(month from dateFound)");
-            lostSet = db.executeResultSetQuery("SELECT count(dateLost) as quantitylost, extract(month FROM dateLost) as months from missingluggage WHERE extract(year from dateLost) = '2017'  GROUP BY extract(month from dateLost)");
+            lostSet = db.executeResultSetQuery("SELECT count(dateLost) as quantitylost, extract(month FROM dateLost) as months from lostluggage WHERE extract(year from dateLost) = '2017'  GROUP BY extract(month from dateLost)");
             retrievedSet = db.executeResultSetQuery("SELECT count(delivery) as quantityretrieved, extract(month FROM dateMatched) as months from matched   WHERE extract(year from dateMatched) = '2017' GROUP BY extract(month from dateMatched)");
 
             while (resultSet.next()) {
