@@ -135,7 +135,6 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
             "Weight",
             "Date",
             "Passenger",
-            "Location",
             "Characteristics");
         //set the standard start value to all fields
         searchTypeComboBox.setValue("All fields");
@@ -215,6 +214,9 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
             lostLuggageListSearchResults = searchData.getLostLuggageSearchList(resultSet);
             //set this list on the table
             lostLuggageTable.setItems(lostLuggageListSearchResults);  
+            
+            //set the right place holder message for when there are no hits
+            lostLuggageTable.setPlaceholder(new Label("No hits based on your search"));
         } catch (SQLException ex) {
             Logger.getLogger(ServiceOverviewLostViewController.class.getName()).log(Level.SEVERE, null, ex);
         }  

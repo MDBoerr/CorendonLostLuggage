@@ -67,8 +67,10 @@ public class ServiceSearchData {
                     + " otherCharacteristics LIKE '%replace%' OR ";
                 query += generateColorQuery(search);
                 query += generatePassengerQuery(search);
-                query += generateLocationQuery(search);
                 
+                if ("foundluggage".equals(luggageType)){
+                    query += generateLocationQuery(search);
+                }
                 break;
             case "registrationnr":
                 query += "registrationNr LIKE '%replace%' OR ";
