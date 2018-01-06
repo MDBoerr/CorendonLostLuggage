@@ -1,5 +1,7 @@
 package is103.lostluggage.Controllers.Manager;
 
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
 
 import is103.lostluggage.Controllers.MainViewController;
@@ -31,11 +33,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import static is103.lostluggage.MainApp.getDatabase;
+import is103.lostluggage.Model.Service.Data.ServiceSearchData;
+import javafx.scene.control.Label;
 
 /**
  * FXML Controller class
  *
  * @author Ahmet
+ * @author Thijs Zijdel - 500782165             For the search functionality
  */
 public class ManagerLostViewController implements Initializable {
 private final String title = "Overzicht Vermiste Bagage";
@@ -69,9 +74,14 @@ private final String title = "Overzicht Vermiste Bagage";
     @FXML private TableColumn<LostLuggage, Integer> managerLostMatchedId;
 
 
-    /**
-     * Initializes the controller class.
-     */
+    //list for the search results
+    private static ObservableList<LostLuggage> lostLuggageListSearchResults 
+            = FXCollections.observableArrayList();
+    
+    //text field for the users search input
+    @FXML JFXTextField searchField;
+    //combo box for a type/field/column search filter
+    @FXML JFXComboBox searchTypeComboBox;
 
  //luggage list
     //public static ObservableList<Luggage> luggageList;
@@ -89,6 +99,10 @@ private final String title = "Overzicht Vermiste Bagage";
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         } 
         
+         
+        initializeComboFilterBox(); 
+         
+         
         //de data vanuit de database halen     
         
   
@@ -236,5 +250,82 @@ private final String title = "Overzicht Vermiste Bagage";
     }
     
 
+    
+    
+    
+    
+     /**  
+     * @author Thijs Zijdel - 500782165
+     * 
+     * This method is for initializing the filter combo box
+     * The comboBox is used for filtering to a specific:  
+     *                                               column/ field/ detail
+     *                                                          When searching.
+     * @void - No direct output 
+     */
+    private void initializeComboFilterBox() {
+        //add all the filterable fields
+        searchTypeComboBox.getItems().addAll(
+            "All fields",
+            "RegistrationNr", 
+            "LuggageTag", 
+            "Brand",
+            "Color",
+            "Weight",
+            "Date",
+            "Passenger",
+            "Characteristics");
+        //set the standard start value to all fields
+        searchTypeComboBox.setValue("All fields");
+    }
+    
+    /**  
+     * @author Thijs Zijdel - 500782165
+     * 
+     * This method is for searching in the table
+     * There will be searched on the typed user input and filter value
+     * Note: this method is called after each time the user releases a key
+     * 
+     * @throws java.sql.SQLException        searching in the database
+     * @void - No direct output             only changing results in the table
+     * @call - getSearchQuery               for getting the search query
+     * @call - executeResultSetQuery        for getting the resultSet
+     * @call - getLostLuggageSearchList     the result list based on the resultSet
+     */
+    @FXML
+    public void search() throws SQLException{
+        //get the value of the search type combo box for filtering to a specific column
+        String value = searchTypeComboBox.getValue().toString();
+        //get the user input for the search
+        String search = searchField.getText();
+         
+        //Create a new searchData object
+        ServiceSearchData searchData = new ServiceSearchData();
+        
+        //Get the right query based on the users input
+        String finalQuery = searchData.getSearchQuery(value, search, "lostluggage");
+        
+        //clear the previous search result list 
+        lostLuggageListSearchResults.clear();
+        
+        //try to execute the query from the database
+        //@throws SQLException  
+        try {
+            //get the connection to the datbase
+            MyJDBC db = MainApp.getDatabase();
+            //create a new resultSet and execute the right query
+            ResultSet resultSet = db.executeResultSetQuery(finalQuery);
+            
+            //get the observableList from the search object and asign this to the list
+            lostLuggageListSearchResults = searchData.getLostLuggageSearchList(resultSet);
+            //set this list on the table
+            lostTable.setItems(lostLuggageListSearchResults);
+            
+            //set the right place holder message for when there are no hits
+            lostTable.setPlaceholder(new Label("No hits based on your search"));
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerLostViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }
     
 }
