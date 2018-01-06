@@ -46,7 +46,7 @@ public class ServiceDataMatch {
                                         ObservableList<LostLuggage> lostList, 
                                         int matchPercentage){
         //initializing a match list 
-        ObservableList<MatchLuggage> matchingList = FXCollections.observableArrayList();
+        ObservableList<MatchLuggage> matchingList;
         
         //match list wil be get from  checkData()
         matchingList = checkData(lostList, foundList, matchPercentage);
@@ -125,7 +125,7 @@ public class ServiceDataMatch {
     /**  
      * Method to get the potentialMatchesList from the object
      * 
-     * @return ObservableList<MatchLuggage> this
+     * @return ObservableList< MatchLuggage> this
      */
     public ObservableList<MatchLuggage> getPotentialMatchesList(){
         return this.potentialMatchesList;

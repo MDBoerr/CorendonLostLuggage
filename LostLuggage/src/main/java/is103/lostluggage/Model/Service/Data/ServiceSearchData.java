@@ -21,9 +21,6 @@ public class ServiceSearchData {
     
     //connection to database
     private static final MyJDBC DB = MainApp.getDatabase();      
-
-    //get the main app's language again, from this static method
-    private final String LANGUAGE = MainApp.getLanguage();
     
     public ObservableList<FoundLuggage> getFoundLuggageSearchList(ResultSet resultSet){
         ServiceDataFound dataList;
@@ -57,47 +54,9 @@ public class ServiceSearchData {
         String query = "SELECT * FROM tablename WHERE ";
         
         if ("foundluggage".equals(luggageType)){
-            query = "SELECT "+
-                "COALESCE(NULLIF(F.registrationNr,''), '') as registrationNr, "+
-                "COALESCE(NULLIF(F.dateFound,''), '') as dateFound, "+
-                "COALESCE(NULLIF(F.timeFound,''), '') as timeFound,"+
-                "COALESCE(NULLIF(F.luggageTag,''), '') as luggageTag, "+
-                "COALESCE(NULLIF(F.luggageType,''), '') as luggageType, "+
-                "COALESCE(NULLIF(F.brand,''), ' ') as brand, " +
-                "COALESCE(NULLIF(C1."+LANGUAGE+",''), '') as mainColor,  " +
-                "COALESCE(NULLIF(C2."+LANGUAGE+",''), '') as secondColor, " +
-                "COALESCE(NULLIF(F.size,''), ' ') as size, "+
-                "COALESCE(NULLIF(F.weight,''), '') as weight, "+
-                "COALESCE(NULLIF(F.otherCharacteristics,''), '') as otherCharacteristics, "+
-                "COALESCE(NULLIF(F.arrivedWithFlight,''), '') as arrivedWithFlight," +
-                "COALESCE(NULLIF(L."+LANGUAGE+" ,''), 'unknown') AS locationFound, " +
-                "COALESCE(NULLIF(F.employeeId,''), '') as employeeId, "+
-                "COALESCE(NULLIF(F.matchedId,''), '') as matchedId, "+
-                "COALESCE(NULLIF(F.passengerId,''), '') as passengerId " +     
-                    "FROM tablename AS F " +
-                        "LEFT JOIN color AS C1 ON F.mainColor = C1.ralCode " +
-                        "LEFT JOIN color AS C2 ON F.secondColor = C2.ralCode " +
-                        "LEFT JOIN location AS L ON F.locationFound = L.locationId WHERE ";
+            query = ServiceDataFound.DETAILED_QUERY+" WHERE ";
         } else if ("lostluggage".equals(luggageType)){
-            query = "SELECT "+
-                "COALESCE(NULLIF(L.registrationNr,''), '') as registrationNr, "+
-                "COALESCE(NULLIF(L.dateLost,''), '') as dateLost, "+
-                "COALESCE(NULLIF(L.timeLost,''), '') as timeLost, "+
-                "COALESCE(NULLIF(L.luggageTag,''), '') as luggageTag, "+
-                "COALESCE(NULLIF(L.luggageType,''), '') as luggageType, "+
-                "COALESCE(NULLIF(L.brand,''), '') as brand," +
-                "COALESCE(NULLIF(C1."+LANGUAGE+",''), '') as mainColor,  " +
-                "COALESCE(NULLIF(C2."+LANGUAGE+",''), '') as secondColor, " +
-                "COALESCE(NULLIF(L.size,''), '') as size, "+
-                "COALESCE(NULLIF(L.weight,''), '') as weight, "+
-                "COALESCE(NULLIF(L.otherCharacteristics,''), '') as otherCharacteristics, "+
-                "COALESCE(NULLIF(L.flight,''), '') as flight, " +
-                "COALESCE(NULLIF(L.employeeId,''), '') as employeeId, "+
-                "COALESCE(NULLIF(L.matchedId,''), '') as matchedId, "+
-                "COALESCE(NULLIF(L.passengerId,''), '') as passengerId " +     
-                    "FROM tablename AS L " +
-                        "LEFT JOIN color AS C1 ON L.mainColor = C1.ralCode " +
-                        "LEFT JOIN color AS C2 ON L.secondColor = C2.ralCode WHERE ";
+            query = ServiceDataLost.DETAILED_QUERY+" WHERE ";
         }
         switch (value) {
             case "all fields":
@@ -109,6 +68,9 @@ public class ServiceSearchData {
                 query += generateColorQuery(search);
                 query += generatePassengerQuery(search);
                 
+                if ("foundluggage".equals(luggageType)){
+                    query += generateLocationQuery(search);
+                }
                 break;
             case "registrationnr":
                 query += "registrationNr LIKE '%replace%' OR ";
@@ -145,6 +107,11 @@ public class ServiceSearchData {
             case "passenger":
                 
                 query += generatePassengerQuery(search);
+                
+                break;
+            case "location":
+                
+                query += generateLocationQuery(search);
                 
                 break;
             default:
@@ -225,6 +192,30 @@ public class ServiceSearchData {
 
         for (String passengerListItem : stringListPassenger) {
             generateQuery += " passengerId LIKE '"+passengerListItem+"' OR ";          
+        }
+
+        return generateQuery;
+    }
+    
+        private String generateLocationQuery(String search) throws SQLException{
+        String generateQuery = "";
+        String locationQuery = "SELECT locationId FROM location WHERE "
+                + " english LIKE '%replace%' OR "
+                + " dutch LIKE '%replace%' OR "
+                + " locationId LIKE '%replace%';";
+
+        locationQuery = locationQuery.replaceAll("replace", search);
+
+        ResultSet resultSetLocation = DB.executeResultSetQuery(locationQuery);
+        ObservableList<String> stringListLocation =  FXCollections.observableArrayList(); 
+
+        while (resultSetLocation.next()){
+            String colorId = resultSetLocation.getString("locationId");
+            stringListLocation.add(colorId);
+        }
+
+        for (String locationListItem : stringListLocation) {
+            generateQuery += " locationId LIKE '"+locationListItem+"' OR ";          
         }
 
         return generateQuery;

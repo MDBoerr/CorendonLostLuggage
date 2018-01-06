@@ -3,7 +3,7 @@ package is103.lostluggage.Model.Service.Model;
 
 
 /**
- * missed luggage classe
+ * lost luggage class
  * 
  * 
  * @author Thijs Zijdel - 500782165
@@ -22,6 +22,7 @@ public class LostLuggage {
             brand,
             mainColor,
             secondColor;
+    
     private int        
             weight;
     
@@ -33,11 +34,8 @@ public class LostLuggage {
             passengerId;
             
     private String 
-            flight;
-    
-
-    
-    private String
+            flight,
+         
             employeeId;
     
     private int

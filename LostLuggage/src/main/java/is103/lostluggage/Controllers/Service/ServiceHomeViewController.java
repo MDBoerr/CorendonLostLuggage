@@ -19,31 +19,30 @@ import javafx.fxml.Initializable;
  */
 public class ServiceHomeViewController implements Initializable {
 
-    
-    //view title
+    //views title
     private final String title = "Service Home";
    
     
-    
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //set switch to prev view.
+        //set switchable to prev view. (this)
         MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
         
         //reset refreshing to auto
         MainApp.resetMatching = true;
         
-        //titel boven de pagina zetten
+        //set the view's title
         try {
             MainViewController.getInstance().getTitle(title);
         } catch (IOException ex) {
             Logger.getLogger(ServiceHomeViewController.class.getName()).log(Level.SEVERE, null, ex);
         }  
         
-
         //set screen status
         MainApp.setOnMatchingView(false);
     }
@@ -55,6 +54,7 @@ public class ServiceHomeViewController implements Initializable {
     @FXML
     protected void logOut(ActionEvent event) throws IOException {
         MainApp.switchView("/fxml/SelectUserRoleView.fxml");
+        //logout methode is needed here!
     }
 
     @FXML

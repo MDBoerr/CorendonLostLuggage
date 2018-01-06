@@ -15,14 +15,14 @@ public class FoundLuggage {
             luggageType;
     
     private String
-            brand;
-    
-    private String mainColor,
+            brand,
+            mainColor,
             secondColor;
     
-    private int       weight;
+    private int       
+            weight;
     
-    private String
+    private String 
             size,
             otherCharaccteristics;
     

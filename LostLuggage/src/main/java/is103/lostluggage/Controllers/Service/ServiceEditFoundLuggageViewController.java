@@ -40,6 +40,7 @@ import javafx.scene.text.TextFlow;
 
 public class ServiceEditFoundLuggageViewController implements Initializable, FoundLuggageFields {
         
+    //get al the jfxtextFields, areas and comboboxes
     @FXML private JFXTextField registrationNr;
     @FXML private JFXTextField luggageTag;
     @FXML private JFXTextField brand;
@@ -75,7 +76,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
     private TextFlow alertMessage = new TextFlow();
     
      //view title
-    private final String title = "Edit Found Luggage";
+    private final String TITLE = "Edit Found Luggage";
     
     //alert message content (changes)
     private String changedFields = "";
@@ -102,39 +103,25 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
     int passengerCount=0;
     
     /**
-     * Initializes the controller class.
+     * Initializes the edit fount luggage controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //try to set the page title
         try {
-            MainViewController.getInstance().getTitle(title);
+            MainViewController.getInstance().getTitle(TITLE);
         } catch (IOException ex) {
             Logger.getLogger(ServiceHomeViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+              
+        //initialize and set al the comboboxes
+        initializeComboBoxes();
         
-        
-        //set 3 objects to get the right data from the database 
-        ServiceGetDataFromDB colors = new ServiceGetDataFromDB("color", LANGUAGE, null);
-        
-        ServiceGetDataFromDB locations = new ServiceGetDataFromDB("location", LANGUAGE, null);
-        
-        ServiceGetDataFromDB types = new ServiceGetDataFromDB("luggagetype", LANGUAGE, null);
-        try {
-            //initialize found fields 
+        //try to set the found luggage fields
+        try {           
             setFoundFields(getManualFoundLuggageResultSet());
-                    
-            //get the right string list for each combo box         
-            ObservableList<String> colorsStringList = colors.getStringList();
-            colorPicker1.getItems().addAll(colorsStringList);
-            colorPicker2.getItems().addAll(colorsStringList);
-            
-            
-            ObservableList<String> locationStringList = locations.getStringList();
-            locationPicker.getItems().addAll(locationStringList);
-            
-            
-            ObservableList<String> luggageStringList = types.getStringList();
-            typePicker.getItems().addAll(luggageStringList);
         } catch (SQLException ex) {
             Logger.getLogger(ServiceEditFoundLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -150,7 +137,36 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
         
         //passenger field check
         checkPassengerId();
-    }    
+    } 
+    
+    /**  
+     * Here are all the combo boxes set with the right data
+     * 
+     * @void initializing
+     */ 
+    private void initializeComboBoxes(){
+        //set 2 objects to get the right data for the database          //color
+        ServiceGetDataFromDB colors = new ServiceGetDataFromDB("color", LANGUAGE, null);
+                                                                        //types
+        ServiceGetDataFromDB types = new ServiceGetDataFromDB("luggagetype", LANGUAGE, null);
+                                                                                //location
+        //ServiceGetDataFromDB locations = new ServiceGetDataFromDB("location", LANGUAGE, null);
+        
+        //try to get the data from the database and set it 
+        try {                    
+            //get the right string list for each combo box         
+            ObservableList<String> colorsStringList = colors.getStringList();
+            ObservableList<String> luggageStringList = types.getStringList();
+               
+            //set the string lists to the combo boxes
+            colorPicker1.getItems().addAll(colorsStringList);
+            colorPicker2.getItems().addAll(colorsStringList);
+           
+            typePicker.getItems().addAll(luggageStringList);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceEditFoundLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+    }
     
     /**  
      * Here will the resultSet of the found manual matching luggage be get 

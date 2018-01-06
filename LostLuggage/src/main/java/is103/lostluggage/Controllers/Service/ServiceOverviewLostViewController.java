@@ -8,11 +8,9 @@ import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.Model.Service.Data.ServiceDataLost;
 import is103.lostluggage.MainApp;
-import is103.lostluggage.Model.Service.Data.ServiceDataFound;
 import is103.lostluggage.Model.Service.Data.ServiceMoreDetails;
 import is103.lostluggage.Model.Service.Data.ServiceSearchData;
 import is103.lostluggage.Model.Service.Interface.LostLuggageTable;
-import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -25,176 +23,203 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class voor vermiste bagage overzicht
+ * FXML Controller class for the lost luggage overview 
  *
  * @author Thijs Zijdel - 500782165
  */
 public class ServiceOverviewLostViewController implements Initializable, LostLuggageTable {
 
-            private Stage popupStageLost = new Stage();   
-
-        //view title
-    private final String title = "Overview Lost Luggage";
+    //view title
+    private final String TITLE = "Overview Lost Luggage";
     
-    private static ObservableList<LostLuggage> foundLuggageList;
-    private static ObservableList<LostLuggage> lostLuggageListSearchResults = FXCollections.observableArrayList();
+    //stage for more details when double clicking on a table item
+    private Stage popupStageLost = new Stage();  
     
+    //list for the search results
+    private static ObservableList<LostLuggage> lostLuggageListSearchResults 
+            = FXCollections.observableArrayList();
+    
+    //text field for the users search input
     @FXML JFXTextField searchField;
+    //combo box for a type/field/column search filter
     @FXML JFXComboBox searchTypeComboBox;
     
+    //Object for getting the data
+    private ServiceDataLost dataListLost;
     
-//    //value of input
-//    private String searchInput; 
+    //show alos matched luggage state, by default on false
+    private boolean showMatchedLuggage = false;
+    //resultSet for the items when changing the state of the showMatchedLuggage
+    private ResultSet matchedLuggageResultSet;
     
     /* -----------------------------------------
-         TableView missed luggage's colommen
+         TableView lost luggage's colommen
     ----------------------------------------- */
-    
-    @FXML private TableView<LostLuggage> missedLuggageTable;
+    @FXML private TableView<LostLuggage> lostLuggageTable;
 
-    @FXML private TableColumn<LostLuggage, String>  missedRegistrationNr;
-    @FXML private TableColumn<LostLuggage, String>  missedDateLost;
-    @FXML private TableColumn<LostLuggage, String>  missedTimeLost;
+    @FXML private TableColumn<LostLuggage, String>  lostRegistrationNr;
+    @FXML private TableColumn<LostLuggage, String>  DateLost;
+    @FXML private TableColumn<LostLuggage, String>  TimeLost;
     
-    @FXML private TableColumn<LostLuggage, String>  missedLuggageTag;
-    @FXML private TableColumn<LostLuggage, String>  missedLuggageType;
-    @FXML private TableColumn<LostLuggage, String>  missedBrand;
-    @FXML private TableColumn<LostLuggage, Integer> missedMainColor;
-    @FXML private TableColumn<LostLuggage, String>  missedSecondColor;
-    @FXML private TableColumn<LostLuggage, Integer> missedSize;
-    @FXML private TableColumn<LostLuggage, String>  missedWeight;
-    @FXML private TableColumn<LostLuggage, String>  missedOtherCharacteristics;
-    @FXML private TableColumn<LostLuggage, Integer> missedPassengerId;
+    @FXML private TableColumn<LostLuggage, String>  lostLuggageTag;
+    @FXML private TableColumn<LostLuggage, String>  lostLuggageType;
+    @FXML private TableColumn<LostLuggage, String>  lostBrand;
+    @FXML private TableColumn<LostLuggage, Integer> lostMainColor;
+    @FXML private TableColumn<LostLuggage, String>  lostSecondColor;
+    @FXML private TableColumn<LostLuggage, Integer> lostSize;
+    @FXML private TableColumn<LostLuggage, String>  lostWeight;
+    @FXML private TableColumn<LostLuggage, String>  lostOtherCharacteristics;
+    @FXML private TableColumn<LostLuggage, Integer> lostPassengerId;
     
-    @FXML private TableColumn<LostLuggage, String>  missedFlight;
-    @FXML private TableColumn<LostLuggage, String>  missedEmployeeId;
-    @FXML private TableColumn<LostLuggage, Integer> missedMatchedId;
-    
-    public ServiceDataLost dataListLost;
-    private boolean showMatchedLuggage = false;
-    private ResultSet matchedLuggageResultSet;
-
+    @FXML private TableColumn<LostLuggage, String>  lostFlight;
+    @FXML private TableColumn<LostLuggage, String>  lostEmployeeId;
+    @FXML private TableColumn<LostLuggage, Integer> lostMatchedId;
+   
     
     /**
-     * Initializes the controller class.
+     * Initializes the lost overview controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //switch to previous view
-        MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
-        
-        //titel boven de pagina zetten
+        //set the view's title, and catch a possible IOException
         try {
-            MainViewController.getInstance().getTitle(title);
+            MainViewController.getInstance().getTitle(TITLE);
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
            
-        //set screen status
-        MainApp.setOnMatchingView(false);
-        
-        
-        
-        
-            searchTypeComboBox.getItems().addAll(
-                "All fields",
-                "RegistrationNr", 
-                "LuggageTag", 
-                "Brand",
-                "Color",
-                "Weight",
-                "Date",
-                "Passenger",
-                "Characteristics");
-        searchTypeComboBox.setValue("All fields");
+        //so the user can change the filter
+        initializeComboFilterBox();
 
+        //try to initialize and set the lost luggage table
         try {
             //Initialize Table & obj lost 
             dataListLost = new ServiceDataLost();
             initializeLostLuggageTable();
             
-
+            //set the table with the right data
             setLostLuggageTable(dataListLost.getLostLuggage());
         } catch (SQLException ex) {
             Logger.getLogger(ServiceOverviewLostViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }
-    
-
-    @FXML
-    protected void showOnlyMatchedLuggage() throws SQLException{
-        if (showMatchedLuggage == false){
-            showMatchedLuggage = true;
-            
-            matchedLuggageResultSet = dataListLost.getLostResultSet(showMatchedLuggage);
-        
-        setLostLuggageTable(dataListLost.getObservableList(matchedLuggageResultSet));
-        
-        
-        } else if (showMatchedLuggage == true){
-            showMatchedLuggage = false;
-
-
-            
-        matchedLuggageResultSet = dataListLost.getLostResultSet(showMatchedLuggage);
-        
-        setLostLuggageTable(dataListLost.getObservableList(matchedLuggageResultSet));
-        }
-        
-    }
- 
-    @FXML
-    public void search() throws SQLException{
-        String value = searchTypeComboBox.getValue().toString();
-        String search = searchField.getText();
-         
-        ServiceSearchData searchData = new ServiceSearchData();
-        
-       
-        
-        String finalQuery = searchData.getSearchQuery(value, search, "lostluggage");
-        
-        
-        lostLuggageListSearchResults.clear();
-        
-
-        try {
-            MyJDBC db = MainApp.getDatabase();
-            ResultSet resultSet;
-            resultSet = db.executeResultSetQuery(finalQuery);
-            
-            lostLuggageListSearchResults=searchData.getLostLuggageSearchList(resultSet);
-            missedLuggageTable.setItems(lostLuggageListSearchResults);
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceOverviewLostViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-         
+        //set screen status
+        MainApp.setOnMatchingView(false); 
     }
     
     /**  
-     * @void doubleClickFoundRow
+     * This method is for initializing the filter combo box
+     * The comboBox is used for filtering to a specific:  
+     *                                               column/ field/ detail
+     *                                                          When searching.
+     * @void - No direct output 
      */
-    public void lostRowClicked() {
-        missedLuggageTable.setOnMousePressed((MouseEvent event) -> {
-                                //--> event         //--> double click
-            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                ServiceMoreDetails lostDetails = new ServiceMoreDetails();
-                lostDetails.setDetailsOfRow("lost", event, popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml");
-                lostDetails.setAndOpenPopUpDetails(popupStageLost, "/Views/Service/ServiceDetailedLostLuggageView.fxml", "lost");
-                
-            }
-        });
+    private void initializeComboFilterBox() {
+        //add all the filterable fields
+        searchTypeComboBox.getItems().addAll(
+            "All fields",
+            "RegistrationNr", 
+            "LuggageTag", 
+            "Brand",
+            "Color",
+            "Weight",
+            "Date",
+            "Passenger",
+            "Characteristics");
+        //set the standard start value to all fields
+        searchTypeComboBox.setValue("All fields");
+    }
+    
+    /**  
+     * This method is for toggle showing only the matched luggage
+     * Note: this is being called by the -fx- toggle button
+     * 
+     * @throws java.sql.SQLException        getting data from the database
+     * @void - No direct output             only changing results in the table
+     */
+    @FXML
+    protected void showOnlyMatchedLuggage() throws SQLException{
+        //if state of show only matched is false
+        if (showMatchedLuggage == false){
+            //set it to true
+            showMatchedLuggage = true;
+            
+            //asign the right resultset to the matchedLuggageResultSet
+            //note: this is based on the boolean status that's set previously
+            matchedLuggageResultSet = dataListLost.getLostResultSet(showMatchedLuggage);
+        
+            //set the table with the right data, the resultset will be converted
+            setLostLuggageTable(dataListLost.getObservableList(matchedLuggageResultSet));
+        
+        //if the state of only matched was already true
+        } else if (showMatchedLuggage == true){
+            //set the state to false, so only non matched luggage's are shown
+            showMatchedLuggage = false;
+
+            //asign the right resultset to the matchedLuggageResultSet
+            //note: this is based on the boolean status that's set previously
+            matchedLuggageResultSet = dataListLost.getLostResultSet(showMatchedLuggage);
+        
+            //set the table with the right data, the resultset will be converted
+            setLostLuggageTable(dataListLost.getObservableList(matchedLuggageResultSet));
+        }  
+    }
+    
+    /**  
+     * This method is for searching in the table
+     * There will be searched on the typed user input and filter value
+     * Note: this method is called after each time the user releases a key
+     * 
+     * @throws java.sql.SQLException        searching in the database
+     * @void - No direct output             only changing results in the table
+     * @call - getSearchQuery               for getting the search query
+     * @call - executeResultSetQuery        for getting the resultSet
+     * @call - getLostLuggageSearchList     the result list based on the resultSet
+     */
+    @FXML
+    public void search() throws SQLException{
+        //get the value of the search type combo box for filtering to a specific column
+        String value = searchTypeComboBox.getValue().toString();
+        //get the user input for the search
+        String search = searchField.getText();
+         
+        //Create a new searchData object
+        ServiceSearchData searchData = new ServiceSearchData();
+        
+        //Get the right query based on the users input
+        String finalQuery = searchData.getSearchQuery(value, search, "lostluggage");
+        
+        //clear the previous search result list 
+        lostLuggageListSearchResults.clear();
+        
+        //try to execute the query from the database
+        //@throws SQLException  
+        try {
+            //get the connection to the datbase
+            MyJDBC db = MainApp.getDatabase();
+            //create a new resultSet and execute the right query
+            ResultSet resultSet = db.executeResultSetQuery(finalQuery);
+            
+            //get the observableList from the search object and asign this to the list
+            lostLuggageListSearchResults = searchData.getLostLuggageSearchList(resultSet);
+            //set this list on the table
+            lostLuggageTable.setItems(lostLuggageListSearchResults);  
+            
+            //set the right place holder message for when there are no hits
+            lostLuggageTable.setPlaceholder(new Label("No hits based on your search"));
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceOverviewLostViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }  
     }
 
     /**  
@@ -204,40 +229,72 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
      */
     @Override
     public void initializeLostLuggageTable(){
-        missedRegistrationNr.setCellValueFactory(       new PropertyValueFactory<>("registrationNr"));
-        missedDateLost.setCellValueFactory(            new PropertyValueFactory<>("dateLost"));
-        missedTimeLost.setCellValueFactory(            new PropertyValueFactory<>("timeLost"));
+        lostRegistrationNr.setCellValueFactory(       new PropertyValueFactory<>("registrationNr"));
+        DateLost.setCellValueFactory(            new PropertyValueFactory<>("dateLost"));
+        TimeLost.setCellValueFactory(            new PropertyValueFactory<>("timeLost"));
         
-        missedLuggageTag.setCellValueFactory(           new PropertyValueFactory<>("luggageTag"));
-        missedLuggageType.setCellValueFactory(          new PropertyValueFactory<>("luggageType"));
-        missedBrand.setCellValueFactory(                new PropertyValueFactory<>("brand"));
-        missedMainColor.setCellValueFactory(            new PropertyValueFactory<>("mainColor"));
-        missedSecondColor.setCellValueFactory(          new PropertyValueFactory<>("secondColor"));
-        missedSize.setCellValueFactory(                 new PropertyValueFactory<>("size"));
-        missedWeight.setCellValueFactory(               new PropertyValueFactory<>("weight"));
+        lostLuggageTag.setCellValueFactory(           new PropertyValueFactory<>("luggageTag"));
+        lostLuggageType.setCellValueFactory(          new PropertyValueFactory<>("luggageType"));
+        lostBrand.setCellValueFactory(                new PropertyValueFactory<>("brand"));
+        lostMainColor.setCellValueFactory(            new PropertyValueFactory<>("mainColor"));
+        lostSecondColor.setCellValueFactory(          new PropertyValueFactory<>("secondColor"));
+        lostSize.setCellValueFactory(                 new PropertyValueFactory<>("size"));
+        lostWeight.setCellValueFactory(               new PropertyValueFactory<>("weight"));
 
-        missedOtherCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
-        missedPassengerId.setCellValueFactory(          new PropertyValueFactory<>("passengerId"));
+        lostOtherCharacteristics.setCellValueFactory( new PropertyValueFactory<>("otherCharacteristics"));
+        lostPassengerId.setCellValueFactory(          new PropertyValueFactory<>("passengerId"));
         
-        missedFlight.setCellValueFactory(               new PropertyValueFactory<>("flight"));
-        missedEmployeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
-        missedMatchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId"));
-            
+        lostFlight.setCellValueFactory(               new PropertyValueFactory<>("flight"));
+        lostEmployeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
+        lostMatchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId"));
+         
+        //set place holder text when there are no results
+        lostLuggageTable.setPlaceholder(new Label("No lost luggage's to display"));
     }
     /**  
      * Here will the lost luggage table be set with the right data
-     * The data (observable<lostluggage>list) comes from the dataListLost
+     * The data (observable< lostluggage>list) comes from the dataListLost
      * 
-     * @param dataListLost
+     * @param list
      * @void - No direct output 
      * @call - set lostLuggageTable             
      */
     @Override
     public void setLostLuggageTable(ObservableList<LostLuggage> list){
-        missedLuggageTable.setItems(list);  
+        lostLuggageTable.setItems(list);  
     }
     
-       
+    
+    
+    /**  
+     * Here is checked of a row in the lost luggage table is clicked
+     * If this is the case, two functions will be activated. 
+     * 
+     * @void - No direct output 
+     * @call - setDetailsOfRow           set the details of the clicked row
+     * @call - setAndOpenPopUpDetails    opens the right more details pop up 
+     */
+    public void lostRowClicked() {
+        lostLuggageTable.setOnMousePressed((MouseEvent event) -> {
+                                //--> event         //--> double click
+            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                //Make a more details object called lostDetails.
+                ServiceMoreDetails lostDetails = new ServiceMoreDetails();
+                //Set the detailes of the clicked row and pass a stage and link
+                lostDetails.setDetailsOfRow("lost", event, popupStageLost, 
+                            "/Views/Service/ServiceDetailedLostLuggageView.fxml");
+                //Open the more details pop up.
+                lostDetails.setAndOpenPopUpDetails(popupStageLost, 
+                            "/Views/Service/ServiceDetailedLostLuggageView.fxml", "lost");
+                
+            }
+        });
+    }
+      
+    
+    /*--------------------------------------------------------------------------
+                              Switch view buttons
+    --------------------------------------------------------------------------*/
     @FXML
     protected void switchToInput(ActionEvent event) throws IOException {
         MainApp.switchView("/Views/Service/ServiceInputLuggageView.fxml");

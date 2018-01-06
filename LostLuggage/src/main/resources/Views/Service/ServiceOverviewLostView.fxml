@@ -31,23 +31,23 @@
         <RowConstraints maxHeight="33.31011962890625" minHeight="100.0" prefHeight="9.034820556640625" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-       <TableView fx:id="missedLuggageTable" onMouseClicked="#lostRowClicked" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="4">
+       <TableView fx:id="lostLuggageTable" onMouseClicked="#lostRowClicked" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="4">
          <columns>
-            <TableColumn fx:id="missedRegistrationNr" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="ID" />
-            <TableColumn fx:id="missedDateLost" minWidth="80.0" text="Date Lost" />
-            <TableColumn fx:id="missedTimeLost" minWidth="65.0" prefWidth="114.00006103515625" text="Time" />
-            <TableColumn fx:id="missedLuggageTag" minWidth="15.999969482421875" prefWidth="60.0" text="Tag" />
-            <TableColumn fx:id="missedLuggageType" minWidth="21.0" prefWidth="49.0" text="Type" />
-            <TableColumn fx:id="missedBrand" minWidth="37.0" prefWidth="68.0" text="Brand" />
-            <TableColumn fx:id="missedMainColor" minWidth="39.0" prefWidth="61.0" text="Color" />
-            <TableColumn fx:id="missedSecondColor" minWidth="78.0" prefWidth="94.0" text="Secondcolor" />
-            <TableColumn fx:id="missedSize" minWidth="49.0" prefWidth="58.0" text="Size" />
-            <TableColumn fx:id="missedWeight" minWidth="56.0" prefWidth="76.0" text="Weight" />
-            <TableColumn fx:id="missedOtherCharacteristics" minWidth="100.0" prefWidth="176.0" text="Characteristics" />
-            <TableColumn fx:id="missedPassengerId" minWidth="57.0" prefWidth="82.0" text="Passenger" />
-            <TableColumn fx:id="missedFlight" minWidth="50.0" prefWidth="84.0" text="Flight" />
-            <TableColumn fx:id="missedEmployeeId" minWidth="50.0" prefWidth="84.0" text="Employee" />
-            <TableColumn fx:id="missedMatchedId" minWidth="50.0" prefWidth="84.0" text="Mathche" />
+            <TableColumn fx:id="lostRegistrationNr" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="ID" />
+            <TableColumn fx:id="DateLost" minWidth="80.0" prefWidth="100.0" text="Date Lost" />
+            <TableColumn fx:id="TimeLost" minWidth="75.0" prefWidth="90.0" text="Time" />
+            <TableColumn fx:id="lostLuggageTag" minWidth="100.0" prefWidth="120.0" text="Tag" />
+            <TableColumn fx:id="lostLuggageType" minWidth="50.0" prefWidth="50.0" text="Type" />
+            <TableColumn fx:id="lostBrand" minWidth="100.0" prefWidth="125.0" text="Brand" />
+            <TableColumn fx:id="lostMainColor" minWidth="100.0" prefWidth="125.0" text="Color" />
+            <TableColumn fx:id="lostSecondColor" minWidth="100.0" prefWidth="125.0" text="Secondcolor" />
+            <TableColumn fx:id="lostSize" minWidth="125.0" prefWidth="150.0" text="Size" />
+            <TableColumn fx:id="lostWeight" minWidth="50.0" prefWidth="65.0" text="Weight" />
+            <TableColumn fx:id="lostOtherCharacteristics" minWidth="100.0" prefWidth="125.0" text="Characteristics" />
+            <TableColumn fx:id="lostPassengerId" minWidth="63.0" prefWidth="63.0" text="Passenger" />
+            <TableColumn fx:id="lostFlight" minWidth="50.0" prefWidth="84.0" text="Flight" />
+            <TableColumn fx:id="lostEmployeeId" minWidth="50.0" prefWidth="84.0" text="Employee" />
+            <TableColumn fx:id="lostMatchedId" minWidth="50.0" prefWidth="84.0" text="Match ID" />
          </columns>
       </TableView>
       <FlowPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4CAF50#4CAF50 #4CAF50#4CAF50;" GridPane.columnSpan="4" GridPane.rowSpan="2" />

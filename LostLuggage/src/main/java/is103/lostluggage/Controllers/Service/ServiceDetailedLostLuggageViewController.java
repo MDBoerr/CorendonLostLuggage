@@ -31,7 +31,7 @@ import javafx.stage.Stage;
  * @author Thijs Zijdel - 500782165
  */
 public class ServiceDetailedLostLuggageViewController implements Initializable, LostLuggageFields {
-    
+    //get al the jfxtextfields (and a text area)
     @FXML private AnchorPane popupPain;
     @FXML private JFXTextField registrationNr;
     @FXML private JFXTextField luggageTag;
@@ -56,19 +56,21 @@ public class ServiceDetailedLostLuggageViewController implements Initializable, 
     @FXML private JFXTextField dateLost;
     @FXML private JFXTextField flight;
     
-    public ObservableList<MatchLuggage> potentialMatchesList = FXCollections.observableArrayList(); 
+    //create a potentialmatches list 
+    public ObservableList<MatchLuggage> potentialMatchesList 
+            = FXCollections.observableArrayList(); 
     
     //getting the main language of the application
     private final String LANGUAGE = MainApp.getLanguage();  
 
     
     /**
-     * Initializes the controller class.
+     * Initializes the detailed lost luggage view controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println("switched!!");
-        
         //try to load initialize methode
         try {
             setLostFields(getManualLostLuggageResultSet());
