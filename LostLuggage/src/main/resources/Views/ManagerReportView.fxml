@@ -33,12 +33,15 @@
         </LineChart>
       <JFXButton onAction="#fifteen" style="-fx-background-color: #4dadf7#4dadf7 #4dadf7#4dadf7 #4dadf7#4dadf7 #4dadf7#4dadf7;" text="2015" GridPane.rowIndex="4">
          <GridPane.margin>
-            <Insets right="259.0" />
+            <Insets left="272.0" />
          </GridPane.margin>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
       </JFXButton>
-      <JFXButton fx:id="six" onAction="#sixteen" style="-fx-background-color: #4dadf7#4dadf7 #4dadf7#4dadf7 #4dadf7#4dadf7 #4dadf7#4dadf7;" text="2016" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <JFXButton fx:id="six" onAction="#sixteen" style="-fx-background-color: #4dadf7#4dadf7 #4dadf7#4dadf7 #4dadf7#4dadf7 #4dadf7#4dadf7;" text="2016" GridPane.rowIndex="4">
          <GridPane.margin>
-            <Insets right="346.0" />
+            <Insets right="500.0" />
          </GridPane.margin>
       </JFXButton>
       <JFXButton onAction="#sevteen" style="-fx-background-color: #4dadf7#4dadf7 #4dadf7#4dadf7 #4dadf7#4dadf7 #4dadf7#4dadf7;" text="2017" GridPane.columnIndex="1" GridPane.rowIndex="4">

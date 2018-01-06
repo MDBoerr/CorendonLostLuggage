@@ -1,5 +1,6 @@
 package is103.lostluggage.Controllers.Manager;
 
+import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.Admin.HomeUserViewController;
 import is103.lostluggage.Controllers.MainViewController;
@@ -27,6 +28,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -53,7 +55,21 @@ public class ManagerRetrievedViewController implements Initializable {
     @FXML
     private TableColumn<RetrievedLuggage, String> Deliverer;
 
+    @FXML
+    private JFXTextField formid;
+    @FXML
+    private JFXTextField customerid;
+    @FXML
+    private JFXTextField deivererid;
+    @FXML
+    private JFXTextField emailid;
+    @FXML
+    private JFXTextField adresid;
+    @FXML
+    private JFXTextField dateid;
+
     @Override
+
     public void initialize(URL url, ResourceBundle rb) {
 
         //To Previous Scene
@@ -65,12 +81,17 @@ public class ManagerRetrievedViewController implements Initializable {
         Employee.setCellValueFactory(new PropertyValueFactory<>("Employee"));
         Deliverer.setCellValueFactory(new PropertyValueFactory<>("Deliverer"));
         retrievedTable.setItems(getRetrievedLuggage());
+        
+        
 
         retrievedTable.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
-                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                formid = new JFXTextField();
+                
+                
+                if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
                     Node node = ((Node) event.getTarget()).getParent();
 
                     TableRow row;
@@ -82,16 +103,8 @@ public class ManagerRetrievedViewController implements Initializable {
                         row = (TableRow) node.getParent();
                     }
                     System.out.println(row.getItem());
-
-                    try {
-
-                        MainApp.switchView("/Views/ManagerPassengerInfoView.fxml");
-
-                    } catch (IOException ex) {
-
-                        Logger.getLogger(ManagerFoundViewController.class.getName()).log(Level.SEVERE, null, ex);
-
-                    }
+                    
+                    formid.setText("formid");
 
                 }
 
@@ -110,34 +123,25 @@ public class ManagerRetrievedViewController implements Initializable {
 
             ResultSet resultSet;
 
-            resultSet = db.executeResultSetQuery("SELECT delivery, dateMatched, employee.firstname, foundluggage.registrationNr, passenger.name  FROM matched INNER JOIN employee ON matched.employeeId = employee.employeeId INNER JOIN foundluggage ON matched.foundluggage = foundluggage.registrationNr INNER JOIN passenger ON foundluggage.passengerId = passenger.passengerId");
-            
-            
-                
-            
+            resultSet = db.executeResultSetQuery("SELECT delivery, dateMatched, employee.firstname, matched.matchedId, passenger.name  FROM matched INNER JOIN employee ON matched.employeeId = employee.employeeId INNER JOIN foundluggage ON matched.foundluggage = foundluggage.registrationNr INNER JOIN passenger ON foundluggage.passengerId = passenger.passengerId");
+
             while (resultSet.next()) {
-             String delivercheck = resultSet.getString("matched.delivery");
-             if (!"".equals(delivercheck)) {
-                int registrationnr = resultSet.getInt("foundluggage.registrationNr");
-                String date = resultSet.getString("matched.dateMatched");
-                String passengername = resultSet.getString("passenger.name");
-                String employeename = resultSet.getString("employee.firstname");
-                String delivered = resultSet.getString("matched.delivery");
+                String delivercheck = resultSet.getString("matched.delivery");
+                if (!"".equals(delivercheck)) {
+                    int registrationnr = resultSet.getInt("matched.matchedId");
+                    String date = resultSet.getString("matched.dateMatched");
+                    String passengername = resultSet.getString("passenger.name");
+                    String employeename = resultSet.getString("employee.firstname");
+                    String delivered = resultSet.getString("matched.delivery");
 
-                retrievedList.add(
-                        new RetrievedLuggage(
-                                registrationnr,
-                                date,
-                                passengername,
-                                employeename,
-                                delivered));
+                    retrievedList.add(new RetrievedLuggage(registrationnr, date, passengername, employeename, delivered));
 
-            }
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(ManagerReportViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return retrievedList;
     }
-    
+
 }
