@@ -138,6 +138,7 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
             "Weight",
             "Date",
             "Passenger",
+            "Location",
             "Characteristics");
         //set the standard start value to all fields
         searchTypeComboBox.setValue("All fields");

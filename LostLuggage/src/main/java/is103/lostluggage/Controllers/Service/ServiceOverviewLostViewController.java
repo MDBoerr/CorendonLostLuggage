@@ -135,6 +135,7 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
             "Weight",
             "Date",
             "Passenger",
+            "Location",
             "Characteristics");
         //set the standard start value to all fields
         searchTypeComboBox.setValue("All fields");

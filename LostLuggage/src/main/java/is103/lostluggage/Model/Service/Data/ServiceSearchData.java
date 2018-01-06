@@ -67,6 +67,7 @@ public class ServiceSearchData {
                     + " otherCharacteristics LIKE '%replace%' OR ";
                 query += generateColorQuery(search);
                 query += generatePassengerQuery(search);
+                query += generateLocationQuery(search);
                 
                 break;
             case "registrationnr":
@@ -104,6 +105,11 @@ public class ServiceSearchData {
             case "passenger":
                 
                 query += generatePassengerQuery(search);
+                
+                break;
+            case "location":
+                
+                query += generateLocationQuery(search);
                 
                 break;
             default:
@@ -184,6 +190,30 @@ public class ServiceSearchData {
 
         for (String passengerListItem : stringListPassenger) {
             generateQuery += " passengerId LIKE '"+passengerListItem+"' OR ";          
+        }
+
+        return generateQuery;
+    }
+    
+        private String generateLocationQuery(String search) throws SQLException{
+        String generateQuery = "";
+        String locationQuery = "SELECT locationId FROM location WHERE "
+                + " english LIKE '%replace%' OR "
+                + " dutch LIKE '%replace%' OR "
+                + " locationId LIKE '%replace%';";
+
+        locationQuery = locationQuery.replaceAll("replace", search);
+
+        ResultSet resultSetLocation = DB.executeResultSetQuery(locationQuery);
+        ObservableList<String> stringListLocation =  FXCollections.observableArrayList(); 
+
+        while (resultSetLocation.next()){
+            String colorId = resultSetLocation.getString("locationId");
+            stringListLocation.add(colorId);
+        }
+
+        for (String locationListItem : stringListLocation) {
+            generateQuery += " locationId LIKE '"+locationListItem+"' OR ";          
         }
 
         return generateQuery;
