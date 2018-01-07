@@ -171,8 +171,9 @@ public class ServiceDetailedLostLuggageViewController implements Initializable, 
      * Initialized by getting the right data, clear the previous list,
      * getting the instance id and passing this to the data object
      * 
-     * 
-     * @param event             when the button is clicked 
+     * @param event                     when the button is clicked 
+     * @throws java.io.IOException      switching views
+     * @throws java.sql.SQLException    getting data from the db
      */ 
     @FXML
     public void viewPotentials(ActionEvent event) throws SQLException, IOException{
@@ -203,17 +204,13 @@ public class ServiceDetailedLostLuggageViewController implements Initializable, 
         
     }      
     
-
-//    public ObservableList<MatchLuggage> getPotentialList(){
-//        return potentialMatchesList;
-//    }
-    
     
     /**  
      * When the 'manual match ' button is clicked the instance will be set
      * And the stage will be closed
      * 
-     * @param event             when the button is clicked 
+     * @param event                     when the button is clicked 
+     * @throws java.io.IOException      potential switching views
      */ 
     @FXML
     protected void manualMatching(ActionEvent event) throws IOException{
