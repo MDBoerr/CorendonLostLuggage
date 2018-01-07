@@ -26,6 +26,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -81,16 +82,13 @@ public class ManagerRetrievedViewController implements Initializable {
         Employee.setCellValueFactory(new PropertyValueFactory<>("Employee"));
         Deliverer.setCellValueFactory(new PropertyValueFactory<>("Deliverer"));
         retrievedTable.setItems(getRetrievedLuggage());
-        
-        
 
         retrievedTable.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
                 formid = new JFXTextField();
-                
-                
+
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
                     Node node = ((Node) event.getTarget()).getParent();
 
@@ -104,8 +102,39 @@ public class ManagerRetrievedViewController implements Initializable {
                     }
                     System.out.println(row.getItem());
                     
-                    formid.setText("formid");
-
+                    
+                    
+                    int formid = retrievedTable.getSelectionModel().getSelectedItem().getFormID();
+                    
+                    String formidString = Integer.toString(formid);
+                    
+//                   formid.setText(formidString);
+                    
+                    
+                    System.out.println(formid);
+//        retrievedTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+//        retrievedTable.getSelectionModel().setCellSelectionEnabled(true);
+//
+//        retrievedTable.addEventFilter(MouseEvent.MOUSE_PRESSED, (event) -> {
+//            if (event.isShortcutDown() || event.isShiftDown()) {
+//                event.consume();
+//            }
+//        });
+//
+//        retrievedTable.getFocusModel().focusedCellProperty().addListener((obs, oldVal, newVal) -> {
+//
+//            if (newVal.getTableColumn() != null) {
+//                retrievedTable.getSelectionModel().selectRange(0, newVal.getTableColumn(), retrievedTable.getItems().size(), newVal.getTableColumn());
+//                System.out.println("Selected TableColumn: " + newVal.getTableColumn().getText());
+//                System.out.println("Selected column index: " + newVal.getColumn());
+//            }
+//        });
+//
+//        retrievedTable.addEventFilter(MouseEvent.MOUSE_PRESSED, (event) -> {
+//            if (event.isShortcutDown() || event.isShiftDown()) {
+//                event.consume();
+//            }
+//        });
                 }
 
             }
@@ -113,6 +142,19 @@ public class ManagerRetrievedViewController implements Initializable {
         });
 
     }
+    
+//        public TextField<customerdetails> getcustomerdetails(){
+//                            
+//                    int formid = retrievedTable.getSelectionModel().getSelectedItem().getFormID();
+//                    
+//                    String formidString = Integer.toString(formid);
+//                    
+//                   formid.setText(formidString);
+//                    
+//                    
+//                    System.out.println(formid);
+//    }
+
 
     public ObservableList<RetrievedLuggage> getRetrievedLuggage() {
 
