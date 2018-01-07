@@ -41,7 +41,7 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
     private final String TITLE = "Overview Lost Luggage";
     
     //stage for more details when double clicking on a table item
-    private Stage popupStageLost = new Stage();  
+    private final Stage POPUP_STAGE_LOST = new Stage();  
     
     //list for the search results
     private static ObservableList<LostLuggage> lostLuggageListSearchResults 
@@ -59,6 +59,9 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
     private boolean showMatchedLuggage = false;
     //resultSet for the items when changing the state of the showMatchedLuggage
     private ResultSet matchedLuggageResultSet;
+    
+    //click counts
+    private final int DOUBLE_CLICK = 2;
     
     /* -----------------------------------------
          TableView lost luggage's colommen
@@ -277,14 +280,14 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
     public void lostRowClicked() {
         lostLuggageTable.setOnMousePressed((MouseEvent event) -> {
                                 //--> event         //--> double click
-            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+            if (event.isPrimaryButtonDown() && event.getClickCount() == DOUBLE_CLICK) {
                 //Make a more details object called lostDetails.
                 ServiceMoreDetails lostDetails = new ServiceMoreDetails();
                 //Set the detailes of the clicked row and pass a stage and link
-                lostDetails.setDetailsOfRow("lost", event, popupStageLost, 
+                lostDetails.setDetailsOfRow("lost", event, POPUP_STAGE_LOST, 
                             "/Views/Service/ServiceDetailedLostLuggageView.fxml");
                 //Open the more details pop up.
-                lostDetails.setAndOpenPopUpDetails(popupStageLost, 
+                lostDetails.setAndOpenPopUpDetails(POPUP_STAGE_LOST, 
                             "/Views/Service/ServiceDetailedLostLuggageView.fxml", "lost");
                 
             }

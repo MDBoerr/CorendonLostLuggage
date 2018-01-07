@@ -43,7 +43,7 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
     private final String TITLE = "Overview Found Luggage";
     
     //stage for more details when double clicking on a table item
-    public Stage popupStageFound = new Stage(); 
+    private final Stage POPUP_STAGE_FOUND = new Stage(); 
     
     //list for the search results
     private static ObservableList<FoundLuggage> foundLuggageListSearchResults 
@@ -61,6 +61,9 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
     private boolean showMatchedLuggage = false;
     //resultSet for the items when changing the state of the showMatchedLuggage
     private ResultSet matchedLuggageResultSet;
+    
+    //click counts
+    private final int DOUBLE_CLICK = 2;
     
     /* -----------------------------------------
          TableView found luggage's colommen
@@ -281,14 +284,14 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
     public void foundRowClicked() {
         foundLuggageTable.setOnMousePressed((MouseEvent event) -> {
                                 //--> event         //--> double click
-            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+            if (event.isPrimaryButtonDown() && event.getClickCount() == DOUBLE_CLICK) {
                 //Make a more details object called foundDetails.
                 ServiceMoreDetails foundDetails = new ServiceMoreDetails();
                 //Set the detailes of the clicked row and pass a stage and link
-                foundDetails.setDetailsOfRow("found", event, popupStageFound, 
+                foundDetails.setDetailsOfRow("found", event, POPUP_STAGE_FOUND, 
                             "/Views/Service/ServiceDetailedFoundLuggageView.fxml");
                 //Open the more details pop up.
-                foundDetails.setAndOpenPopUpDetails(popupStageFound, 
+                foundDetails.setAndOpenPopUpDetails(POPUP_STAGE_FOUND, 
                             "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
                
             }
