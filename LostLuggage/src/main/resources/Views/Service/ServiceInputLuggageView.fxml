@@ -188,7 +188,7 @@
       </GridPane>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
-            <JFXButton prefHeight="63.0" prefWidth="130.0" style="-fx-background-color: #fbc756#fbc756;" text="Export PDF">
+            <JFXButton onAction="#exportFormPdf" prefHeight="63.0" prefWidth="130.0" style="-fx-background-color: #fbc756#fbc756;" text="Export PDF">
                <font>
                   <Font size="16.0" />
                </font>

@@ -56,32 +56,44 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     private final String TITLE = "Matching";
     
     //popup stage
-    private final Stage popupStageFound = new Stage();   
-    private final Stage popupStageLost = new Stage(); 
-    private final Stage popupStageMatch = new Stage(); 
+    private final Stage POPUP_STAGE_FOUND = new Stage();   
+    private final Stage POPUP_STAGE_LOST = new Stage(); 
+    private final Stage POPUP_STAGE_MATCH = new Stage(); 
     
     //refresh rate                           
     private static final long REFRESH_TIME = 1; //s
     
-    //setup for manual matching -> stop loop
-    private int idCheckFound = 9999;//random value (!= registrationNr) 
-    private int idFound      = 9999;//random value (!= registrationNr)
+    //setup for manual matching -> and stopping the loop
+    private final int RESET_VALUE = 9999; //random value (!= registrationNr) 
+    private int idCheckFound = RESET_VALUE;
+    private int idFound      = RESET_VALUE;
     
-    private int idCheckLost = 9999;//random value (!= registrationNr) 
-    private int idLost      = 9999;//random value (!= registrationNr)
+    private int idCheckLost = RESET_VALUE;
+    private int idLost      = RESET_VALUE;
     
     //luggage's lists
     public static ObservableList<FoundLuggage> foundLuggageList;
     public static ObservableList<LostLuggage> lostLuggageList;
-    private ObservableList<MatchLuggage> potentialList  = FXCollections.observableArrayList(); 
     
-    //Matching tabs -> 1: automatic matching     2: manual matching
+    //potential matches list
+    private ObservableList<MatchLuggage> potentialList  
+            = FXCollections.observableArrayList(); 
+    
+    //Matching tabs 
     @FXML private TabPane matchingTabs;
+    private final int MATCHING_TAB = 0;
+    private final int MANUAL_MATCHING_TAB = 1;
+    private final int POTENTIAL_MATCHING_TAB = 2;
 
     //Pannels for manual matching
     @FXML private Pane foundPane;
     @FXML private Pane lostPane;
-   
+    
+    //click counts
+    private final int DOUBLE_CLICK = 2;
+    
+    //for displaying a match
+    private final int MINIMUM_AUTOMATIC_MATCH_PERCENTAGE = 10;
     
     //--------------------------------
     //    Table Found initializen
@@ -164,7 +176,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     @FXML private TableColumn<MatchLuggage, String>  potentialSize;
     @FXML private TableColumn<MatchLuggage, String>  potentialWeight;
     
-    //Create instance of this class
+    //Create one instance of this class
     public static ServiceMatchingViewController instance = null;
     
     //Get instance
@@ -319,7 +331,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     public void setMatchingTab(int tab){
         //check the index (tab) given
         if (tab > 3 || tab < 0){
-            tab = 0; //set tab to automatich matching
+            tab = MATCHING_TAB; //set tab to automatich matching
         }
         //get selection of matching tabs
         SingleSelectionModel<Tab> matchingSelectionTabs = matchingTabs.getSelectionModel(); 
@@ -462,7 +474,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
             matchData.autoMatching(
                 dataListFound.getFoundLuggage(), 
                 datalistDataLost.getLostLuggage(), 
-                10)
+                MINIMUM_AUTOMATIC_MATCH_PERCENTAGE)
             ); 
     }
     
@@ -485,14 +497,14 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     public void foundRowClicked() {
         foundLuggageTable.setOnMousePressed((MouseEvent event) -> {
                                 //--> event         //--> double click
-            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+            if (event.isPrimaryButtonDown() && event.getClickCount() == DOUBLE_CLICK) {
                 //Make a more details object called foundDetails.
                 ServiceMoreDetails foundDetails = new ServiceMoreDetails();
                 //Set the detailes of the clicked row and pass a stage and link
-                foundDetails.setDetailsOfRow("found", event, popupStageFound, 
+                foundDetails.setDetailsOfRow("found", event, POPUP_STAGE_FOUND, 
                             "/Views/Service/ServiceDetailedFoundLuggageView.fxml");
                 //Open the more details pop up.
-                foundDetails.setAndOpenPopUpDetails(popupStageFound, 
+                foundDetails.setAndOpenPopUpDetails(POPUP_STAGE_FOUND, 
                             "/Views/Service/ServiceDetailedFoundLuggageView.fxml", "found");
                
             }
@@ -510,14 +522,14 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     public void lostRowClicked() {
         lostLuggageTable.setOnMousePressed((MouseEvent event) -> {
                                 //--> event         //--> double click
-            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+            if (event.isPrimaryButtonDown() && event.getClickCount() == DOUBLE_CLICK) {
                 //Make a more details object called lostDetails.
                 ServiceMoreDetails lostDetails = new ServiceMoreDetails();
                 //Set the detailes of the clicked row and pass a stage and link
-                lostDetails.setDetailsOfRow("lost", event, popupStageLost, 
+                lostDetails.setDetailsOfRow("lost", event, POPUP_STAGE_LOST, 
                             "/Views/Service/ServiceDetailedLostLuggageView.fxml");
                 //Open the more details pop up.
-                lostDetails.setAndOpenPopUpDetails(popupStageLost, 
+                lostDetails.setAndOpenPopUpDetails(POPUP_STAGE_LOST, 
                             "/Views/Service/ServiceDetailedLostLuggageView.fxml", "lost");
                 
             }
@@ -536,15 +548,15 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
         //Automatic matching table
         matchTabbleView.setOnMousePressed((MouseEvent event) -> {
                                 //--> event         //--> double click
-            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {  
+            if (event.isPrimaryButtonDown() && event.getClickCount() == DOUBLE_CLICK) {  
                 //Make a more details object called matchDetails.
                 // note: this is a match row so a lost and found id will be setted
                 ServiceMoreDetails matchDetails = new ServiceMoreDetails();
                 //Set the detailes of the clicked row and pass a stage and link
-                matchDetails.setDetailsOfRow("match", event, popupStageMatch, 
+                matchDetails.setDetailsOfRow("match", event, POPUP_STAGE_MATCH, 
                             "/Views/Service/ServiceDetailedMatchLuggageView.fxml");
                 //Open the more details pop up.
-                matchDetails.setAndOpenPopUpDetails(popupStageMatch, 
+                matchDetails.setAndOpenPopUpDetails(POPUP_STAGE_MATCH, 
                             "/Views/Service/ServiceDetailedMatchLuggageView.fxml", "match");
                   
             }
@@ -552,14 +564,14 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
         //Potential matching table
         potentialMatchingTable.setOnMousePressed((MouseEvent event) -> {
                                 //--> event         //--> double click
-            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {  
+            if (event.isPrimaryButtonDown() && event.getClickCount() == DOUBLE_CLICK) {  
                 //Make a more details object called matchDetails.
                 // note: this is a match row so a lost and found id will be setted
                 ServiceMoreDetails matchDetails = new ServiceMoreDetails();
                 //Set the detailes of the clicked row and pass a stage and link
-                matchDetails.setDetailsOfRow("match", event, popupStageMatch, 
+                matchDetails.setDetailsOfRow("match", event, POPUP_STAGE_MATCH, 
                             "/Views/Service/ServiceDetailedMatchLuggageView.fxml");
-                matchDetails.setAndOpenPopUpDetails(popupStageMatch, 
+                matchDetails.setAndOpenPopUpDetails(POPUP_STAGE_MATCH, 
                             "/Views/Service/ServiceDetailedMatchLuggageView.fxml", "match");
                   
             }
@@ -586,7 +598,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
         //Note: This id will be checked in this function. 
         idCheckFound = addToManualMatching(
                 foundPane,                  //Found pane
-                1,                          //Tab index of manual matching
+                MANUAL_MATCHING_TAB,        //Tab index of manual matching
                 idCheckFound,               //The id that will be checked
                 idFound,                    //The id that will be changed
                 idManualMatching,           //The id of the instance 
@@ -609,8 +621,14 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
         String idManualMatching = LostLuggageManualMatchingInstance.getInstance().currentLuggage().getRegistrationNr();
         //idCheckLost will be setted trough addToManualMatching
         //Note: This id will be checked in this function. 
-        idCheckLost = addToManualMatching(lostPane, 1, idCheckLost, idLost, idManualMatching, 
-                                        "/Views/Service/ServiceManualMatchingLostView.fxml");
+        idCheckLost = addToManualMatching(
+                lostPane, 
+                MANUAL_MATCHING_TAB, 
+                idCheckLost, 
+                idLost, 
+                idManualMatching, 
+                "/Views/Service/ServiceManualMatchingLostView.fxml"
+        );
     } 
     
     
@@ -627,7 +645,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
         //FoundLuggageManualMatchingInstance instance wille be cleared
         FoundLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(null);
         //check id will be resetted so the add to manual matching loop stops
-        idCheckFound = 9999;
+        idCheckFound = RESET_VALUE;
         //manual matching found pane will be cleared
         foundPane.getChildren().clear();
     }
@@ -645,7 +663,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
         //LostLuggageManualMatchingInstance instance wille be cleared
         LostLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(null);
         //check id will be resetted so the add to manual matching loop stops
-        idCheckLost = 9999;
+        idCheckLost = RESET_VALUE;
         //manual matching lost pane will be cleared
         lostPane.getChildren().clear();
         
@@ -788,7 +806,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
         //refresh the table
         potentialMatchingTable.refresh();
         //set te matching tabs tot the potential matching 
-        setMatchingTab(2);
+        setMatchingTab(POTENTIAL_MATCHING_TAB);
         //reset te reset status from true to false
         MainApp.setPotentialResetStatus(false);
         

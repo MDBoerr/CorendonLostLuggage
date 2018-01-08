@@ -269,8 +269,10 @@ public class ServiceInputLuggageViewController implements Initializable {
             //Execute the query to add a passenger to the database
             int affectedRowsPassengerQuery = MainApp.getDatabase().executeUpdateQuery(addPassengerQuery);
 
+
             //select the id of the passenger we just added by email address
-            String selectPassengerQuery = "SELECT * FROM passenger WHERE email = '" +email+ "'";
+            //TODO: has to be changed to return generated keys from prepared statement
+            String selectPassengerQuery = "SELECT passengerId FROM passenger ORDER BY passengerId DESC LIMIT 1";
 
             //execute the query to select the recently added passenger, the String we get back is the id of that user
             String passengerId = MainApp.getDatabase().executeStringQuery(selectPassengerQuery);
@@ -289,7 +291,7 @@ public class ServiceInputLuggageViewController implements Initializable {
     //Method to export the current form to pdf
     @FXML
     public void exportFormPdf(){
-        
+        System.out.println("Exporting form to PDF");
     }
     
     //This methods checks whether all the fields have been filled in appropriately

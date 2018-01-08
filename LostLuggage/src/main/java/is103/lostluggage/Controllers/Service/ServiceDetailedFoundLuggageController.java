@@ -176,7 +176,9 @@ public class ServiceDetailedFoundLuggageController implements Initializable, Fou
      * getting the instance id and passing this to the data object
      * 
      * 
-     * @param event             when the button is clicked 
+     * @param event                     when the button is clicked 
+     * @throws java.io.IOException      switching views
+     * @throws java.sql.SQLException    getting data from the db
      */ 
     @FXML
     protected void viewPotentials(ActionEvent event) throws IOException, SQLException{
@@ -213,7 +215,8 @@ public class ServiceDetailedFoundLuggageController implements Initializable, Fou
      * When the 'manual match ' button is clicked the instance will be set
      * And the stage will be closed
      * 
-     * @param event             when the button is clicked 
+     * @param event                     when the button is clicked 
+     * @throws java.io.IOException      potentially switching views
      */  
     @FXML
     protected void manualMatching(ActionEvent event) throws IOException{
