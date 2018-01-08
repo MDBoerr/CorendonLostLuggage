@@ -3,6 +3,7 @@ package is103.lostluggage;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.Model.Service.Data.ServiceDataMatch;
+import java.io.File;
 import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -17,6 +18,7 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 
 
 /**
@@ -47,6 +49,8 @@ public class MainApp extends Application {
     final private static String DB_NAME = "lostluggage";
         
     public static String language = "english";
+    
+    public static Stage mainStage;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -82,7 +86,10 @@ public class MainApp extends Application {
         stage.getIcons().add(logo);
 
         stage.show();
-
+        
+        //Set the mainstage as a property
+        MainApp.mainStage = stage;
+        
     }
 
     //methode voor het switchen van schermen
@@ -94,6 +101,22 @@ public class MainApp extends Application {
         //fxmlView.
         root.setCenter(fxmlView);
 
+    }
+    
+    public static File selectFileToSave(String defaultFileName){
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Specify filename");
+
+        //todo: provide the file selection dialog to the user
+        File file = fileChooser.showSaveDialog(mainStage);
+
+        //File selected? return the file, else return null
+        if(file != null){
+            return file;
+        }else{
+            return null;
+        }
     }
 
     public static boolean isOnMatchingView(){
