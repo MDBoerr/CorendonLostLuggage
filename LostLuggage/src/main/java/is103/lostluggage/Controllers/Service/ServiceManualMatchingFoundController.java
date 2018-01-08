@@ -51,6 +51,8 @@ public class ServiceManualMatchingFoundController implements Initializable, Foun
     
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {

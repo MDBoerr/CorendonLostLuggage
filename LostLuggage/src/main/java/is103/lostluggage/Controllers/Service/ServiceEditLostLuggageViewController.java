@@ -69,8 +69,8 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
     @FXML private JFXButton saveEditings;
     
     //create dialog content/layout and a textflow for the body
-    private JFXDialogLayout content = new JFXDialogLayout();
-    private TextFlow alertMessage = new TextFlow();
+    private final JFXDialogLayout CONTENT = new JFXDialogLayout();
+    private final TextFlow ALERT_MESSAGE = new TextFlow();
     
     
     //view title
@@ -507,11 +507,11 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
         changedFields = changedFields.substring(2);
         
         //Clear the previous message
-        content.getHeading().clear();
-        alertMessage.getChildren().clear();
+        CONTENT.getHeading().clear();
+        ALERT_MESSAGE.getChildren().clear();
         
         //Set heading of dialog
-        content.setHeading(new Text("Warning"));
+        CONTENT.setHeading(new Text("Warning"));
         
         //Set the right text for the dialog body.
         String introAlert,outroAlert;
@@ -533,13 +533,13 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
         changed.setFill(Color.web(ALERT_COLOR));  
         
         //combine the text parts
-        alertMessage.getChildren().addAll(intro, changed, outro);
+        ALERT_MESSAGE.getChildren().addAll(intro, changed, outro);
         //set the text parts (alert message) in the content
-        content.setBody(alertMessage);
+        CONTENT.setBody(ALERT_MESSAGE);
         
         //create the dialog alert with the content
         //& place het in the center of the stackpane
-        JFXDialog alert = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER);
+        JFXDialog alert = new JFXDialog(stackPane, CONTENT, JFXDialog.DialogTransition.CENTER);
         
         //Create the 'ok'/close button
         JFXButton button = new JFXButton("ok");
@@ -549,7 +549,7 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
             stackPane.setVisible(false);
         });
         //set action button in content for alert
-        content.setActions(button);
+        CONTENT.setActions(button);
         
         //Show the alert message (dialog)
         alert.show();
@@ -604,11 +604,14 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
         if ("unknown".equals(phone.getText())){phone.setText("");}
         if ("unknown".equals(flight.getText())){flight.setText("");}
         
+        //check if this field is not (still) unasigned
         if (typeCode != 0){
+            //if it is asigned (so not 0) than update that field
             DB.executeUpdateQuery("UPDATE `foundluggage` SET "
                     + " `luggageType`='"+typeCode+"' "
             + " WHERE `registrationNr`='"+registrationNr.getText()+"';");
         }
+        //repeat
         if (ralCode1 != 0){
             DB.executeUpdateQuery("UPDATE `foundluggage` SET "
                     + " `mainColor`='"+ralCode1+"' "
@@ -631,16 +634,6 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
                 + "`otherCharacteristics`='"+signatures.getText()+"' "
                 + "WHERE `registrationNr`='"+registrationNr.getText()+"';"); 
         
-
-//        if ("".equals(passangerId.getText()) || 0 == Integer.parseInt(passangerId.getText())){
-//            ResultSet countResultSet = DB.executeResultSetQuery("SELECT COUNT(passengerId) AS 'count' FROM passenger");
-//            while (countResultSet.next()){passengerCount = countResultSet.getInt("count");}
-//            passengerCount ++;
-//            DB.executeUpdateQuery("INSERT INTO `passenger` "
-//                    + " (`passengerId`, `name`, `address`, `place`, `postalcode`, `country`, `email`) "
-//                    + " VALUES ('"+passengerCount+"', '', '', '', '', '', '');");
-//            System.out.println("inserted ");
-//        }
         //Update the passenger with the right data 
         DB.executeUpdateQuery("UPDATE `passenger` SET "
                 + "`name`='"+passangerName.getText()+"', "
