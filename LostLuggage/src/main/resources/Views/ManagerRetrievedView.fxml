@@ -41,14 +41,15 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <JFXButton prefHeight="26.0" prefWidth="249.0" ripplerFill="WHITE" style="-fx-background-color: #4dadf7#4dadf7 #4dadf7#4dadf7;" text="Export to pdf" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="8">
+            <JFXButton prefHeight="26.0" prefWidth="249.0" ripplerFill="WHITE" style="-fx-background-color: #4dadf7#4dadf7 #4dadf7#4dadf7;" text="Export to pdf" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="9">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </JFXButton>
-            <JFXTextField fx:id="formid" focusColor="#4dadf7" promptText="Last name" text="Selecteer een rij" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <JFXTextField fx:id="formtextid" focusColor="#4dadf7" promptText="Last name" text="Selecteer een rij" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
@@ -122,6 +123,19 @@
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
+            </JFXTextField>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Behandeld door:" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="7">
+               <font>
+                  <Font size="17.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets top="10.0" />
+               </GridPane.margin>
+            </Text>
+            <JFXTextField fx:id="employeeservice" focusColor="#4dadf7" promptText="Last name" text="Selecteer een rij" GridPane.columnIndex="2" GridPane.rowIndex="7">
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
             </JFXTextField>
          </children>
       </GridPane>

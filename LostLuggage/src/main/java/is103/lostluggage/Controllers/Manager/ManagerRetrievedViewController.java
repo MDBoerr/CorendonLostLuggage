@@ -57,11 +57,13 @@ public class ManagerRetrievedViewController implements Initializable {
     private TableColumn<RetrievedLuggage, String> Deliverer;
 
     @FXML
-    private JFXTextField formid;
+    private JFXTextField formtextid;
     @FXML
     private JFXTextField customerid;
     @FXML
     private JFXTextField deivererid;
+    @FXML
+    private JFXTextField employeeservice;
     @FXML
     private JFXTextField emailid;
     @FXML
@@ -87,8 +89,6 @@ public class ManagerRetrievedViewController implements Initializable {
             @Override
             public void handle(MouseEvent event) {
 
-                formid = new JFXTextField();
-
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
                     Node node = ((Node) event.getTarget()).getParent();
 
@@ -100,41 +100,34 @@ public class ManagerRetrievedViewController implements Initializable {
                         // clicking on text part
                         row = (TableRow) node.getParent();
                     }
-                    System.out.println(row.getItem());
+                    
+//                    SELECT name FROM passenger "WHERE matched.foundluggage = 410" JOIN foundluggage ON foundluggage.passengerId = passenger.passengerId INNER JOIN matched ON matched.foundluggage = foundluggage.registrationNr; 
                     
                     
                     
+                    
+                    //get value of selected row in tableview
                     int formid = retrievedTable.getSelectionModel().getSelectedItem().getFormID();
+                    String customer = retrievedTable.getSelectionModel().getSelectedItem().getCustomer();
+                    String deliver = retrievedTable.getSelectionModel().getSelectedItem().getDeliverer();
+                    String employee = retrievedTable.getSelectionModel().getSelectedItem().getEmployee();
+                    String date = retrievedTable.getSelectionModel().getSelectedItem().getDate();
                     
+                    
+                    //convert int to string
                     String formidString = Integer.toString(formid);
                     
-//                   formid.setText(formidString);
+                    
+                    // set the values of tableview in textfield
+                   formtextid.setText(formidString);
+                   customerid.setText(customer);
+                   deivererid.setText(deliver);
+                   employeeservice.setText(employee);
+                   dateid.setText(date);
                     
                     
-                    System.out.println(formid);
-//        retrievedTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-//        retrievedTable.getSelectionModel().setCellSelectionEnabled(true);
-//
-//        retrievedTable.addEventFilter(MouseEvent.MOUSE_PRESSED, (event) -> {
-//            if (event.isShortcutDown() || event.isShiftDown()) {
-//                event.consume();
-//            }
-//        });
-//
-//        retrievedTable.getFocusModel().focusedCellProperty().addListener((obs, oldVal, newVal) -> {
-//
-//            if (newVal.getTableColumn() != null) {
-//                retrievedTable.getSelectionModel().selectRange(0, newVal.getTableColumn(), retrievedTable.getItems().size(), newVal.getTableColumn());
-//                System.out.println("Selected TableColumn: " + newVal.getTableColumn().getText());
-//                System.out.println("Selected column index: " + newVal.getColumn());
-//            }
-//        });
-//
-//        retrievedTable.addEventFilter(MouseEvent.MOUSE_PRESSED, (event) -> {
-//            if (event.isShortcutDown() || event.isShiftDown()) {
-//                event.consume();
-//            }
-//        });
+ 
+ 
                 }
 
             }
@@ -143,17 +136,6 @@ public class ManagerRetrievedViewController implements Initializable {
 
     }
     
-//        public TextField<customerdetails> getcustomerdetails(){
-//                            
-//                    int formid = retrievedTable.getSelectionModel().getSelectedItem().getFormID();
-//                    
-//                    String formidString = Integer.toString(formid);
-//                    
-//                   formid.setText(formidString);
-//                    
-//                    
-//                    System.out.println(formid);
-//    }
 
 
     public ObservableList<RetrievedLuggage> getRetrievedLuggage() {
