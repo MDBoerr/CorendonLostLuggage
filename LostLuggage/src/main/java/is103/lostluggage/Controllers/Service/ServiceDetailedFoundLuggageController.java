@@ -205,6 +205,9 @@ public class ServiceDetailedFoundLuggageController implements Initializable, Fou
         if (MainApp.isOnMatchingView()==false){
             MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
         }
+                
+        //set the right tab, 2 = potential matching tab
+        ServiceMatchingViewController.getInstance().setMatchingTab(2);
         
         //close the current stage
         closeStage();

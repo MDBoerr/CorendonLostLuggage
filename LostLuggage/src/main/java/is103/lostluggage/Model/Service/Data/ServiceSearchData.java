@@ -13,7 +13,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- *
  * @author Thijs Zijdel - 500782165
  */
 public class ServiceSearchData {

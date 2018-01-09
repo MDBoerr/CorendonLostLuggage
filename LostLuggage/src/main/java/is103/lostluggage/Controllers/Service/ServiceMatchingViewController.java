@@ -272,12 +272,15 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
             potentialMatchingTable
         };
         for (TableView fixingTable : fixingTables) { fixedTableHeader(fixingTable);}
-
-        //methode
+        
+        //reset the manual matching
         resetManualMatching();
         
-        //setOnMatchingView status
+        //setOnMatchingView status == current view
         MainApp.setOnMatchingView(true);
+        //set reset status to true for clearing the list
+        MainApp.setPotentialResetStatus(true);
+  
     } 
     
     /*--------------------------------------------------------------------------
@@ -802,11 +805,16 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
             
             
         //clear the table
-        potentialMatchingTable.getItems().clear();
+        //!potentialMatchingTable.getItems().isEmpty() || 
+        ObservableList<MatchLuggage> items= potentialMatchingTable.getItems();
+        if (items.size() != 0 || !items.isEmpty()){
+            potentialMatchingTable.getItems().clear();
+        }
+
         //refresh the table
         potentialMatchingTable.refresh();
         //set te matching tabs tot the potential matching 
-        setMatchingTab(POTENTIAL_MATCHING_TAB);
+//        setMatchingTab(POTENTIAL_MATCHING_TAB);
         //reset te reset status from true to false
         MainApp.setPotentialResetStatus(false);
         

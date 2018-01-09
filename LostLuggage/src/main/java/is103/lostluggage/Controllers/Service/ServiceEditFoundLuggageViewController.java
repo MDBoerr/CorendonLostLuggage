@@ -11,10 +11,12 @@ import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.Model.Service.Data.ServiceGetDataFromDB;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Data.ServiceDataFound;
+import is103.lostluggage.Model.Service.Data.ServiceDataMatch;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetailsInstance;
 import is103.lostluggage.Model.Service.Instance.Matching.FoundLuggageManualMatchingInstance;
 import is103.lostluggage.Model.Service.Interface.FoundLuggageFields;
+import is103.lostluggage.Model.Service.Model.MatchLuggage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -22,6 +24,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -669,6 +672,39 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
             email.setDisable(true);
             phone.setDisable(true);
         }
+    }
+    
+    /**  
+     * When the 'view potentials ' button is clicked the potential list will be 
+     * Initialized by getting the right data, clear the previous list,
+     * getting the instance id and passing this to the data object
+     * 
+     * 
+     * @param event                     when the button is clicked 
+     * @throws java.io.IOException      switching views
+     * @throws java.sql.SQLException    getting data from the db
+     */ 
+    @FXML
+    protected void viewPotentials(ActionEvent event) throws IOException, SQLException{
+
+        //get the right data object
+        ServiceDataMatch data = MainApp.getMatchData();
+
+        //set the reset status to true for resetting a possible previous list
+        MainApp.setPotentialResetStatus(true);
+        
+        //get the id of the current luggage
+        String id = registrationNr.getText();
+
+        //initialize the potential matches for the given id 
+        data.potentialMatchesForFoundLuggage(id);
+        
+        //switch to the matching view
+        MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
+        
+        //set the right tab, 2 = potential matching tab
+        ServiceMatchingViewController.getInstance().setMatchingTab(2);
+
     }
     
     @FXML

@@ -95,7 +95,7 @@
                      <children>
                         <JFXButton fx:id="saveEditings" buttonType="RAISED" onAction="#saveEditings" prefHeight="15.0" prefWidth="136.0" ripplerFill="#62b565" style="-fx-background-color: #5fc965#5fc965;" text="Save changes" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                         <JFXButton fx:id="manualMatch" buttonType="RAISED" onAction="#manualMatch" prefHeight="32.0" prefWidth="256.0" ripplerFill="#dddddd" style="-fx-background-color: DDD;" text="Manual matching with other luggages" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <JFXButton fx:id="viewPotentialsButton" buttonType="RAISED" prefHeight="30.0" prefWidth="124.0" ripplerFill="#e8ab28" style="-fx-background-color: #fbc756#fbc756;" text="View potentials" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <JFXButton fx:id="viewPotentialsButton"  onAction="#viewPotentials" buttonType="RAISED" prefHeight="30.0" prefWidth="124.0" ripplerFill="#e8ab28" style="-fx-background-color: #fbc756#fbc756;" text="View potentials" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                      </children>
                   </GridPane>
                   <JFXComboBox fx:id="colorPicker2" focusColor="#a7a7a7" labelFloat="true" maxWidth="364.0" minWidth="125.0" prefWidth="175.0" promptText="Secondary Color" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#ababab" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
