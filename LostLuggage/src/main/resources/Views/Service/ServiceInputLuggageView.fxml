@@ -91,6 +91,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <JFXDatePicker fx:id="dateJFXDatePicker" promptText="Date" GridPane.hgrow="NEVER" GridPane.rowIndex="1">
@@ -104,6 +105,11 @@
                </GridPane.margin>
             </JFXTimePicker>
             <JFXComboBox fx:id="missingFoundComboBox" onAction="#foundOrMissing" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </JFXComboBox>
+            <JFXComboBox fx:id="airportJFXComboBox" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
@@ -179,7 +185,7 @@
                   <Insets left="10.0" right="10.0" />
                </GridPane.margin>
             </JFXTextField>
-            <JFXTextField fx:id="sizeJFXTextField" labelFloat="true" promptText="Dimensions" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <JFXTextField fx:id="sizeJFXTextField" labelFloat="true" promptText="Dimensions (LxBxH) in cm" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="10.0" right="10.0" />
                </GridPane.margin>
@@ -188,7 +194,7 @@
       </GridPane>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
-            <JFXButton onAction="#exportFormPdf" prefHeight="63.0" prefWidth="130.0" style="-fx-background-color: #fbc756#fbc756;" text="Export PDF">
+            <JFXButton onAction="#exportPDF" prefHeight="63.0" prefWidth="130.0" style="-fx-background-color: #f1c40f;" text="Export PDF">
                <font>
                   <Font size="16.0" />
                </font>
@@ -199,11 +205,19 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </JFXButton>
+            <JFXButton onAction="#emailPDF" prefHeight="63.0" prefWidth="130.0" style="-fx-background-color: #3498db;" text="E-mail PDF">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </JFXButton>
          </children>
       </HBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
          <children>
-            <JFXButton onAction="#submitForm" prefHeight="62.0" prefWidth="127.0" style="-fx-background-color: #5fc965#5fc965;" text="Submit">
+            <JFXButton onAction="#submitForm" prefHeight="62.0" prefWidth="127.0" style="-fx-background-color: #2ecc71;" text="Save">
                <font>
                   <Font size="16.0" />
                </font>

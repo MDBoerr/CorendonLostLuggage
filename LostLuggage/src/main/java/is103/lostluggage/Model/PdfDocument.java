@@ -17,7 +17,8 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 /**
  *
- * @author Arthur
+ * @author Arthur Krom & Daron ozdemir
+ * This class resembles a PDF document
  */
 
 public class PdfDocument {
@@ -37,6 +38,7 @@ public class PdfDocument {
     //List of strings that are passed through during initialization
     private ArrayList<String> formText = new ArrayList();
 
+    //Type of the pdf..Found.. lost.. or retreived
     private String formType = "";
 
     final private String[] lostFormLayout = {"Registration Number: ", "Employee: ", "Date: ", "Time: ", "Airport: ",
@@ -51,6 +53,7 @@ public class PdfDocument {
 
     final private String[] retrievedLayout = {"Registration Number: ", "Date: ", "Passenger name: ", "Employee: ", "Deliverer: "};
 
+    //Name of the file
     private String filename = "";
 
     //Object constructor

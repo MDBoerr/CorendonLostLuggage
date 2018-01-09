@@ -7,11 +7,14 @@ import com.jfoenix.controls.JFXTimePicker;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
+import is103.lostluggage.Model.PdfDocument;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,7 +34,7 @@ public class ServiceInputLuggageViewController implements Initializable {
     
     @FXML
     private JFXComboBox missingFoundComboBox, flightJFXComboBox, typeJFXComboBox, colorJFXComboBox,
-            secondColorJFXComboBox, locationJFXComboBox;
+            secondColorJFXComboBox, locationJFXComboBox, airportJFXComboBox;
     
     @FXML
     private GridPane mainGridPane,travellerInfoGridPane, luggageInfoGridPane ;
@@ -99,6 +102,13 @@ public class ServiceInputLuggageViewController implements Initializable {
         
         while(locationResultSet.next()){
             locationJFXComboBox.getItems().add(locationResultSet.getString(2));
+        }
+        
+        //airport combo box
+        ResultSet destinationResultSet = MainApp.getDatabase().executeResultSetQuery("SELECT * FROM destination");
+        
+        while(destinationResultSet.next()){
+            airportJFXComboBox.getItems().add(destinationResultSet.getString(2));
         }
         
         //Flight combo box
@@ -290,8 +300,33 @@ public class ServiceInputLuggageViewController implements Initializable {
     
     //Method to export the current form to pdf
     @FXML
-    public void exportFormPdf(){
-        System.out.println("Exporting form to PDF");
+    public void exportPDF() throws IOException{
+        File file = MainApp.selectFileToSave("*.pdf");
+        
+        if(file != null){
+            
+            
+//            "Registration Number: ", "Employee: ", "Date: ", "Time: ", "Airport: ",
+//        "Labelnumber: ", "Flight: ", "Type: ", "Brand: ", "Color: ", "Second color: ", "Dimensions: ", "Weight: ", "Characteristics", "Location: ",
+//        "Name: ", "Address: ", "Place of residence: ", "Postalcode: ", "Country: ", "Phone: ", "E-mail: "
+            
+            //get the fully qualified path name of the file
+            String fileName = file.getAbsolutePath();
+            String type = "Found";
+
+            ArrayList<String> formText = new ArrayList();
+            String[] strings = {"43434", "ak", "2018-01-01", "13:44", "Schiphol", "aas33", "CAIO4", "Suitcase", "Nike", "Blue", "Pink", "30x30x30", "5", "Blue stars",
+                "Toilet", "A. Baars", "Dares 44", "Amsterdam", "3887QW", "The Netherlands", "0684883", "abaars@gmail.com"};
+            
+            formText.addAll(Arrays.asList(strings));
+
+           PdfDocument Pdf = new PdfDocument(type, formText, fileName);
+        }
+    }
+    
+    @FXML
+    public void emailPDF(){
+        System.out.println("emailing the PDF");
     }
     
     //This methods checks whether all the fields have been filled in appropriately
@@ -314,6 +349,13 @@ public class ServiceInputLuggageViewController implements Initializable {
             appropriate =  false;
         }else{
             timeJFXTimePicker.setStyle(null);
+        }
+        
+        if(airportJFXComboBox.getValue() == null || airportJFXComboBox.getValue().toString().isEmpty()){
+            airportJFXComboBox.setStyle("-fx-background-color: #f47142");
+            appropriate = false;
+        }else{
+            airportJFXComboBox.setStyle(null);
         }
 
         if(typeJFXComboBox.getValue() == null || typeJFXComboBox.getValue().toString().isEmpty()){
