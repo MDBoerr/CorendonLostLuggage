@@ -120,12 +120,12 @@ public class ServiceGetDataFromDB {
      */
     public int countHits() throws SQLException{
         //get the count resultSet
-        resultSet = db.executeResultSetQuery("SELECT COUNT("+FIELD+") FROM "+TABLE+";");
+        resultSet = db.executeResultSetQuery("SELECT COUNT("+FIELD+") as 'hits' FROM "+TABLE+";");
         
         //loop trough all the items of the resultSet
         while (resultSet.next()){
             //get the amounth of hits
-             int hits = resultSet.getInt("COUNT("+FIELD+");");
+             int hits = resultSet.getInt("hits");
              return hits;
         }
         return 0;

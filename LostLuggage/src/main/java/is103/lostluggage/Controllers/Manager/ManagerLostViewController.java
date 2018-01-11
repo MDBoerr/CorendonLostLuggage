@@ -1,6 +1,7 @@
 package is103.lostluggage.Controllers.Manager;
 
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
 
@@ -18,8 +19,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -29,6 +28,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import is103.lostluggage.Model.Service.Data.ServiceDataLost;
+import is103.lostluggage.Model.Service.Data.ServiceGetDataFromDB;
 import is103.lostluggage.Model.Service.Data.ServiceSearchData;
 import is103.lostluggage.Model.Service.Interface.LostLuggageTable;
 import is103.lostluggage.Model.Service.Interface.Search;
@@ -92,6 +92,14 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
     private ResultSet matchedLuggageResultSet;
     
     
+    //date filter (from - to)
+    @FXML JFXDatePicker fromDate;
+    @FXML JFXDatePicker toDate;
+     
+    //display labels
+    //results based on the filters set/ search and the total count of lost luggages
+    @FXML private Label results;
+    @FXML private Label total;    
     
     /**
      * Initializing the controller class for the manager lost view 
@@ -123,12 +131,21 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
             //Initialize Table & obj lost
             dataListLost = new ServiceDataLost();
             setLostLuggageTable(dataListLost.getLostLuggage());
+            
+            
+            initializeTotalCountDisplay();
         } catch (SQLException ex) {
             Logger.getLogger(ManagerLostViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         //initialize the click listner for double clicking the table
         initializeOnLostRowDoubleClicked();
+        
+        
+        
+        
+        results.setText(Integer.toString(lostTable.getItems().size()));
+        
     }
     
     
@@ -289,6 +306,9 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
             
             //set the right place holder message for when there are no hits
             lostTable.setPlaceholder(new Label("No hits based on your search"));
+            
+            //set result count in the display label
+            results.setText(Integer.toString(lostTable.getItems().size()));
         } catch (SQLException ex) {
             Logger.getLogger(ManagerLostViewController.class.getName()).log(Level.SEVERE, null, ex);
         }  
@@ -328,6 +348,16 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
                 
             }
         });
+    }
+    
+    
+    
+    
+    ServiceGetDataFromDB totalCount = new ServiceGetDataFromDB("lostluggage", "*", null);
+    private void initializeTotalCountDisplay() throws SQLException {
+        
+        total.setText(Integer.toString(totalCount.countHits()));
+                
     }
     
 }
