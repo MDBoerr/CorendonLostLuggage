@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author thijszijdel
+ * @author Thijs Zijdel - 500782165
  */
 public interface FoundLuggageFields {
     

@@ -22,6 +22,7 @@ import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.Model.Service.Data.ServiceMoreDetails;
 import is103.lostluggage.Model.Service.Data.ServiceSearchData;
 import is103.lostluggage.Model.Service.Interface.FoundLuggageTable;
+import is103.lostluggage.Model.Service.Interface.Search;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,7 +39,7 @@ import javafx.stage.Stage;
  *
  * @author Thijs Zijdel - 500782165
  */
-public class ServiceOverviewFoundViewController implements Initializable, FoundLuggageTable {
+public class ServiceOverviewFoundViewController implements Initializable, FoundLuggageTable, Search {
     //view title
     private final String TITLE = "Overview Found Luggage";
     
@@ -194,6 +195,7 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
      * @call - getFoundLuggageSearchList    the result list based on the resultSet
      */ 
     @FXML
+    @Override
     public void search() throws SQLException{
         //get the value of the search type combo box for filtering to a specific column
         String value = searchTypeComboBox.getValue().toString();

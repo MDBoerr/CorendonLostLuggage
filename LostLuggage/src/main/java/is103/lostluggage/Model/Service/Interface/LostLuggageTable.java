@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 
 /**
  *
- * @author thijszijdel
+ * @author Thijs Zijdel - 500782165
  */
 public interface LostLuggageTable {   
     

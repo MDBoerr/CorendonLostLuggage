@@ -5,13 +5,10 @@ import javafx.collections.ObservableList;
 
 /**
  *
- * @author thijszijdel
+ * @author Thijs Zijdel - 500782165
  */
 
-public interface FoundLuggageTable {
-    
-    /* COMMENTS WILL BE CHANGED HERE */
-    
+public interface FoundLuggageTable { 
     
     /**  
      * Here will be insured that found luggage table be set with the right data
