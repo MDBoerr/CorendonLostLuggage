@@ -44,15 +44,16 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
     //view title
     private final String TITLE = "Overview Lost Luggage";
     
+    //list of luggages for the lostTable
     public static ObservableList<LostLuggage> lostLuggageList;
     
+    //double click
+    private final int DOUBLE_CLICK = 2;
     
+    
+    //table view for the data
+    @FXML private TableView<LostLuggage> lostTable;
     //TableView found luggage's colommen
-    
-    
-    @FXML
-    private TableView<LostLuggage> lostTable;
-
     @FXML private TableColumn<LostLuggage, String>  managerLostRegistrationNr;
     @FXML private TableColumn<LostLuggage, String>  managerLostDateLost;
     @FXML private TableColumn<LostLuggage, String>  managerLostTimeLost;
@@ -81,81 +82,57 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
     @FXML JFXTextField searchField;
     //combo box for a type/field/column search filter
     @FXML JFXComboBox searchTypeComboBox;
-
- //luggage list
-    //public static ObservableList<Luggage> luggageList;
-    private int id = 0;
     
-        //Object for getting the data
+    //Object for getting the data
     private ServiceDataLost dataListLost;
     
-        //show alos matched luggage state, by default on false
+    //show alos matched luggage state, by default on false
     private boolean showMatchedLuggage = false;
     //resultSet for the items when changing the state of the showMatchedLuggage
     private ResultSet matchedLuggageResultSet;
     
+    
+    
+    /**
+     * Initializing the controller class for the manager lost view 
+     * 
+     * @param url
+     * @param rb 
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
         //To Previous Scene
         MainViewController.previousView = "/Views/ManagerHomeView.fxml";
+        
+        //set view title
          try {
             MainViewController.getInstance().getTitle(TITLE);
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         } 
         
-         
+        //initialize the filter (for columns/fields) combo box with data
         initializeComboFilterBox(); 
-         
-         
    
-        
+        //so the lost luggage table can be set 
         initializeLostLuggageTable();
         
+        //try to set the lost luggage table with data
         try {
             //Initialize Table & obj lost
             dataListLost = new ServiceDataLost();
+            setLostLuggageTable(dataListLost.getLostLuggage());
         } catch (SQLException ex) {
             Logger.getLogger(ManagerLostViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        setLostLuggageTable(dataListLost.getLostLuggage());
-    
         
-            lostTable.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-
-                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                    Node node = ((Node) event.getTarget()).getParent();
-
-                    TableRow row;
-
-                    if (node instanceof TableRow) {
-                        row = (TableRow) node;
-                    } else {
-                        // clicking on text part
-                        row = (TableRow) node.getParent();
-                    }
-                    System.out.println(row.getItem());
-
-                    try {
-
-                        MainApp.switchView("/Views/ManagerPassengerInfoView.fxml");
-
-                    } catch (IOException ex) {
-
-                        Logger.getLogger(ManagerLostViewController.class.getName()).log(Level.SEVERE, null, ex);
-
-                    }
-
-                }
-
-            }
-
-        });
-        
+        //initialize the click listner for double clicking the table
+        initializeOnLostRowDoubleClicked();
     }
+    
+    
+    
     /**  
      * @author Thijs Zijdel - 500782165
      * 
@@ -242,19 +219,6 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
     
      
     
-    
-    
-    
-    @FXML
-    protected void switchToInput(ActionEvent event) throws IOException {
-        MainApp.switchView("/Views/ManagerLostView.fxml");
-    }
-    
-
-    
-    
-    
-    
      /**  
      * @author Thijs Zijdel - 500782165
      * 
@@ -328,6 +292,42 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
         } catch (SQLException ex) {
             Logger.getLogger(ManagerLostViewController.class.getName()).log(Level.SEVERE, null, ex);
         }  
+    }
+
+    
+    /**  
+     * 
+     * @author Ahmet Aksu
+     * 
+    **/
+    private void initializeOnLostRowDoubleClicked() {
+        //method made by Ahmet Aksu, for making the lostTable double click'able
+        lostTable.setOnMousePressed((MouseEvent event) -> {
+            if (event.isPrimaryButtonDown() && event.getClickCount() == DOUBLE_CLICK) {
+                Node node = ((Node) event.getTarget()).getParent();
+                
+                TableRow row;
+                
+                if (node instanceof TableRow) {
+                    row = (TableRow) node;
+                } else {
+                    // clicking on text part
+                    row = (TableRow) node.getParent();
+                }
+                System.out.println(row.getItem());
+                
+                try {
+                    
+                    MainApp.switchView("/Views/ManagerPassengerInfoView.fxml");
+                    
+                } catch (IOException ex) {
+                    
+                    Logger.getLogger(ManagerLostViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    
+                }
+                
+            }
+        });
     }
     
 }
