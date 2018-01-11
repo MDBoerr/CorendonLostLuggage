@@ -34,6 +34,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import static is103.lostluggage.MainApp.getDatabase;
 import is103.lostluggage.Model.Service.Data.ServiceSearchData;
+import is103.lostluggage.Model.Service.Interface.Search;
 import javafx.scene.control.Label;
 
 /**
@@ -42,7 +43,7 @@ import javafx.scene.control.Label;
  * @author Ahmet
  * @author Thijs Zijdel - 500782165             For the search functionality
  */
-public class ManagerFoundViewController implements Initializable {
+public class ManagerFoundViewController implements Initializable, Search {
 private final String title = "Overzicht Gevonden Bagage";
     
     public static ObservableList<FoundLuggage> foundLuggageList;
@@ -320,6 +321,7 @@ private final String title = "Overzicht Gevonden Bagage";
      * @call - getFoundLuggageSearchList    the result list based on the resultSet
      */ 
     @FXML
+    @Override
     public void search() throws SQLException{
         //get the value of the search type combo box for filtering to a specific column
         String value = searchTypeComboBox.getValue().toString();
