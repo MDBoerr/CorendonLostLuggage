@@ -185,7 +185,7 @@ public final class ServiceDataLost {
      * @param checkIfMatched       if this is true > get only the not matched 
      * @return ObservableList      of the type: lost luggage  
      */
-    private ObservableList<LostLuggage> loopTroughResultSet(
+    public static ObservableList<LostLuggage> loopTroughResultSet(
                                             ResultSet resultSet, 
                                             boolean checkIfMatched) throws SQLException{
         //create a temporary list

@@ -32,6 +32,7 @@ import is103.lostluggage.Model.Service.Data.ServiceGetDataFromDB;
 import is103.lostluggage.Model.Service.Data.ServiceSearchData;
 import is103.lostluggage.Model.Service.Interface.LostLuggageTable;
 import is103.lostluggage.Model.Service.Interface.Search;
+import java.time.LocalDate;
 import javafx.scene.control.Label;
 
 /**
@@ -144,7 +145,8 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
         
         
         
-        results.setText(Integer.toString(lostTable.getItems().size()));
+        
+        setResultCount();
         
     }
     
@@ -172,6 +174,9 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
         
             //set the table with the right data, the resultset will be converted
             setLostLuggageTable(dataListLost.getObservableList(matchedLuggageResultSet));
+            
+            //set result count in the display label
+            setResultCount();
         
         //if the state of only matched was already true
         } else if (showMatchedLuggage == true){
@@ -184,6 +189,9 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
         
             //set the table with the right data, the resultset will be converted
             setLostLuggageTable(dataListLost.getObservableList(matchedLuggageResultSet));
+            
+            //set result count in the display label
+            setResultCount();
         }  
     }
     /**  
@@ -288,19 +296,92 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
         //Get the right query based on the users input
         String finalQuery = searchData.getSearchQuery(value, search, "lostluggage");
         
+        
+        //check if there is a filter based on date
+//        String fromDateString = fromDate.getValue().toString();
+//        
+//        String toDateString = toDate.getValue().toString();
+//        
+        if(fromDate.getValue() == null || fromDate.getValue().toString().isEmpty()){
+            
+            //leeg  =  false;
+        }else{
+            //fromDate.getValue().toString()
+            
+            
+            
+            
+            finalQuery = finalQuery.substring(0,finalQuery.lastIndexOf(";"));
+            if (finalQuery.contains("OR")){
+                
+                
+                finalQuery += " AND ";
+            }
+            
+            
+            
+            finalQuery += " L.dateLost > '"+fromDate.getValue().toString()+"' ;";
+        }
+        
+
+        if(toDate.getValue() == null || toDate.getValue().toString().isEmpty()){
+            
+            //leeg  =  false;
+        }else{
+            //fromDate.getValue().toString()
+            
+            finalQuery = finalQuery.substring(0,finalQuery.lastIndexOf(";"));
+            if (finalQuery.contains("OR")){
+                finalQuery += " AND ";
+            }
+            finalQuery += " L.dateLost < '"+toDate.getValue().toString()+"' ;";
+        }        
+                
+                
+        
+//        System.out.println("to date string is : "+toDateString);
+//         System.out.println("from date string is : "+fromDateString);
+//         
+//         
+         
+         
+         
+//        if (!"".equals(fromDateString) || !"".equals(toDateString) ||
+//                fromDateString != null || toDateString != null) {
+//            
+//            if(!"".equals(fromDateString) || fromDateString != null){
+//                finalQuery = finalQuery.substring(0,finalQuery.lastIndexOf(";"));
+//                finalQuery += "L.dateLost > '"+fromDateString+"' ;";
+//            }
+//
+//            //WHERE L.dateLost LIKE '%2017%';
+//            
+//            
+//              // WHERE
+//              //dob > '1/12/2012'
+//            
+//            
+//        }
+        
+        
         //clear the previous search result list 
         lostLuggageListSearchResults.clear();
         
         //try to execute the query from the database
         //@throws SQLException  
         try {
-            //get the connection to the datbase
+            //get the connection to the datbasec
             MyJDBC db = MainApp.getDatabase();
-            //create a new resultSet and execute the right query
+            //create a new resultSet and execute tche right query
             ResultSet resultSet = db.executeResultSetQuery(finalQuery);
             
             //get the observableList from the search object and asign this to the list
-            lostLuggageListSearchResults = searchData.getLostLuggageSearchList(resultSet);
+            lostLuggageListSearchResults =  ServiceDataLost.loopTroughResultSet(resultSet, showMatchedLuggage);
+
+            
+            
+            
+            
             //set this list on the table
             lostTable.setItems(lostLuggageListSearchResults);
             
@@ -308,7 +389,7 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
             lostTable.setPlaceholder(new Label("No hits based on your search"));
             
             //set result count in the display label
-            results.setText(Integer.toString(lostTable.getItems().size()));
+            setResultCount();
         } catch (SQLException ex) {
             Logger.getLogger(ManagerLostViewController.class.getName()).log(Level.SEVERE, null, ex);
         }  
@@ -358,6 +439,14 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
         
         total.setText(Integer.toString(totalCount.countHits()));
                 
+    }
+
+    private void setResultCount() {
+        String hits = Integer.toString(lostTable.getItems().size());
+        if (hits == null || "".equals(hits) || lostTable.getItems().isEmpty()){
+            hits = "0";
+        }
+        results.setText(hits);
     }
     
 }

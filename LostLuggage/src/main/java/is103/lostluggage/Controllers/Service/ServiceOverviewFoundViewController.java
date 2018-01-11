@@ -220,7 +220,7 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
             ResultSet resultSet = db.executeResultSetQuery(finalQuery);
             
             //get the observableList from the search object and asign this to the list
-            foundLuggageListSearchResults=searchData.getFoundLuggageSearchList(resultSet);
+            foundLuggageListSearchResults = ServiceDataFound.loopTroughResultSet(resultSet, showMatchedLuggage);
             //set this list on the table
             foundLuggageTable.setItems(foundLuggageListSearchResults);   
             

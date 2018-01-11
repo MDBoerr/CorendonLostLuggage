@@ -45,7 +45,7 @@
                         <Insets />
                      </opaqueInsets>
                   </JFXTextField>
-                  <JFXComboBox fx:id="searchTypeComboBox" focusColor="#f5f5f5" labelFloat="true" minWidth="100.0" onAction="#search" promptText="Filter" style="-fx-prompt-text-fill: #fff; -fx-text-fill: #fff;" unFocusColor="WHITE">
+                  <JFXComboBox fx:id="searchTypeComboBox" focusColor="#f5f5f5" labelFloat="true" minWidth="100.0" onAction="#search" promptText="Filter" style="-fx-prompt-text-fill: #fff; -fx-text-fill: #fff; -fx-fill: #fff; -jfx-unfocus-color: #fff; -jfx-focus-color: #fff;" unFocusColor="WHITE">
                      <HBox.margin>
                         <Insets top="25.0" />
                      </HBox.margin>
@@ -76,7 +76,10 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
         </TableView>
-      <JFXToggleButton onAction="#showOnlyMatchedLuggage" prefHeight="60.0" prefWidth="212.0" style="-fx-text-fill: #fff;" text="Matched Luggage" toggleColor="#1c53a4" toggleLineColor="#4189fc" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
+      <JFXToggleButton onAction="#showOnlyMatchedLuggage" prefHeight="51.0" prefWidth="212.0" style="-fx-text-fill: #fff;" text="Matched Luggage" toggleColor="#1c53a4" toggleLineColor="#4189fc" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+         <GridPane.margin>
+            <Insets right="20.0" />
+         </GridPane.margin></JFXToggleButton>
       <VBox minWidth="120.0" prefWidth="120.0" GridPane.columnIndex="3">
          <children>
             <Label fx:id="results" alignment="BOTTOM_CENTER" contentDisplay="CENTER" minHeight="37.0" minWidth="100.0" prefHeight="37.0" prefWidth="120.0" text="00000" textFill="WHITE">
@@ -110,19 +113,14 @@
       </VBox>
       <FlowPane alignment="CENTER" prefHeight="89.0" prefWidth="319.0" style="-fx-background-color: #999;" GridPane.columnIndex="2" GridPane.rowSpan="2">
          <children>
-            <Label text="Filter on date" textFill="#4d4d4d">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <FlowPane.margin>
-                  <Insets right="25.0" />
-               </FlowPane.margin>
-            </Label>
-            <HBox alignment="CENTER" minWidth="200.0" prefHeight="67.0" prefWidth="300.0">
+            <HBox alignment="CENTER" minWidth="200.0" prefHeight="46.0" prefWidth="299.0">
                <children>
-                  <JFXDatePicker fx:id="fromDate" defaultColor="WHITE" minWidth="100.0" prefWidth="150.0" promptText="From" showWeekNumbers="true" style="-fx-text-fill: #fff; -fx-prompt-text-fill: #fff;" />
-                  <JFXDatePicker fx:id="toDate" defaultColor="WHITE" minWidth="100.0" prefWidth="150.0" promptText="To" showWeekNumbers="true" style="-fx-text-fill: #fff; -fx-prompt-text-fill: #fff;" />
+                  <JFXDatePicker fx:id="fromDate" defaultColor="WHITE" minWidth="100.0" onAction="#search" onKeyReleased="#search" prefWidth="150.0" promptText="From" showWeekNumbers="true" style="-fx-text-fill: #fff; -fx-prompt-text-fill: #fff;" />
+                  <JFXDatePicker fx:id="toDate" defaultColor="WHITE" minWidth="100.0" onAction="#search" onKeyReleased="#search" prefWidth="150.0" promptText="To" showWeekNumbers="true" style="-fx-text-fill: #fff; -fx-prompt-text-fill: #fff;" />
                </children>
+               <FlowPane.margin>
+                  <Insets bottom="20.0" />
+               </FlowPane.margin>
             </HBox>
          </children>
       </FlowPane>

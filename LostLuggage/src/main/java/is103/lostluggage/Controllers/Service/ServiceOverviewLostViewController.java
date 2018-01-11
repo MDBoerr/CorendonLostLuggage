@@ -216,7 +216,11 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
             ResultSet resultSet = db.executeResultSetQuery(finalQuery);
             
             //get the observableList from the search object and asign this to the list
-            lostLuggageListSearchResults = searchData.getLostLuggageSearchList(resultSet);
+            lostLuggageListSearchResults = ServiceDataLost.loopTroughResultSet(resultSet, showMatchedLuggage);
+
+                    //searchData.getLostLuggageSearchList(resultSet);
+                    
+                    
             //set this list on the table
             lostLuggageTable.setItems(lostLuggageListSearchResults);  
             

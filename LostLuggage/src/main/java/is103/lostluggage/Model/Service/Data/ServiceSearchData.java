@@ -75,15 +75,15 @@ public class ServiceSearchData {
         
         //create the first part for the query 
         //Note: tablename will be replaced
-        String query = "SELECT * FROM tablename WHERE ";
+        String query = "SELECT * FROM tablename WHERE (";
         
         //check the type for maybe using a specific query over the normal one
         if ("foundluggage".equals(luggageType)){
             //if this is true than use de detailed query from ServiceDataFound
-            query = ServiceDataFound.DETAILED_QUERY+" WHERE ";
+            query = ServiceDataFound.DETAILED_QUERY+" WHERE (";
         } else if ("lostluggage".equals(luggageType)){
             //else if this is true than use de detailed query from ServiceDataLost
-            query = ServiceDataLost.DETAILED_QUERY+" WHERE ";
+            query = ServiceDataLost.DETAILED_QUERY+" WHERE (";
         }
         
         //switch over the filter (value)
@@ -176,7 +176,7 @@ public class ServiceSearchData {
             query = query.substring(0,query.lastIndexOf("OR"));
         }
         //close the query
-        query += ";";
+        query += ") ;";
         
         //set the right tablename on the query
         query = query.replaceAll("tablename", luggageType.toLowerCase());
