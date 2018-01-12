@@ -293,6 +293,37 @@ public class MyJDBC {
             preparedStatement.executeUpdate();       
         }
     }
+    public void executeUpdatePassengerQuery(
+                                    String name, 
+                                    String address,
+                                    String place,
+                                    String postalcode,
+                                    String country,
+                                    String email,
+                                    String phone,
+                                    String passengerId) throws SQLException {
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement(
+                "UPDATE `passenger` SET  "
+                        + " name = ? ,"
+                        + " address = ? "
+                        + " place = ? "
+                        + " postalcode = ? "
+                        + " country = ? "
+                        + " email = ? "
+                        + " phone = ? "
+                        + "WHERE `passengerId`= ? ;")) {
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, address);
+            preparedStatement.setString(3, place);
+            preparedStatement.setString(4, postalcode);
+            preparedStatement.setString(5, country);
+            preparedStatement.setString(6, email);
+            preparedStatement.setString(7, phone);
+            preparedStatement.setString(8, passengerId);
+            
+            preparedStatement.executeUpdate();       
+        }
+    }
 
     //Model made by Arthur implemented by Michael
     public static void createLostLuggageDatabase(String dbName) {
