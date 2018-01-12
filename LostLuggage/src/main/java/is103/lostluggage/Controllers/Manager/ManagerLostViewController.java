@@ -297,71 +297,42 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
         String finalQuery = searchData.getSearchQuery(value, search, "lostluggage");
         
         
-        //check if there is a filter based on date
-//        String fromDateString = fromDate.getValue().toString();
-//        
-//        String toDateString = toDate.getValue().toString();
-//        
-        if(fromDate.getValue() == null || fromDate.getValue().toString().isEmpty()){
-            
-            //leeg  =  false;
-        }else{
-            //fromDate.getValue().toString()
-            
-            
-            
-            
+        //check if there is a filter based on FROM date.
+        if(fromDate.getValue() != null || !fromDate.getValue().toString().isEmpty()){
+            //get the final query without the last semicolin to extend it
             finalQuery = finalQuery.substring(0,finalQuery.lastIndexOf(";"));
+            
+            //If the final qeury already contains statments, add a AND 
             if (finalQuery.contains("OR")){
-                
-                
                 finalQuery += " AND ";
             }
+            //If the final qeury doesn't have any statments, add WHERE 
+            if (!finalQuery.contains("WHERE")) {
+                finalQuery += " WHERE ";
+            }
             
-            
-            
+            //add the filter from TO the query
             finalQuery += " L.dateLost > '"+fromDate.getValue().toString()+"' ;";
         }
         
-
-        if(toDate.getValue() == null || toDate.getValue().toString().isEmpty()){
-            
-            //leeg  =  false;
-        }else{
-            //fromDate.getValue().toString()
-            
+        //check if there is a filter based on TO date.
+        if(toDate.getValue() != null || !toDate.getValue().toString().isEmpty()){
+            //get the final query without the last semicolin to extend it
             finalQuery = finalQuery.substring(0,finalQuery.lastIndexOf(";"));
+            
+            //If the final qeury already contains statments, add a AND 
             if (finalQuery.contains("OR")){
                 finalQuery += " AND ";
             }
+            //If the final qeury doesn't have any statments, add WHERE 
+            if (!finalQuery.contains("WHERE")) {
+                finalQuery += " WHERE ";
+            }
+            
+            //add the filter from FROM the query
             finalQuery += " L.dateLost < '"+toDate.getValue().toString()+"' ;";
         }        
                 
-                
-        
-//        System.out.println("to date string is : "+toDateString);
-//         System.out.println("from date string is : "+fromDateString);
-//         
-//         
-         
-         
-         
-//        if (!"".equals(fromDateString) || !"".equals(toDateString) ||
-//                fromDateString != null || toDateString != null) {
-//            
-//            if(!"".equals(fromDateString) || fromDateString != null){
-//                finalQuery = finalQuery.substring(0,finalQuery.lastIndexOf(";"));
-//                finalQuery += "L.dateLost > '"+fromDateString+"' ;";
-//            }
-//
-//            //WHERE L.dateLost LIKE '%2017%';
-//            
-//            
-//              // WHERE
-//              //dob > '1/12/2012'
-//            
-//            
-//        }
         
         
         //clear the previous search result list 
