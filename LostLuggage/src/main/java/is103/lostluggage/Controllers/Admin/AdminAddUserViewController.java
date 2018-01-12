@@ -10,9 +10,11 @@ import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
+import is103.lostluggage.Model.User;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -32,6 +34,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 
@@ -87,25 +90,22 @@ public class AdminAddUserViewController implements Initializable {
     private JFXTextField locationField;
 
     //Title of the view
-    private String header = "Add User";
+    private String header;
+
+    public static boolean edit = false;
+
+    public static User selectedUser;
+
+    private final MyJDBC DB = MainApp.getDatabase();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //Set Header
-        try {
-            MainViewController.getInstance().getTitle(header);
-        } catch (IOException ex) {
-            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        //Set which view was previous
-        MainViewController.previousView = "/Views/Admin/HomeUserView.fxml";
 
         //Add options to List
         roleList = FXCollections.observableArrayList(
                 "Administrator",
                 "Manager",
-                "Service Employee"
+                "Service"
         );
         statusList = FXCollections.observableArrayList(
                 "Active",
@@ -118,6 +118,32 @@ public class AdminAddUserViewController implements Initializable {
 
         mainBorderPane.setTop(null);
 
+        if (edit != false) {
+            header = "Edit User";
+            addUserBtn.setText("Edit");
+            addUserBtn.setStyle("-fx-background-color: #51cf66; ");
+            firstnameField.setText(selectedUser.getFirstName());
+            lastnameField.setText(selectedUser.getLastName());
+            employeeIdField.setText(selectedUser.getId());
+            locationField.setText(selectedUser.getLocation());
+            statusComboBox.getSelectionModel().select(selectedUser.getStatus());
+            roleComboBox.getSelectionModel().select(selectedUser.getRole());
+            
+           employeeIdField.setDisable(true);
+        } else {
+
+            header = "Add User";
+        }
+        //Set Header
+        try {
+            MainViewController.getInstance().getTitle(header);
+        } catch (IOException ex) {
+            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //Set which view was previous
+        MainViewController.previousView = "/Views/Admin/HomeUserView.fxml";
+
     }
 
     @FXML
@@ -127,7 +153,7 @@ public class AdminAddUserViewController implements Initializable {
     }
 
     @FXML
-    public void addUser(ActionEvent event) throws IOException {
+    public void addUser(ActionEvent event) throws IOException, SQLException {
 
         //default error message is empty
         String errorMessage = "";
@@ -225,21 +251,31 @@ public class AdminAddUserViewController implements Initializable {
 
         } //All fields are valid, there are no errors
         else {
-            //Temporary id
-            String id = UUID.randomUUID().toString().substring(0, 8);
-            String roleString = role.toString();
-            String statusString = status.toString();
 
-            MyJDBC db = MainApp.getDatabase();
+            if (edit != false) {
+                String id = selectedUser.getId();
+                String roleString = role.toString();
+                String statusString = status.toString();
+                User updateUser = new User(id, lastname, firstname, location, roleString, statusString);
+                DB.executeUserUpdateQuery(updateUser);
+            } else {
 
-            String query = String.format("INSERT INTO User VALUES ('%s', '%s', '%s', '%s', '%s', '%s')", id, firstname, lastname, location, statusString, roleString);
+                //Temporary id
+                String id = UUID.randomUUID().toString().substring(0, 8);
+                String roleString = role.toString();
+                String statusString = status.toString();
+                String password = location;
 
-            int result = db.executeUpdateQuery(query);
-            System.out.println(" This is the result:  " + result);
+                String query = String.format("INSERT INTO employee VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')", id, firstname, lastname, password, location, roleString, statusString);
+
+                int result = DB.executeUpdateQuery(query);
+                System.out.println(" This is the result:  " + result);
+            }
             MainApp.switchView("/Views/Admin/UserScene.fxml");
 
         }
     }
+
     //This method will start de error message animation, at the end of the 4 sec
     // will start de dismiss animation
     public void startAnimation() {
@@ -266,6 +302,7 @@ public class AdminAddUserViewController implements Initializable {
         wait.play();
 
     }
+
     //This method will close the animation
     public void dismissAnimation() {
         errorMessageView.prefHeight(0.0d);
@@ -285,7 +322,7 @@ public class AdminAddUserViewController implements Initializable {
         addUserBtn.setDisable(false);
 
     }
-    
+
     //This method is still in progress (not yet implemented)
     //function to generate the employeeid by using the first letter of the firstname
     //and the first letter of the surname

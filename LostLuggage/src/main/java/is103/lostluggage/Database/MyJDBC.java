@@ -5,6 +5,7 @@
  */
 package is103.lostluggage.Database;
 
+import is103.lostluggage.Model.User;
 import java.sql.*;
 import java.util.Enumeration;
 import java.util.logging.Level;
@@ -278,6 +279,44 @@ public class MyJDBC {
         ResultSet resultSet = preparedStatement.executeQuery();
 
         return resultSet;
+    }
+    
+        public int executeUserUpdateQuery(User user) throws SQLException {
+        String firstname = user.getFirstName();
+        String lastname = user.getLastName();
+        String location = user.getLocation();
+        String role = user.getRole();
+        String status = user.getStatus();
+        String employeeID = user.getId();
+        
+        System.out.println(firstname + lastname + location + role + status + employeeID);
+        try {
+            
+        
+        PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE employee SET "
+                + "firstname = ?, lastname = ?, "
+                + "location = ?, "
+                + "role = ?, status = ? WHERE employeeId = ?");
+
+        preparedStatement.setString(1, firstname);
+        preparedStatement.setString(2, lastname);
+        preparedStatement.setString(3, location);
+        preparedStatement.setString(4, role);
+        preparedStatement.setString(5, status);
+        preparedStatement.setString(6, employeeID);
+        
+        
+        int returnValue = preparedStatement.executeUpdate();
+        preparedStatement.close();
+        System.out.println(returnValue);
+        
+        return returnValue;
+        } catch (SQLException ex) {
+            // handle exception
+            error(ex);
+            return -1;
+        }
+
     }
     
     
