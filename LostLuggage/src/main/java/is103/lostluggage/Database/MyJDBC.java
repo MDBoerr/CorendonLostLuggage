@@ -276,6 +276,23 @@ public class MyJDBC {
 
         return resultSet;
     }
+    
+    public void executeUpdateLuggageQuery(
+                                    String table, 
+                                    String field, 
+                                    String statement, 
+                                    String registrationNr) throws SQLException {
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement(
+                "UPDATE `"+table+"` SET  "
+                        + " "+field+" = ? "
+                        + "WHERE `registrationNr`= ? ;")) {
+            preparedStatement.setString(1, statement);
+            preparedStatement.setString(2, registrationNr);
+
+            
+            preparedStatement.executeUpdate();       
+        }
+    }
 
     //Model made by Arthur implemented by Michael
     public static void createLostLuggageDatabase(String dbName) {
