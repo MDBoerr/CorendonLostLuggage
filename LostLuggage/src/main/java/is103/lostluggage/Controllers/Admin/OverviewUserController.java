@@ -1,6 +1,7 @@
 package is103.lostluggage.Controllers.Admin;
 
 import is103.lostluggage.Controllers.MainViewController;
+import is103.lostluggage.Controllers.Admin.AdminAddUserViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.User;
@@ -31,7 +32,6 @@ import javafx.scene.input.MouseEvent;
  *
  * @author Michael de Boer
  */
-
 public class OverviewUserController implements Initializable {
 
     private String header = "Overview User";
@@ -135,7 +135,9 @@ public class OverviewUserController implements Initializable {
                     // clicking on text part
                     row = (TableRow) node.getParent();
                 }
-                System.out.println(row.getItem());
+                User user = (User) row.getItem();
+                AdminAddUserViewController.selectedUser = user;
+                AdminAddUserViewController.edit = true;
                 try {
                     MainApp.switchView("/Views/Admin/AdminAddUserView.fxml");
                 } catch (IOException ex) {

@@ -5,6 +5,7 @@
  */
 package is103.lostluggage.Database;
 
+import is103.lostluggage.Model.User;
 import java.sql.*;
 import java.util.Enumeration;
 import java.util.logging.Level;
@@ -277,6 +278,44 @@ public class MyJDBC {
         return resultSet;
     }
 
+    public int executeUserUpdateQuery(User user) throws SQLException {
+        String firstname = user.getFirstName();
+        String lastname = user.getLastName();
+        String location = user.getLocation();
+        String role = user.getRole();
+        String status = user.getStatus();
+        String employeeID = user.getId();
+        
+        System.out.println(firstname + lastname + location + role + status + employeeID);
+        try {
+            
+        
+        PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE employee SET "
+                + "firstname = ?, lastname = ?, "
+                + "location = ?, "
+                + "role = ?, status = ? WHERE employeeId = ?");
+
+        preparedStatement.setString(1, firstname);
+        preparedStatement.setString(2, lastname);
+        preparedStatement.setString(3, location);
+        preparedStatement.setString(4, role);
+        preparedStatement.setString(5, status);
+        preparedStatement.setString(6, employeeID);
+        
+        
+        int returnValue = preparedStatement.executeUpdate();
+        preparedStatement.close();
+        System.out.println(returnValue);
+        
+        return returnValue;
+        } catch (SQLException ex) {
+            // handle exception
+            error(ex);
+            return -1;
+        }
+
+    }
+
     //Model made by Arthur implemented by Michael
     public static void createLostLuggageDatabase(String dbName) {
 
@@ -291,7 +330,6 @@ public class MyJDBC {
         System.out.println("Creating the User table...");
         MyJDBC myJDBC = new MyJDBC(dbName);
 
-        
         //User will be changed to Employee next Fase
         myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS User ("
                 + " ID VARCHAR(10) NOT NULL PRIMARY KEY,"
@@ -303,7 +341,6 @@ public class MyJDBC {
 
         // truncate Tables, in case some data was already there
         myJDBC.executeUpdateQuery("TRUNCATE TABLE User");
-
 
         myJDBC.executeUpdateQuery("INSERT INTO User VALUES ("
                 + "'MB1', 'Michael', 'Boer de', 'Amsterdam', 'Active', 'Adminstrator' )");
@@ -557,17 +594,17 @@ public class MyJDBC {
         System.out.println("started");
         myJDBC.executeUpdateQuery("INSERT INTO `lostluggage` (`registrationNr`, `dateLost`, `timeLost`, `luggageTag`, `brand`, `mainColor`, `secondColor`, `size`, `weight`, `otherCharacteristics`, `employeeId`, `luggageType`, `matchedId`, `passengerId`) VALUES "
                 + "(1, '2015-03-11', '8:20', '2771896151', 'Delsey', 8002, 6022, '10', 20, 'duvel sticker', 'tz', 7, NULL, 5);");
-        myJDBC.executeUpdateQuery("INSERT INTO `lostluggage` (`registrationNr`, `dateLost`, `timeLost`, `luggageTag`, `brand`, `mainColor`, `secondColor`, `size`, `weight`, `otherCharacteristics`, `employeeId`, `luggageType`, `matchedId`, `passengerId`) VALUES "                
-        + "(2, '2015-10-10', '8:20', '6377992003', 'Fjallraven', 8002, 6002, '30', 20, 'Blue spots', 'tz', 4, NULL, 10);");
-        myJDBC.executeUpdateQuery("INSERT INTO `lostluggage` (`registrationNr`, `dateLost`, `timeLost`, `luggageTag`, `brand`, `mainColor`, `secondColor`, `size`, `weight`, `otherCharacteristics`, `employeeId`, `luggageType`, `matchedId`, `passengerId`) VALUES "                     
-            + "(3, '2015-11-09', '8:20', '', 'Everest', 9005, 9005, '30', 20, 'Olympic rings', 'tz', 2, NULL, 3);");
-        myJDBC.executeUpdateQuery("INSERT INTO `lostluggage` (`registrationNr`, `dateLost`, `timeLost`, `luggageTag`, `brand`, `mainColor`, `secondColor`, `size`, `weight`, `otherCharacteristics`, `employeeId`, `luggageType`, `matchedId`, `passengerId`) VALUES "                
-            + "(4, '2015-04-07', '8:20', '', 'Briggs', 1003, 9005, '30', 20, '', 'tz', 1, NULL, 2);");
-        myJDBC.executeUpdateQuery("INSERT INTO `lostluggage` (`registrationNr`, `dateLost`, `timeLost`, `luggageTag`, `brand`, `mainColor`, `secondColor`, `size`, `weight`, `otherCharacteristics`, `employeeId`, `luggageType`, `matchedId`, `passengerId`) VALUES "                
+        myJDBC.executeUpdateQuery("INSERT INTO `lostluggage` (`registrationNr`, `dateLost`, `timeLost`, `luggageTag`, `brand`, `mainColor`, `secondColor`, `size`, `weight`, `otherCharacteristics`, `employeeId`, `luggageType`, `matchedId`, `passengerId`) VALUES "
+                + "(2, '2015-10-10', '8:20', '6377992003', 'Fjallraven', 8002, 6002, '30', 20, 'Blue spots', 'tz', 4, NULL, 10);");
+        myJDBC.executeUpdateQuery("INSERT INTO `lostluggage` (`registrationNr`, `dateLost`, `timeLost`, `luggageTag`, `brand`, `mainColor`, `secondColor`, `size`, `weight`, `otherCharacteristics`, `employeeId`, `luggageType`, `matchedId`, `passengerId`) VALUES "
+                + "(3, '2015-11-09', '8:20', '', 'Everest', 9005, 9005, '30', 20, 'Olympic rings', 'tz', 2, NULL, 3);");
+        myJDBC.executeUpdateQuery("INSERT INTO `lostluggage` (`registrationNr`, `dateLost`, `timeLost`, `luggageTag`, `brand`, `mainColor`, `secondColor`, `size`, `weight`, `otherCharacteristics`, `employeeId`, `luggageType`, `matchedId`, `passengerId`) VALUES "
+                + "(4, '2015-04-07', '8:20', '', 'Briggs', 1003, 9005, '30', 20, '', 'tz', 1, NULL, 2);");
+        myJDBC.executeUpdateQuery("INSERT INTO `lostluggage` (`registrationNr`, `dateLost`, `timeLost`, `luggageTag`, `brand`, `mainColor`, `secondColor`, `size`, `weight`, `otherCharacteristics`, `employeeId`, `luggageType`, `matchedId`, `passengerId`) VALUES "
                 + "(5, '2015-03-12', '8:20', '', 'Everest', 8002, 9005, '30', 20, '', 'tz', 6, NULL, 1);");
         System.out.println("ended");
-        
-                myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS `lostluggage` ("
+
+        myJDBC.executeUpdateQuery("CREATE TABLE IF NOT EXISTS `lostluggage` ("
                 + "  `registrationNr` int(11) NOT NULL,"
                 + "  `dateLost` datetime NOT NULL,"
                 + "  `timeLost` varchar(45) NOT NULL,"
@@ -583,8 +620,7 @@ public class MyJDBC {
                 + "  `luggageType` int(11) NOT NULL,"
                 + "  `matchedId` int(11) DEFAULT NULL,"
                 + "  `passengerId` int(11) DEFAULT NULL)");
-                
-                
+
         myJDBC.executeUpdateQuery("INSERT INTO `location` (`locationId`, `english`, `dutch`) VALUES"
                 + "(0, 'belt-06', 'band-06'),"
                 + "(1, 'belt-05', 'band-05'),"
@@ -694,7 +730,6 @@ public class MyJDBC {
                 + "  ADD CONSTRAINT `works at airport` FOREIGN KEY (`airport`) REFERENCES `destination` (`IATAcode`) ON DELETE NO ACTION ON UPDATE NO ACTION;");
 
         //These Foreign keys dont work yet, will be implemented in next fase
-        
 //        myJDBC.executeUpdateQuery("ALTER TABLE `flight`"
 //                + "  ADD CONSTRAINT `this flight leaves from` FOREIGN KEY (`from`) REFERENCES `destination` (`IATAcode`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
 //                + "  ADD CONSTRAINT `this flight arrives at` FOREIGN KEY (`to`) REFERENCES `destination` (`IATAcode`) ON DELETE NO ACTION ON UPDATE NO ACTION;");
@@ -708,7 +743,6 @@ public class MyJDBC {
 //                + "  ADD CONSTRAINT `formulier has been submitted by` FOREIGN KEY (`employeeId`) REFERENCES `employee` (`employeeId`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
 //                + "  ADD CONSTRAINT `matched with` FOREIGN KEY (`matchedId`) REFERENCES `matched` (`matchedId`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
 //                + "  ADD CONSTRAINT `Belongs to a passenger like this` FOREIGN KEY (`passengerId`) REFERENCES `passenger` (`passengerId`) ON DELETE NO ACTION ON UPDATE NO ACTION;");
-
 //        myJDBC.executeUpdateQuery("ALTER TABLE `lostluggage`"
 //                + "  ADD CONSTRAINT `belongs to this passenger` FOREIGN KEY (`passengerId`) REFERENCES `passenger` (`passengerId`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
 //                + "  ADD CONSTRAINT `form has been submitted by employee` FOREIGN KEY (`employeeId`) REFERENCES `employee` (`employeeId`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
@@ -717,7 +751,6 @@ public class MyJDBC {
 //                + "  ADD CONSTRAINT `the main color of the luggage` FOREIGN KEY (`mainColor`) REFERENCES `color` (`ralCode`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
 //                + "  ADD CONSTRAINT `the second color of the luggage` FOREIGN KEY (`secondColor`) REFERENCES `color` (`ralCode`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
 //                + "  ADD CONSTRAINT `type of luggage` FOREIGN KEY (`luggageType`) REFERENCES `luggagetype` (`luggageTypeId`) ON DELETE NO ACTION ON UPDATE NO ACTION;");
-
         myJDBC.executeUpdateQuery("ALTER TABLE `matched`"
                 + "  ADD CONSTRAINT `foundluggage form` FOREIGN KEY (`foundluggage`) REFERENCES `foundluggage` (`registrationNr`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
                 + "  ADD CONSTRAINT `lostluggage form` FOREIGN KEY (`lostluggage`) REFERENCES `lostluggage` (`registrationNr`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
