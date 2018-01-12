@@ -75,7 +75,7 @@ public class LogInViewController implements Initializable {
             resultSet = db.executeLogInResultSetQuery(id, password);
 
             while (resultSet.next()) {
-                role = resultSet.getString("Role");
+                role = resultSet.getString("role");
                 System.out.println("This isss thee role:  " + role);
                 if (role != null) {
                     MainApp.checkLoggedInStatus(role);

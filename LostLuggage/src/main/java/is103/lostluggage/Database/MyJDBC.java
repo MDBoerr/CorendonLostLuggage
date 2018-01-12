@@ -268,8 +268,8 @@ public class MyJDBC {
      * @return a ResultSet object (User)
      */
     public ResultSet executeLogInResultSetQuery(String id, String password) throws SQLException {
-        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM User  "
-                + "WHERE ID = ? AND Location = ?");
+        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM employee  "
+                + "WHERE employeeId = ? AND password = ?");
         preparedStatement.setString(1, id);
         preparedStatement.setString(2, password);
         ResultSet resultSet = preparedStatement.executeQuery();

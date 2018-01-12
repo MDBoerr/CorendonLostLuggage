@@ -103,15 +103,15 @@ public class OverviewUserController implements Initializable {
 
             ResultSet resultSet;
 
-            resultSet = db.executeResultSetQuery("SELECT ID, Firstname, Lastname, Location, Status, Role FROM User");
+            resultSet = db.executeResultSetQuery("SELECT employeeId, firstname, lastname, location, status, role FROM employee");
 
             while (resultSet.next()) {
-                String id = resultSet.getString("ID");
-                String firstName = resultSet.getString("Firstname");
-                String lastName = resultSet.getString("Lastname");
-                String location = resultSet.getString("Location");
-                String status = resultSet.getString("Status");
-                String role = resultSet.getString("Role");
+                String id = resultSet.getString("employeeId");
+                String firstName = resultSet.getString("firstname");
+                String lastName = resultSet.getString("lastname");
+                String location = resultSet.getString("location");
+                String status = resultSet.getString("status");
+                String role = resultSet.getString("role");
 
                 System.out.println("ID: " + id + "  Firstname: " + firstName + " Lastname: " + lastName + " Location: " + location + " Status: " + status + " Role: " + role);
                 users.add(new User(id, lastName, firstName, location, role, status));

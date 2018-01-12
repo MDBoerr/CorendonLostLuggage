@@ -160,9 +160,9 @@ public class MainApp extends Application {
 
         if (user != null) {
             System.out.println(user);
-            if (user.equals("Adminstrator")) {
+            if (user.equals("Administrator")) {
                 switchView("/Views/Admin/HomeUserView.fxml");
-                System.out.println(user);
+                System.out.println("The correct user role is selected: " + user);
 
             }
             if (user.equals("Manager")) {
