@@ -181,12 +181,29 @@ public class ServiceSearchData {
         //set the right tablename on the query
         query = query.replaceAll("tablename", luggageType.toLowerCase());
         
-        //replace the 'replace' parts with the search value 
-        String finalQuery = query.replaceAll("replace", search);
+        String finalQuery;
         
-//        if (null == finalQuery || "".equals(finalQuery)){
-//            finalQuery = "*";
-//        }
+        //check if the search value doesn't contain harmfull caracters.
+        //Since using a full prepared statement here is way to complex..
+        if (!search.contains(";") && !search.contains("`") 
+            && !search.contains("'") && !search.contains(")")
+            && !search.contains("]") && !search.contains("(")    ){
+            //replace the 'replace' parts with the search value 
+            finalQuery = query.replaceAll("replace", search); 
+        } else {
+            System.out.println("Harmfull caracters in the search used");
+            //use the normal detailed query's without searching 
+            if ("foundluggage".equals(luggageType)){
+                //if this is true than use de detailed query from ServiceDataFound
+                finalQuery = ServiceDataFound.DETAILED_QUERY+" ;";
+            } else if ("lostluggage".equals(luggageType)){
+                //else if this is true than use de detailed query from ServiceDataLost
+                finalQuery = ServiceDataLost.DETAILED_QUERY+" ;";
+            } else {
+                //else get data from lost luggage
+                finalQuery = "SELECT * FROM lostluggage";
+            }
+        }
         return finalQuery;
     }
 

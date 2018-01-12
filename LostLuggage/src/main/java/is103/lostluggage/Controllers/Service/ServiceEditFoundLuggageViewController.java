@@ -610,25 +610,22 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
         //check if this field is not (still) unasigned
         if (typeCode != 0){
             //if it is asigned (so not 0) than update that field
-            DB.executeUpdateQuery("UPDATE `foundluggage` SET "
-                    + " `luggageType`='"+typeCode+"' "
-            + " WHERE `registrationNr`='"+registrationNr.getText()+"';");
+            //note: use of prepared statements for preventing sql injection
+            DB.executeUpdateLuggageQuery("foundluggage", "luggageType",
+                                    Integer.toString(typeCode), registrationNr.getText());
         }
         //repeat
         if (ralCode1 != 0){
-            DB.executeUpdateQuery("UPDATE `foundluggage` SET "
-                    + " `mainColor`='"+ralCode1+"' "
-            + " WHERE `registrationNr`='"+registrationNr.getText()+"';");
+            DB.executeUpdateLuggageQuery("foundluggage", "mainColor",
+                                    Integer.toString(ralCode1), registrationNr.getText());
         }
         if (ralCode2 != 0){
-            DB.executeUpdateQuery("UPDATE `foundluggage` SET "
-                    + " `secondColor`='"+ralCode2+"' "
-            + " WHERE `registrationNr`='"+registrationNr.getText()+"';");
+            DB.executeUpdateLuggageQuery("foundluggage", "secondColor",
+                                    Integer.toString(ralCode2), registrationNr.getText());
         }
         if (locationCode != 0){
-            DB.executeUpdateQuery("UPDATE `foundluggage` SET "
-                    + " `locationFound`='"+locationCode+"' "
-            + " WHERE `registrationNr`='"+registrationNr.getText()+"';");
+            DB.executeUpdateLuggageQuery("foundluggage", "locationFound",
+                                    Integer.toString(locationCode), registrationNr.getText());
         }
         //Update the luggage itself with the right data
         DB.executeUpdateQuery("UPDATE `foundluggage` SET "
@@ -641,15 +638,15 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
                 + "`otherCharacteristics`='"+signatures.getText()+"' "
                 + "WHERE `registrationNr`='"+registrationNr.getText()+"';"); 
         
-        //Update the passenger with the right data 
-        DB.executeUpdateQuery("UPDATE `passenger` SET "
-                + "`name`='"+passangerName.getText()+"', "
-                + "`address`='"+address.getText()+"', "
-                + "`place`='"+place.getText()+"', "
-                + "`postalcode`='"+postalCode.getText()+"', "
-                + "`country`='"+country.getText()+"', "
-                + "`email`='"+email.getText()+"' "
-                + "WHERE `passengerId`='"+passangerId.getText()+"';");
+        DB.executeUpdatePassengerQuery(
+                passangerName.getText(), 
+                address.getText(), 
+                place.getText(), 
+                postalCode.getText(), 
+                country.getText(), 
+                email.getText(), 
+                phone.getText(), 
+                passangerId.getText());
     }
     
     /**  

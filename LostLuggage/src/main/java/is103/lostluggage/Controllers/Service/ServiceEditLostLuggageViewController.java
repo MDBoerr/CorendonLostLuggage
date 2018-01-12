@@ -102,6 +102,10 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
     //count for the amount of passengers
     int passengerCount=0;
     
+    //click count
+    private final int SINGLE_CLICK = 1;
+    private final int DOUBLE_CLICK = 2;
+    
     /**
      * Initializes the edit lost luggage controller class.
      * @param url
@@ -200,9 +204,9 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
         //loop trough all the luggages in the resultSet
         //Note: there will be only one
         while (resultSet.next()) {                 
-                int getRegistrationNr =     resultSet.getInt("F.registrationNr");
-                String getDateLost =          resultSet.getString("F.dateLost");
-                String getTimeLost =          resultSet.getString("F.timeLost");
+                int getRegistrationNr =        resultSet.getInt("F.registrationNr");
+                String getDateLost =           resultSet.getString("F.dateLost");
+                String getTimeLost =           resultSet.getString("F.timeLost");
                 
                 String getLuggageTag =         resultSet.getString("F.luggageTag");
                 String getLuggageType =        resultSet.getString("T."+LANGUAGE);
@@ -210,17 +214,17 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
                 String getMainColor =          resultSet.getString("c1."+LANGUAGE);
                 String getSecondColor =        resultSet.getString("c2."+LANGUAGE);
                 String getSize =               resultSet.getString("F.size");
-                String getWeight =                resultSet.getString("F.weight");   
+                String getWeight =             resultSet.getString("F.weight");   
                 String getOtherCharacteristics=resultSet.getString("F.otherCharacteristics");
                 
                 int getPassengerId =           resultSet.getInt("F.passengerId");
-                String getName =          resultSet.getString("P.name");
-                String getAddress =          resultSet.getString("P.address");
-                String getPlace =          resultSet.getString("P.place");
-                String getPostalcode =          resultSet.getString("P.postalcode");
-                String getCountry =          resultSet.getString("P.country");
-                String getEmail =          resultSet.getString("P.email");
-                String getPhone =          resultSet.getString("P.phone");
+                String getName =               resultSet.getString("P.name");
+                String getAddress =            resultSet.getString("P.address");
+                String getPlace =              resultSet.getString("P.place");
+                String getPostalcode =         resultSet.getString("P.postalcode");
+                String getCountry =            resultSet.getString("P.country");
+                String getEmail =              resultSet.getString("P.email");
+                String getPhone =              resultSet.getString("P.phone");
                 
                 String getFlight =              resultSet.getString("F.Flight"); 
             
@@ -250,13 +254,6 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
             dateLost.setText(getDateLost);
             timeLost.setText(getTimeLost);
             flight.setText(getFlight);
-            
-            
-            
-            
-            
-            
-
             }    
     }
     
@@ -333,11 +330,11 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
         //chack changes of the fields
         checkChanges();
         
-        if (changeCountDoubleCheck == 1){
+        if (changeCountDoubleCheck == SINGLE_CLICK){
             saveEditings.setText("Confirm again");
         }
         //is pressed two times - > confimered
-        else if (changeCountDoubleCheck >= 2){
+        else if (changeCountDoubleCheck >= DOUBLE_CLICK){
             //reset the label of the button
             saveEditings.setText("Save changes");
             
@@ -609,20 +606,15 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
         //check if this field is not (still) unasigned
         if (typeCode != 0){
             //if it is asigned (so not 0) than update that field
-            DB.executeUpdateQuery("UPDATE `foundluggage` SET "
-                    + " `luggageType`='"+typeCode+"' "
-            + " WHERE `registrationNr`='"+registrationNr.getText()+"';");
+            //note: use of prepared statements to prevent sql injection!
+            DB.executeUpdateLuggageQuery("lostluggage", "luggageType",Integer.toString(typeCode), registrationNr.getText());
         }
-        //repeat
+        //repeat 
         if (ralCode1 != 0){
-            DB.executeUpdateQuery("UPDATE `foundluggage` SET "
-                    + " `mainColor`='"+ralCode1+"' "
-            + " WHERE `registrationNr`='"+registrationNr.getText()+"';");
+            DB.executeUpdateLuggageQuery("lostluggage", "mainColor",Integer.toString(ralCode1), registrationNr.getText());
         }
         if (ralCode2 != 0){
-            DB.executeUpdateQuery("UPDATE `foundluggage` SET "
-                    + " `secondColor`='"+ralCode2+"' "
-            + " WHERE `registrationNr`='"+registrationNr.getText()+"';");
+            DB.executeUpdateLuggageQuery("lostluggage", "secondColor",Integer.toString(ralCode2), registrationNr.getText());
         }
         
         //Update the luggage itself with the right data
@@ -637,14 +629,25 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
                 + "WHERE `registrationNr`='"+registrationNr.getText()+"';"); 
         
         //Update the passenger with the right data 
-        DB.executeUpdateQuery("UPDATE `passenger` SET "
-                + "`name`='"+passangerName.getText()+"', "
-                + "`address`='"+address.getText()+"' , "
-                + "`place`='"+place.getText()+"', "
-                + "`postalcode`='"+postalCode.getText()+"', "
-                + "`country`='"+country.getText()+"', "
-                + "`email`='"+email.getText()+"' "
-                + "WHERE `passengerId`='"+passangerId.getText()+"';");
+//        DB.executeUpdateQuery("UPDATE `passenger` SET "
+//                + "`name`='"+passangerName.getText()+"', "
+//                + "`address`='"+address.getText()+"' , "
+//                + "`place`='"+place.getText()+"', "
+//                + "`postalcode`='"+postalCode.getText()+"', "
+//                + "`country`='"+country.getText()+"', "
+//                + "`email`='"+email.getText()+"' "
+//                        //phone
+//                + "WHERE `passengerId`='"+passangerId.getText()+"';");
+//        
+        DB.executeUpdatePassengerQuery(
+                passangerName.getText(), 
+                address.getText(), 
+                place.getText(), 
+                postalCode.getText(), 
+                country.getText(), 
+                email.getText(), 
+                phone.getText(), 
+                passangerId.getText());
     }
     
     /**  

@@ -71,8 +71,7 @@ public class ServiceMoreDetails {
                     //get the right found luggage object -> place this in getDetailObj
                     LostLuggage getDetailObj = (LostLuggage) tableRowGet.getItem();
                     //Detail object setten -> so it is posible to take this in the next fxml
-                    LostLuggage route = LostLuggageDetailsInstance.getInstance().currentLuggage();
-                    route.setRegistrationNr(getDetailObj.getRegistrationNr());
+                    LostLuggageDetailsInstance.getInstance().currentLuggage().setRegistrationNr(getDetailObj.getRegistrationNr());
                     break;
                 }
             case "found":

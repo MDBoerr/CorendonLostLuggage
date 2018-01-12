@@ -353,11 +353,11 @@ public class MyJDBC {
             PreparedStatement preparedStatement = this.connection.prepareStatement(
                 "UPDATE `passenger` SET  "
                         + " name = ? ,"
-                        + " address = ? "
-                        + " place = ? "
-                        + " postalcode = ? "
-                        + " country = ? "
-                        + " email = ? "
+                        + " address = ? ,"
+                        + " place = ? ,"
+                        + " postalcode = ? ,"
+                        + " country = ? ,"
+                        + " email = ? ,"
                         + " phone = ? "
                         + "WHERE `passengerId`= ? ;")) {
             //initializing the preparedstatement
@@ -369,7 +369,7 @@ public class MyJDBC {
             preparedStatement.setString(6, email);
             preparedStatement.setString(7, phone);
             preparedStatement.setString(8, passengerId);
-            
+
             //execute the prepared statement
             preparedStatement.executeUpdate();       
         }

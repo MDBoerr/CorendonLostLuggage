@@ -200,8 +200,8 @@ public final class ServiceDataLost {
                 String luggageTag =         resultSet.getString("luggageTag");
                 int luggageType =           resultSet.getInt("luggageType");
                 String brand =              resultSet.getString("brand");
-                String mainColor =             resultSet.getString("mainColor");
-                String secondColor =           resultSet.getString("secondColor");
+                String mainColor =          resultSet.getString("mainColor");
+                String secondColor =        resultSet.getString("secondColor");
                 String size =               resultSet.getString("size");
                 int weight =                resultSet.getInt("weight");   
                 String otherCharacteristics=resultSet.getString("otherCharacteristics");
