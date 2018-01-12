@@ -12,7 +12,10 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Part 1 = Hva - Part 2 = Michael de Boer & Arthur Krom
+ * @author Template: Hva (MyJDBC)
+ * @author Michael de Boer  Clean up, Implimentations, First prepared statements 
+ * @author Arthur Krom      SQL Dump created
+ * @author Thijs Zijdel     4 Prepared statements
  *
  */
 public class MyJDBC {
@@ -277,22 +280,65 @@ public class MyJDBC {
         return resultSet;
     }
     
+    
+    
+    
+    // -------------------------------------------------
+    
+    
+    
+    /**
+     * @author Thijs Zijdel - 500782165
+     * 
+     * Execute update query for editing the fields of a passenger.
+     * Note:    this is an prepared statement so the db will be 
+     *          protected against SQL Injection.
+     * 
+     * @param table                   table of the field that will be updated
+     * @param field                   field that need to be changed
+     * @param value                   new value of the field
+     * @param registrationNr          of the luggage that will changed
+     * @throws java.sql.SQLException  updating data in the db
+     **/
     public void executeUpdateLuggageQuery(
                                     String table, 
                                     String field, 
-                                    String statement, 
+                                    String value, 
                                     String registrationNr) throws SQLException {
-        try (PreparedStatement preparedStatement = this.connection.prepareStatement(
+        //try to create en execute an prepared statment
+        try (
+             PreparedStatement preparedStatement = this.connection.prepareStatement(
                 "UPDATE `"+table+"` SET  "
                         + " "+field+" = ? "
                         + "WHERE `registrationNr`= ? ;")) {
-            preparedStatement.setString(1, statement);
+            //initializing the preparedstatement
+            preparedStatement.setString(1, value);
             preparedStatement.setString(2, registrationNr);
 
-            
+            //execute the prepared statement
             preparedStatement.executeUpdate();       
         }
     }
+    /**
+     * @author Thijs Zijdel - 500782165
+     * 
+     * Execute update query for editing the fields of a passenger.
+     * Note:    this is an prepared statement so the db will be 
+     *          protected against SQL Injection.
+     * 
+     * 
+     * //All the parameters are the values of the new fields
+     * @param name      
+     * @param address
+     * @param place
+     * @param postalcode
+     * @param country
+     * @param email
+     * @param phone
+     * 
+     * @param passengerId  -> the passenger where the values are set
+     * @throws java.sql.SQLException  because there will be a SQL query executed
+     **/
     public void executeUpdatePassengerQuery(
                                     String name, 
                                     String address,
@@ -302,7 +348,9 @@ public class MyJDBC {
                                     String email,
                                     String phone,
                                     String passengerId) throws SQLException {
-        try (PreparedStatement preparedStatement = this.connection.prepareStatement(
+        //try to create en execute an prepared statment
+        try (
+            PreparedStatement preparedStatement = this.connection.prepareStatement(
                 "UPDATE `passenger` SET  "
                         + " name = ? ,"
                         + " address = ? "
@@ -312,6 +360,7 @@ public class MyJDBC {
                         + " email = ? "
                         + " phone = ? "
                         + "WHERE `passengerId`= ? ;")) {
+            //initializing the preparedstatement
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, address);
             preparedStatement.setString(3, place);
@@ -321,10 +370,31 @@ public class MyJDBC {
             preparedStatement.setString(7, phone);
             preparedStatement.setString(8, passengerId);
             
+            //execute the prepared statement
             preparedStatement.executeUpdate();       
         }
     }
-
+    
+    /**
+     * @author Thijs Zijdel - 500782165
+     **/
+    public void executeUpdateFoundLuggageQuery(){
+        //prepared statement that will be created for:
+        //updating all the fields of found luggage
+    }
+    /**
+     * @author Thijs Zijdel - 500782165
+     **/        
+    public void executeUpdateLostLuggageQuery(){
+       //prepared statement that will be created for:
+       //updating all the fields of found luggage
+    } 
+    
+    
+    
+    
+    // -------------------------------------------------
+    
     //Model made by Arthur implemented by Michael
     public static void createLostLuggageDatabase(String dbName) {
 
