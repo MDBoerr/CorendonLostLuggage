@@ -3,6 +3,7 @@ package is103.lostluggage;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.Model.Service.Data.ServiceDataMatch;
+import is103.lostluggage.Model.User;
 import java.io.File;
 import java.io.IOException;
 import javafx.application.Application;
@@ -31,8 +32,6 @@ import javafx.stage.FileChooser;
 public class MainApp extends Application {
 
     private static BorderPane root;
-
-    public static String user = null;
     
     public static boolean onMatchingView = false;
     public static int serviceChangeValue = 99;
@@ -46,9 +45,11 @@ public class MainApp extends Application {
     private static MyJDBC db;
     
     //Name of the database
-    final private static String DB_NAME = "lostluggage";
+    final private static String DB_NAME = "CorendonLostLuggage";
         
     public static String language = "english";
+    
+    public static User currentUser = null;
     
     public static Stage mainStage;
 
@@ -63,7 +64,7 @@ public class MainApp extends Application {
         root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
 
         //switchView("/fxml/SelectUserRoleView.fxml");
-        checkLoggedInStatus(user);
+        checkLoggedInStatus(currentUser);
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
@@ -156,20 +157,21 @@ public class MainApp extends Application {
     }
     
 
-    public static void checkLoggedInStatus(String user) throws IOException {
-
+    public static void checkLoggedInStatus(User user) throws IOException {
+       
         if (user != null) {
+            currentUser = user;
             System.out.println(user);
-            if (user.equals("Administrator")) {
+            if (user.getRole().equals("Administrator")) {
                 switchView("/Views/Admin/HomeUserView.fxml");
                 System.out.println("The correct user role is selected: " + user);
 
             }
-            if (user.equals("Manager")) {
+            if (user.getRole().equals("Manager")) {
                 switchView("/Views/ManagerHomeView.fxml");
 
             }
-            if (user.equals("Service")) {
+            if (user.getRole().equals("Service")) {
                 switchView("/Views/Service/ServiceHomeView.fxml");
 
             }
