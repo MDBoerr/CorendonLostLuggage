@@ -89,7 +89,6 @@ public class LogInViewController implements Initializable {
         MyJDBC db = MainApp.getDatabase();
         String id = idTextField.getText();
         String password = passwordField.getText();
-        String role = null;
         User currentUser = null;
         try {
 
@@ -106,14 +105,16 @@ public class LogInViewController implements Initializable {
             } else {
                 alertHeader = "Access Denied";
                 headerColor = "#f03e3e";
-                alert = "\nThis account has been set on Inactive.\nPlease contact your Administrator or Manager\n";
+                alert = "\nThis account has been set on Inactive."
+                        + "\nPlease contact your Administrator or Manager\n";
                 buttonText = "Close";
                 showAlertMessage();
             }
         } else {
             alertHeader = "Failed to Login";
             headerColor = "#495057";
-            alert = "\nThe username and password you entered did not match our records. Please double-check and try again.\n";
+            alert = "\nThe username and password you entered did not match our records."
+                    + " Please double-check and try again.\n";
             buttonText = "Try Again";
             showAlertMessage();
             //System.out.println("The username and password you entered did not match our records. Please double-check and try again.");
@@ -124,8 +125,8 @@ public class LogInViewController implements Initializable {
         stackPane.setVisible(true);
         MESSAGE_FLOW.getChildren().clear();
 
+        //Customize header
         Text header = new Text(alertHeader);
-        header.setTextAlignment(TextAlignment.CENTER);
         header.setFont(new Font("System", 18));
         header.setFill(Paint.valueOf(headerColor));
 
@@ -137,7 +138,6 @@ public class LogInViewController implements Initializable {
         hideMessageButton.setButtonType(JFXButton.ButtonType.RAISED);
 
         MESSAGE_FLOW.getChildren().add(new Text(alert));
-        DIALOG_LAYOUT.setAlignment(Pos.CENTER);
         DIALOG_LAYOUT.setHeading(header);
         DIALOG_LAYOUT.setBody(MESSAGE_FLOW);
         DIALOG_LAYOUT.setActions(hideMessageButton);

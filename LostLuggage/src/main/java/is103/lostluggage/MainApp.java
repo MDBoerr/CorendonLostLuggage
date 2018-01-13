@@ -45,7 +45,7 @@ public class MainApp extends Application {
     private static MyJDBC db;
     
     //Name of the database
-    final private static String DB_NAME = "CorendonLostLugagge";
+    final private static String DB_NAME = "CorendonLostLuggage";
         
     public static String language = "english";
     
