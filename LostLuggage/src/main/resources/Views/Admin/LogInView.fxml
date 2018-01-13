@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Admin.LogInViewController">
    <children>
@@ -38,5 +39,6 @@
             <JFXButton buttonType="RAISED" minHeight="40.0" minWidth="105.0" onAction="#switchViews" prefHeight="38.0" prefWidth="105.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c;" text="(Select User)" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
+      <StackPane fx:id="stackPane" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>

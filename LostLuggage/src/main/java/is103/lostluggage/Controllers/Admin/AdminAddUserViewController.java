@@ -130,6 +130,7 @@ public class AdminAddUserViewController implements Initializable {
             roleComboBox.getSelectionModel().select(selectedUser.getRole());
             
            employeeIdField.setDisable(true);
+           
         } else {
 
             header = "Add User";
@@ -143,7 +144,7 @@ public class AdminAddUserViewController implements Initializable {
 
         //Set which view was previous
         MainViewController.previousView = "/Views/Admin/HomeUserView.fxml";
-
+        edit = false;
     }
 
     @FXML
