@@ -6,6 +6,7 @@ import is103.lostluggage.Controllers.Admin.HomeUserViewController;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
+import is103.lostluggage.Model.settings;
 //import is103.lostluggage.Controllers.Service.Luggage;
 import java.io.IOException;
 import java.net.URL;
@@ -90,6 +91,10 @@ public class ManagerRetrievedViewController implements Initializable {
             public void handle(MouseEvent event) {
 
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
+                    
+//                    ----zomaar iets
+//                    customerdetails email = new customerdetails(emailid, adresid);
+
                     Node node = ((Node) event.getTarget()).getParent();
 
                     TableRow row;
@@ -100,34 +105,32 @@ public class ManagerRetrievedViewController implements Initializable {
                         // clicking on text part
                         row = (TableRow) node.getParent();
                     }
-                    
-//                    SELECT name FROM passenger "WHERE matched.foundluggage = 410" JOIN foundluggage ON foundluggage.passengerId = passenger.passengerId INNER JOIN matched ON matched.foundluggage = foundluggage.registrationNr; 
-                    
-                    
-                    
-                    
+
                     //get value of selected row in tableview
                     int formid = retrievedTable.getSelectionModel().getSelectedItem().getFormID();
                     String customer = retrievedTable.getSelectionModel().getSelectedItem().getCustomer();
                     String deliver = retrievedTable.getSelectionModel().getSelectedItem().getDeliverer();
                     String employee = retrievedTable.getSelectionModel().getSelectedItem().getEmployee();
                     String date = retrievedTable.getSelectionModel().getSelectedItem().getDate();
-                    
-                    
+//                    String email = getcustomerdetails(emailid);
+
                     //convert int to string
                     String formidString = Integer.toString(formid);
-                    
-                    
+
                     // set the values of tableview in textfield
-                   formtextid.setText(formidString);
-                   customerid.setText(customer);
-                   deivererid.setText(deliver);
-                   employeeservice.setText(employee);
-                   dateid.setText(date);
+                    formtextid.setText(formidString);
+                    customerid.setText(customer);
+                    deivererid.setText(deliver);
+                    employeeservice.setText(employee);
+                    dateid.setText(date);
                     
-                    
- 
- 
+//                    -->proberen email en adres
+//                   emailid.setText() = getcustomerdetails();
+//                    emailid.setText();
+//                    adresid.setText(emailid);
+//                    System.out.println(email);
+//                   -->end
+
                 }
 
             }
@@ -135,8 +138,31 @@ public class ManagerRetrievedViewController implements Initializable {
         });
 
     }
-    
+//      ------> retrieve customer adres and email where matched fooundluggage
+    public ObservableList<customerdetails> getcustomerdetails() {
+        ObservableList<customerdetails> customerdetails = FXCollections.observableArrayList();
+        try {
+            MyJDBC db = MainApp.getDatabase();
 
+            ResultSet resultSet;
+
+            resultSet = db.executeResultSetQuery("SELECT adres, email FROM passenger JOIN foundluggage ON foundluggage.passengerId = passenger.passengerId INNER JOIN matched ON matched.foundluggage = foundluggage.registrationNr WHERE matched.foundluggage");
+
+            while (resultSet.next()) {
+
+                String passname = resultSet.getString("name");
+                String passmail = resultSet.getString("email");
+
+                customerdetails.add(new customerdetails(passname, passmail));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerReportViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return customerdetails;
+
+    }
+//    ------->end
 
     public ObservableList<RetrievedLuggage> getRetrievedLuggage() {
 
