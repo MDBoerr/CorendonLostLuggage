@@ -627,6 +627,16 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
             DB.executeUpdateLuggageQuery("foundluggage", "locationFound",
                                     Integer.toString(locationCode), registrationNr.getText());
         }
+        
+        
+        
+        int sizeInt = tryParseInt(size.getText());
+        if (sizeInt != 0){ 
+            DB.executeUpdateLuggageQuery("foundluggage", "size",
+                                    Integer.toString(sizeInt), registrationNr.getText());    
+        }
+        
+        
         //Update the luggage itself with the right data
         DB.executeUpdateQuery("UPDATE `foundluggage` SET "
                 + "`dateFound`='"+dateFound.getText()+"', "
@@ -707,5 +717,13 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
     @FXML
     public void closeStackpane(){
         stackPane.setVisible(false); 
+    }
+    
+    private Integer tryParseInt(String text) {
+        try {
+          return Integer.parseInt(text);
+        } catch (NumberFormatException e) {
+          return 0;
+        }
     }
 }
