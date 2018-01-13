@@ -16,7 +16,10 @@ import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetailsInstance;
 import is103.lostluggage.Model.Service.Instance.Matching.FoundLuggageManualMatchingInstance;
 import is103.lostluggage.Model.Service.Interface.FoundLuggageFields;
-import is103.lostluggage.Model.Service.Model.MatchLuggage;
+import is103.lostluggage.Model.Service.Model.ServiceValidate;
+import static is103.lostluggage.Model.Service.Model.ServiceValidate.isValidDate;
+import static is103.lostluggage.Model.Service.Model.ServiceValidate.isValidInt;
+import static is103.lostluggage.Model.Service.Model.ServiceValidate.isValidTime;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -24,7 +27,6 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -104,6 +106,9 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
     private final int AMOUNT_OF_FIELDS = 21;
     
     int passengerCount=0;
+    
+    //validation object
+    ServiceValidate validate = new ServiceValidate();
     
     /**
      * Initializes the edit fount luggage controller class.
@@ -573,6 +578,8 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
      * @void no direct output 
      */ 
     public void updateLuggage() throws SQLException{
+        String regisrationNr = registrationNr.getText();
+        
         //Initializing 4 objects with the right fields to get the idCode
         //Note: To get the id the Where statement is also configured for each
         ServiceGetDataFromDB getRalCode1 = new ServiceGetDataFromDB
@@ -612,31 +619,54 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
             //if it is asigned (so not 0) than update that field
             //note: use of prepared statements for preventing sql injection
             DB.executeUpdateLuggageQuery("foundluggage", "luggageType",
-                                    Integer.toString(typeCode), registrationNr.getText());
+                                    Integer.toString(typeCode), regisrationNr);
         }
         //repeat
         if (ralCode1 != 0){
             DB.executeUpdateLuggageQuery("foundluggage", "mainColor",
-                                    Integer.toString(ralCode1), registrationNr.getText());
+                                    Integer.toString(ralCode1), regisrationNr);
         }
         if (ralCode2 != 0){
             DB.executeUpdateLuggageQuery("foundluggage", "secondColor",
-                                    Integer.toString(ralCode2), registrationNr.getText());
+                                    Integer.toString(ralCode2), regisrationNr);
         }
         if (locationCode != 0){
             DB.executeUpdateLuggageQuery("foundluggage", "locationFound",
-                                    Integer.toString(locationCode), registrationNr.getText());
+                                    Integer.toString(locationCode), regisrationNr);
         }
+        
+        
+        //validate the weight inputted
+        int weightInt = isValidInt(weight.getText());
+        if (weightInt != 0){ 
+            //if the return wasn't 0, update the weight with a prepared statment
+            DB.executeUpdateLuggageQuery("foundluggage", "weight",
+                                    Integer.toString(weightInt), regisrationNr);    
+        }
+        
+        //validate the date inputted
+        String dateString = isValidDate(dateFound.getText());
+        if (dateString != null){
+            //update the date found with a prepared statment
+            DB.executeUpdateLuggageQuery("foundluggage", "dateFound",
+                                    dateString, regisrationNr);    
+        }
+        
+        //validate the time inputted
+        String timeString = isValidTime(timeFound.getText());
+        if (timeString != null){
+            //update the time found with a prepared statment
+            DB.executeUpdateLuggageQuery("foundluggage", "timeFound",
+                                    timeString, regisrationNr);    
+        }
+        
         //Update the luggage itself with the right data
         DB.executeUpdateQuery("UPDATE `foundluggage` SET "
-                + "`dateFound`='"+dateFound.getText()+"', "
-                + "`timeFound`='"+timeFound.getText()+"', "
                 + "`luggageTag`='"+luggageTag.getText()+"', "
                 + "`brand`='"+brand.getText()+"', "
                 + "`size`='"+size.getText()+"', "
-                + "`weight`='"+weight.getText()+"', "
                 + "`otherCharacteristics`='"+signatures.getText()+"' "
-                + "WHERE `registrationNr`='"+registrationNr.getText()+"';"); 
+                + "WHERE `registrationNr`='"+regisrationNr+"';"); 
         
         DB.executeUpdatePassengerQuery(
                 passangerName.getText(), 
@@ -708,4 +738,5 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
     public void closeStackpane(){
         stackPane.setVisible(false); 
     }
+    
 }
