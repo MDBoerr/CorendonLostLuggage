@@ -32,6 +32,6 @@
               </TableView>
          </children>
       </VBox>
-      <JFXTextField layoutX="79.0" layoutY="48.0" prefHeight="27.0" prefWidth="175.0" promptText="Search" />
+      <JFXTextField fx:id="searchTextField" focusColor="#4dadf7" layoutX="79.0" layoutY="48.0" onKeyReleased="#searchUsers" prefHeight="27.0" prefWidth="175.0" promptText="Search" />
     </children>
 </AnchorPane>

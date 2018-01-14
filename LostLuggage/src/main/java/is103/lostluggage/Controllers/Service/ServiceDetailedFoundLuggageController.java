@@ -183,7 +183,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable, Fou
     @FXML
     protected void viewPotentials(ActionEvent event) throws IOException, SQLException{
         //get the right data object
-        ServiceDataMatch data = MainApp.getMatchData();
+        ServiceDataMatch data = ServiceHomeViewController.getMATCH_DATA();
 
         
         //clear the potential list if there are items in
@@ -192,8 +192,8 @@ public class ServiceDetailedFoundLuggageController implements Initializable, Fou
         }
         
         //reset the potential matching table and set the reset status
-        ServiceMatchingViewController.getInstance().resetPotentialMatchingTable(); 
-        MainApp.setPotentialResetStatus(true);
+        //ServiceMatchingViewController.getInstance().resetPotentialMatchingTable(); 
+        //MainApp.setPotentialResetStatus(true);
         
         //get the id of the current luggage
         String id = FoundLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();
@@ -202,13 +202,14 @@ public class ServiceDetailedFoundLuggageController implements Initializable, Fou
         data.potentialMatchesForFoundLuggage(id);
         
         //if the user is not on the matching view, switch
-        if (MainApp.isOnMatchingView()==false){
+        if (ServiceHomeViewController.isOnMatchingView()==false){
             MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
         }
                 
         //set the right tab, 2 = potential matching tab
-        ServiceMatchingViewController.getInstance().setMatchingTab(2);
-        
+        ServiceMatchingViewController.getInstance().setMatchingTab(
+                ServiceMatchingViewController.POTENTIAL_MATCHING_TAB_INDEX
+        );
         //close the current stage
         closeStage();
     }
@@ -224,7 +225,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable, Fou
     @FXML
     protected void manualMatching(ActionEvent event) throws IOException{
         //if the user is not on the matching view, switch to that view
-        if (MainApp.isOnMatchingView()==false){
+        if (ServiceHomeViewController.isOnMatchingView()==false){
             MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
         }
         

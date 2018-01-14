@@ -460,7 +460,7 @@ public class ServiceConfirmedMatchLuggageViewController implements
     @FXML
     protected void manualMatching(ActionEvent event) throws IOException{
         //if the user is not on the matching view, switch to that view
-        if (MainApp.isOnMatchingView()==false){
+        if (ServiceHomeViewController.isOnMatchingView()==false){
             MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
         }
         

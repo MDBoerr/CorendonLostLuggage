@@ -118,7 +118,7 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
         }
         
         //set screen status
-        MainApp.setOnMatchingView(false); 
+        ServiceHomeViewController.setOnMatchingView(false); 
     }
     
     /**  

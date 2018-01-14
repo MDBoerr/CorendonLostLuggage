@@ -8,6 +8,7 @@ import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.PdfDocument;
+import is103.lostluggage.Model.Service.Model.Form;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -15,6 +16,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,16 +28,18 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 /**
- * FXML Controller class
+ * FXML Controller class for the inputluggage view
  *
  * @author Arthur Krom
  */
 public class ServiceInputLuggageViewController implements Initializable {
 
-    
     @FXML
     private JFXComboBox missingFoundComboBox, flightJFXComboBox, typeJFXComboBox, colorJFXComboBox,
-            secondColorJFXComboBox, locationJFXComboBox, airportJFXComboBox;
+            secondColorJFXComboBox, locationJFXComboBox, airportJFXComboBox, destinationJFXComboBox;
+    
+    //Hashmap containing all the comboboxes
+    private Map<String, JFXComboBox> comboBoxes = new HashMap<>();
     
     @FXML
     private GridPane mainGridPane,travellerInfoGridPane, luggageInfoGridPane ;
@@ -52,6 +57,13 @@ public class ServiceInputLuggageViewController implements Initializable {
     private JFXTextField nameJFXTextField, addressJFXTextField, placeJFXTextField, 
             postalcodeJFXTextField, countryJFXTextField, phoneJFXTextField, emailJFXTextField, labelnumberJFXTextField, brandJFXTextField,
             characterJFXTextField, sizeJFXTextField, weightJFXTextField;
+    
+    //Hashmap containing all the text fields
+    private Map<String, JFXTextField> textFields = new HashMap<>();
+    
+    //Form object
+    private Form form;
+    
   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -60,17 +72,39 @@ public class ServiceInputLuggageViewController implements Initializable {
         MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
         
         //set the title of the view, default form to be displayed is Missing
-        changeTitle("Missing luggage form");
+        changeTitle("Lost luggage form");
         
-        //Set the value of the comboboxes
+        //Make a new form.
+        this.form = new Form();
+        
+        //Method to initialize the hashmaps
+        setHashMaps();
+        
         try {
-            setComboBox();
+            //Import the form options
+            Map<String, ArrayList<String>> formOptions = this.form.getFormOptions();
+
+            //Add the all the options to the comboboxes
+            missingFoundComboBox.getItems().addAll(formOptions.get("foundorlost"));
+            colorJFXComboBox.getItems().addAll(formOptions.get("colors"));
+            secondColorJFXComboBox.getItems().addAll(formOptions.get("colors"));
+            locationJFXComboBox.getItems().addAll(formOptions.get("locations"));
+            airportJFXComboBox.getItems().addAll(formOptions.get("airports"));
+            flightJFXComboBox.getItems().addAll(formOptions.get("flights"));
+            typeJFXComboBox.getItems().addAll(formOptions.get("luggagetypes"));
+            destinationJFXComboBox.getItems().addAll(formOptions.get("airports"));
+            
+            //Set default value for the type of form combobox
+            missingFoundComboBox.setValue("Lost");
+            this.form.setType("Lost");
+            
+            
         } catch (SQLException ex) {
             Logger.getLogger(ServiceInputLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }
     
-    //This method changes the title of the view
+    //Method to change the title of the current view
     public void changeTitle(String title){
         try {
             MainViewController.getInstance().getTitle(title);
@@ -79,104 +113,120 @@ public class ServiceInputLuggageViewController implements Initializable {
         }
     }
     
-    //This method sets all the values for the comboboxes.
-    public void setComboBox() throws SQLException{
-       
-        //Add options to choicebox
-        missingFoundComboBox.getItems().addAll("Found", "Missing");
+    
+    //Method to initialize all the hashmaps
+    private void setHashMaps(){
+        
+        //initializing the combobox hashmap
+        
+        comboBoxes.put("missingfound", missingFoundComboBox);
+        comboBoxes.put("flight", flightJFXComboBox);
+        comboBoxes.put("type", typeJFXComboBox);
+        comboBoxes.put("color", colorJFXComboBox);
+        comboBoxes.put("secondcolor", secondColorJFXComboBox);
+        comboBoxes.put("location", locationJFXComboBox);
+        comboBoxes.put("airport", airportJFXComboBox);
+        comboBoxes.put("destination", destinationJFXComboBox);
+        
+        //initializing the textfield hashmap
+        
+        textFields.put("name", nameJFXTextField);
+        textFields.put("address", addressJFXTextField);
+        textFields.put("place", placeJFXTextField);
+        textFields.put("postalcode", postalcodeJFXTextField);
+        textFields.put("country", countryJFXTextField);
+        textFields.put("phone", phoneJFXTextField);
+        textFields.put("email", emailJFXTextField);
+        textFields.put("labelnumber", labelnumberJFXTextField);
+        textFields.put("brand", brandJFXTextField);
+        textFields.put("character", characterJFXTextField);
+        textFields.put("size", sizeJFXTextField);
+        textFields.put("weight", weightJFXTextField);
 
-        //Default value is set to Service Employee as Administrator will most likely add a user with that role.
-        missingFoundComboBox.setValue("Missing");
-                
-        //Color combo box
-        ResultSet colorResultSet = MainApp.getDatabase().executeResultSetQuery("SELECT * FROM color");
-        
-        //add the colors to the combo boxes
-        while(colorResultSet.next()){
-            colorJFXComboBox.getItems().add(colorResultSet.getString(2));
-            secondColorJFXComboBox.getItems().add(colorResultSet.getString(2));
-        }
-        
-        //Location combo box
-        ResultSet locationResultSet = MainApp.getDatabase().executeResultSetQuery("SELECT * FROM location");
-        
-        while(locationResultSet.next()){
-            locationJFXComboBox.getItems().add(locationResultSet.getString(2));
-        }
-        
-        //airport combo box
-        ResultSet destinationResultSet = MainApp.getDatabase().executeResultSetQuery("SELECT * FROM destination");
-        
-        while(destinationResultSet.next()){
-            airportJFXComboBox.getItems().add(destinationResultSet.getString(2));
-        }
-        
-        //Flight combo box
-        ResultSet flightResultSet = MainApp.getDatabase().executeResultSetQuery("SELECT * FROM flight");
-        
-        while(flightResultSet.next()){
-            flightJFXComboBox.getItems().add(flightResultSet.getString(1));
-        }
-        
-        //Luggagetype combo box
-        ResultSet typeResultSet = MainApp.getDatabase().executeResultSetQuery("SELECT * FROM luggagetype");
-        
-        while(typeResultSet.next()){
-            typeJFXComboBox.getItems().add(typeResultSet.getString(2));
-        }       
     }
     
-    @FXML
-    //This method switches the form between found or missing
-    public void foundOrMissing(){
+    //Method that loops through all the fields checking whether the ones that are not allowed to be empty aren't
+    public boolean checkFields(){
         
-      String value = missingFoundComboBox.getValue().toString();
-
-        if("Found".equals(value)){
-                  
-            //Remove traveller and luggage info so they can change positions
-            mainGridPane.getChildren().remove(travellerInfoGridPane);
-            mainGridPane.getChildren().remove(luggageInfoGridPane);
-            
-            
-            //Add them again
-            mainGridPane.add(luggageInfoGridPane, 0, 1);
-            mainGridPane.add(travellerInfoGridPane, 1, 1);
-            
-            passengerInformationLbl.setText("Passenger information is not required");
-            
-            //Change the title of the view
-            changeTitle("Found luggage form");
-            
-            //show the location combobox
-            locationJFXComboBox.setVisible(true);
+        boolean appropriate = true;
+        
+        //Date picker and timepicker cannot be looped through since theyre not inside an array
+        
+        //Check whether the date field has been filled in appropriately
+        //Get the date, if its empty let the user know it has to be filled     
+        if(dateJFXDatePicker.getValue() == null || dateJFXDatePicker.getValue().toString().isEmpty()){
+            dateJFXDatePicker.setStyle("-fx-background-color: #f47142");
+            appropriate =  false;
+        }else{
+            dateJFXDatePicker.setStyle(null);
         }
         
-        if("Missing".equals(value)){
-
-            //Remove the gridpanes
-            mainGridPane.getChildren().remove(travellerInfoGridPane);
-            mainGridPane.getChildren().remove(luggageInfoGridPane);
-            
-            //Add them again on different positions
-            mainGridPane.add(travellerInfoGridPane, 0, 1);
-            mainGridPane.add(luggageInfoGridPane, 1, 1);
-            
-            passengerInformationLbl.setText("Passenger information");
-            
-            
-            //Change the title of the view
-            changeTitle("Missing luggage form");
-            
-            //hide the location combobox
-            locationJFXComboBox.setVisible(false);
-            
+        //Get the time, if its empty let the user know it has to be filled
+        if(timeJFXTimePicker.getValue() == null || timeJFXTimePicker.getValue().toString().isEmpty()){
+            timeJFXTimePicker.setStyle("-fx-background-color: #f47142");
+            appropriate =  false;
+        }else{
+            timeJFXTimePicker.setStyle(null);
         }
+        
+        //Loop through the comboboxes
+        for(Map.Entry<String, JFXComboBox> entry: comboBoxes.entrySet()){
+            
+            String key = entry.getKey();
+            JFXComboBox value = entry.getValue();
+            
+            //first check for the comboboxes that have to be selected in both forms
+            if(key.equals("color") || key.equals("type") || key.equals("airport")){
+            
+                if(value.getValue() == null || value.getValue().toString().isEmpty()){
+                    value.setStyle("-fx-background-color: #f47142");
+                    appropriate =  false;
+                }else{
+                    value.setStyle(null);
+                }
+            }
+            
+            //check the comboboxes for the lost form, in this case only the destination is an additional combobox
+            //where an option has to be selected
+            if(form.getType().equals("Lost") && key.equals("destination")){
+                if(value.getValue() == null || value.getValue().toString().isEmpty()){
+                    value.setStyle("-fx-background-color: #f47142");
+                    appropriate =  false;
+                }else{
+                    value.setStyle(null);
+                }
+            }
+        }
+        
+        //loop through the textfields
+        for(Map.Entry<String, JFXTextField> entry: textFields.entrySet()){
+            
+            String key = entry.getKey();
+            JFXTextField value = entry.getValue();
+            
+            //If its a lost form, the following fields cannot be empty
+            if(form.getType().equals("Lost")){         
+                if(key.equals("name") || key.equals("address") || key.equals("place")
+                   || key.equals("postalcode") || key.equals("country") || key.equals("phone") || key.equals("email")){
+                    if(value.getText() == null || value.getText().isEmpty()){
+                        value.setStyle("-fx-background-color: #f47142");
+                        appropriate =  false;
+                    }else{
+                        value.setStyle(null);
+                    }
+                }
+            }
+        }
+        return appropriate;
     }
+    
+        
+
     
     @FXML
     //Method that will add the form to the database
     public void submitForm(ActionEvent event){
+        
         
         //Check whether the fields have been filled in appropriately
         if(checkFields() == false){
@@ -188,15 +238,14 @@ public class ServiceInputLuggageViewController implements Initializable {
         String formtype = missingFoundComboBox.getValue().toString();
         String date = dateJFXDatePicker.getValue().toString();
         String time = timeJFXTimePicker.getValue().toString();
+        String airport = airportJFXComboBox.getValue().toString();
         
         //Default passenger information if the form is foundluggage, if its lostluggage it will
         //get check in the checkFields method.
         String name = "", address = "", place = "", postalcode = "", country = "", phone = "", email = "";
 
         //Luggage information
-        String labelnumber = "", flight = "", type = "", brand = "", color = "", secondColor = "", size = "", characteristics = "", location = "";
-        
-        int weight = 0;
+        String labelnumber = "", flight = "", type = "", brand = "", color = "", secondColor = "", size = "", characteristics = "", location = "", weight = "";
 
         //Get the passenger information
         name        = nameJFXTextField.getText();
@@ -215,6 +264,10 @@ public class ServiceInputLuggageViewController implements Initializable {
         size = sizeJFXTextField.getText();
         characteristics = characterJFXTextField.getText();
         
+        if(weight.isEmpty()){
+            weight = "0";
+        }
+        
         if(flightJFXComboBox.getValue() != null && !flightJFXComboBox.getValue().toString().isEmpty()){
             flight = flightJFXComboBox.getValue().toString();
         }
@@ -228,7 +281,7 @@ public class ServiceInputLuggageViewController implements Initializable {
         }
 
         if(weightJFXTextField.getText() != null && !weightJFXTextField.getText().isEmpty()){
-            weight = Integer.parseInt(weightJFXTextField.getText());
+              weight = weightJFXTextField.getText();
         }
    
         //Is it found luggage? else its missing
@@ -254,7 +307,7 @@ public class ServiceInputLuggageViewController implements Initializable {
                 String addFoundLuggageQuery = "INSERT INTO foundluggage VALUES(NULL, '"+date+"','"+time+"', '"+labelnumber+"', (SELECT luggageTypeId FROM luggagetype WHERE english ='"+type+"'), "
                         + "'"+brand+"'"
                         + ", (SELECT ralCode FROM color WHERE english = '"+color+"'), (SELECT ralCode FROM COLOR WHERE english = '"+secondColor+"'), '"+size+"', '"+weight+"', '"+characteristics+"', "
-                        + "'"+flight+"', (SELECT locationId FROM location WHERE english ='"+location+"'), 'aa', '"+passengerId+"', NULL )";
+                        + "'"+flight+"', (SELECT locationId FROM location WHERE english ='"+location+"'), 'aa', '"+passengerId+"', NULL, (SELECT IATACode FROM destination WHERE airport =  '"+airport+"'), NULL )";
 
                 //execute the missing luggage query
                 int affectedRowsLuggageQuery = MainApp.getDatabase().executeUpdateQuery(addFoundLuggageQuery);
@@ -265,7 +318,7 @@ public class ServiceInputLuggageViewController implements Initializable {
             String addFoundLuggageQuery = "INSERT INTO foundluggage VALUES(NULL, '"+date+"','"+time+"', '"+labelnumber+"', (SELECT luggageTypeId FROM luggagetype WHERE english ='"+type+"'), "
                     + "'"+brand+"'"
                     + ", (SELECT ralCode FROM color WHERE english = '"+color+"'), (SELECT ralCode FROM COLOR WHERE english = '"+secondColor+"'), '"+size+"', '"+weight+"', '"+characteristics+"', "
-                    + "'"+flight+"', (SELECT locationId FROM location WHERE english ='"+location+"'), 'aa', NULL, NULL )";
+                    + "'"+flight+"', (SELECT locationId FROM location WHERE english ='"+location+"'), 'aa', NULL, NULL, (SELECT IATACode FROM destination WHERE airport =  '"+airport+"'), NULL  )";
             
             //execute the missing luggage query
             int affectedRowsLuggageQuery = MainApp.getDatabase().executeUpdateQuery(addFoundLuggageQuery);
@@ -291,7 +344,7 @@ public class ServiceInputLuggageViewController implements Initializable {
             String addMissingLuggageQuery = "INSERT INTO lostluggage VALUES(NULL, '"+date+"','"+time+"', '"+labelnumber+"', (SELECT luggageTypeId FROM luggagetype WHERE english ='"+type+"'), "
                     + "'"+brand+"'"
                     + ", (SELECT ralCode FROM color WHERE english = '"+color+"'), (SELECT ralCode FROM COLOR WHERE english = '"+secondColor+"'), '"+size+"', '"+weight+"', '"+characteristics+"', "
-                    + "'"+flight+"', 'aa', '"+passengerId+"', NULL )";
+                    + "'"+flight+"', 'AK1', '"+passengerId+"', NULL, (SELECT IATACode FROM destination WHERE airport =  '"+airport+"'), NULL )";
 
             //execute the missing luggage query
             int affectedRowsLuggageQuery = MainApp.getDatabase().executeUpdateQuery(addMissingLuggageQuery);
@@ -301,16 +354,20 @@ public class ServiceInputLuggageViewController implements Initializable {
     //Method to export the current form to pdf
     @FXML
     public void exportPDF() throws IOException{
+        
+        //Check if all the fields have been filled in properly
+        if(checkFields() == false){
+            System.out.println("form not filled in properly");
+            return;
+        }
+        
+        //Fileobject
         File file = MainApp.selectFileToSave("*.pdf");
         
+        //If fileobject has been initialized
         if(file != null){
             
-            
-//            "Registration Number: ", "Employee: ", "Date: ", "Time: ", "Airport: ",
-//        "Labelnumber: ", "Flight: ", "Type: ", "Brand: ", "Color: ", "Second color: ", "Dimensions: ", "Weight: ", "Characteristics", "Location: ",
-//        "Name: ", "Address: ", "Place of residence: ", "Postalcode: ", "Country: ", "Phone: ", "E-mail: "
-            
-            //get the fully qualified path name of the file
+            //get the location to store the file
             String fileName = file.getAbsolutePath();
             String type = "Found";
 
@@ -321,6 +378,8 @@ public class ServiceInputLuggageViewController implements Initializable {
             formText.addAll(Arrays.asList(strings));
 
            PdfDocument Pdf = new PdfDocument(type, formText, fileName);
+        }else{
+            System.out.println("Setting a location has been cancelled");
         }
     }
     
@@ -329,104 +388,56 @@ public class ServiceInputLuggageViewController implements Initializable {
         System.out.println("emailing the PDF");
     }
     
-    //This methods checks whether all the fields have been filled in appropriately
-    public boolean checkFields(){
-        
-        boolean appropriate = true;
-       
-        //Check whether the date field has been filled in appropriately
-        //Get the date, if its empty let the user know it has to be filled     
-        if(dateJFXDatePicker.getValue() == null || dateJFXDatePicker.getValue().toString().isEmpty()){
-            dateJFXDatePicker.setStyle("-fx-background-color: #f47142");
-            appropriate =  false;
-        }else{
-            dateJFXDatePicker.setStyle(null);
-        }
-        
-        //Get the time, if its empty let the user know it has to be filled
-        if(timeJFXTimePicker.getValue() == null || timeJFXTimePicker.getValue().toString().isEmpty()){
-            timeJFXTimePicker.setStyle("-fx-background-color: #f47142");
-            appropriate =  false;
-        }else{
-            timeJFXTimePicker.setStyle(null);
-        }
-        
-        if(airportJFXComboBox.getValue() == null || airportJFXComboBox.getValue().toString().isEmpty()){
-            airportJFXComboBox.setStyle("-fx-background-color: #f47142");
-            appropriate = false;
-        }else{
-            airportJFXComboBox.setStyle(null);
-        }
 
-        if(typeJFXComboBox.getValue() == null || typeJFXComboBox.getValue().toString().isEmpty()){
-            typeJFXComboBox.setStyle("-fx-background-color: #f47142");
-            appropriate = false;
-        }else{
-            typeJFXComboBox.setStyle(null);
+    
+    @FXML
+    //Method to switch between found/lost form
+    public void foundOrMissing(){
+        
+      String value = missingFoundComboBox.getValue().toString();
+
+        if("Found".equals(value)){
+            
+            this.form.setType("Found");
+                  
+            //Remove traveller and luggage info so they can change positions
+            mainGridPane.getChildren().remove(travellerInfoGridPane);
+            mainGridPane.getChildren().remove(luggageInfoGridPane);
+            
+            
+            //Add them again
+            mainGridPane.add(luggageInfoGridPane, 0, 1);
+            mainGridPane.add(travellerInfoGridPane, 1, 1);
+            
+            passengerInformationLbl.setText("Passenger information is not required");
+            
+            //Change the title of the view
+            changeTitle("Found luggage form");
+            
+            //show the location combobox
+            locationJFXComboBox.setVisible(true);
         }
         
-        if(colorJFXComboBox.getValue() == null || colorJFXComboBox.getValue().toString().isEmpty()){
-            colorJFXComboBox.setStyle("-fx-background-color: #f47142");
-            appropriate =  false;
-        }else{
-            colorJFXComboBox.setStyle(null);
+        if("Lost".equals(value)){
+
+            this.form.setType("Lost");
+            
+            //Remove the gridpanes
+            mainGridPane.getChildren().remove(travellerInfoGridPane);
+            mainGridPane.getChildren().remove(luggageInfoGridPane);
+            
+            //Add them again on different positions
+            mainGridPane.add(travellerInfoGridPane, 0, 1);
+            mainGridPane.add(luggageInfoGridPane, 1, 1);
+            
+            passengerInformationLbl.setText("Passenger information");
+            
+            
+            //Change the title of the view
+            changeTitle("Lost luggage form");
+            
+            //hide the location combobox
+            locationJFXComboBox.setVisible(false);     
         }
-               
-        
-        //If its a missing form then we need to check the passenger information as well
-        if("Missing".equals(missingFoundComboBox.getValue().toString())){
-            
-            if(nameJFXTextField.getText() == null || nameJFXTextField.getText().isEmpty()){
-                nameJFXTextField.setStyle("-fx-background-color: #f47142");
-                appropriate =  false;
-            }else{
-                nameJFXTextField.setStyle(null);
-            }
-            
-            if(addressJFXTextField.getText() == null || addressJFXTextField.getText().isEmpty()){
-                addressJFXTextField.setStyle("-fx-background-color: #f47142");
-                appropriate =  false;
-            }else{
-                addressJFXTextField.setStyle(null);
-            }
-            
-            if(placeJFXTextField.getText() == null || placeJFXTextField.getText().isEmpty()){
-                placeJFXTextField.setStyle("-fx-background-color: #f47142");
-                appropriate =  false;
-            }else{
-                placeJFXTextField.setStyle(null);
-            }
-            
-            if(postalcodeJFXTextField.getText() == null || postalcodeJFXTextField.getText().isEmpty()){
-                postalcodeJFXTextField.setStyle("-fx-background-color: #f47142");
-                appropriate =  false;
-            }else{
-                postalcodeJFXTextField.setStyle(null);
-            }
-            
-            if(countryJFXTextField.getText() == null || countryJFXTextField.getText().isEmpty()){
-                countryJFXTextField.setStyle("-fx-background-color: #f47142");
-                appropriate =  false;
-            }else{
-                countryJFXTextField.setStyle(null);
-            }
-            
-            if(phoneJFXTextField.getText() == null || phoneJFXTextField.getText().isEmpty()){
-                phoneJFXTextField.setStyle("-fx-background-color: #f47142");
-                appropriate =  false;
-            }else{
-                phoneJFXTextField.setStyle(null);
-            }
-            
-            if(emailJFXTextField.getText() == null || emailJFXTextField.getText().isEmpty()){
-                emailJFXTextField.setStyle("-fx-background-color: #f47142");
-                appropriate =  false;
-            }else{
-                emailJFXTextField.setStyle(null);
-            }
-        }
-        
-        //return the decision
-        return appropriate;
     }
 }

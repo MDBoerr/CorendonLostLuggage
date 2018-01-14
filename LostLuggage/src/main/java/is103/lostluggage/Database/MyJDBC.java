@@ -286,6 +286,54 @@ public class MyJDBC {
         return currentUser;
     }
 
+    public ResultSet executeSearchQuery(String searchInput) throws SQLException {
+
+        PreparedStatement preparedStatement = this.connection.prepareStatement(
+                "SELECT * "
+                + "FROM employee WHERE employeeId LIKE ? ESCAPE '!' OR firstname "
+                + "LIKE ? ESCAPE '!' OR lastname LIKE ? ESCAPE '!' OR location LIKE ? "
+                + "ESCAPE '!' OR status LIKE ? ESCAPE '!' OR role LIKE ? ESCAPE '!'");
+        String search = searchInput
+                .replace("!", "!!")
+                .replace("%", "!%")
+                .replace("_", "!_")
+                .replace("[", "![");
+
+        preparedStatement.setString(1, "%" + search + "%");
+        preparedStatement.setString(2, "%" + search + "%");
+        preparedStatement.setString(3, "%" + search + "%");
+        preparedStatement.setString(4, "%" + search + "%");
+        preparedStatement.setString(5, "%" + search + "%");
+        preparedStatement.setString(6, "%" + search + "%");
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        return resultSet;
+    }
+    
+    public int executePasswordUpdateQuery(String id, String newPassword) throws SQLException {
+     
+        try {
+
+            PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE employee SET "
+                    + "password = ? WHERE employeeId = ?");
+
+            preparedStatement.setString(1, newPassword);
+            preparedStatement.setString(2, id);
+
+            int returnValue = preparedStatement.executeUpdate();
+            preparedStatement.close();
+            System.out.println(returnValue);
+
+            return returnValue;
+        } catch (SQLException ex) {
+            // handle exception
+            error(ex);
+            return -1;
+        }
+
+    }
+
     public int executeUserUpdateQuery(User user) throws SQLException {
         String firstname = user.getFirstName();
         String lastname = user.getLastName();
@@ -485,7 +533,7 @@ public class MyJDBC {
                     + " luggageTag = ? ,"
                     + " brand = ? ,"
                     + " size = ? ,"
-                    + " otherCharacteristics = ? ,"
+                    + " otherCharacteristics = ? "
                     + "WHERE `registrationNr` =  ?  ;")) {
             //initializing the preparedstatement
             preparedStatement.setString(1, tag);
@@ -502,14 +550,6 @@ public class MyJDBC {
         }     
     }
 
-    /**
-     * @author Thijs Zijdel - 500782165
-     *
-     */
-    public void executeUpdateLostLuggageQuery() {
-        //prepared statement that will be created for:
-        //updating all the fields of found luggage
-    }
     /**
      * @author Thijs Zijdel - 500782165
      *

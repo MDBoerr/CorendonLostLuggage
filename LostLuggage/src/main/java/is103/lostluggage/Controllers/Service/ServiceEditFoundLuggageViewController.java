@@ -107,6 +107,9 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
     
     int passengerCount=0;
     
+    //the combo boxes will be converted to te following codes (before updating)
+    int ralCode1, ralCode2, typeCode, locationCode;
+    
     //validation object
     ServiceValidate validate = new ServiceValidate();
     
@@ -138,10 +141,10 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
         startValues = getFields();
         
         //otherwise there will be a grey overlay (= not clickable)
-        stackPane.setVisible(false);
+        closeStackpane();
         
         //set screen status
-        MainApp.setOnMatchingView(false);
+        ServiceHomeViewController.setOnMatchingView(false);
         
         //passenger field check
         checkPassengerId();
@@ -158,19 +161,23 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
                                                                         //types
         ServiceGetDataFromDB types = new ServiceGetDataFromDB("luggagetype", LANGUAGE, null);
                                                                                 //location
-        //ServiceGetDataFromDB locations = new ServiceGetDataFromDB("location", LANGUAGE, null);
+        ServiceGetDataFromDB locations = new ServiceGetDataFromDB("location", LANGUAGE, null);
         
         //try to get the data from the database and set it 
         try {                    
             //get the right string list for each combo box         
             ObservableList<String> colorsStringList = colors.getStringList();
             ObservableList<String> luggageStringList = types.getStringList();
+            
+            ObservableList<String> locationStringList = locations.getStringList();
                
             //set the string lists to the combo boxes
             colorPicker1.getItems().addAll(colorsStringList);
             colorPicker2.getItems().addAll(colorsStringList);
            
             typePicker.getItems().addAll(luggageStringList);
+            
+            locationPicker.getItems().addAll(locationStringList);
         } catch (SQLException ex) {
             Logger.getLogger(ServiceEditFoundLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
         }    
@@ -313,7 +320,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
         FoundLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());
         
         //set the reset status to false, no reset needed
-        MainApp.resetMatching = false;
+        ServiceHomeViewController.resetMatching = false;
         
         //switch to the matching view
         MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
@@ -555,7 +562,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
         button.setOnAction((ActionEvent event) -> {
             alert.close();
             //hide the stackpane so the fields will be clickable again
-            stackPane.setVisible(false);
+            closeStackpane();
         });
         //set action button in content for alert
         CONTENT.setActions(button);
@@ -585,35 +592,27 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
         //Note: To get the id the Where statement is also configured for each
         ServiceGetDataFromDB getRalCode1 = new ServiceGetDataFromDB
         ("color", "ralCode", "WHERE `"+LANGUAGE+"`='"+colorPicker1.getValue().toString()+"'");
-        int ralCode1 = getRalCode1.getIdValue();
+        ralCode1 = getRalCode1.getIdValue();
         
         ServiceGetDataFromDB getRalCode2 = new ServiceGetDataFromDB
         ("color", "ralCode", "WHERE `"+LANGUAGE+"`='"+colorPicker2.getValue().toString()+"'");
-        int ralCode2 = getRalCode2.getIdValue();
+        ralCode2 = getRalCode2.getIdValue();
         
         ServiceGetDataFromDB getType = new ServiceGetDataFromDB
         ("luggagetype", "luggageTypeId", "WHERE `"+LANGUAGE+"`='"+typePicker.getValue().toString()+"'");
-        int typeCode = getType.getIdValue();
+        typeCode = getType.getIdValue();
         
         ServiceGetDataFromDB getLocation = new ServiceGetDataFromDB
         ("location", "locationId", "WHERE `"+LANGUAGE+"`='"+locationPicker.getValue().toString()+"'");
-        int locationCode = getLocation.getIdValue();
+        locationCode = getLocation.getIdValue();
         
-        //check if one of the updated fields contains the "unknown" string
-        if ("unknown".equals(luggageTag.getText())){luggageTag.setText("");}
-        if ("unknown".equals(brand.getText())){brand.setText("");}
-        if ("unknown".equals(size.getText())){size.setText("0");}
-        if ("unknown".equals(weight.getText())){weight.setText("0");}
-        if ("unknown".equals(signatures.getText())){signatures.setText("");}
         
-        if ("unknown".equals(passangerName.getText())){passangerName.setText("");}
-        if ("unknown".equals(address.getText())){address.setText("");}
-        if ("unknown".equals(place.getText())){place.setText("");}
-        if ("unknown".equals(postalCode.getText())){postalCode.setText("");}
-        if ("unknown".equals(country.getText())){country.setText("");}
-        if ("unknown".equals(email.getText())){email.setText("");}
-        if ("unknown".equals(phone.getText())){phone.setText("");}
-        if ("unknown".equals(flight.getText())){flight.setText("");}
+        
+        //check all the fields that still needs an (potential) update and are empty
+        //and ensure those fields are cleared properly (remove: unknown)
+        checkForEmptyFields();
+        
+        
         
         //check if this field is not (still) un asigned
         if (typeCode != 0){
@@ -650,15 +649,10 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
         if (dateString != null){
             //if the date is not null, than the date format is good
             //but still needs checking for invalid year, month and day..
-      
-//            if (Integer.parseInt(dateString.substring(0, 4)) > 1900 && //year check
-//                Integer.parseInt(dateString.substring(4, 6)) <= 12  && //month check
-//                Integer.parseInt(dateString.substring(6)) <= 31){ //day check
-//   
+     
                 //update the date found with a prepared statment
                 DB.executeUpdateLuggageFieldQuery("foundluggage", "dateFound",
                                         dateString, registrationNrString);  
-//            }
         }
         
         //validate the time inputted
@@ -670,24 +664,28 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
         }
         
         //Update the luggage itself with the right data
-//        DB.executeUpdateLuggageQuery(
-//                luggageTag.getText(), 
-//                brand.getText(), 
-//                size.getText(), 
-//                signatures.getText(), 
-//                registrationNrString, 
-//                "foundluggage");
+        DB.executeUpdateLuggageQuery(
+                luggageTag.getText(), 
+                brand.getText(), 
+                size.getText(), 
+                signatures.getText(), 
+                registrationNrString, 
+                "foundluggage");
 
         
-        DB.executeUpdatePassengerQuery(
-                passangerName.getText(), 
-                address.getText(), 
-                place.getText(), 
-                postalCode.getText(), 
-                country.getText(), 
-                email.getText(), 
-                phone.getText(), 
-                passangerId.getText());
+        //check if the passenger (id) is not empty
+        if (!"".equals(passangerId.getText()) || null != passangerId.getText()){
+            //Update the passenger with the right data
+            DB.executeUpdatePassengerQuery(
+                    passangerName.getText(), 
+                    address.getText(), 
+                    place.getText(), 
+                    postalCode.getText(), 
+                    country.getText(), 
+                    email.getText(), 
+                    phone.getText(), 
+                    passangerId.getText());    
+        }
     }
     
     /**  
@@ -726,10 +724,10 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
     protected void viewPotentials(ActionEvent event) throws IOException, SQLException{
 
         //get the right data object
-        ServiceDataMatch data = MainApp.getMatchData();
+        ServiceDataMatch data = ServiceHomeViewController.getMATCH_DATA();
 
         //set the reset status to true for resetting a possible previous list
-        MainApp.setPotentialResetStatus(true);
+        ServiceHomeViewController.setPotentialResetStatus(true);
         
         //get the id of the current luggage
         String id = registrationNr.getText();
@@ -741,19 +739,45 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
         MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
         
         //set the right tab, 2 = potential matching tab
-        ServiceMatchingViewController.getInstance().setMatchingTab(2);
+        ServiceMatchingViewController.getInstance().setMatchingTab(
+                ServiceMatchingViewController.POTENTIAL_MATCHING_TAB_INDEX
+        );
 
     }
-    
-    
-    
-    //comments here
-    
-    
-    
+
+    /**  
+     * When closing the alert message the stackPane isn't disabled automatic
+     * So this method is for closing the stack pane by chancing it's visibility 
+     **/
     @FXML
     public void closeStackpane(){
         stackPane.setVisible(false); 
+    }
+
+    /**  
+     * When updating the fields there must be checked if the fields maybe contain
+     * The preset: unknown message 
+     * 
+     * Note: for optimizing is there a array of fields used here.
+     **/
+    private void checkForEmptyFields() {
+        //check if one of the updated fields contains the "unknown" string
+        if (size.getText().contains("unknown")){size.setText("0");}
+        if (weight.getText().contains("unknown")){weight.setText("0");}
+        if (signatures.getText().contains("unknown")){signatures.setText("");}
+        
+        //asign fields that can be checked in an loop in an array
+        JFXTextField[] fields = {luggageTag,brand,passangerName,
+            address,place,postalCode,country,email,phone,flight};
+        
+        //loop trough all the fields
+        for (JFXTextField field : fields) {
+            //check if it contains the unknown string
+            if (field.getText().contains("unknown")){
+                //clear it
+                field.setText("");
+            }
+        }
     }
     
 }

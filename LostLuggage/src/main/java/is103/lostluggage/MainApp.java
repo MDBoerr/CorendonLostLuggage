@@ -1,24 +1,19 @@
 package is103.lostluggage;
 
-import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
-import is103.lostluggage.Model.Service.Data.ServiceDataMatch;
 import is103.lostluggage.Model.User;
 import java.io.File;
 import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 
 
@@ -33,16 +28,11 @@ public class MainApp extends Application {
 
     private static BorderPane root;
     
-    public static boolean onMatchingView = false;
     public static int serviceChangeValue = 99;
-    public static boolean resetMatching = true; //true= refresh       -> get's alternated in program
-                                                  //false= dont refresh
-                                                  //for: manual matching
-    //Match object for getting the same data in service pages
-    private static ServiceDataMatch matchData = new ServiceDataMatch();
+    
     
     //Database instance
-    private static MyJDBC db;
+    private static MyJDBC DB;
     
     //Name of the database
     final private static String DB_NAME = "CorendonLostLuggage";
@@ -120,41 +110,25 @@ public class MainApp extends Application {
         }
     }
 
-    public static boolean isOnMatchingView(){
-        return onMatchingView;
-    }
-    public static void setOnMatchingView(boolean value){
-        MainApp.onMatchingView = value;
-    }
     
     //set the database instance
     public static void setDatabase(){
         
         MyJDBC db = new MyJDBC(MainApp.DB_NAME);
 
-        MainApp.db = db;
+        MainApp.DB = db;
     }
     
     //method to connect to the database
     public static MyJDBC getDatabase() {
-        return MainApp.db;
+        return MainApp.DB;
     }
     
     public static String getLanguage() {
         return language;
     }
     
-    public static ServiceDataMatch getMatchData() {
-        return matchData;
-    }
-    private static boolean potentialMatchesReSet = false;
     
-    public static void setPotentialResetStatus(boolean b) {
-        MainApp.potentialMatchesReSet = b;
-    }
-    public static boolean getPotentialResetStatus(){
-        return MainApp.potentialMatchesReSet;
-    }
     
 
     public static void checkLoggedInStatus(User user) throws IOException {

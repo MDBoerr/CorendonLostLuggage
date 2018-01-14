@@ -5,7 +5,10 @@
  */
 package is103.lostluggage.Controllers.Admin;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
@@ -34,8 +37,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 
 /**
@@ -89,6 +96,20 @@ public class AdminAddUserViewController implements Initializable {
     //Field that contains the phonenumber
     private JFXTextField locationField;
 
+    @FXML
+    private JFXButton resetPasswordButton;
+
+    @FXML
+    private StackPane stackPane;
+
+    private final JFXDialogLayout DIALOG_LAYOUT = new JFXDialogLayout();
+
+    private final TextFlow MESSAGE_FLOW = new TextFlow();
+
+    private JFXDialog alertView;
+
+    private String userId;
+
     //Title of the view
     private String header;
 
@@ -100,7 +121,7 @@ public class AdminAddUserViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        stackPane.setVisible(false);
         //Add options to List
         roleList = FXCollections.observableArrayList(
                 "Administrator",
@@ -128,12 +149,14 @@ public class AdminAddUserViewController implements Initializable {
             locationField.setText(selectedUser.getLocation());
             statusComboBox.getSelectionModel().select(selectedUser.getStatus());
             roleComboBox.getSelectionModel().select(selectedUser.getRole());
-            
-           employeeIdField.setDisable(true);
-           
-        } else {
 
+            employeeIdField.setDisable(true);
+            resetPasswordButton.setVisible(true);
+
+        } else {
+            resetPasswordButton.setVisible(false);
             header = "Add User";
+
         }
         //Set Header
         try {
@@ -144,13 +167,108 @@ public class AdminAddUserViewController implements Initializable {
 
         //Set which view was previous
         MainViewController.previousView = "/Views/Admin/HomeUserView.fxml";
-        edit = false;
     }
 
     @FXML
     protected void backToHomeUserView(ActionEvent event) throws IOException {
         MainApp.switchView("/Views/Admin/HomeUserView.fxml");
+        edit = false;
 
+    }
+
+    private void resetPassword() throws SQLException {
+        String location = locationField.getText();
+        userId = employeeIdField.getText();
+
+        int returnValue = DB.executePasswordUpdateQuery(userId, location);
+
+        if (returnValue != -1) {
+            String header = "Succesful";
+            String message = "The password of user: " + userId + " has been reset";
+            String buttonText = "Ok";
+            showConfirmedMessage(header, message, buttonText);
+        } else {
+            String header = "Something went Wrong";
+            String message = "The password of user: " + userId + " has not been reset \nPlease try again! ";
+            String buttonText = "Ok";
+            showConfirmedMessage(header, message, buttonText);
+        }
+
+    }
+
+    public void showConfirmedMessage(String headerString, String messageString, String buttonString) {
+        Text header = new Text(headerString);
+        header.setFont(new Font("System", 18));
+        header.setFill(Paint.valueOf("#495057"));
+        MESSAGE_FLOW.getChildren().clear();
+        MESSAGE_FLOW.getChildren().add(new Text(messageString));
+        DIALOG_LAYOUT.getActions().clear();
+        DIALOG_LAYOUT.setHeading(header);
+        DIALOG_LAYOUT.setBody(MESSAGE_FLOW);
+
+        JFXButton okButton = new JFXButton(buttonString);
+
+        okButton.setStyle("-fx-background-color: #4dadf7");
+        okButton.setTextFill(Paint.valueOf("#FFFFFF"));
+        okButton.setRipplerFill(Paint.valueOf("#FFFFFF"));
+        okButton.setButtonType(JFXButton.ButtonType.RAISED);
+        DIALOG_LAYOUT.setActions(okButton);
+        okButton.setOnAction(e -> {
+            alertView.close();
+            stackPane.setVisible(false);
+        });
+    }
+
+    @FXML
+    private void showPasswordResetMessage(ActionEvent event) throws IOException {
+        stackPane.setVisible(true);
+        MESSAGE_FLOW.getChildren().clear();
+        userId = employeeIdField.getText();
+
+        //Customize header
+        Text header = new Text("Note: This action can't be undone");
+        header.setFont(new Font("System", 18));
+        header.setFill(Paint.valueOf("#495057"));
+
+        JFXButton cancelButton = new JFXButton("Cancel");
+        JFXButton resetButton = new JFXButton("Reset");
+
+        //Customize buttons
+        cancelButton.setStyle("-fx-background-color: #adb5bd");
+        cancelButton.setTextFill(Paint.valueOf("#FFFFFF"));
+        cancelButton.setRipplerFill(Paint.valueOf("#FFFFFF"));
+        cancelButton.setButtonType(JFXButton.ButtonType.RAISED);
+
+        resetButton.setStyle("-fx-background-color: #4dadf7");
+        resetButton.setTextFill(Paint.valueOf("#FFFFFF"));
+        resetButton.setRipplerFill(Paint.valueOf("#FFFFFF"));
+        resetButton.setButtonType(JFXButton.ButtonType.RAISED);
+
+        MESSAGE_FLOW.getChildren().add(new Text("Are you sure you want to reset the password of user: " + userId));
+        DIALOG_LAYOUT.setHeading(header);
+        DIALOG_LAYOUT.setBody(MESSAGE_FLOW);
+        DIALOG_LAYOUT.setActions(cancelButton, resetButton);
+        //DIALOG_LAYOUT.setActions(resetButton);
+
+        alertView = new JFXDialog(stackPane, DIALOG_LAYOUT, JFXDialog.DialogTransition.CENTER);
+        alertView.setOverlayClose(false);
+        cancelButton.setOnAction(e -> {
+            alertView.close();
+            stackPane.setVisible(false);
+        });
+
+        resetButton.setOnAction(e -> {
+            System.out.println("The password has been reset");
+            //alertView.close();
+            try {
+                resetPassword();
+            } catch (SQLException ex) {
+                Logger.getLogger(AdminAddUserViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        });
+
+        alertView.show();
     }
 
     @FXML
@@ -248,8 +366,7 @@ public class AdminAddUserViewController implements Initializable {
             //Start errorMessageView animation after error message contains all empty fields
             startAnimation();
 
-            System.out.println(UUID.randomUUID());
-
+            //System.out.println(UUID.randomUUID());
         } //All fields are valid, there are no errors
         else {
 
@@ -267,7 +384,7 @@ public class AdminAddUserViewController implements Initializable {
                 String statusString = status.toString();
                 String password = location;
 
-                String query = String.format("INSERT INTO employee VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')", id, firstname, lastname, password, location, roleString, statusString);
+                String query = String.format("INSERT INTO employee VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')", id, firstname, lastname, password, location, statusString, roleString);
 
                 int result = DB.executeUpdateQuery(query);
                 System.out.println(" This is the result:  " + result);
@@ -275,6 +392,8 @@ public class AdminAddUserViewController implements Initializable {
             MainApp.switchView("/Views/Admin/UserScene.fxml");
 
         }
+        edit = false;
+
     }
 
     //This method will start de error message animation, at the end of the 4 sec

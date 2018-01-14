@@ -1,5 +1,6 @@
 package is103.lostluggage.Controllers.Admin;
 
+import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Controllers.Admin.AdminAddUserViewController;
 import is103.lostluggage.Database.MyJDBC;
@@ -36,6 +37,11 @@ public class OverviewUserController implements Initializable {
 
     private String header = "Overview User";
 
+    private final MyJDBC DB = MainApp.getDatabase();
+
+    @FXML
+    private JFXTextField searchTextField;
+
     @FXML
     private TableView<User> tableView;
 
@@ -52,13 +58,11 @@ public class OverviewUserController implements Initializable {
     @FXML
     private TableColumn<User, String> statusColumn;
 
-//    @FXML
-//    private void handleButtonAction(ActionEvent event) {
-//        System.out.println("You clicked me!");
-//    }
     @FXML
     private void goToAddView(ActionEvent event) {
         try {
+            AdminAddUserViewController.edit = false;
+
             MainApp.switchView("/Views/Admin/AdminAddUserView.fxml");
 
         } catch (IOException ex) {
@@ -122,6 +126,39 @@ public class OverviewUserController implements Initializable {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return users;
+    }
+
+    @FXML
+    private void searchUsers(ActionEvent event) throws SQLException {
+
+        ObservableList<User> users = FXCollections.observableArrayList();
+        String searchInput = searchTextField.getText();
+
+        try {
+
+            ResultSet resultSet = DB.executeSearchQuery(searchInput);
+
+            while (resultSet.next()) {
+                String id = resultSet.getString("employeeId");
+                String firstName = resultSet.getString("firstname");
+                String lastName = resultSet.getString("lastname");
+                String location = resultSet.getString("location");
+                String status = resultSet.getString("status");
+                String role = resultSet.getString("role");
+
+                System.out.println("ID: " + id + "  Firstname: " + firstName + " Lastname: " + lastName + " Location: " + location + " Status: " + status + " Role: " + role);
+                users.add(new User(id, lastName, firstName, location, role, status));
+            }
+
+            for (int i = 0; i < users.size(); i++) {
+                System.out.println(users.get(i));
+            }
+            tableView.setItems(users);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     public void mouseClickedOnRow() {
