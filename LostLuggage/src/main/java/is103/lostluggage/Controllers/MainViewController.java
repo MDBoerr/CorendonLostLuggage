@@ -1,5 +1,6 @@
 package is103.lostluggage.Controllers;
 
+import com.jfoenix.controls.JFXButton;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
@@ -13,7 +14,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
-
 /**
  * MainView Controller class
  *
@@ -23,14 +23,16 @@ public class MainViewController implements Initializable {
 
     //Create instance
     public static MainViewController instance = null;
-    public MainViewController(){}
+
+    public MainViewController() {
+    }
 
     @FXML
     private Button backButton;
 
     @FXML
     private ImageView logoView;
-    
+
     @FXML
     private HBox topHBox;
 
@@ -38,7 +40,9 @@ public class MainViewController implements Initializable {
 
     @FXML
     private Label title;
-        
+
+    @FXML
+    private JFXButton settingsButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -47,10 +51,9 @@ public class MainViewController implements Initializable {
         topHBox.toFront();
 
         instance = this;
-        
-        
 
     }
+
     //Get instance
     public static MainViewController getInstance() {
         return instance;
@@ -58,18 +61,29 @@ public class MainViewController implements Initializable {
 
     /**
      * Get the static string header and use instance to pass header to setTitle
+     *
      * @param header
      */
     public static void getTitle(String header) throws IOException {
         //header = MainViewController.header;
         getInstance().setTitle(header);
     }
+
     //Set non-static header as Title
     private void setTitle(String header) {
         title.setText(header);
     }
-  
-    
+
+    @FXML
+    private void showSettingsView(ActionEvent event) throws IOException {
+
+        if (MainApp.currentUser !=  null) {
+            
+            MainApp.switchView("/Views/Admin/SettingsView.fxml");
+
+        }
+
+    }
 
     @FXML
     private void goBackToPreviousScene(ActionEvent event) throws IOException {
