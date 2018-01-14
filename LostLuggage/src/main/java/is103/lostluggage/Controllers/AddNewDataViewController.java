@@ -10,7 +10,7 @@ import is103.lostluggage.Controllers.Service.ServiceEditFoundLuggageViewControll
 import is103.lostluggage.Database.MyJDBC;
 import static is103.lostluggage.MainApp.getDatabase;
 import is103.lostluggage.Model.Service.Data.ServiceGetDataFromDB;
-import is103.lostluggage.Model.Service.Model.Data;
+import is103.lostluggage.Model.Data;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;

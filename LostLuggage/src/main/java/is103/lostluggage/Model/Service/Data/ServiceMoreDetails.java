@@ -18,8 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
- *
- * @author thijszijdel
+ * @author Thijs Zijdel - 500782165
  */
 public class ServiceMoreDetails {
     //hight and with of the detail view (popup)

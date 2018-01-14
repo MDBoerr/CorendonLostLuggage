@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package is103.lostluggage.Model.Service.Model;
+package is103.lostluggage.Model;
 
 /**
- *
- * @author thijszijdel
+ * @author made for: Poek Lighthart
  */
 public class Data {
     private String id;
