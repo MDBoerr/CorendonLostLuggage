@@ -72,6 +72,10 @@ public class ManagerRetrievedViewController implements Initializable {
     @FXML
     private JFXTextField dateid;
 
+    
+        //conection to the db
+    private final MyJDBC DB = MainApp.getDatabase();  
+    
     @Override
 
     public void initialize(URL url, ResourceBundle rb) {
@@ -124,12 +128,39 @@ public class ManagerRetrievedViewController implements Initializable {
                     employeeservice.setText(employee);
                     dateid.setText(date);
                     
+                    
+                    //zorg dat hier de LostluggageRegistrationId  in komt (die je dus wel vanuit je tabel kan halen)
+                    String LostluggageRegistrationId = "1";
+                    
+                    try {
+                        ResultSet resultSetPassenger = DB.executeResultSetQuery("SELECT * FROM passenger " +
+                                "LEFT JOIN lostluggage ON lostluggage.passengerId = passenger.passengerId " +
+                                "WHERE lostluggage.registrationNr = '"+LostluggageRegistrationId+"'; ");
+                        
+                                            //let op: hij loopt door de resultset maaar..!!
+                                            //--> het is maar een resultaat aangezien je op een PK had gezocht.
+                                    while (resultSetPassenger.next()) {
+                                                                                       //note: passenger
+                                                                                       //de tabel van de juiste data
+                                                                                       
+                                                                                       //run eventueel de query hierboven om het te zien
+                                        String passname = resultSetPassenger.getString("passenger.name");
+                                        String passmail = resultSetPassenger.getString("passenger.email");
+
+                                        //doe wat je met de gegevens wilt
+                                        //customerdetails.add(new customerdetails(passname, passmail));
+
+                                    }
+                        
 //                    -->proberen email en adres
 //                   emailid.setText() = getcustomerdetails();
 //                    emailid.setText();
 //                    adresid.setText(emailid);
 //                    System.out.println(email);
 //                   -->end
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ManagerRetrievedViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
                 }
 
