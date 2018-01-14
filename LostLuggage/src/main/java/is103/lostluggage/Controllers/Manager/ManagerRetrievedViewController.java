@@ -6,6 +6,7 @@ import is103.lostluggage.Controllers.Admin.HomeUserViewController;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
+import is103.lostluggage.Model.settings;
 //import is103.lostluggage.Controllers.Service.Luggage;
 import java.io.IOException;
 import java.net.URL;
@@ -71,6 +72,10 @@ public class ManagerRetrievedViewController implements Initializable {
     @FXML
     private JFXTextField dateid;
 
+    
+        //conection to the db
+    private final MyJDBC DB = MainApp.getDatabase();  
+    
     @Override
 
     public void initialize(URL url, ResourceBundle rb) {
@@ -90,6 +95,10 @@ public class ManagerRetrievedViewController implements Initializable {
             public void handle(MouseEvent event) {
 
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
+                    
+//                    ----zomaar iets
+//                    customerdetails email = new customerdetails(emailid, adresid);
+
                     Node node = ((Node) event.getTarget()).getParent();
 
                     TableRow row;
@@ -100,34 +109,59 @@ public class ManagerRetrievedViewController implements Initializable {
                         // clicking on text part
                         row = (TableRow) node.getParent();
                     }
-                    
-//                    SELECT name FROM passenger "WHERE matched.foundluggage = 410" JOIN foundluggage ON foundluggage.passengerId = passenger.passengerId INNER JOIN matched ON matched.foundluggage = foundluggage.registrationNr; 
-                    
-                    
-                    
-                    
+
                     //get value of selected row in tableview
                     int formid = retrievedTable.getSelectionModel().getSelectedItem().getFormID();
                     String customer = retrievedTable.getSelectionModel().getSelectedItem().getCustomer();
                     String deliver = retrievedTable.getSelectionModel().getSelectedItem().getDeliverer();
                     String employee = retrievedTable.getSelectionModel().getSelectedItem().getEmployee();
                     String date = retrievedTable.getSelectionModel().getSelectedItem().getDate();
-                    
-                    
+//                    String email = getcustomerdetails(emailid);
+
                     //convert int to string
                     String formidString = Integer.toString(formid);
-                    
-                    
+
                     // set the values of tableview in textfield
-                   formtextid.setText(formidString);
-                   customerid.setText(customer);
-                   deivererid.setText(deliver);
-                   employeeservice.setText(employee);
-                   dateid.setText(date);
+                    formtextid.setText(formidString);
+                    customerid.setText(customer);
+                    deivererid.setText(deliver);
+                    employeeservice.setText(employee);
+                    dateid.setText(date);
                     
                     
- 
- 
+                    //zorg dat hier de LostluggageRegistrationId  in komt (die je dus wel vanuit je tabel kan halen)
+                    String LostluggageRegistrationId = "1";
+                    
+                    try {
+                        ResultSet resultSetPassenger = DB.executeResultSetQuery("SELECT * FROM passenger " +
+                                "LEFT JOIN lostluggage ON lostluggage.passengerId = passenger.passengerId " +
+                                "WHERE lostluggage.registrationNr = '"+LostluggageRegistrationId+"'; ");
+                        
+                                            //let op: hij loopt door de resultset maaar..!!
+                                            //--> het is maar een resultaat aangezien je op een PK had gezocht.
+                                    while (resultSetPassenger.next()) {
+                                                                                       //note: passenger
+                                                                                       //de tabel van de juiste data
+                                                                                       
+                                                                                       //run eventueel de query hierboven om het te zien
+                                        String passname = resultSetPassenger.getString("passenger.name");
+                                        String passmail = resultSetPassenger.getString("passenger.email");
+
+                                        //doe wat je met de gegevens wilt
+                                        //customerdetails.add(new customerdetails(passname, passmail));
+
+                                    }
+                        
+//                    -->proberen email en adres
+//                   emailid.setText() = getcustomerdetails();
+//                    emailid.setText();
+//                    adresid.setText(emailid);
+//                    System.out.println(email);
+//                   -->end
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ManagerRetrievedViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
                 }
 
             }
@@ -135,8 +169,31 @@ public class ManagerRetrievedViewController implements Initializable {
         });
 
     }
-    
+//      ------> retrieve customer adres and email where matched fooundluggage
+    public ObservableList<customerdetails> getcustomerdetails() {
+        ObservableList<customerdetails> customerdetails = FXCollections.observableArrayList();
+        try {
+            MyJDBC db = MainApp.getDatabase();
 
+            ResultSet resultSet;
+
+            resultSet = db.executeResultSetQuery("SELECT adres, email FROM passenger JOIN foundluggage ON foundluggage.passengerId = passenger.passengerId INNER JOIN matched ON matched.foundluggage = foundluggage.registrationNr WHERE matched.foundluggage");
+
+            while (resultSet.next()) {
+
+                String passname = resultSet.getString("name");
+                String passmail = resultSet.getString("email");
+
+                customerdetails.add(new customerdetails(passname, passmail));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerReportViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return customerdetails;
+
+    }
+//    ------->end
 
     public ObservableList<RetrievedLuggage> getRetrievedLuggage() {
 

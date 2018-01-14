@@ -49,8 +49,8 @@ import javafx.util.Duration;
  * @author Thijs Zijdel - 500782165
  */
 public class ServiceMatchingViewController implements Initializable, FoundLuggageTable, LostLuggageTable {
-    //main match data
-    public ServiceDataMatch data = MainApp.getMatchData();
+    //main match data object
+    public ServiceDataMatch data = ServiceHomeViewController.getMATCH_DATA();
      
     //view title
     private final String TITLE = "Matching";
@@ -72,8 +72,8 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     private int idLost      = RESET_VALUE;
     
     //luggage's lists
-    public static ObservableList<FoundLuggage> foundLuggageList;
-    public static ObservableList<LostLuggage> lostLuggageList;
+//    private  static ObservableList<FoundLuggage> foundLuggageList;
+//    private static ObservableList<LostLuggage> lostLuggageList;
     
     //potential matches list
     private ObservableList<MatchLuggage> potentialList  
@@ -81,9 +81,9 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     
     //Matching tabs 
     @FXML private TabPane matchingTabs;
-    private final int MATCHING_TAB = 0;
-    private final int MANUAL_MATCHING_TAB = 1;
-    private final int POTENTIAL_MATCHING_TAB = 2;
+    public static final int AUTO_MATCHING_TAB_INDEX = 0;
+    public static final int MANUAL_MATCHING_TAB_INDEX = 1;
+    public static final int POTENTIAL_MATCHING_TAB_INDEX = 2;
 
     //Pannels for manual matching
     @FXML private Pane foundPane;
@@ -277,9 +277,9 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
         resetManualMatching();
         
         //setOnMatchingView status == current view
-        MainApp.setOnMatchingView(true);
+        ServiceHomeViewController.setOnMatchingView(true);
         //set reset status to true for clearing the list
-        MainApp.setPotentialResetStatus(true);
+        ServiceHomeViewController.setPotentialResetStatus(true);
   
     } 
     
@@ -295,7 +295,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
      * @void - No direct output 
      */
     public void resetManualMatching(){
-        if (MainApp.resetMatching == true){
+        if (ServiceHomeViewController.resetMatching == true){
         FoundLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(null);
         LostLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(null);
         }
@@ -334,7 +334,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     public void setMatchingTab(int tab){
         //check the index (tab) given
         if (tab > 3 || tab < 0){
-            tab = MATCHING_TAB; //set tab to automatich matching
+            tab = AUTO_MATCHING_TAB_INDEX; //set tab to automatich matching
         }
         //get selection of matching tabs
         SingleSelectionModel<Tab> matchingSelectionTabs = matchingTabs.getSelectionModel(); 
@@ -601,7 +601,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
         //Note: This id will be checked in this function. 
         idCheckFound = addToManualMatching(
                 foundPane,                  //Found pane
-                MANUAL_MATCHING_TAB,        //Tab index of manual matching
+                MANUAL_MATCHING_TAB_INDEX,        //Tab index of manual matching
                 idCheckFound,               //The id that will be checked
                 idFound,                    //The id that will be changed
                 idManualMatching,           //The id of the instance 
@@ -626,7 +626,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
         //Note: This id will be checked in this function. 
         idCheckLost = addToManualMatching(
                 lostPane, 
-                MANUAL_MATCHING_TAB, 
+                MANUAL_MATCHING_TAB_INDEX, 
                 idCheckLost, 
                 idLost, 
                 idManualMatching, 
@@ -784,8 +784,9 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
         }
             
         //if the potential reset status is true, reset the table
-        if (MainApp.getPotentialResetStatus()){
+        if (ServiceHomeViewController.getPotentialResetStatus()){
             //function that cleares the potential matching table 
+            System.out.println("called .    iffff ");
             resetPotentialMatchingTable();
         }
     }
@@ -795,28 +796,9 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
      * @void - No direct output next to clearing the table          
      */
     public void resetPotentialMatchingTable() {
-        //clear the list 
-        this.potentialList.clear();
+        System.out.println("reset     status:"+ServiceHomeViewController.getPotentialResetStatus());
             
-//            //testing 
-//            System.out.println("-               -");
-//            System.out.println("should be cleared");
-//            System.out.println("-               -");
-            
-            
-        //clear the table
-        //!potentialMatchingTable.getItems().isEmpty() || 
-        ObservableList<MatchLuggage> items= potentialMatchingTable.getItems();
-        if (items.size() != 0 || !items.isEmpty()){
-            potentialMatchingTable.getItems().clear();
-        }
-
-        //refresh the table
-        potentialMatchingTable.refresh();
-        //set te matching tabs tot the potential matching 
-//        setMatchingTab(POTENTIAL_MATCHING_TAB);
-        //reset te reset status from true to false
-        MainApp.setPotentialResetStatus(false);
+        ServiceHomeViewController.setPotentialResetStatus(false);
         
     }
     

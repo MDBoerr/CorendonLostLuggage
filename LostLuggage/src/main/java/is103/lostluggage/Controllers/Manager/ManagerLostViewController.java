@@ -32,7 +32,6 @@ import is103.lostluggage.Model.Service.Data.ServiceGetDataFromDB;
 import is103.lostluggage.Model.Service.Data.ServiceSearchData;
 import is103.lostluggage.Model.Service.Interface.LostLuggageTable;
 import is103.lostluggage.Model.Service.Interface.Search;
-import java.time.LocalDate;
 import javafx.scene.control.Label;
 
 /**
@@ -124,7 +123,7 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
         //initialize the filter (for columns/fields) combo box with data
         initializeComboFilterBox(); 
    
-        //so the lost luggage table can be set 
+        //initialize the table so it can be set
         initializeLostLuggageTable();
         
         //try to set the lost luggage table with data
@@ -133,7 +132,7 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
             dataListLost = new ServiceDataLost();
             setLostLuggageTable(dataListLost.getLostLuggage());
             
-            
+            //initialize the total amount of luggage s in the right display
             initializeTotalCountDisplay();
         } catch (SQLException ex) {
             Logger.getLogger(ManagerLostViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -142,10 +141,7 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
         //initialize the click listner for double clicking the table
         initializeOnLostRowDoubleClicked();
         
-        
-        
-        
-        
+        //initialize the total amount results in the right display
         setResultCount();
         
     }
@@ -366,6 +362,44 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
         }  
     }
 
+        
+    /**  
+     * @author Thijs Zijdel - 500782165
+     * 
+     * This method is for setting the total amount of lost luggage s in the db
+     * This data will be gotten from a count query in the ServiceGetDataFromDB class
+     * 
+     * Note: this method is called when initializing the controller 
+     * 
+     */
+    private void initializeTotalCountDisplay() throws SQLException {
+        //create a ServiceGetDataFromDB object with the right fields
+        //table: lostluggage   field: * (=all)  where: null (no statement)
+        ServiceGetDataFromDB totalCount = new ServiceGetDataFromDB("lostluggage", "*", null);
+        
+        //set the total of hits in the total (label) display
+        total.setText(Integer.toString(totalCount.countHits()));         
+    }
+
+    /**  
+     * @author Thijs Zijdel - 500782165
+     * 
+     * This method is for setting the amount of results in the display
+     * Note: this method is called when initializing the controller and searching
+     * 
+     */
+    private void setResultCount() {
+        //get the amount of items in the lost luggage table
+        String hits = Integer.toString(lostTable.getItems().size());
+        
+        //if the amount of hits is zero, set it to 0 (to display)
+        if (hits == null || "".equals(hits) || lostTable.getItems().isEmpty()){
+            hits = "0";
+        }
+        
+        //set the amount of hits in the results (label) display.
+        results.setText(hits);
+    }
     
     /**  
      * 
@@ -400,24 +434,6 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
                 
             }
         });
-    }
-    
-    
-    
-    
-    ServiceGetDataFromDB totalCount = new ServiceGetDataFromDB("lostluggage", "*", null);
-    private void initializeTotalCountDisplay() throws SQLException {
-        
-        total.setText(Integer.toString(totalCount.countHits()));
-                
-    }
-
-    private void setResultCount() {
-        String hits = Integer.toString(lostTable.getItems().size());
-        if (hits == null || "".equals(hits) || lostTable.getItems().isEmpty()){
-            hits = "0";
-        }
-        results.setText(hits);
     }
     
 }
