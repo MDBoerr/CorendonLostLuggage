@@ -81,9 +81,9 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     
     //Matching tabs 
     @FXML private TabPane matchingTabs;
-    private final int MATCHING_TAB = 0;
-    private final int MANUAL_MATCHING_TAB = 1;
-    private final int POTENTIAL_MATCHING_TAB = 2;
+    public static final int AUTO_MATCHING_TAB_INDEX = 0;
+    public static final int MANUAL_MATCHING_TAB_INDEX = 1;
+    public static final int POTENTIAL_MATCHING_TAB_INDEX = 2;
 
     //Pannels for manual matching
     @FXML private Pane foundPane;
@@ -334,7 +334,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     public void setMatchingTab(int tab){
         //check the index (tab) given
         if (tab > 3 || tab < 0){
-            tab = MATCHING_TAB; //set tab to automatich matching
+            tab = AUTO_MATCHING_TAB_INDEX; //set tab to automatich matching
         }
         //get selection of matching tabs
         SingleSelectionModel<Tab> matchingSelectionTabs = matchingTabs.getSelectionModel(); 
@@ -601,7 +601,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
         //Note: This id will be checked in this function. 
         idCheckFound = addToManualMatching(
                 foundPane,                  //Found pane
-                MANUAL_MATCHING_TAB,        //Tab index of manual matching
+                MANUAL_MATCHING_TAB_INDEX,        //Tab index of manual matching
                 idCheckFound,               //The id that will be checked
                 idFound,                    //The id that will be changed
                 idManualMatching,           //The id of the instance 
@@ -626,7 +626,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
         //Note: This id will be checked in this function. 
         idCheckLost = addToManualMatching(
                 lostPane, 
-                MANUAL_MATCHING_TAB, 
+                MANUAL_MATCHING_TAB_INDEX, 
                 idCheckLost, 
                 idLost, 
                 idManualMatching, 

@@ -201,8 +201,9 @@ public class ServiceDetailedLostLuggageViewController implements Initializable, 
         }
         
         //set the right tab, 2 = potential matching tab
-        ServiceMatchingViewController.getInstance().setMatchingTab(2);
-        
+        ServiceMatchingViewController.getInstance().setMatchingTab(
+                ServiceMatchingViewController.POTENTIAL_MATCHING_TAB_INDEX
+        );
          //close the current stage
         closeStage();
         

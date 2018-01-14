@@ -759,7 +759,9 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
         MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
         
         //set the right tab, 2 = potential matching tab
-        ServiceMatchingViewController.getInstance().setMatchingTab(2);
+        ServiceMatchingViewController.getInstance().setMatchingTab(
+                ServiceMatchingViewController.POTENTIAL_MATCHING_TAB_INDEX
+        );
         
     }  
 }

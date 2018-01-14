@@ -272,6 +272,7 @@ public class ServiceDetailedMatchLuggageViewController implements Initializable 
      * And the stage will be closed
      * 
      * @param event             when the button is clicked 
+     * @throws java.io.IOException 
      */   
     @FXML
     protected void manualMatching(ActionEvent event) throws IOException{
