@@ -34,8 +34,16 @@ public class HomeUserViewController implements Initializable {
     @FXML
     private Button button;
 
+    private final String header = "Home";
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        try {
+            MainViewController.getInstance().getTitle(header);
+        } catch (IOException ex) {
+            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         MainViewController.previousView = "/fxml/SelectUserRoleView.fxml";
 
