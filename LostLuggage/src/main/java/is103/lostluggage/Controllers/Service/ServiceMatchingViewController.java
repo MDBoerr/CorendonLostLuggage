@@ -49,7 +49,7 @@ import javafx.util.Duration;
  * @author Thijs Zijdel - 500782165
  */
 public class ServiceMatchingViewController implements Initializable, FoundLuggageTable, LostLuggageTable {
-    //main match data
+    //main match data object
     public ServiceDataMatch data = MainApp.getMatchData();
      
     //view title
@@ -72,8 +72,8 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     private int idLost      = RESET_VALUE;
     
     //luggage's lists
-    public static ObservableList<FoundLuggage> foundLuggageList;
-    public static ObservableList<LostLuggage> lostLuggageList;
+//    private  static ObservableList<FoundLuggage> foundLuggageList;
+//    private static ObservableList<LostLuggage> lostLuggageList;
     
     //potential matches list
     private ObservableList<MatchLuggage> potentialList  

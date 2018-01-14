@@ -551,6 +551,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
         
         //Create the 'ok'/close button
         JFXButton button = new JFXButton("ok");
+        //set button action listner for closing the alert
         button.setOnAction((ActionEvent event) -> {
             alert.close();
             //hide the stackpane so the fields will be clickable again
@@ -578,7 +579,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
      * @void no direct output 
      */ 
     public void updateLuggage() throws SQLException{
-        String regisrationNr = registrationNr.getText();
+        String registrationNrString = registrationNr.getText();
         
         //Initializing 4 objects with the right fields to get the idCode
         //Note: To get the id the Where statement is also configured for each
@@ -614,25 +615,25 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
         if ("unknown".equals(phone.getText())){phone.setText("");}
         if ("unknown".equals(flight.getText())){flight.setText("");}
         
-        //check if this field is not (still) unasigned
+        //check if this field is not (still) un asigned
         if (typeCode != 0){
             //if it is asigned (so not 0) than update that field
             //note: use of prepared statements for preventing sql injection
-            DB.executeUpdateLuggageQuery("foundluggage", "luggageType",
-                                    Integer.toString(typeCode), regisrationNr);
+            DB.executeUpdateLuggageFieldQuery("foundluggage", "luggageType",
+                                    Integer.toString(typeCode), registrationNrString);
         }
         //repeat
         if (ralCode1 != 0){
-            DB.executeUpdateLuggageQuery("foundluggage", "mainColor",
-                                    Integer.toString(ralCode1), regisrationNr);
+            DB.executeUpdateLuggageFieldQuery("foundluggage", "mainColor",
+                                    Integer.toString(ralCode1), registrationNrString);
         }
         if (ralCode2 != 0){
-            DB.executeUpdateLuggageQuery("foundluggage", "secondColor",
-                                    Integer.toString(ralCode2), regisrationNr);
+            DB.executeUpdateLuggageFieldQuery("foundluggage", "secondColor",
+                                    Integer.toString(ralCode2), registrationNrString);
         }
         if (locationCode != 0){
-            DB.executeUpdateLuggageQuery("foundluggage", "locationFound",
-                                    Integer.toString(locationCode), regisrationNr);
+            DB.executeUpdateLuggageFieldQuery("foundluggage", "locationFound",
+                                    Integer.toString(locationCode), registrationNrString);
         }
         
         
@@ -640,33 +641,43 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
         int weightInt = isValidInt(weight.getText());
         if (weightInt != 0){ 
             //if the return wasn't 0, update the weight with a prepared statment
-            DB.executeUpdateLuggageQuery("foundluggage", "weight",
-                                    Integer.toString(weightInt), regisrationNr);    
+            DB.executeUpdateLuggageFieldQuery("foundluggage", "weight",
+                                    Integer.toString(weightInt), registrationNrString);    
         }
         
         //validate the date inputted
         String dateString = isValidDate(dateFound.getText());
         if (dateString != null){
-            //update the date found with a prepared statment
-            DB.executeUpdateLuggageQuery("foundluggage", "dateFound",
-                                    dateString, regisrationNr);    
+            //if the date is not null, than the date format is good
+            //but still needs checking for invalid year, month and day..
+      
+//            if (Integer.parseInt(dateString.substring(0, 4)) > 1900 && //year check
+//                Integer.parseInt(dateString.substring(4, 6)) <= 12  && //month check
+//                Integer.parseInt(dateString.substring(6)) <= 31){ //day check
+//   
+                //update the date found with a prepared statment
+                DB.executeUpdateLuggageFieldQuery("foundluggage", "dateFound",
+                                        dateString, registrationNrString);  
+//            }
         }
         
         //validate the time inputted
         String timeString = isValidTime(timeFound.getText());
         if (timeString != null){
             //update the time found with a prepared statment
-            DB.executeUpdateLuggageQuery("foundluggage", "timeFound",
-                                    timeString, regisrationNr);    
+            DB.executeUpdateLuggageFieldQuery("foundluggage", "timeFound",
+                                    timeString, registrationNrString);    
         }
         
         //Update the luggage itself with the right data
-        DB.executeUpdateQuery("UPDATE `foundluggage` SET "
-                + "`luggageTag`='"+luggageTag.getText()+"', "
-                + "`brand`='"+brand.getText()+"', "
-                + "`size`='"+size.getText()+"', "
-                + "`otherCharacteristics`='"+signatures.getText()+"' "
-                + "WHERE `registrationNr`='"+regisrationNr+"';"); 
+//        DB.executeUpdateLuggageQuery(
+//                luggageTag.getText(), 
+//                brand.getText(), 
+//                size.getText(), 
+//                signatures.getText(), 
+//                registrationNrString, 
+//                "foundluggage");
+
         
         DB.executeUpdatePassengerQuery(
                 passangerName.getText(), 
@@ -733,6 +744,12 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
         ServiceMatchingViewController.getInstance().setMatchingTab(2);
 
     }
+    
+    
+    
+    //comments here
+    
+    
     
     @FXML
     public void closeStackpane(){

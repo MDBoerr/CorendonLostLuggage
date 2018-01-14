@@ -16,6 +16,9 @@ import is103.lostluggage.Model.Service.Instance.Matching.LostLuggageManualMatchi
 import is103.lostluggage.Model.Service.Model.LostLuggage;
 import is103.lostluggage.Model.Service.Instance.Details.LostLuggageDetailsInstance;
 import is103.lostluggage.Model.Service.Interface.LostLuggageFields;
+import static is103.lostluggage.Model.Service.Model.ServiceValidate.isValidDate;
+import static is103.lostluggage.Model.Service.Model.ServiceValidate.isValidInt;
+import static is103.lostluggage.Model.Service.Model.ServiceValidate.isValidTime;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -569,6 +572,8 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
      * @void no direct output 
      */ 
     public void updateLuggage() throws SQLException{
+        String regisrationNr = registrationNr.getText();
+        
         //Initializing 4 objects with the right fields to get the idCode
         //Note: To get the id the Where statement is also configured for each
         ServiceGetDataFromDB getRalCode1 = new ServiceGetDataFromDB
@@ -583,9 +588,6 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
         ("luggagetype", "luggageTypeId", "WHERE `"+LANGUAGE+"`='"+typePicker.getValue().toString()+"'");
         int typeCode = getType.getIdValue();
         
-//        ServiceGetDataFromDB getLocation = new ServiceGetDataFromDB
-//        ("location", "locationId", "WHERE `"+LANGUAGE+"`='"+locationPicker.getValue().toString()+"'");
-//        int locationCode = getLocation.getIdValue();
         
         //check if one of the updated fields contains the "unknown" string
         if ("unknown".equals(luggageTag.getText())){luggageTag.setText("");}
@@ -607,38 +609,60 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
         if (typeCode != 0){
             //if it is asigned (so not 0) than update that field
             //note: use of prepared statements to prevent sql injection!
-            DB.executeUpdateLuggageQuery("lostluggage", "luggageType",Integer.toString(typeCode), registrationNr.getText());
+            DB.executeUpdateLuggageFieldQuery("lostluggage", "luggageType",Integer.toString(typeCode), regisrationNr);
         }
         //repeat 
         if (ralCode1 != 0){
-            DB.executeUpdateLuggageQuery("lostluggage", "mainColor",Integer.toString(ralCode1), registrationNr.getText());
+            DB.executeUpdateLuggageFieldQuery("lostluggage", "mainColor",Integer.toString(ralCode1), regisrationNr);
         }
         if (ralCode2 != 0){
-            DB.executeUpdateLuggageQuery("lostluggage", "secondColor",Integer.toString(ralCode2), registrationNr.getText());
+            DB.executeUpdateLuggageFieldQuery("lostluggage", "secondColor",Integer.toString(ralCode2), regisrationNr);
         }
         
-        //Update the luggage itself with the right data
-        DB.executeUpdateQuery("UPDATE `lostluggage` SET "
-                + "`dateLost`='"+dateLost.getText()+"', "
-                + "`timeLost`='"+timeLost.getText()+"', "
-                + "`luggageTag`='"+luggageTag.getText()+"', "
-                + "`brand`='"+brand.getText()+"', "
-                + "`size`='"+size.getText()+"', "
-                + "`weight`='"+weight.getText()+"', "
-                + "`otherCharacteristics`='"+signatures.getText()+"' "
-                + "WHERE `registrationNr`='"+registrationNr.getText()+"';"); 
+                //validate the weight inputted
+        int weightInt = isValidInt(weight.getText());
+        if (weightInt != 0){ 
+            //if the return wasn't 0, update the weight with a prepared statment
+            DB.executeUpdateLuggageFieldQuery("lostluggage", "weight",
+                                    Integer.toString(weightInt), regisrationNr);    
+        }
         
-        //Update the passenger with the right data 
-//        DB.executeUpdateQuery("UPDATE `passenger` SET "
-//                + "`name`='"+passangerName.getText()+"', "
-//                + "`address`='"+address.getText()+"' , "
-//                + "`place`='"+place.getText()+"', "
-//                + "`postalcode`='"+postalCode.getText()+"', "
-//                + "`country`='"+country.getText()+"', "
-//                + "`email`='"+email.getText()+"' "
-//                        //phone
-//                + "WHERE `passengerId`='"+passangerId.getText()+"';");
-//        
+        //validate the date inputted
+        String dateString = isValidDate(dateLost.getText());
+        if (dateString != null){
+            //if the date is not null, than the date format is good
+            //but still needs checking for invalid year, month and day..
+      
+//            if (Integer.parseInt(dateString.substring(0, 4)) > 1900 && //year check
+//                Integer.parseInt(dateString.substring(4, 6)) <= 12  && //month check
+//                Integer.parseInt(dateString.substring(6)) <= 31){ //day check
+//   
+                //update the date found with a prepared statment
+                DB.executeUpdateLuggageFieldQuery("lostluggage", "dateLost",
+                                        dateString, regisrationNr);  
+//            }
+        }
+        
+        //validate the time inputted
+        String timeString = isValidTime(timeLost.getText());
+        if (timeString != null){
+            //update the time found with a prepared statment
+            DB.executeUpdateLuggageFieldQuery("lostluggage", "timeLost",
+                                    timeString, regisrationNr);    
+        }
+        
+        
+        
+        //Update the luggage itself with the right data
+//        DB.executeUpdateLuggageQuery(
+//                luggageTag.getText(), 
+//                brand.getText(), 
+//                size.getText(), 
+//                signatures.getText(), 
+//                regisrationNr, 
+//                "lostluggage");
+
+        
         DB.executeUpdatePassengerQuery(
                 passangerName.getText(), 
                 address.getText(), 

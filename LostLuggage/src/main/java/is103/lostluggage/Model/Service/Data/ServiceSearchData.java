@@ -106,12 +106,12 @@ public class ServiceSearchData {
                         + " mainColor LIKE '%replace%' OR "
                         + " otherCharacteristics LIKE '%replace%' OR ";
                     //add the color search part            
-                    query += generateColorQuery(search);
+                    query += generateColorStatement(search);
                     //add the passenger search part
-                    query += generatePassengerQuery(search);
+                    query += generatePassengerStatement(search);
 
                     if ("foundluggage".equals(luggageType)){
-                        query += generateLocationQuery(search);
+                        query += generateLocationStatement(search);
                     }
                     break;
                 case "registrationnr":
@@ -125,7 +125,7 @@ public class ServiceSearchData {
                     break;
                 case "color":
                     //generate the color query
-                    query += generateColorQuery(search);
+                    query += generateColorStatement(search);
 
                     break;
                 case "characteristics":
@@ -157,12 +157,12 @@ public class ServiceSearchData {
                     break;
                 case "passenger":
                     //generate the passenger query
-                    query += generatePassengerQuery(search);
+                    query += generatePassengerStatement(search);
 
                     break;
                 case "location":
                     //generate the location query
-                    query += generateLocationQuery(search);
+                    query += generateLocationStatement(search);
 
                     break;
                 default:
@@ -218,9 +218,9 @@ public class ServiceSearchData {
      * @return statement    the right query statement (part) for the colors
      * @throws java.sql.SQLException  checking in the db
      */
-    private String generateColorQuery(String search) throws SQLException{
+    private String generateColorStatement(String search) throws SQLException{
         //create a temporary query (String) that will be returned
-        String generateQuery = "";
+        String generatedStatement = "";
         
         //create an other temporary string that will be checked in the db
         //for searching trough all the ralCodes and language's possibilities
@@ -248,11 +248,11 @@ public class ServiceSearchData {
         
         //loop trough evry item in the colorList and add the result to the query 
         for (String colorListItem : stringList) {
-            generateQuery += " mainColor LIKE '%"+colorListItem+"%' OR "
+            generatedStatement += " mainColor LIKE '%"+colorListItem+"%' OR "
                    + " secondColor LIKE '%"+colorListItem+"%' OR ";          
         }
         
-        return generateQuery;
+        return generatedStatement;
     }
     
     /** 
@@ -262,9 +262,9 @@ public class ServiceSearchData {
      * @return statement    the right query statement (part) for the passenger
      * @throws java.sql.SQLException  checking in the db
      */
-    private String generatePassengerQuery(String search) throws SQLException{
+    private String generatePassengerStatement(String search) throws SQLException{
         //create a temporary query (String) that will be returned
-        String generateQuery = "";
+        String generatedStatement = "";
         
         //create an other temporary string that will be checked 
         //for searching trough all the passenger detail possibilities in the db
@@ -298,10 +298,10 @@ public class ServiceSearchData {
         
         //loop trough evry item in the colorList and add the result to the query 
         for (String passengerListItem : stringListPassenger) {
-            generateQuery += " passengerId LIKE '"+passengerListItem+"' OR ";          
+            generatedStatement += " passengerId LIKE '"+passengerListItem+"' OR ";          
         }
 
-        return generateQuery;
+        return generatedStatement;
     }
     
     /** 
@@ -311,9 +311,9 @@ public class ServiceSearchData {
      * @return statement    the right query statement (part) for the location
      * @throws java.sql.SQLException  checking in the db
      */
-    private String generateLocationQuery(String search) throws SQLException{
+    private String generateLocationStatement(String search) throws SQLException{
         //create a temporary query (String) that will be returned
-        String generateQuery = "";
+        String generatedStatement = "";
         
         //create an other temporary string that will be checked 
         //for searching trough all the location detail possibilities in the db
@@ -341,9 +341,9 @@ public class ServiceSearchData {
 
         //loop trough evry item in the colorList and add the result to the query 
         for (String locationListItem : stringListLocation) {
-            generateQuery += " locationId LIKE '"+locationListItem+"' OR ";          
+            generatedStatement += " locationId LIKE '"+locationListItem+"' OR ";          
         }
 
-        return generateQuery;
+        return generatedStatement;
     }
 }

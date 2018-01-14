@@ -1,22 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package is103.lostluggage.Database;
 
 import is103.lostluggage.Model.User;
 import java.sql.*;
 import java.util.Enumeration;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Template: Hva (MyJDBC)
  * @author Michael de Boer Clean up, Implimentations, First prepared statements
  * @author Arthur Krom SQL Dump created
- * @author Thijs Zijdel 4 Prepared statements
+ * @author Thijs Zijdel 5 Prepared statements
  *
  */
 public class MyJDBC {
@@ -25,7 +18,7 @@ public class MyJDBC {
     private static final String DB_DEFAULT_DATABASE = "sys";
     private static final String DB_DEFAULT_SERVER_URL = "localhost:3306";
     private static final String DB_DEFAULT_ACCOUNT = "root";
-    private static final String DB_DEFAULT_PASSWORD = "ajax1234";
+    private static final String DB_DEFAULT_PASSWORD = "root";
 
     private final static String DB_DRIVER_URL = "com.mysql.jdbc.Driver";
     private final static String DB_DRIVER_PREFIX = "jdbc:mysql://";
@@ -329,30 +322,30 @@ public class MyJDBC {
 
     }
 
-    // -------------------------------------------------
+    // -------------------------------------------------------------------------
+    
     /**
      * @author Thijs Zijdel - 500782165
      *
-     * Execute update query for editing the fields of a passenger. Note: this is
-     * an prepared statement so the db will be protected against SQL Injection.
+     * Execute update query for editing a fields of a luggage. 
+     * Note: Prepared statement so the db is be protected against SQL Injection.
      *
      * @param table table of the field that will be updated
      * @param field field that need to be changed
      * @param value new value of the field
      * @param registrationNr of the luggage that will changed
      * @throws java.sql.SQLException updating data in the db
-     *
-     */
-    public void executeUpdateLuggageQuery(
-            String table,
-            String field,
-            String value,
-            String registrationNr) throws SQLException {
+     **/
+    public void executeUpdateLuggageFieldQuery(
+                                    String table,
+                                    String field,
+                                    String value,
+                                    String registrationNr) throws SQLException {
         //try to create en execute an prepared statment
         try (
-                PreparedStatement preparedStatement = this.connection.prepareStatement(
-                        "UPDATE `" + table + "` SET  "
-                        + " " + field + " = ? "
+            PreparedStatement preparedStatement = this.connection.prepareStatement(
+                        "UPDATE `"+table+"` SET  "
+                        + " "+field+" = ? "
                         + "WHERE `registrationNr`= ? ;")) {
             //initializing the preparedstatement
             preparedStatement.setString(1, value);
@@ -360,14 +353,52 @@ public class MyJDBC {
 
             //execute the prepared statement
             preparedStatement.executeUpdate();
+            
+            //close preparedStatement
+            preparedStatement.close();
         }
     }
-
     /**
      * @author Thijs Zijdel - 500782165
      *
-     * Execute update query for editing the fields of a passenger. Note: this is
-     * an prepared statement so the db will be protected against SQL Injection.
+     * Execute update query for editing the fields of a passenger. 
+     * Note: Prepared statement so the db is be protected against SQL Injection.
+     *
+     * @param table table of the field that will be updated
+     * @param field field that need to be changed
+     * @param where statement / field that will be checked on the @param id
+     * @param value new value of the field
+     * @param id of the row that will changed
+     * @throws java.sql.SQLException updating data in the db
+     **/
+    public void executeUpdateQueryWhere(
+                                    String table,
+                                    String field,
+                                    String where,
+                                    String value,
+                                    String id) throws SQLException {
+        //try to create en execute an prepared statment
+        try (
+            PreparedStatement preparedStatement = this.connection.prepareStatement(
+                        "UPDATE `"+table+"` SET  "
+                        + " "+field+" = ? "
+                        + "WHERE `"+where+"`= ? ;")) {
+            //initializing the preparedstatement
+            preparedStatement.setString(1, value);
+            preparedStatement.setString(2, id);
+
+            //execute the prepared statement
+            preparedStatement.executeUpdate();
+            
+            //close preparedStatement
+            preparedStatement.close();
+        }
+    }
+    /**
+     * @author Thijs Zijdel - 500782165
+     *
+     * Execute update query for editing the fields of a passenger. 
+     * Note: Prepared statement so the db is be protected against SQL Injection.
      *
      *
      * //All the parameters are the values of the new fields
@@ -381,29 +412,29 @@ public class MyJDBC {
      *
      * @param passengerId -> the passenger where the values are set
      * @throws java.sql.SQLException because there will be a SQL query executed
-     *
-     */
+     **/
     public void executeUpdatePassengerQuery(
-            String name,
-            String address,
-            String place,
-            String postalcode,
-            String country,
-            String email,
-            String phone,
-            String passengerId) throws SQLException {
+                                    String name,
+                                    String address,
+                                    String place,
+                                    String postalcode,
+                                    String country,
+                                    String email,
+                                    String phone,
+                                    String passengerId) throws SQLException {
         //try to create en execute an prepared statment
         try (
-                PreparedStatement preparedStatement = this.connection.prepareStatement(
-                        "UPDATE `passenger` SET  "
-                        + " name = ? ,"
-                        + " address = ? ,"
-                        + " place = ? ,"
-                        + " postalcode = ? ,"
-                        + " country = ? ,"
-                        + " email = ? ,"
-                        + " phone = ? "
-                        + "WHERE `passengerId`= ? ;")) {
+            PreparedStatement preparedStatement = 
+                this.connection.prepareStatement(
+                    "UPDATE `passenger` SET  "
+                    + " name = ? ,"
+                    + " address = ? ,"
+                    + " place = ? ,"
+                    + " postalcode = ? ,"
+                    + " country = ? ,"
+                    + " email = ? ,"
+                    + " phone = ? "
+                    + "WHERE `passengerId`= ? ;")) {
             //initializing the preparedstatement
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, address);
@@ -416,16 +447,59 @@ public class MyJDBC {
 
             //execute the prepared statement
             preparedStatement.executeUpdate();
-        }
+            
+            //close preparedStatement
+            preparedStatement.close();
+        } 
     }
 
     /**
      * @author Thijs Zijdel - 500782165
-     *
-     */
-    public void executeUpdateFoundLuggageQuery() {
-        //prepared statement that will be created for:
-        //updating all the fields of found luggage
+     * 
+     * Execute update query for editing almost all fields of a luggage. 
+     * Note: Prepared statement so the db is be protected against SQL Injection.
+     * 
+     * //All the parameters are the values of the new fields
+     * @param tag
+     * @param brand
+     * @param size
+     * @param signatures
+     * @param id
+     * 
+     * 
+     * @param luggageTable  should be found luggage or lost luggage
+     * @throws java.sql.SQLException because there will be data updated in the Db
+     **/
+    public void executeUpdateLuggageQuery(
+                                        String tag,
+                                        String brand,
+                                        String size,
+                                        String signatures,
+                                        String id,
+                                        String luggageTable) throws SQLException {
+           //try to create en execute an prepared statment
+        try (
+            PreparedStatement preparedStatement = 
+                this.connection.prepareStatement(
+                    "UPDATE `"+luggageTable+"` SET  "
+                    + " luggageTag = ? ,"
+                    + " brand = ? ,"
+                    + " size = ? ,"
+                    + " otherCharacteristics = ? ,"
+                    + "WHERE `registrationNr` =  ?  ;")) {
+            //initializing the preparedstatement
+            preparedStatement.setString(1, tag);
+            preparedStatement.setString(2, brand);
+            preparedStatement.setString(3, size);
+            preparedStatement.setString(4, signatures);
+            preparedStatement.setString(5, id);
+
+            //execute the prepared statement
+            preparedStatement.executeUpdate();
+            
+            //close preparedStatement
+            preparedStatement.close();
+        }     
     }
 
     /**
@@ -436,8 +510,51 @@ public class MyJDBC {
         //prepared statement that will be created for:
         //updating all the fields of found luggage
     }
+    /**
+     * @author Thijs Zijdel - 500782165
+     *
+     * Execute insert query for inserting the fields of a match. Note: this is
+     * an prepared statement so the db will be protected against SQL Injection.
+     *
+     *
+     * //All the parameters are the values of the new fields
+     * @param matchedId            //generated id for the match itself  PKey
+     * @param foundRegistrationNr  //id of the matched found luggage    FKey
+     * @param lostRegistrationNr   //id of the matched lost luggage     FKey
+     * @param employeeId           //id of the employee that confirmed the match
+     * @param dateMatched          //current date
+     *
+     * @throws java.sql.SQLException because there will be a SQL query executed
+     **/
+    public void executeInsertMatchQuery(
+                                String matchedId, 
+                                String foundRegistrationNr, 
+                                String lostRegistrationNr, 
+                                String employeeId, 
+                                String dateMatched) throws SQLException {
+        try (
+            PreparedStatement preparedStatement = 
+                this.connection.prepareStatement(
+                    " INSERT INTO `matched` " 
+                    + " (`matchedId`, `foundluggage`, `lostluggage`, `employeeId`, `dateMatched`, `delivery`) "
+                    + " VALUES ( ? , ? , ? , ? , ? , '' ) ")){
+            //initializing the preparedstatement
+            preparedStatement.setString(1, matchedId);
+            preparedStatement.setString(2, foundRegistrationNr);
+            preparedStatement.setString(3, lostRegistrationNr);
+            preparedStatement.setString(4, employeeId);
+            preparedStatement.setString(5, dateMatched);
 
-    // -------------------------------------------------
+            //execute the prepared statement
+            preparedStatement.executeUpdate();
+            
+            //close preparedStatement
+            preparedStatement.close();
+        } 
+    }
+
+    // -------------------------------------------------------------------------
+    
     //Model made by Arthur implemented by Michael
     public static void createLostLuggageDatabase(String dbName) {
 
