@@ -44,7 +44,7 @@ import javafx.scene.control.Label;
  * @author Thijs Zijdel - 500782165             For the search functionality
  */
 public class ManagerFoundViewController implements Initializable, Search {
-private final String title = "Overzicht Gevonden Bagage";
+private final String title = "Overview found luggage";
     
     public static ObservableList<FoundLuggage> foundLuggageList;
     
