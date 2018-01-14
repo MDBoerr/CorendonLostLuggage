@@ -183,7 +183,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable, Fou
     @FXML
     protected void viewPotentials(ActionEvent event) throws IOException, SQLException{
         //get the right data object
-        ServiceDataMatch data = MainApp.getMatchData();
+        ServiceDataMatch data = MainApp.getMATCH_DATA();
 
         
         //clear the potential list if there are items in
@@ -192,8 +192,8 @@ public class ServiceDetailedFoundLuggageController implements Initializable, Fou
         }
         
         //reset the potential matching table and set the reset status
-        ServiceMatchingViewController.getInstance().resetPotentialMatchingTable(); 
-        MainApp.setPotentialResetStatus(true);
+        //ServiceMatchingViewController.getInstance().resetPotentialMatchingTable(); 
+        //MainApp.setPotentialResetStatus(true);
         
         //get the id of the current luggage
         String id = FoundLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();

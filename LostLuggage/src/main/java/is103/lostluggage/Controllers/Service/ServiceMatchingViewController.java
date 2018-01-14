@@ -50,7 +50,7 @@ import javafx.util.Duration;
  */
 public class ServiceMatchingViewController implements Initializable, FoundLuggageTable, LostLuggageTable {
     //main match data object
-    public ServiceDataMatch data = MainApp.getMatchData();
+    public ServiceDataMatch data = MainApp.getMATCH_DATA();
      
     //view title
     private final String TITLE = "Matching";
@@ -786,6 +786,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
         //if the potential reset status is true, reset the table
         if (MainApp.getPotentialResetStatus()){
             //function that cleares the potential matching table 
+            System.out.println("called .    iffff ");
             resetPotentialMatchingTable();
         }
     }
@@ -795,27 +796,8 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
      * @void - No direct output next to clearing the table          
      */
     public void resetPotentialMatchingTable() {
-        //clear the list 
-        this.potentialList.clear();
+        System.out.println("reset     status:"+MainApp.getPotentialResetStatus());
             
-//            //testing 
-//            System.out.println("-               -");
-//            System.out.println("should be cleared");
-//            System.out.println("-               -");
-            
-            
-        //clear the table
-        //!potentialMatchingTable.getItems().isEmpty() || 
-        ObservableList<MatchLuggage> items= potentialMatchingTable.getItems();
-        if (items.size() != 0 || !items.isEmpty()){
-            potentialMatchingTable.getItems().clear();
-        }
-
-        //refresh the table
-        potentialMatchingTable.refresh();
-        //set te matching tabs tot the potential matching 
-//        setMatchingTab(POTENTIAL_MATCHING_TAB);
-        //reset te reset status from true to false
         MainApp.setPotentialResetStatus(false);
         
     }

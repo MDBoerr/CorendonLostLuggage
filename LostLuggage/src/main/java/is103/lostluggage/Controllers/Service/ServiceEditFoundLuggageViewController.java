@@ -724,7 +724,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
     protected void viewPotentials(ActionEvent event) throws IOException, SQLException{
 
         //get the right data object
-        ServiceDataMatch data = MainApp.getMatchData();
+        ServiceDataMatch data = MainApp.getMATCH_DATA();
 
         //set the reset status to true for resetting a possible previous list
         MainApp.setPotentialResetStatus(true);

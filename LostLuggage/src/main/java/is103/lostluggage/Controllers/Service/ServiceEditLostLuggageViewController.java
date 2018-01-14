@@ -740,7 +740,7 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
     @FXML
     public void viewPotentials(ActionEvent event) throws SQLException, IOException{
         //get the right data object
-        ServiceDataMatch data = MainApp.getMatchData();
+        ServiceDataMatch data = MainApp.getMATCH_DATA();
 
         //set the reset status to true for resetting a possible previous list
         MainApp.setPotentialResetStatus(true);

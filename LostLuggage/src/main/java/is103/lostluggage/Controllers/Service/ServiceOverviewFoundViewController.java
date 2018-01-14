@@ -40,7 +40,9 @@ import javafx.stage.Stage;
  * @author Thijs Zijdel - 500782165
  */
 public class ServiceOverviewFoundViewController implements Initializable, FoundLuggageTable, Search {
-    //view title
+    /** 
+     * View title
+     **/
     private final String TITLE = "Overview Found Luggage";
     
     //stage for more details when double clicking on a table item

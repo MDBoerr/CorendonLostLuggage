@@ -178,7 +178,7 @@ public class ServiceDetailedLostLuggageViewController implements Initializable, 
     @FXML
     public void viewPotentials(ActionEvent event) throws SQLException, IOException{
         //get thge right data object 
-        ServiceDataMatch data = MainApp.getMatchData();
+        ServiceDataMatch data = MainApp.getMATCH_DATA();
         
         //clear the potential list if there are items in
         if (!potentialMatchesList.isEmpty()){
@@ -186,8 +186,8 @@ public class ServiceDetailedLostLuggageViewController implements Initializable, 
         }
        
         //reset the potential matching table and set the reset status
-        ServiceMatchingViewController.getInstance().resetPotentialMatchingTable();
-        MainApp.setPotentialResetStatus(true);
+        //ServiceMatchingViewController.getInstance().resetPotentialMatchingTable();
+        //MainApp.setPotentialResetStatus(false);
         
         //get the id of the current luggage
         String id = LostLuggageDetailsInstance.getInstance().currentLuggage().getRegistrationNr();

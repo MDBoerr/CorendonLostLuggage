@@ -31,6 +31,21 @@ public class ServiceDataMatch {
     //create lost luggage list 
     private ObservableList<LostLuggage> lostList = FXCollections.observableArrayList();
     
+   //Create one instance of this class
+    public static ServiceDataMatch instance = null;
+    
+    //Get instance
+    public static ServiceDataMatch getInstance() {
+        //check if the instance already is setted
+        if (instance == null) {
+            synchronized(ServiceDataMatch.class) {
+                if (instance == null) {
+                    instance = new ServiceDataMatch();
+                }
+            }
+        }
+        return instance;
+    }
     
     /**  
      * Here are two different observable lists being compared  

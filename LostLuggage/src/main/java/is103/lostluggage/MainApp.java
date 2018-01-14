@@ -38,11 +38,10 @@ public class MainApp extends Application {
     public static boolean resetMatching = true; //true= refresh       -> get's alternated in program
                                                   //false= dont refresh
                                                   //for: manual matching
-    //Match object for getting the same data in service pages
-    private static ServiceDataMatch matchData = new ServiceDataMatch();
+    
     
     //Database instance
-    private static MyJDBC db;
+    private static MyJDBC DB;
     
     //Name of the database
     final private static String DB_NAME = "CorendonLostLuggage";
@@ -132,20 +131,24 @@ public class MainApp extends Application {
         
         MyJDBC db = new MyJDBC(MainApp.DB_NAME);
 
-        MainApp.db = db;
+        MainApp.DB = db;
     }
     
     //method to connect to the database
     public static MyJDBC getDatabase() {
-        return MainApp.db;
+        return MainApp.DB;
     }
     
     public static String getLanguage() {
         return language;
     }
     
-    public static ServiceDataMatch getMatchData() {
-        return matchData;
+    
+    //Match object for getting the same data in service pages
+    private static final ServiceDataMatch MATCH_DATA = new ServiceDataMatch().getInstance();
+    
+    public static ServiceDataMatch getMATCH_DATA() {
+        return MATCH_DATA;
     }
     private static boolean potentialMatchesReSet = false;
     
