@@ -7,6 +7,8 @@ package is103.lostluggage.Model;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -34,51 +36,30 @@ public class PdfDocument {
 
     //The stream used to write to the pages
     private PDPageContentStream contentStream;
+    
+    //HashMap containing the form information
+    private Map<String, String> pdfValues = new HashMap<>();
 
-    //List of strings that are passed through during initialization
-    private ArrayList<String> formText = new ArrayList();
-
-    //Type of the pdf..Found.. lost.. or retreived
-    private String formType = "";
-
-    final private String[] lostFormLayout = {"Registration Number: ", "Employee: ", "Date: ", "Time: ", "Airport: ",
-        "Name: ", "Address: ", "Place of residence: ", "Postalcode: ", "Country: ", "Phone: ", "E-mail: ",
-        "Labelnumber: ", "Flight: ", "Type: ", "Brand: ", "Color: ", "Second color: ", "Dimensions: ", "Weight: ", "Characteristics"
-    };
-
-    final private String[] foundFormLayout = {"Registration Number: ", "Employee: ", "Date: ", "Time: ", "Airport: ",
-        "Labelnumber: ", "Flight: ", "Type: ", "Brand: ", "Color: ", "Second color: ", "Dimensions: ", "Weight: ", "Characteristics: ", "Location: ",
-        "Name: ", "Address: ", "Place of residence: ", "Postalcode: ", "Country: ", "Phone: ", "E-mail: "
-    };
-
-    final private String[] retrievedLayout = {"Registration Number: ", "Date: ", "Passenger name: ", "Employee: ", "Deliverer: "};
-
-    //Name of the file
+    //Name of the PDF
     private String filename = "";
 
     //Object constructor
-    public PdfDocument(String type, ArrayList<String> formText, String filename) throws IOException {
+    public PdfDocument(String filename) throws IOException {
 
         //Set object properties
         this.filename = filename;
-        this.formText = formText;
-        this.formType = type;
+    }
 
-        if (type.equals("Found")) {
-            docInfo.setTitle("Found Luggage: " + formText.get(0));
-        } else if (type.equals("Lost")) {
-            docInfo.setTitle("Lost Luggage: " + formText.get(0));
-        } else {
-            docInfo.setTitle("Retrieved: " + formText.get(0));
-        }
+    public Map<String, String> getPdfValues() {
+        return pdfValues;
+    }
 
-        //Adds the text to the pdf
-        this.addAllTheText();
-
+    public void setPdfValues(Map<String, String> pdfValues) {
+        this.pdfValues = pdfValues;
     }
 
     //adds a new line to the document
-    public void addAllTheText() throws IOException {
+    public void savePDF() throws IOException {
 
         //Initialize a contentstream to write to the first page of the document
         this.contentStream = new PDPageContentStream(document, page1);
@@ -97,17 +78,12 @@ public class PdfDocument {
         this.contentStream.newLineAtOffset(25, 750);
 
         //Show the text on the page
-        for (int x = 0; x < formText.size(); x++) {
+        for (Map.Entry<String, String> entry: this.getPdfValues().entrySet()) {
 
-            if (this.formType.equals("Lost")) {
-                contentStream.showText(lostFormLayout[x]);
-            } else if (this.formType.equals("Found")) {
-                contentStream.showText(foundFormLayout[x]);
-            } else {
-                contentStream.showText(retrievedLayout[x]);
-            }
+            String key = entry.getKey();
+            String value = entry.getValue();
 
-            contentStream.showText(formText.get(x));
+            contentStream.showText(key + value);
 
             contentStream.newLine();
         }
@@ -121,12 +97,6 @@ public class PdfDocument {
         //Add the first page to the pdf document
         this.document.addPage(this.page1);
 
-        //USe the save method to save the pdf document to the users computer
-        this.savePdf(this.filename);
-    }
-
-    //Method to save the pdf to the location given
-    public void savePdf(String filename) {
         try {
             this.document.save(filename + ".pdf");
             this.document.close();
@@ -134,5 +104,4 @@ public class PdfDocument {
             Logger.getLogger(PdfDocument.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }

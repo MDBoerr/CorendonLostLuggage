@@ -49,10 +49,6 @@ public class Form {
         return formOptions;
     }
     
-    
-   
-    
-    
     //Method to convert resultset to arraylist
     private ArrayList resultSetToArrayList(ResultSet result, String column) throws SQLException{
 
