@@ -1,5 +1,6 @@
 package is103.lostluggage.Model.Service.Data;
 
+import is103.lostluggage.Controllers.Service.ServiceHomeViewController;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import is103.lostluggage.Model.Service.Model.LostLuggage;
@@ -31,6 +32,28 @@ public class ServiceDataMatch {
     //create lost luggage list 
     private ObservableList<LostLuggage> lostList = FXCollections.observableArrayList();
     
+    //Create one instance of this class
+    public static ServiceDataMatch instance = null;
+    
+    
+    /**
+     * This method is for getting the one and only instance of this class
+     * 
+     * @return instance     of the ServiceDataMatch class
+     */
+    public static ServiceDataMatch getInstance() {
+        //check if the instance already is setted
+        if (instance == null) {
+            //if not make one and synchronize it
+            synchronized(ServiceDataMatch.class) {
+                if (instance == null) {
+                    instance = new ServiceDataMatch();
+                }
+            }
+        }
+        //return the instance
+        return instance;
+    }
     
     /**  
      * Here are two different observable lists being compared  
@@ -85,7 +108,7 @@ public class ServiceDataMatch {
         this.potentialMatchesList = checkData(observableLostLuggage, foundList, 10);
          
         //set the reset status to false so there wont be a reset.
-        MainApp.setPotentialResetStatus(false);
+        ServiceHomeViewController.setPotentialResetStatus(false);
     }
     
     /**  
@@ -119,7 +142,7 @@ public class ServiceDataMatch {
         this.potentialMatchesList = checkData(lostList, observableFoundLuggage, 10);
          
         //set the reset status to false so there wont be a reset.
-        MainApp.setPotentialResetStatus(false);
+        ServiceHomeViewController.setPotentialResetStatus(false);
     }
 
     /**  

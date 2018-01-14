@@ -144,7 +144,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
         closeStackpane();
         
         //set screen status
-        MainApp.setOnMatchingView(false);
+        ServiceHomeViewController.setOnMatchingView(false);
         
         //passenger field check
         checkPassengerId();
@@ -320,7 +320,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
         FoundLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());
         
         //set the reset status to false, no reset needed
-        MainApp.resetMatching = false;
+        ServiceHomeViewController.resetMatching = false;
         
         //switch to the matching view
         MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
@@ -724,10 +724,10 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
     protected void viewPotentials(ActionEvent event) throws IOException, SQLException{
 
         //get the right data object
-        ServiceDataMatch data = MainApp.getMatchData();
+        ServiceDataMatch data = ServiceHomeViewController.getMATCH_DATA();
 
         //set the reset status to true for resetting a possible previous list
-        MainApp.setPotentialResetStatus(true);
+        ServiceHomeViewController.setPotentialResetStatus(true);
         
         //get the id of the current luggage
         String id = registrationNr.getText();
@@ -739,7 +739,9 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
         MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
         
         //set the right tab, 2 = potential matching tab
-        ServiceMatchingViewController.getInstance().setMatchingTab(2);
+        ServiceMatchingViewController.getInstance().setMatchingTab(
+                ServiceMatchingViewController.POTENTIAL_MATCHING_TAB_INDEX
+        );
 
     }
 
