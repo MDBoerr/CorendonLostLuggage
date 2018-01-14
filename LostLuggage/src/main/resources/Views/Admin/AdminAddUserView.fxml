@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 
 <BorderPane fx:id="mainBorderPane" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Admin.AdminAddUserViewController">
     <top>
@@ -67,18 +68,19 @@
                             <JFXTextField fx:id="employeeIdField" focusColor="#4dadf7" labelFloat="true" promptText="Employee ID" GridPane.rowIndex="2" />
                             <JFXComboBox fx:id="statusComboBox" focusColor="#4dadf7" labelFloat="true" prefHeight="27.0" prefWidth="149.0" promptText="Status" GridPane.rowIndex="4" />
                             <JFXComboBox fx:id="roleComboBox" focusColor="#4dadf7" labelFloat="true" prefHeight="27.0" prefWidth="149.0" promptText="Role" GridPane.rowIndex="5" />
-                            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="6">
-                                <children>
-                                    <JFXButton onAction="#backToHomeUserView" prefHeight="35.0" prefWidth="75.0" style="-fx-background-color: #adb5bd#adb5bd;" text="Cancel" textFill="WHITE" />
-                                    <Separator orientation="VERTICAL" prefHeight="63.0" prefWidth="35.0" visible="false" />
-                                    <JFXButton fx:id="addUserBtn" onAction="#addUser" prefHeight="35.0" prefWidth="75.0" ripplerFill="WHITE" style="-fx-background-color: #4dadf7#4dadf7 #4dadf7#4dadf7;" text="Done" textFill="WHITE" />
-                                    <Separator orientation="VERTICAL" prefHeight="63.0" prefWidth="21.0" visible="false" />
-                                </children>
-                            </HBox>
+                     <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
+                        <children>
+                           <JFXButton onAction="#backToHomeUserView" prefHeight="35.0" prefWidth="75.0" style="-fx-background-color: #adb5bd#adb5bd;" text="Cancel" textFill="WHITE" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="15.0" />
+                           <Separator orientation="VERTICAL" prefHeight="63.0" prefWidth="35.0" visible="false" />
+                           <JFXButton fx:id="addUserBtn" onAction="#addUser" prefHeight="35.0" prefWidth="75.0" ripplerFill="WHITE" style="-fx-background-color: #4dadf7#4dadf7 #4dadf7#4dadf7;" text="Done" textFill="WHITE" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="15.0" />
+                           <JFXButton fx:id="resetPasswordButton" layoutX="10.0" layoutY="10.0" onAction="#showPasswordResetMessage" prefHeight="35.0" prefWidth="141.0" style="-fx-background-color: #adb5bd#adb5bd;" text="Reset Password" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="15.0" />
+                        </children>
+                     </AnchorPane>
                         </children>
                     </GridPane>
                 </children>
             </GridPane>
+         <StackPane fx:id="stackPane" prefHeight="579.0" prefWidth="949.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
         </AnchorPane>
     </center>
 
