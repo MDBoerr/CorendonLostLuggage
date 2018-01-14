@@ -1,10 +1,13 @@
 package is103.lostluggage.Controllers.Manager;
 
+import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,13 +18,18 @@ import javafx.fxml.Initializable;
  * @author daron
  */
 public class ManagerHomeViewController implements Initializable {
-
+private String header = "Overview manager home";
     /**
      * Initializes the controller class.
      */ 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+       
+               try {
+            MainViewController.getInstance().getTitle(header);
+        } catch (IOException ex) {
+            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         //To Previous Scene
         MainViewController.previousView = "/fxml/SelectUserRoleView.fxml";
     }
