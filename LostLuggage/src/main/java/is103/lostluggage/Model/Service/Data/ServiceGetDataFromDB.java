@@ -133,6 +133,7 @@ public class ServiceGetDataFromDB {
     
     /**  
      * Getting the id of the objects field
+     * (used for converting   example:  red --> ralCode)
      * 
      * @throws SQLException       getting the resultSet from the object
      * @return gotten             the id of the wanted field     

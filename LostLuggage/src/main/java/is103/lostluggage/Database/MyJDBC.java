@@ -485,7 +485,7 @@ public class MyJDBC {
                     + " luggageTag = ? ,"
                     + " brand = ? ,"
                     + " size = ? ,"
-                    + " otherCharacteristics = ? ,"
+                    + " otherCharacteristics = ? "
                     + "WHERE `registrationNr` =  ?  ;")) {
             //initializing the preparedstatement
             preparedStatement.setString(1, tag);
@@ -502,14 +502,6 @@ public class MyJDBC {
         }     
     }
 
-    /**
-     * @author Thijs Zijdel - 500782165
-     *
-     */
-    public void executeUpdateLostLuggageQuery() {
-        //prepared statement that will be created for:
-        //updating all the fields of found luggage
-    }
     /**
      * @author Thijs Zijdel - 500782165
      *
