@@ -205,20 +205,13 @@ public class ServiceInputLuggageViewController implements Initializable {
             JFXTextField value = entry.getValue();
             
             //If its a lost form, the following fields cannot be empty
-            if(form.getType().equals("Lost")){
-                
-                System.out.println("formtype is LOST\n");
-                
+            if(form.getType().equals("Lost")){         
                 if(key.equals("name") || key.equals("address") || key.equals("place")
                    || key.equals("postalcode") || key.equals("country") || key.equals("phone") || key.equals("email")){
-
-                    System.out.println("checking this key: " + key);
                     if(value.getText() == null || value.getText().isEmpty()){
-                        System.out.println(" Its empty");
                         value.setStyle("-fx-background-color: #f47142");
                         appropriate =  false;
                     }else{
-                        System.out.println("ITs not empty");
                         value.setStyle(null);
                     }
                 }
@@ -270,6 +263,10 @@ public class ServiceInputLuggageViewController implements Initializable {
         brand = brandJFXTextField.getText();
         size = sizeJFXTextField.getText();
         characteristics = characterJFXTextField.getText();
+        
+        if(weight.isEmpty()){
+            weight = "0";
+        }
         
         if(flightJFXComboBox.getValue() != null && !flightJFXComboBox.getValue().toString().isEmpty()){
             flight = flightJFXComboBox.getValue().toString();
@@ -347,7 +344,7 @@ public class ServiceInputLuggageViewController implements Initializable {
             String addMissingLuggageQuery = "INSERT INTO lostluggage VALUES(NULL, '"+date+"','"+time+"', '"+labelnumber+"', (SELECT luggageTypeId FROM luggagetype WHERE english ='"+type+"'), "
                     + "'"+brand+"'"
                     + ", (SELECT ralCode FROM color WHERE english = '"+color+"'), (SELECT ralCode FROM COLOR WHERE english = '"+secondColor+"'), '"+size+"', '"+weight+"', '"+characteristics+"', "
-                    + "'"+flight+"', 'aa', '"+passengerId+"', NULL, (SELECT IATACode FROM destination WHERE airport =  '"+airport+"') )";
+                    + "'"+flight+"', 'AK1', '"+passengerId+"', NULL, (SELECT IATACode FROM destination WHERE airport =  '"+airport+"'), NULL )";
 
             //execute the missing luggage query
             int affectedRowsLuggageQuery = MainApp.getDatabase().executeUpdateQuery(addMissingLuggageQuery);
