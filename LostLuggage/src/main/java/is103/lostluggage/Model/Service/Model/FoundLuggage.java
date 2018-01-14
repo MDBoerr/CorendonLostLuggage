@@ -1,7 +1,9 @@
 package is103.lostluggage.Model.Service.Model;
 
 /**
- *
+ * This class is for structuring the way a FoundLuggage objects is.
+ * The fields are for a equal to the data on the database.
+ * 
  * @author Thijs Zijdel - 500782165
  */
 public class FoundLuggage {
@@ -87,24 +89,10 @@ public class FoundLuggage {
     }
 
     /**
-     * @param registrationNr the registrationNr to set
-     */
-    public void setRegistrationNr(String registrationNr) {
-        this.registrationNr = registrationNr;
-    }
-
-    /**
      * @return the dateFound
      */
     public String getDateFound() {
         return dateFound;
-    }
-
-    /**
-     * @param dateFound the dateFound to set
-     */
-    public void setDateFound(String dateFound) {
-        this.dateFound = dateFound;
     }
 
     /**
@@ -115,24 +103,10 @@ public class FoundLuggage {
     }
 
     /**
-     * @param timeFound the timeFound to set
-     */
-    public void setTimeFound(String timeFound) {
-        this.timeFound = timeFound;
-    }
-
-    /**
      * @return the luggageTag
      */
     public String getLuggageTag() {
         return luggageTag;
-    }
-
-    /**
-     * @param luggageTag the luggageTag to set
-     */
-    public void setLuggageTag(String luggageTag) {
-        this.luggageTag = luggageTag;
     }
 
     /**
@@ -143,24 +117,10 @@ public class FoundLuggage {
     }
 
     /**
-     * @param luggageType the luggageType to set
-     */
-    public void setLuggageType(int luggageType) {
-        this.luggageType = luggageType;
-    }
-
-    /**
      * @return the brand
      */
     public String getBrand() {
         return brand;
-    }
-
-    /**
-     * @param brand the brand to set
-     */
-    public void setBrand(String brand) {
-        this.brand = brand;
     }
 
     /**
@@ -171,38 +131,10 @@ public class FoundLuggage {
     }
 
     /**
-     * @param mainColor the mainColor to set
-     */
-    public void setMainColor(String mainColor) {
-        this.mainColor = mainColor;
-    }
-
-    /**
      * @return the secondColor
      */
     public String getSecondColor() {
         return secondColor;
-    }
-
-    /**
-     * @param secondColor the secondColor to set
-     */
-    public void setSecondColor(String secondColor) {
-        this.secondColor = secondColor;
-    }
-
-    /**
-     * @return the size
-     */
-    public String getSize() {
-        return size;
-    }
-
-    /**
-     * @param size the size to set
-     */
-    public void setSize(String size) {
-        this.size = size;
     }
 
     /**
@@ -213,10 +145,10 @@ public class FoundLuggage {
     }
 
     /**
-     * @param weight the weight to set
+     * @return the size
      */
-    public void setWeight(int weight) {
-        this.weight = weight;
+    public String getSize() {
+        return size;
     }
 
     /**
@@ -227,24 +159,10 @@ public class FoundLuggage {
     }
 
     /**
-     * @param otherCharaccteristics the otherCharaccteristics to set
-     */
-    public void setOtherCharaccteristics(String otherCharaccteristics) {
-        this.otherCharaccteristics = otherCharaccteristics;
-    }
-
-    /**
      * @return the passengerId
      */
     public int getPassengerId() {
         return passengerId;
-    }
-
-    /**
-     * @param passengerId the passengerId to set
-     */
-    public void setPassengerId(int passengerId) {
-        this.passengerId = passengerId;
     }
 
     /**
@@ -255,24 +173,10 @@ public class FoundLuggage {
     }
 
     /**
-     * @param arrivedWithFlight the arrivedWithFlight to set
-     */
-    public void setArrivedWithFlight(String arrivedWithFlight) {
-        this.arrivedWithFlight = arrivedWithFlight;
-    }
-
-    /**
      * @return the locationFound
      */
     public String getLocationFound() {
         return locationFound;
-    }
-
-    /**
-     * @param locationFound the locationFound to set
-     */
-    public void setLocationFound(String locationFound) {
-        this.locationFound = locationFound;
     }
 
     /**
@@ -283,13 +187,6 @@ public class FoundLuggage {
     }
 
     /**
-     * @param employeeId the employeeId to set
-     */
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    /**
      * @return the matchedId
      */
     public int getMatchedId() {
@@ -297,13 +194,15 @@ public class FoundLuggage {
     }
 
     /**
-     * @param matchedId the matchedId to set
+     * This method is used by the instance classes.
+     * For passing the right luggage id (registrationNr) trough classes
+     * 
+     * @param registrationNr the registrationNr to set
      */
-    public void setMatchedId(int matchedId) {
-        this.matchedId = matchedId;
+    public void setRegistrationNr(String registrationNr) {
+        this.registrationNr = registrationNr;
     }
-    
-    
+
 
 
 }

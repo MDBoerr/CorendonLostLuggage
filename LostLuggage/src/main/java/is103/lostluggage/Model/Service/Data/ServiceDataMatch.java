@@ -1,7 +1,6 @@
 package is103.lostluggage.Model.Service.Data;
 
 import is103.lostluggage.Controllers.Service.ServiceHomeViewController;
-import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import is103.lostluggage.Model.Service.Model.LostLuggage;
 import is103.lostluggage.Model.Service.Model.MatchLuggage;
@@ -182,24 +181,16 @@ public class ServiceDataMatch {
                         matchingPercentage += 10;
                     }
                     //check if they are equal and both not null
-                    if (lost.getBrand() == null ? found.getBrand() == null : 
-                            lost.getBrand().equals(found.getBrand()) &&
-                            lost.getBrand().trim().length() > 0 && found.getBrand().trim().length() > 0){
+                    if (checkField(lost.getBrand(), found.getBrand()) ){
                         matchingPercentage += 10;
                     }
-                    if (lost.getMainColor() == null ? found.getMainColor() == null :
-                            lost.getMainColor().equals(found.getMainColor()) &&
-                            lost.getMainColor().trim().length() > 0 && found.getMainColor().trim().length() > 0){
+                    if (checkField(lost.getMainColor(), found.getMainColor()) ) {
                         matchingPercentage += 10;
                     }
-                    if ((lost.getSecondColor() == null ? found.getSecondColor() == null : 
-                            lost.getSecondColor().equals(found.getSecondColor())) &&
-                            lost.getSecondColor().trim().length() > 0 && found.getSecondColor().trim().length() > 0){
+                    if (checkField(lost.getSecondColor(), found.getSecondColor()) ) {
                         matchingPercentage += 10;
                     }
-                    if (lost.getFlight() == null ? found.getFlight() == null : 
-                            lost.getFlight().equals(found.getFlight()) &&
-                            lost.getFlight().trim().length() > 0 && found.getFlight().trim().length() > 0){
+                    if (checkField(lost.getFlight(), found.getFlight()) ) {
                         matchingPercentage += 10;
                     }
                     if (lost.getWeight() != 0 && found.getWeight() != 0){
@@ -207,14 +198,10 @@ public class ServiceDataMatch {
                             matchingPercentage += 10;
                         }
                     }
-                    if (lost.getSize() == null ? found.getSize() == null : 
-                            lost.getSize().equals(found.getSize()) &&
-                            lost.getSize().trim().length() > 0 && found.getSize().trim().length() > 0){
+                    if (checkField(lost.getSize(), found.getSize()) ) {
                             matchingPercentage += 10;
                     }
-                    if ((lost.getLuggageTag() == null ? found.getLuggageTag() == null : 
-                            lost.getLuggageTag().equals(found.getLuggageTag())) &&
-                            lost.getLuggageTag().length()>5 && found.getLuggageTag().length()>5){
+                    if (checkField(lost.getLuggageTag(), found.getLuggageTag()) ) {
                         matchingPercentage += 50;
                         if (matchingPercentage >= 100){
                             matchingPercentage=100;
@@ -242,4 +229,20 @@ public class ServiceDataMatch {
             });  
         return potentialMatchesList;
     }
+    
+    /**
+     * This method for checking the fields on equal value and not null & empty
+     * 
+     * @param lost      Field value from a lost luggage
+     * @param found     Field value from a found luggage
+     * @return boolean  if they are equal to each other and not null
+     */
+    private boolean checkField(String lost, String found) {
+        //note: also used the trim method after checking if they are not null f
+        //      because they can both be just spaces and 'equal'
+        return lost == null ? found == null : 
+                lost.equals(found) &&
+                lost.trim().length() > 0 && found.trim().length() > 0;
+    }
+    
 }

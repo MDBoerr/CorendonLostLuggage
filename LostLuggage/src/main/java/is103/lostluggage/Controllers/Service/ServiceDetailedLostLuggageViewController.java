@@ -65,9 +65,11 @@ public class ServiceDetailedLostLuggageViewController implements Initializable, 
 
     
     /**
-     * Initializes the detailed lost luggage view controller class.
-     * @param url
-     * @param rb
+     * Initializes the controller class that adds all the needed functionality,
+     * to the: ServiceDetailedLostLuggageView.FXML view.
+     * 
+     * @param url location  used to resolve relative paths for the root object
+     * @param rb resources   used to localize the root object
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {

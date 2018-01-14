@@ -9,16 +9,17 @@ import javafx.beans.property.SimpleStringProperty;
 public class RetrievedLuggage {
     //inserts for ManagerTeruggebrachttebagage
 
-    private int FormID;
+    private int FormID, Koffer;
     private String Date, Customer, Employee, Deliverer;
 
-    public RetrievedLuggage(int FormID, String Date, String Customer, String Employee, String Deliverer) {
+    public RetrievedLuggage(int FormID,int Koffer, String Date, String Customer, String Employee, String Deliverer) {
 
         this.FormID = FormID;
         this.Date = Date;
         this.Customer = Customer;
         this.Employee = Employee;
         this.Deliverer = Deliverer;
+        this.Koffer = Koffer;
 
     }
 
@@ -28,6 +29,13 @@ public class RetrievedLuggage {
 
     public void setFormID(int FormID) {
         this.FormID = FormID;
+    }
+    public int getKoffer() {
+        return Koffer;
+    }
+
+    public void setKoffer(int Koffer) {
+        this.Koffer = Koffer;
     }
 
     public String getDate() {

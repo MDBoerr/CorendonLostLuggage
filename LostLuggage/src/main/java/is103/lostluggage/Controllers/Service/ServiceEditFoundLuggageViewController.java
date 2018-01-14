@@ -16,10 +16,10 @@ import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetailsInstance;
 import is103.lostluggage.Model.Service.Instance.Matching.FoundLuggageManualMatchingInstance;
 import is103.lostluggage.Model.Service.Interface.FoundLuggageFields;
-import is103.lostluggage.Model.Service.Model.ServiceValidate;
-import static is103.lostluggage.Model.Service.Model.ServiceValidate.isValidDate;
-import static is103.lostluggage.Model.Service.Model.ServiceValidate.isValidInt;
-import static is103.lostluggage.Model.Service.Model.ServiceValidate.isValidTime;
+import is103.lostluggage.Model.Validate;
+import static is103.lostluggage.Model.Validate.isValidDate;
+import static is103.lostluggage.Model.Validate.isValidInt;
+import static is103.lostluggage.Model.Validate.isValidTime;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -111,12 +111,14 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
     int ralCode1, ralCode2, typeCode, locationCode;
     
     //validation object
-    ServiceValidate validate = new ServiceValidate();
+    Validate validate = new Validate();
     
     /**
-     * Initializes the edit fount luggage controller class.
-     * @param url
-     * @param rb
+     * Initializes the controller class that adds all the needed functionality,
+     * to the: ServiceEditFoundLuggageView.FXML view.
+     * 
+     * @param url location  used to resolve relative paths for the root object
+     * @param rb resources   used to localize the root object
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {

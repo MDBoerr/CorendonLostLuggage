@@ -16,9 +16,9 @@ import is103.lostluggage.Model.Service.Instance.Matching.LostLuggageManualMatchi
 import is103.lostluggage.Model.Service.Model.LostLuggage;
 import is103.lostluggage.Model.Service.Instance.Details.LostLuggageDetailsInstance;
 import is103.lostluggage.Model.Service.Interface.LostLuggageFields;
-import static is103.lostluggage.Model.Service.Model.ServiceValidate.isValidDate;
-import static is103.lostluggage.Model.Service.Model.ServiceValidate.isValidInt;
-import static is103.lostluggage.Model.Service.Model.ServiceValidate.isValidTime;
+import static is103.lostluggage.Model.Validate.isValidDate;
+import static is103.lostluggage.Model.Validate.isValidInt;
+import static is103.lostluggage.Model.Validate.isValidTime;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -115,9 +115,11 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
     
     
     /**
-     * Initializes the edit lost luggage controller class.
-     * @param url
-     * @param rb
+     * Initializes the controller class that adds all the needed functionality,
+     * to the: ServiceEditLostLuggageView.FXML view.
+     * 
+     * @param url location  used to resolve relative paths for the root object
+     * @param rb resources   used to localize the root object
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {

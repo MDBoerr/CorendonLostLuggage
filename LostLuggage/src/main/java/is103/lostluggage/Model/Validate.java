@@ -1,4 +1,4 @@
-package is103.lostluggage.Model.Service.Model;
+package is103.lostluggage.Model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -6,10 +6,11 @@ import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
 /**
- *
- * @author thijszijdel
+ * This class is for different types of validation for multiple types of data
+ * 
+ * @author Thijs Zijdel - 500782165
  */
-public class ServiceValidate {
+public class Validate {
     /** 
      * In this method will Integers be checked for preventing wrong input's
      * 
