@@ -8,7 +8,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -19,62 +21,97 @@
         <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     </columnConstraints>
     <rowConstraints>
+        <RowConstraints />
         <RowConstraints maxHeight="148.65740966796875" minHeight="10.0" prefHeight="81.10185241699219" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="265.3981475830078" minHeight="10.0" prefHeight="200.0" valignment="CENTER" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="316.0810241699219" minHeight="10.0" prefHeight="200.0" valignment="CENTER" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-      <GridPane prefHeight="216.0" prefWidth="385.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <FlowPane prefHeight="69.0" prefWidth="949.0" style="-fx-background-color: #4d4d4d;" GridPane.columnSpan="2">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="354.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="299.0" text="Delivered bagage" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="79.0" top="40.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="392.0" />
+            <HBox prefHeight="100.0" prefWidth="392.0" />
+            <HBox prefHeight="100.0" prefWidth="314.0">
+               <children>
+                  <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" prefHeight="30.0" prefWidth="299.0" text="Treated bagage" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets top="40.0" />
+               </padding>
+            </HBox>
+         </children>
+      </FlowPane>
+      <GridPane prefHeight="358.0" prefWidth="482.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="-Infinity" />
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="14.0" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" />
+            <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="160.0" />
          </columnConstraints>
          <rowConstraints>
+            <RowConstraints minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <JFXButton prefHeight="26.0" prefWidth="249.0" ripplerFill="WHITE" style="-fx-background-color: #4dadf7#4dadf7 #4dadf7#4dadf7;" text="Export to pdf" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="9">
+            <JFXButton fx:id="exportform" prefHeight="26.0" prefWidth="249.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="Export to PDF" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="10">
                <GridPane.margin>
-                  <Insets />
+                  <Insets right="10.0" />
                </GridPane.margin>
             </JFXButton>
-            <JFXTextField fx:id="formtextid" focusColor="#4dadf7" promptText="Last name" text="Selecteer een rij" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <JFXTextField fx:id="formtextid" focusColor="#4dadf7" promptText="Last name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
             </JFXTextField>
-            <JFXTextField fx:id="customerid" focusColor="#4dadf7" prefHeight="25.0" prefWidth="199.0" promptText="Last name" text="Selecteer een rij" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <JFXTextField fx:id="customerid" focusColor="#4dadf7" prefHeight="25.0" prefWidth="199.0" promptText="Last name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
             </JFXTextField>
-            <JFXTextField fx:id="deivererid" focusColor="#4dadf7" promptText="Last name" text="Selecteer een rij" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <JFXTextField fx:id="deivererid" focusColor="#4dadf7" promptText="Last name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
             </JFXTextField>
-            <JFXTextField fx:id="emailid" focusColor="#4dadf7" promptText="Last name" text="Selecteer een rij" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <JFXTextField fx:id="emailid" focusColor="#4dadf7" promptText="Email is niet gevonden" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
             </JFXTextField>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Formulier-ID:" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="1">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Form number" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="1">
                <font>
                   <Font size="17.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Datum:" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="5">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="5">
                <font>
                   <Font size="17.0" />
                </font>
@@ -82,7 +119,7 @@
                   <Insets top="10.0" />
                </GridPane.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Klant:" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="2">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Customer" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="2">
                <font>
                   <Font size="17.0" />
                </font>
@@ -98,7 +135,7 @@
                   <Insets top="10.0" />
                </GridPane.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bezorger:" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="3">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Deliverer:" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="3">
                <font>
                   <Font size="17.0" />
                </font>
@@ -106,7 +143,7 @@
                   <Insets top="10.0" />
                </GridPane.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Adres" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="6">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Address:" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="6">
                <font>
                   <Font size="17.0" />
                </font>
@@ -114,17 +151,17 @@
                   <Insets top="10.0" />
                </GridPane.margin>
             </Text>
-            <JFXTextField fx:id="adresid" focusColor="#4dadf7" promptText="Last name" text="Selecteer een rij" GridPane.columnIndex="2" GridPane.rowIndex="6">
+            <JFXTextField fx:id="adresid" focusColor="#4dadf7" promptText="Last name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="6">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
             </JFXTextField>
-            <JFXTextField fx:id="dateid" focusColor="#4dadf7" layoutX="135.0" layoutY="120.0" promptText="Last name" text="Selecteer een rij" GridPane.columnIndex="2" GridPane.rowIndex="5">
+            <JFXTextField fx:id="dateid" focusColor="#4dadf7" layoutX="135.0" layoutY="120.0" promptText="Last name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
             </JFXTextField>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Behandeld door:" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="7">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Treated by:" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="7">
                <font>
                   <Font size="17.0" />
                </font>
@@ -132,30 +169,43 @@
                   <Insets top="10.0" />
                </GridPane.margin>
             </Text>
-            <JFXTextField fx:id="employeeservice" focusColor="#4dadf7" promptText="Last name" text="Selecteer een rij" GridPane.columnIndex="2" GridPane.rowIndex="7">
+            <JFXTextField fx:id="employeeservice" focusColor="#4dadf7" promptText="Last name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="7">
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </JFXTextField>
+            <JFXButton fx:id="updateform"  prefHeight="26.0" prefWidth="249.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="Update information" textFill="WHITE" GridPane.rowIndex="10">
+               <GridPane.margin>
+                  <Insets left="40.0" />
+               </GridPane.margin>
+            </JFXButton>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lost luggage number:" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="8">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
+            <JFXTextField fx:id="lostluggageid" focusColor="#4dadf7" promptText="Last name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="8">
                <padding>
                   <Insets top="10.0" />
                </padding>
             </JFXTextField>
          </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <GridPane.margin>
+            <Insets top="40.0" />
+         </GridPane.margin>
       </GridPane>
-        <TableView fx:id="retrievedTable" prefHeight="414.0" prefWidth="721.0" GridPane.rowSpan="4">
+        <TableView fx:id="retrievedTable" prefHeight="414.0" prefWidth="721.0" GridPane.rowIndex="1" GridPane.rowSpan="4">
             <columns>
-                <TableColumn fx:id="FormID" prefWidth="115.17697143554688" text="registratienummer" />
-                <TableColumn fx:id="Date" prefWidth="70.47128295898438" text="Datum" />
-                <TableColumn fx:id="Customer" prefWidth="80.17697143554688" text="Klant" />
-                <TableColumn fx:id="Employee" prefWidth="126.822998046875" text="Medewerker" />
-                <TableColumn minWidth="0.0" prefWidth="0.0" text="C2" />
-                <TableColumn fx:id="Deliverer" prefWidth="95.4512939453125" text="Bezorger" />
+                <TableColumn fx:id="FormID" prefWidth="115.17697143554688" text="RegistrationID" />
+            <TableColumn fx:id="koffernr" prefWidth="140.80004119873047" text="LuggageID" />
+                <TableColumn fx:id="Date" prefWidth="140.80004119873047" text="Date" />
+                <TableColumn fx:id="Customer" prefWidth="110.39996337890625" text="Customer" />
+                <TableColumn fx:id="Employee" prefWidth="106.4000244140625" text="Employee" />
+                <TableColumn fx:id="Deliverer" prefWidth="127.19998168945312" text="Bezorger" />
             </columns>
         </TableView>
-      <Label text="Delivered luggage details" GridPane.columnIndex="1">
-         <GridPane.margin>
-            <Insets left="150.0" top="37.0" />
-         </GridPane.margin>
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
     </children>
 </GridPane>

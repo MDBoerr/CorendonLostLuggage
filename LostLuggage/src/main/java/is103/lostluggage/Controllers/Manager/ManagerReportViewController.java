@@ -30,50 +30,24 @@ import javafx.stage.Stage;
  * @author daron
  */
 public class ManagerReportViewController implements Initializable {
-//    public String myArray[] = {"jan","feb","mar","apr"};
 
-//    public ArrayList<String> name = new ArrayList<String>(); // Member
-//
-//    public ArrayList<String> getNameformarray() {
-//        name.add("jan");
-//        name.add("feb");
-//        
-//        
-//        
-//        name.add("mar");
-//        return name;
-//    }
-    /**
-     * Initializes the controller class.
-     */
     public String mon;
     public MyJDBC db = MainApp.getDatabase();
 
+    private String header = "Manager reports";
+    
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //To Previous Scene
 
         MainViewController.previousView = "/Views/ManagerHomeView.fxml";
-
-        //functie jaartal
-//
-//          lineChart.getData().clear();
-//          XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
-//          series.getData().add(new XYChart.Data<String, Number>("jan", 20));
-//          series.getData().add(new XYChart.Data<String, Number>("feb", 60));
-//          series.getData().add(new XYChart.Data<String, Number>("mar", 14));
-//          series.getData().add(new XYChart.Data<String, Number>("apr", 26));
-//          series.getData().add(new XYChart.Data<String, Number>("mei", 7));
-//          lineChart.getData().add(series);
-//
-//          
-//          XYChart.Series<String, Number> series2 = new XYChart.Series<String, Number>();
-//          series2.getData().add(new XYChart.Data<String, Number>("jan", 50));
-//          series2.getData().add(new XYChart.Data<String, Number>("feb", 66));
-//          series2.getData().add(new XYChart.Data<String, Number>("mar", 77));
-//          series2.getData().add(new XYChart.Data<String, Number>("apr", 88));
-//          series2.getData().add(new XYChart.Data<String, Number>("mei", 3));
-//          lineChart.getData().add(series2);
+try {
+            MainViewController.getInstance().getTitle(header);
+        } catch (IOException ex) {
+            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -115,15 +89,16 @@ public class ManagerReportViewController implements Initializable {
             }
 
             while (retrievedSet.next()) {
+                String delivercheck = resultSet.getString("matched.delivery");
+                if (!"".equals(delivercheck)) {
+                    int month = retrievedSet.getInt("months");
+                    int countmatched = retrievedSet.getInt("quantityretrieved");
 
-                int month = retrievedSet.getInt("months");
-                int countmatched = retrievedSet.getInt("quantityretrieved");
+                    cases(month);
 
-                cases(month);
-
-                seriesmatched.getData().add(new XYChart.Data<>(mon, countmatched));
+                    seriesmatched.getData().add(new XYChart.Data<>(mon, countmatched));
+                }
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -172,15 +147,16 @@ public class ManagerReportViewController implements Initializable {
             }
 
             while (retrievedSet.next()) {
+                String delivercheck = resultSet.getString("matched.delivery");
+                if (!"".equals(delivercheck)) {
+                    int month = retrievedSet.getInt("months");
+                    int countmatched = retrievedSet.getInt("quantityretrieved");
 
-                int month = retrievedSet.getInt("months");
-                int countmatched = retrievedSet.getInt("quantityretrieved");
+                    cases(month);
 
-                cases(month);
-
-                seriesmatched.getData().add(new XYChart.Data<>(mon, countmatched));
+                    seriesmatched.getData().add(new XYChart.Data<>(mon, countmatched));
+                }
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -193,7 +169,6 @@ public class ManagerReportViewController implements Initializable {
 
     }
 
-    
     @FXML
     public void sevteen(ActionEvent event) throws IOException {
         XYChart.Series<String, Number> seriesfound = new XYChart.Series<>();
@@ -230,13 +205,15 @@ public class ManagerReportViewController implements Initializable {
             }
 
             while (retrievedSet.next()) {
+                String delivercheck = resultSet.getString("matched.delivery");
+                if (!"".equals(delivercheck)) {
+                    int month = retrievedSet.getInt("months");
+                    int countmatched = retrievedSet.getInt("quantityretrieved");
 
-                int month = retrievedSet.getInt("months");
-                int countmatched = retrievedSet.getInt("quantityretrieved");
+                    cases(month);
 
-                cases(month);
-
-                seriesmatched.getData().add(new XYChart.Data<>(mon, countmatched));
+                    seriesmatched.getData().add(new XYChart.Data<>(mon, countmatched));
+                }
             }
 
         } catch (SQLException ex) {
@@ -251,7 +228,65 @@ public class ManagerReportViewController implements Initializable {
 
     }
 
-    
+    @FXML
+    public void eighteen(ActionEvent event) throws IOException {
+        XYChart.Series<String, Number> seriesfound = new XYChart.Series<>();
+        XYChart.Series<String, Number> serieslost = new XYChart.Series<>();
+        XYChart.Series<String, Number> seriesmatched = new XYChart.Series<>();
+        lineChart.getData().clear();
+        try {
+
+            ResultSet resultSet;
+            ResultSet lostSet;
+            ResultSet retrievedSet;
+
+            resultSet = db.executeResultSetQuery("SELECT count(dateFound) as quantityfound, extract(month FROM dateFound) as months from foundluggage   WHERE extract(year from dateFound) = '2018' GROUP BY extract(month from dateFound)");
+            lostSet = db.executeResultSetQuery("SELECT count(dateLost) as quantitylost, extract(month FROM dateLost) as months from lostluggage WHERE extract(year from dateLost) = '2018'  GROUP BY extract(month from dateLost)");
+            retrievedSet = db.executeResultSetQuery("SELECT count(delivery) as quantityretrieved, extract(month FROM dateMatched) as months from matched   WHERE extract(year from dateMatched) = '2018' GROUP BY extract(month from dateMatched)");
+
+            while (resultSet.next()) {
+                int countfound = resultSet.getInt("quantityfound");
+                int month = resultSet.getInt("months");
+
+                cases(month);
+                seriesfound.getData().add(new XYChart.Data<>(mon, countfound));
+
+            }
+
+            while (lostSet.next()) {
+
+                int month = lostSet.getInt("months");
+                int countlost = lostSet.getInt("quantitylost");
+
+                cases(month);
+
+                serieslost.getData().add(new XYChart.Data<>(mon, countlost));
+            }
+
+            while (retrievedSet.next()) {
+                String delivercheck = resultSet.getString("matched.delivery");
+                if (!"".equals(delivercheck)) {
+                    int month = retrievedSet.getInt("months");
+                    int countmatched = retrievedSet.getInt("quantityretrieved");
+
+                    cases(month);
+
+                    seriesmatched.getData().add(new XYChart.Data<>(mon, countmatched));
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        seriesfound.setName("Found Luggage 2018");
+        serieslost.setName("Lost Luggage 2018");
+        seriesmatched.setName("Retrieved Luggage 2018");
+        lineChart.getData().add(seriesfound);
+        lineChart.getData().add(serieslost);
+        lineChart.getData().add(seriesmatched);
+
+    }
+
     public String cases(int month) {
 
         switch (month) {
