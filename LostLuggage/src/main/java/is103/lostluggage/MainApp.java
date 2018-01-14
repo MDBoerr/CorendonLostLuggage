@@ -33,11 +33,7 @@ public class MainApp extends Application {
 
     private static BorderPane root;
     
-    public static boolean onMatchingView = false;
     public static int serviceChangeValue = 99;
-    public static boolean resetMatching = true; //true= refresh       -> get's alternated in program
-                                                  //false= dont refresh
-                                                  //for: manual matching
     
     
     //Database instance
@@ -119,12 +115,6 @@ public class MainApp extends Application {
         }
     }
 
-    public static boolean isOnMatchingView(){
-        return onMatchingView;
-    }
-    public static void setOnMatchingView(boolean value){
-        MainApp.onMatchingView = value;
-    }
     
     //set the database instance
     public static void setDatabase(){
@@ -144,20 +134,6 @@ public class MainApp extends Application {
     }
     
     
-    //Match object for getting the same data in service pages
-    private static final ServiceDataMatch MATCH_DATA = new ServiceDataMatch().getInstance();
-    
-    public static ServiceDataMatch getMATCH_DATA() {
-        return MATCH_DATA;
-    }
-    private static boolean potentialMatchesReSet = false;
-    
-    public static void setPotentialResetStatus(boolean b) {
-        MainApp.potentialMatchesReSet = b;
-    }
-    public static boolean getPotentialResetStatus(){
-        return MainApp.potentialMatchesReSet;
-    }
     
 
     public static void checkLoggedInStatus(User user) throws IOException {

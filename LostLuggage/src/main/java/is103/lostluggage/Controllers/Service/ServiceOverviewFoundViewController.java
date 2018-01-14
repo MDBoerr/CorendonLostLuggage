@@ -123,7 +123,7 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
         }
 
         //set screen status
-        MainApp.setOnMatchingView(false);
+        ServiceHomeViewController.setOnMatchingView(false);
     }
     
     /**  

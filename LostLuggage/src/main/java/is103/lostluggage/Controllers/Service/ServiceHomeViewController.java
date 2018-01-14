@@ -2,6 +2,7 @@ package is103.lostluggage.Controllers.Service;
 
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.MainApp;
+import is103.lostluggage.Model.Service.Data.ServiceDataMatch;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,6 +20,34 @@ import javafx.fxml.Initializable;
  */
 public class ServiceHomeViewController implements Initializable {
 
+    public static boolean onMatchingView = false;
+    private static boolean potentialMatchesReSet = false;
+    //Match object for getting the same data in service pages
+    private static final ServiceDataMatch MATCH_DATA = ServiceDataMatch.getInstance();
+    public static boolean resetMatching = true; //true= refresh       -> get's alternated in program
+    //false= dont refresh
+    //for: manual matching
+
+    public static ServiceDataMatch getMATCH_DATA() {
+        return ServiceHomeViewController.MATCH_DATA;
+    }
+
+    public static void setPotentialResetStatus(boolean b) {
+        ServiceHomeViewController.potentialMatchesReSet = b;
+    }
+
+    public static void setOnMatchingView(boolean value) {
+        ServiceHomeViewController.onMatchingView = value;
+    }
+
+    public static boolean isOnMatchingView() {
+        return ServiceHomeViewController.onMatchingView;
+    }
+
+    public static boolean getPotentialResetStatus() {
+        return ServiceHomeViewController.potentialMatchesReSet;
+    }
+
     //views title
     private final String title = "Service Home";
    
@@ -34,7 +63,7 @@ public class ServiceHomeViewController implements Initializable {
         MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
         
         //reset refreshing to auto
-        MainApp.resetMatching = true;
+        resetMatching = true;
         
         //set the view's title
         try {
@@ -44,7 +73,7 @@ public class ServiceHomeViewController implements Initializable {
         }  
         
         //set screen status
-        MainApp.setOnMatchingView(false);
+        setOnMatchingView(false);
     }
     
     

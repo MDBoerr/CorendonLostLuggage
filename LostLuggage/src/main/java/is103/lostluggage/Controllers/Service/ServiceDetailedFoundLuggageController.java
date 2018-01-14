@@ -183,7 +183,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable, Fou
     @FXML
     protected void viewPotentials(ActionEvent event) throws IOException, SQLException{
         //get the right data object
-        ServiceDataMatch data = MainApp.getMATCH_DATA();
+        ServiceDataMatch data = ServiceHomeViewController.getMATCH_DATA();
 
         
         //clear the potential list if there are items in
@@ -202,7 +202,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable, Fou
         data.potentialMatchesForFoundLuggage(id);
         
         //if the user is not on the matching view, switch
-        if (MainApp.isOnMatchingView()==false){
+        if (ServiceHomeViewController.isOnMatchingView()==false){
             MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
         }
                 
@@ -225,7 +225,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable, Fou
     @FXML
     protected void manualMatching(ActionEvent event) throws IOException{
         //if the user is not on the matching view, switch to that view
-        if (MainApp.isOnMatchingView()==false){
+        if (ServiceHomeViewController.isOnMatchingView()==false){
             MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
         }
         

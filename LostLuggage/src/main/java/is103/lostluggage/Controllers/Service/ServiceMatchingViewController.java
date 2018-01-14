@@ -50,7 +50,7 @@ import javafx.util.Duration;
  */
 public class ServiceMatchingViewController implements Initializable, FoundLuggageTable, LostLuggageTable {
     //main match data object
-    public ServiceDataMatch data = MainApp.getMATCH_DATA();
+    public ServiceDataMatch data = ServiceHomeViewController.getMATCH_DATA();
      
     //view title
     private final String TITLE = "Matching";
@@ -277,9 +277,9 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
         resetManualMatching();
         
         //setOnMatchingView status == current view
-        MainApp.setOnMatchingView(true);
+        ServiceHomeViewController.setOnMatchingView(true);
         //set reset status to true for clearing the list
-        MainApp.setPotentialResetStatus(true);
+        ServiceHomeViewController.setPotentialResetStatus(true);
   
     } 
     
@@ -295,7 +295,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
      * @void - No direct output 
      */
     public void resetManualMatching(){
-        if (MainApp.resetMatching == true){
+        if (ServiceHomeViewController.resetMatching == true){
         FoundLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(null);
         LostLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(null);
         }
@@ -784,7 +784,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
         }
             
         //if the potential reset status is true, reset the table
-        if (MainApp.getPotentialResetStatus()){
+        if (ServiceHomeViewController.getPotentialResetStatus()){
             //function that cleares the potential matching table 
             System.out.println("called .    iffff ");
             resetPotentialMatchingTable();
@@ -796,9 +796,9 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
      * @void - No direct output next to clearing the table          
      */
     public void resetPotentialMatchingTable() {
-        System.out.println("reset     status:"+MainApp.getPotentialResetStatus());
+        System.out.println("reset     status:"+ServiceHomeViewController.getPotentialResetStatus());
             
-        MainApp.setPotentialResetStatus(false);
+        ServiceHomeViewController.setPotentialResetStatus(false);
         
     }
     

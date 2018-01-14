@@ -145,7 +145,7 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
         closeStackpane();
         
         //set screen status
-        MainApp.setOnMatchingView(false);
+        ServiceHomeViewController.setOnMatchingView(false);
         
         //passenger field check
         checkPassengerId();
@@ -317,7 +317,7 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
         LostLuggageManualMatchingInstance.getInstance().currentLuggage().setRegistrationNr(passObject.getRegistrationNr());
         
         //set the reset status to false, no reset needed
-        MainApp.resetMatching = false;
+        ServiceHomeViewController.resetMatching = false;
         
         //switch to the matching view
         MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
@@ -740,14 +740,14 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
     @FXML
     public void viewPotentials(ActionEvent event) throws SQLException, IOException{
         //get the right data object
-        ServiceDataMatch data = MainApp.getMATCH_DATA();
+        ServiceDataMatch data = ServiceHomeViewController.getMATCH_DATA();
 
         //set the reset status to true for resetting a possible previous list
-        MainApp.setPotentialResetStatus(true);
+        ServiceHomeViewController.setPotentialResetStatus(true);
         
         //get the id of the current luggage
 
-        MainApp.setPotentialResetStatus(true);
+        ServiceHomeViewController.setPotentialResetStatus(true);
         
         //get the id of the current luggage
         String id = registrationNr.getText();
