@@ -1,24 +1,19 @@
 package is103.lostluggage;
 
-import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
-import is103.lostluggage.Model.Service.Data.ServiceDataMatch;
 import is103.lostluggage.Model.User;
 import java.io.File;
 import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 
 

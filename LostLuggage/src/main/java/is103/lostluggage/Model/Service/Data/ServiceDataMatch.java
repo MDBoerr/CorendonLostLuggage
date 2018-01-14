@@ -32,19 +32,26 @@ public class ServiceDataMatch {
     //create lost luggage list 
     private ObservableList<LostLuggage> lostList = FXCollections.observableArrayList();
     
-   //Create one instance of this class
+    //Create one instance of this class
     public static ServiceDataMatch instance = null;
     
-    //Get instance
+    
+    /**
+     * This method is for getting the one and only instance of this class
+     * 
+     * @return instance     of the ServiceDataMatch class
+     */
     public static ServiceDataMatch getInstance() {
         //check if the instance already is setted
         if (instance == null) {
+            //if not make one and synchronize it
             synchronized(ServiceDataMatch.class) {
                 if (instance == null) {
                     instance = new ServiceDataMatch();
                 }
             }
         }
+        //return the instance
         return instance;
     }
     
