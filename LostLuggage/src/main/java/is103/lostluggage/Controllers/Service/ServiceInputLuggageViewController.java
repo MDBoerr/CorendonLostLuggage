@@ -66,8 +66,7 @@ public class ServiceInputLuggageViewController implements Initializable {
     
     //HashMap that contains all the form values
     private Map<String, String> formValues = new HashMap<>();
-    
-  
+   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -105,7 +104,7 @@ public class ServiceInputLuggageViewController implements Initializable {
             Logger.getLogger(ServiceInputLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
-    
+
     //Method to change the title of the current view
     public void changeTitle(String title){
         try {
@@ -307,7 +306,7 @@ public class ServiceInputLuggageViewController implements Initializable {
                 String addFoundLuggageQuery = "INSERT INTO foundluggage VALUES(NULL, '"+date+"','"+time+"', '"+labelnumber+"', (SELECT luggageTypeId FROM luggagetype WHERE english ='"+type+"'), "
                         + "'"+brand+"'"
                         + ", (SELECT ralCode FROM color WHERE english = '"+color+"'), (SELECT ralCode FROM COLOR WHERE english = '"+secondColor+"'), '"+size+"', '"+weight+"', '"+characteristics+"', "
-                        + "'"+flight+"', (SELECT locationId FROM location WHERE english ='"+location+"'), 'AK1', '"+passengerId+"', NULL, (SELECT IATACode FROM destination WHERE airport =  '"+airport+"'), NULL, NULL )";
+                        + "'"+flight+"', (SELECT locationId FROM location WHERE english ='"+location+"'), '"+MainApp.currentUser.getId()+"', '"+passengerId+"', NULL, (SELECT IATACode FROM destination WHERE airport =  '"+airport+"'), NULL, NULL )";
 
                 //execute the missing luggage query
                 int affectedRowsLuggageQuery = MainApp.getDatabase().executeUpdateQuery(addFoundLuggageQuery);
@@ -318,7 +317,7 @@ public class ServiceInputLuggageViewController implements Initializable {
             String addFoundLuggageQuery = "INSERT INTO foundluggage VALUES(NULL, '"+date+"','"+time+"', '"+labelnumber+"', (SELECT luggageTypeId FROM luggagetype WHERE english ='"+type+"'), "
                     + "'"+brand+"'"
                     + ", (SELECT ralCode FROM color WHERE english = '"+color+"'), (SELECT ralCode FROM COLOR WHERE english = '"+secondColor+"'), '"+size+"', '"+weight+"', '"+characteristics+"', "
-                    + "'"+flight+"', (SELECT locationId FROM location WHERE english ='"+location+"'), 'AK1', NULL, NULL, (SELECT IATACode FROM destination WHERE airport =  '"+airport+"'), NULL, NULL  )";
+                    + "'"+flight+"', (SELECT locationId FROM location WHERE english ='"+location+"'), '"+MainApp.currentUser.getId()+"', NULL, NULL, (SELECT IATACode FROM destination WHERE airport =  '"+airport+"'), NULL, NULL  )";
             
             //execute the missing luggage query
             int affectedRowsLuggageQuery = MainApp.getDatabase().executeUpdateQuery(addFoundLuggageQuery);
@@ -344,7 +343,7 @@ public class ServiceInputLuggageViewController implements Initializable {
             String addMissingLuggageQuery = "INSERT INTO lostluggage VALUES(NULL, '"+date+"','"+time+"', '"+labelnumber+"', (SELECT luggageTypeId FROM luggagetype WHERE english ='"+type+"'), "
                     + "'"+brand+"'"
                     + ", (SELECT ralCode FROM color WHERE english = '"+color+"'), (SELECT ralCode FROM COLOR WHERE english = '"+secondColor+"'), '"+size+"', '"+weight+"', '"+characteristics+"', "
-                    + "'"+flight+"', 'AK1', '"+passengerId+"', NULL, (SELECT IATACode FROM destination WHERE airport =  '"+airport+"'), NULL )";
+                    + "'"+flight+"', '"+MainApp.currentUser.getId()+"', '"+passengerId+"', NULL, (SELECT IATACode FROM destination WHERE airport =  '"+airport+"'), NULL )";
 
             //execute the missing luggage query
             int affectedRowsLuggageQuery = MainApp.getDatabase().executeUpdateQuery(addMissingLuggageQuery);
@@ -516,9 +515,4 @@ public class ServiceInputLuggageViewController implements Initializable {
             return "";
         }
     }
-    
-    
-
-
-
 }

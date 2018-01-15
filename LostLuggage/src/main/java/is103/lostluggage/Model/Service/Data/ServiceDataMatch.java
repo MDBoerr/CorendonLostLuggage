@@ -193,11 +193,11 @@ public class ServiceDataMatch {
                     if (checkField(lost.getFlight(), found.getFlight()) ) {
                         matchingPercentage += 10;
                     }
-                    if (lost.getWeight() != 0 && found.getWeight() != 0){
-                        if ( ((lost.getWeight()/found.getWeight())-1)*100 < 50 ){
-                            matchingPercentage += 10;
-                        }
-                    }
+//                    if (Integer.parseInt(lost.getWeight()) != 0 && Integer.parseInt(found.getWeight()) != 0){
+//                        if ( ((lost.getWeight()/found.getWeight())-1)*100 < 50 ){
+//                            matchingPercentage += 10;
+//                        }
+//                    }
                     if (checkField(lost.getSize(), found.getSize()) ) {
                             matchingPercentage += 10;
                     }

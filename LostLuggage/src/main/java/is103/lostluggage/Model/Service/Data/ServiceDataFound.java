@@ -207,7 +207,7 @@ public final class ServiceDataFound {
             String mainColor =             resultSet.getString("mainColor");
             String secondColor =           resultSet.getString("secondColor");
             String size =               resultSet.getString("size");
-            int weight =                resultSet.getInt("weight");   
+            String weight =                resultSet.getString("weight");   
             String otherCharacteristics=resultSet.getString("otherCharacteristics");
             int passengerId =           resultSet.getInt("passengerId");
 

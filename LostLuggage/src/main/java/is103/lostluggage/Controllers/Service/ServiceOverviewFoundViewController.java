@@ -80,10 +80,10 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
     @FXML private TableColumn<FoundLuggage, String>  foundLuggageTag;
     @FXML private TableColumn<FoundLuggage, String>  foundLuggageType;
     @FXML private TableColumn<FoundLuggage, String>  foundBrand;
-    @FXML private TableColumn<FoundLuggage, Integer> foundMainColor;
+    @FXML private TableColumn<FoundLuggage, String>  foundMainColor;
     @FXML private TableColumn<FoundLuggage, String>  foundSecondColor;
-    @FXML private TableColumn<FoundLuggage, Integer> foundSize;
-    @FXML private TableColumn<FoundLuggage, String>  foundWeight;
+    @FXML private TableColumn<FoundLuggage, String>  foundSize;
+    @FXML private TableColumn<FoundLuggage, Integer> foundWeight;
     @FXML private TableColumn<FoundLuggage, String>  foundOtherCharacteristics;
     @FXML private TableColumn<FoundLuggage, Integer> foundPassengerId;
     

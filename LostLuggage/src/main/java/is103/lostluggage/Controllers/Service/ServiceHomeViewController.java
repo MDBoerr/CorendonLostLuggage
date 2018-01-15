@@ -123,22 +123,42 @@ public class ServiceHomeViewController implements Initializable {
 
     @FXML
     protected void toInputView(ActionEvent event) throws IOException {
-        MainApp.switchView("/Views/Service/ServiceInputLuggageView.fxml");
+        if (checkIfServiceEmployee()){
+            MainApp.switchView("/Views/Service/ServiceInputLuggageView.fxml");
+        }
     }
 
     @FXML
     protected void toFoundLuggageView(ActionEvent event) throws IOException {
-        MainApp.switchView("/Views/Service/ServiceOverviewFoundView.fxml");
+        if (checkIfServiceEmployee()){
+            MainApp.switchView("/Views/Service/ServiceOverviewFoundView.fxml");
+        }
     }
 
     @FXML
     protected void toMissedLuggageView(ActionEvent event) throws IOException {
-        MainApp.switchView("/Views/Service/ServiceOverviewLostView.fxml");
+        if (checkIfServiceEmployee()){
+            MainApp.switchView("/Views/Service/ServiceOverviewLostView.fxml");
+        }
     }
 
     @FXML
     protected void toMatchingView(ActionEvent event) throws IOException {
-        MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
+        if (checkIfServiceEmployee()){
+            MainApp.switchView("/Views/Service/ServiceMatchingView.fxml");
+        }
+    }
+    
+    private boolean checkIfServiceEmployee(){
+        boolean isLoggedIn = MainApp.currentUser != null;
+        
+        if (isLoggedIn == false) {
+            System.out.println("No user logged in");
+        } else if (isLoggedIn && !"Service".equals(MainApp.currentUser.getRole())) {
+            System.out.println("No service employee logged in");
+            isLoggedIn = false;
+        }
+        return isLoggedIn;
     }
 
 }

@@ -21,9 +21,7 @@ public class LostLuggage {
     private String
             brand,
             mainColor,
-            secondColor;
-    
-    private int        
+            secondColor,       
             weight;
     
     private String
@@ -51,7 +49,7 @@ public class LostLuggage {
             String mainColor, 
             String secondColor, 
             String size, 
-            int weight, 
+            String weight, 
             String otherCharaccteristics, 
             int passengerId, 
             String flight, 
@@ -141,7 +139,7 @@ public class LostLuggage {
     /**
      * @return the weight
      */
-    public int getWeight() {
+    public String getWeight() {
         return weight;
     }
 

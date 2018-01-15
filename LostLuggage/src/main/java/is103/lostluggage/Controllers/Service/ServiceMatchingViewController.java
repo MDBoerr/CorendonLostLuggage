@@ -109,7 +109,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     @FXML private TableColumn<FoundLuggage, String>  foundMainColor;
     @FXML private TableColumn<FoundLuggage, String>  foundSecondColor;
     @FXML private TableColumn<FoundLuggage, String>  foundSize;
-    @FXML private TableColumn<FoundLuggage, String>  foundWeight;
+    @FXML private TableColumn<FoundLuggage, Integer> foundWeight;
     @FXML private TableColumn<FoundLuggage, Integer> foundPassengerId;
     
     @FXML private TableColumn<FoundLuggage, String>  foundArrivedWithFlight;
@@ -132,7 +132,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
     @FXML private TableColumn<LostLuggage, String>  lostMainColor;
     @FXML private TableColumn<LostLuggage, String>  lostSecondColor;
     @FXML private TableColumn<LostLuggage, String>  lostSize;
-    @FXML private TableColumn<LostLuggage, String>  lostWeight;
+    @FXML private TableColumn<LostLuggage, Integer> lostWeight;
     @FXML private TableColumn<LostLuggage, Integer> lostPassengerId;
     
     @FXML private TableColumn<LostLuggage, String>  lostFlight;
@@ -786,7 +786,8 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
         //if the potential reset status is true, reset the table
         if (ServiceHomeViewController.getPotentialResetStatus()){
             //function that cleares the potential matching table 
-            System.out.println("called .    iffff ");
+            
+            //System.out.println("called .    iffff ");
             resetPotentialMatchingTable();
         }
     }
@@ -796,7 +797,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
      * @void - No direct output next to clearing the table          
      */
     public void resetPotentialMatchingTable() {
-        System.out.println("reset     status:"+ServiceHomeViewController.getPotentialResetStatus());
+        //System.out.println("reset     status:"+ServiceHomeViewController.getPotentialResetStatus());
             
         ServiceHomeViewController.setPotentialResetStatus(false);
         

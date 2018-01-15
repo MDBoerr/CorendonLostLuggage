@@ -250,21 +250,34 @@ public class ServiceConfirmedMatchLuggageViewController implements
         String idLostLuggage = registrationNr.getText();
         String idFoundLuggage = registrationNr1.getText();
         
-        //insert the match in the matched table with the right data
-        //note: choosen for a prepared statement (no user input involved)
-        DB.executeInsertMatchQuery( matchIDstring,              //generated id
-                                    idFoundLuggage,             //found id
-                                    idLostLuggage,              //lost id
-                                    "TZ1",                      //employee
-                                    currentDate);               //current date       
-        
-        
-        //update the lost luggage item with the right matcheId
-        DB.executeUpdateLuggageFieldQuery("lostluggage", "matchedId", matchIDstring, idLostLuggage);
+        //check if an user is logged in
+        if (MainApp.currentUser.getId() != null){
+            //insert the match in the matched table with the right data
+            //note: choosen for a prepared statement (no user input involved)
+            DB.executeInsertMatchQuery( matchIDstring,              //generated id
+                                        idFoundLuggage,             //found id
+                                        idLostLuggage,              //lost id
+                                        MainApp.currentUser.getId(),//employee
+                                        currentDate);               //current date       
 
 
-        //update the found luggage item with the right matcheId
-        DB.executeUpdateLuggageFieldQuery("foundluggage", "matchedId", matchIDstring, idFoundLuggage);
+            //update the lost luggage item with the right matcheId
+            DB.executeUpdateLuggageFieldQuery(
+                                        "lostluggage", 
+                                        "matchedId", 
+                                        matchIDstring, 
+                                        idLostLuggage);
+
+
+            //update the found luggage item with the right matcheId
+            DB.executeUpdateLuggageFieldQuery(
+                                        "foundluggage", 
+                                        "matchedId", 
+                                        matchIDstring, 
+                                        idFoundLuggage);
+        } else {
+            System.out.println("No user logged in.");
+        }
     }
     
     /**  
@@ -275,13 +288,18 @@ public class ServiceConfirmedMatchLuggageViewController implements
      */
     @FXML
     protected void confirmDeliverer() throws SQLException {
-        //using a prepared statment to set the deliverer 
-        DB.executeUpdateQueryWhere(
-                "matched",                  //table
-                "delivery",                 //field
-                "matchedId",                //where
-                detailsDeliverer.getValue().toString(),     //value (deliverer)
-                Integer.toString(matcheID));//id of match
+        //check if an user is logged in
+        if (MainApp.currentUser.getId() != null){
+            //using a prepared statment to set the deliverer 
+            DB.executeUpdateQueryWhere(
+                    "matched",                  //table
+                    "delivery",                 //field
+                    "matchedId",                //where
+                    detailsDeliverer.getValue().toString(),     //value (deliverer)
+                    Integer.toString(matcheID));//id of match
+        } else {
+            System.out.println("No user logged in.");
+        }
     }
     
     /**  
