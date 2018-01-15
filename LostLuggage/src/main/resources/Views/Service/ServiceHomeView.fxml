@@ -23,28 +23,28 @@
             <RowConstraints maxHeight="72.0" minHeight="45.0" prefHeight="72.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-      <JFXButton buttonType="RAISED" minHeight="50.0" minWidth="250.0" onAction="#toFoundLuggageView" prefHeight="70.0" prefWidth="270.0" ripplerFill="#757575" style="-fx-background-color: #E0E0E0#E0E0E0;" text="Overview Found Luggage" GridPane.rowIndex="1">
+      <JFXButton fx:id="button_found" buttonType="RAISED" minHeight="50.0" minWidth="250.0" onAction="#toFoundLuggageView" prefHeight="70.0" prefWidth="270.0" ripplerFill="#757575" style="-fx-background-color: #E0E0E0#E0E0E0;" text="Overview Found Luggage" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="40.0" right="40.0" />
          </GridPane.margin>
          <font>
             <Font size="20.0" />
          </font></JFXButton>
-      <JFXButton buttonType="RAISED" minHeight="50.0" minWidth="250.0" onAction="#toMissedLuggageView" prefHeight="70.0" prefWidth="270.0" ripplerFill="#757575" style="-fx-background-color: #E0E0E0#E0E0E0;" text="Overview Lost Luggage" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <JFXButton fx:id="button_lost" buttonType="RAISED" minHeight="50.0" minWidth="250.0" onAction="#toMissedLuggageView" prefHeight="70.0" prefWidth="270.0" ripplerFill="#757575" style="-fx-background-color: #E0E0E0#E0E0E0;" text="Overview Lost Luggage" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="40.0" right="40.0" />
          </GridPane.margin>
          <font>
             <Font size="20.0" />
          </font></JFXButton>
-      <JFXButton buttonType="RAISED" minHeight="50.0" minWidth="250.0" onAction="#toInputView" prefHeight="70.0" prefWidth="270.0" ripplerFill="#b71c1c" style="-fx-background-color: #F44336#F44336;" text="Input Luggage +" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <JFXButton fx:id="button_input" buttonType="RAISED" minHeight="50.0" minWidth="250.0" onAction="#toInputView" prefHeight="70.0" prefWidth="270.0" ripplerFill="#b71c1c" style="-fx-background-color: #F44336#F44336;" text="Input Luggage +" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="40.0" right="40.0" />
          </GridPane.margin>
          <font>
             <Font size="20.0" />
          </font></JFXButton>
-      <JFXButton buttonType="RAISED" minHeight="50.0" minWidth="250.0" onAction="#toMatchingView" prefHeight="70.0" prefWidth="270.0" ripplerFill="#143ad3" style="-fx-background-color: #2196F3#2196F3 #2196F3#2196F3 #2196F3#2196F3 #2196F3#2196F3;" text="Luggage Matching &gt;" textFill="WHITE" GridPane.rowIndex="2">
+      <JFXButton fx:id="button_match" buttonType="RAISED" minHeight="50.0" minWidth="250.0" onAction="#toMatchingView" prefHeight="70.0" prefWidth="270.0" ripplerFill="#143ad3" style="-fx-background-color: #2196F3#2196F3 #2196F3#2196F3 #2196F3#2196F3 #2196F3#2196F3;" text="Luggage Matching &gt;" textFill="WHITE" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="40.0" right="40.0" />
          </GridPane.margin>
