@@ -173,6 +173,9 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
             //set the table with the right data, the resultset will be converted
             setLostLuggageTable(dataListLost.getObservableList(matchedLuggageResultSet));
             
+            //Reset the date picker since it is not configured with the only matched
+            resetDatePickerFilter();
+            
             //set result count in the display label
             setResultCount();
         
@@ -430,6 +433,15 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
                 
             }
         });
+    }
+    
+    /**
+     * This method is for clearing (resetting) the date picker filters
+     * Note; i didn't had enough time to also configure this with the searching.
+     */
+    private void resetDatePickerFilter() {
+        toDate.setValue(null);
+        fromDate.setValue(null);
     }
     
 }
