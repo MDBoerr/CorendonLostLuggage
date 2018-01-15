@@ -123,7 +123,7 @@ public class SettingsViewController implements Initializable {
                     if (returnValue >= 1) {
                         alertHeader = "Succeful!";
                         headerColor = "#495057";
-                        alert = "\nyour password has been updated!";
+                        alert = "\nYour password has been updated!";
                         buttonText = "Ok";
                         showAlertMessage();
                     } else {

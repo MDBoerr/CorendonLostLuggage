@@ -29,8 +29,8 @@
                   </Label>
                </children>
             </HBox>
-            <JFXButton buttonType="RAISED" ripplerFill="WHITE" style="-fx-background-color: #018ada#018ada;" text="EN" textFill="WHITE" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="65.0" />
-            <JFXButton buttonType="RAISED" layoutX="2.0" layoutY="1.0" ripplerFill="WHITE" style="-fx-background-color: ff5151;" text="NL" textFill="WHITE" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="65.0" />
+            <JFXButton fx:id="englishButton" buttonType="RAISED" ripplerFill="WHITE" style="-fx-background-color: #018ada#018ada;" text="EN" textFill="WHITE" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="65.0" />
+            <JFXButton fx:id="dutchButton" buttonType="RAISED" layoutX="2.0" layoutY="1.0" ripplerFill="WHITE" style="-fx-background-color: ff5151;" text="NL" textFill="WHITE" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="65.0" />
             <JFXButton layoutX="1091.0" layoutY="21.0" onAction="#showSettingsView" prefHeight="27.0" prefWidth="76.0" ripplerFill="WHITE" style="-fx-background-color: #495057#495057;" text="Settings" textFill="WHITE" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="20.0" />
          </children></AnchorPane>
    </top>

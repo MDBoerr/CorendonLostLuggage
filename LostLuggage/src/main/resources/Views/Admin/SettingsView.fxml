@@ -47,7 +47,7 @@
                             <JFXButton fx:id="changePasswordButton" prefHeight="35.0" prefWidth="140.0" ripplerFill="WHITE" style="-fx-background-color: #4dadf7#4dadf7 #4dadf7#4dadf7;" text="Change Password" textFill="WHITE" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="15.0" />
                         </children>
                     </AnchorPane>
-               <JFXPasswordField fx:id="oldPasswordField" focusColor="#4dadf7" labelFloat="true" promptText="Old Password" GridPane.rowIndex="2" />
+               <JFXPasswordField fx:id="oldPasswordField" focusColor="#4dadf7" labelFloat="true" promptText="Current Password" GridPane.rowIndex="2" />
                <JFXPasswordField fx:id="newPasswordField" focusColor="#4dadf7" labelFloat="true" promptText="New Password" GridPane.rowIndex="3" />
                <JFXPasswordField fx:id="newPasswordField2" focusColor="#4dadf7" labelFloat="true" promptText="New Password" GridPane.rowIndex="4" />
                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">

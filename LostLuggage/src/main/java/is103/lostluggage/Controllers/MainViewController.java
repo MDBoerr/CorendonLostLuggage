@@ -31,6 +31,9 @@ public class MainViewController implements Initializable {
     private Button backButton;
 
     @FXML
+    private JFXButton englishButton, dutchButton;
+
+    @FXML
     private ImageView logoView;
 
     @FXML
@@ -51,6 +54,17 @@ public class MainViewController implements Initializable {
         topHBox.toFront();
 
         instance = this;
+
+        englishButton.setOnAction(e -> {
+            MainApp.language = "english";
+            System.out.println("Language changed to " + MainApp.language);
+
+        });
+
+        dutchButton.setOnAction(e -> {
+            MainApp.language = "dutch";
+            System.out.println("Language changed to " + MainApp.language);
+        });
 
     }
 
@@ -77,8 +91,8 @@ public class MainViewController implements Initializable {
     @FXML
     private void showSettingsView(ActionEvent event) throws IOException {
 
-        if (MainApp.currentUser !=  null) {
-            
+        if (MainApp.currentUser != null) {
+
             MainApp.switchView("/Views/Admin/SettingsView.fxml");
 
         }
