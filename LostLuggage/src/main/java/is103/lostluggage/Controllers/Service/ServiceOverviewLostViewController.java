@@ -90,16 +90,6 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
     @FXML private JFXButton button_input, button_match;
     @FXML private JFXToggleButton matchedLuggageToggle;
     
-//index of language strings
-    private final int  
-            L_index_TITLE           = 0, 
-            L_index_SEARCH_PROMPT   = 1,  
-            L_index_TOGGLE_MATCHED  = 2, 
-            L_index_BUT_MATCH       = 3, 
-            L_index_BUT_INPUT       = 4;
-    
-    //get language string array from the settings class 
-    private final String[][] languages = settings.serviceOverviewLostLanguage();
     
     /**
      * Initializes the controller class that adds all the needed functionality,
@@ -110,12 +100,9 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //set the views language to the right one
-        setRightLanguage();
-        
         //set the view's title, and catch a possible IOException
         try {
-            MainViewController.getInstance().getTitle( settings.getLanguageFor( L_index_TITLE, languages) );
+            MainViewController.getInstance().getTitle( "Overview Lost" );
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -138,20 +125,6 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
         //set screen status
         ServiceHomeViewController.setOnMatchingView(false); 
     }
-    
-    /**
-     * Set the right language to this view
-     */
-    private void setRightLanguage(){
-        //set the texts of the buttons to the right field of the array
-        //this data is gotten from the settings class
-       searchField.setPromptText(   settings.getLanguageFor(L_index_SEARCH_PROMPT, languages) );
-       matchedLuggageToggle.setText(settings.getLanguageFor(L_index_TOGGLE_MATCHED,languages) );
-       
-       
-       button_input.setText( settings.getLanguageFor(L_index_BUT_MATCH, languages) );
-       button_match.setText( settings.getLanguageFor(L_index_BUT_INPUT, languages) );
-   }
     
     /**  
      * This method is for initializing the filter combo box
