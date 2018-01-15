@@ -5,6 +5,8 @@ import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -58,12 +60,22 @@ public class MainViewController implements Initializable {
         englishButton.setOnAction(e -> {
             MainApp.language = "english";
             System.out.println("Language changed to " + MainApp.language);
+            try {
+                MainApp.switchView(MainApp.currentView);
+            } catch (IOException ex) {
+                Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         });
 
         dutchButton.setOnAction(e -> {
             MainApp.language = "dutch";
             System.out.println("Language changed to " + MainApp.language);
+            try {
+                MainApp.switchView(MainApp.currentView);
+            } catch (IOException ex) {
+                Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
 
     }

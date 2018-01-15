@@ -96,6 +96,7 @@ public class OverviewUserController implements Initializable {
 
         //To Previous Scene
         MainViewController.previousView = "/Views/Admin/HomeUserView.fxml";
+        MainApp.currentView = "/Views/Admin/UserScene.fxml";
 
     }
 
