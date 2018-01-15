@@ -37,18 +37,24 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="571.0">
                <children>
-                  <JFXTextField fx:id="searchField" focusColor="WHITESMOKE" labelFloat="true" onAction="#search" onInputMethodTextChanged="#search" onKeyReleased="#search" prefHeight="27.0" prefWidth="260.0" promptText="Search for luggage" style="-fx-text-fill: #fff; -fx-prompt-text-fill: #fff;" unFocusColor="WHITE">
+                  <JFXTextField fx:id="searchField" focusColor="#434343" labelFloat="true" onAction="#search" onInputMethodTextChanged="#search" onKeyReleased="#search" prefHeight="27.0" prefWidth="260.0" promptText="Search for luggage" style="-fx-text-fill: #434343#434343; -fx-prompt-text-fill: #434343#434343; -fx-background-color: #bfbfbf#bfbfbf #bfbfbf#bfbfbf;" unFocusColor="#141414">
                      <HBox.margin>
-                        <Insets left="25.0" top="25.0" />
+                        <Insets left="25.0" top="20.0" />
                      </HBox.margin>
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
-                  </JFXTextField>
-                  <JFXComboBox fx:id="searchTypeComboBox" focusColor="#f5f5f5" labelFloat="true" minWidth="100.0" onAction="#search" promptText="Filter" style="-fx-prompt-text-fill: #fff; -fx-text-fill: #fff; -fx-fill: #fff; -jfx-unfocus-color: #fff; -jfx-focus-color: #fff;" unFocusColor="WHITE">
-                     <HBox.margin>
+                     <padding>
                         <Insets top="25.0" />
+                     </padding>
+                  </JFXTextField>
+                  <JFXComboBox fx:id="searchTypeComboBox" focusColor="#434343" labelFloat="true" minWidth="100.0" onAction="#search" promptText="Filter" style="-fx-prompt-text-fill: #434343#434343; -fx-text-fill: #434343#434343; -fx-background-color: #bfbfbf#bfbfbf;" unFocusColor="#141414">
+                     <HBox.margin>
+                        <Insets top="20.0" />
                      </HBox.margin>
+                     <padding>
+                        <Insets top="15.0" />
+                     </padding>
                   </JFXComboBox>
                </children>
             </HBox>
