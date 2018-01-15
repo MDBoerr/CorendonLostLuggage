@@ -76,10 +76,10 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
     @FXML private TableColumn<LostLuggage, String>  lostLuggageTag;
     @FXML private TableColumn<LostLuggage, String>  lostLuggageType;
     @FXML private TableColumn<LostLuggage, String>  lostBrand;
-    @FXML private TableColumn<LostLuggage, Integer> lostMainColor;
+    @FXML private TableColumn<LostLuggage, String>  lostMainColor;
     @FXML private TableColumn<LostLuggage, String>  lostSecondColor;
-    @FXML private TableColumn<LostLuggage, Integer> lostSize;
-    @FXML private TableColumn<LostLuggage, String>  lostWeight;
+    @FXML private TableColumn<LostLuggage, String>  lostSize;
+    @FXML private TableColumn<LostLuggage, Integer> lostWeight;
     @FXML private TableColumn<LostLuggage, String>  lostOtherCharacteristics;
     @FXML private TableColumn<LostLuggage, Integer> lostPassengerId;
     

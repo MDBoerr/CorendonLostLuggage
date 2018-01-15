@@ -255,7 +255,7 @@ public class ServiceConfirmedMatchLuggageViewController implements
         DB.executeInsertMatchQuery( matchIDstring,              //generated id
                                     idFoundLuggage,             //found id
                                     idLostLuggage,              //lost id
-                                    "TZ1",                      //employee
+                                    MainApp.currentUser.getId(),//employee
                                     currentDate);               //current date       
         
         

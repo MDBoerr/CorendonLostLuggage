@@ -93,7 +93,8 @@ public class ServiceSearchData {
         //Since using a full prepared statement here is way to complex..
         if (!search.contains(";") && !search.contains("`") 
             && !search.contains("'") && !search.contains(")")
-            && !search.contains("]") && !search.contains("(")    ){
+            && !search.contains("]") && !search.contains("(")
+            && !search.contains("%") && !search.contains("&")   ){
             //no harmfull caracters in the search so:
             //switch over the filter (value)
             switch (value) {
