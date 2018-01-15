@@ -174,7 +174,7 @@
                   <Insets top="10.0" />
                </padding>
             </JFXTextField>
-            <JFXButton fx:id="updateform" prefHeight="26.0" prefWidth="249.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="Update information" textFill="WHITE" GridPane.rowIndex="10">
+            <JFXButton fx:id="updateform" onAction="#updateFormInfo" prefHeight="26.0" prefWidth="249.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="Update information" textFill="WHITE" GridPane.rowIndex="10">
                <GridPane.margin>
                   <Insets left="40.0" />
                </GridPane.margin>
@@ -194,7 +194,7 @@
             <Insets />
          </opaqueInsets>
          <GridPane.margin>
-            <Insets top="40.0" />
+            <Insets top="70.0" />
          </GridPane.margin>
       </GridPane>
         <TableView fx:id="retrievedTable" prefHeight="414.0" prefWidth="721.0" GridPane.rowIndex="1" GridPane.rowSpan="4">
