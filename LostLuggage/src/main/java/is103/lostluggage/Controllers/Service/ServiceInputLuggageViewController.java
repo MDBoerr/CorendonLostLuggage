@@ -307,7 +307,7 @@ public class ServiceInputLuggageViewController implements Initializable {
                 String addFoundLuggageQuery = "INSERT INTO foundluggage VALUES(NULL, '"+date+"','"+time+"', '"+labelnumber+"', (SELECT luggageTypeId FROM luggagetype WHERE english ='"+type+"'), "
                         + "'"+brand+"'"
                         + ", (SELECT ralCode FROM color WHERE english = '"+color+"'), (SELECT ralCode FROM COLOR WHERE english = '"+secondColor+"'), '"+size+"', '"+weight+"', '"+characteristics+"', "
-                        + "'"+flight+"', (SELECT locationId FROM location WHERE english ='"+location+"'), 'AK1', '"+passengerId+"', NULL, (SELECT IATACode FROM destination WHERE airport =  '"+airport+"'), NULL, NULL )";
+                        + "'"+flight+"', (SELECT locationId FROM location WHERE english ='"+location+"'), '"+MainApp.currentUser.getId()+"', '"+passengerId+"', NULL, (SELECT IATACode FROM destination WHERE airport =  '"+airport+"'), NULL, NULL )";
 
                 //execute the missing luggage query
                 int affectedRowsLuggageQuery = MainApp.getDatabase().executeUpdateQuery(addFoundLuggageQuery);
