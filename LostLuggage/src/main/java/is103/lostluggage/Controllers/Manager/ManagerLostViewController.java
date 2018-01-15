@@ -102,6 +102,8 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
     @FXML private Label total;    
     
     /**
+     * @author Thijs Zijdel - 500782165
+     * 
      * Initializing the controller class for the manager lost view 
      * 
      * @param url
@@ -292,44 +294,40 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
         //Get the right query based on the users input
         String finalQuery = searchData.getSearchQuery(value, search, "lostluggage");
         
+        //get the final query without the last semicolin to extend it
+        finalQuery = finalQuery.substring(0,finalQuery.lastIndexOf(";"));
         
         //check if there is a filter based on FROM date.
-        if(fromDate.getValue() != null || !fromDate.getValue().toString().isEmpty()){
-            //get the final query without the last semicolin to extend it
-            finalQuery = finalQuery.substring(0,finalQuery.lastIndexOf(";"));
-            
-            //If the final qeury already contains statments, add a AND 
-            if (finalQuery.contains("OR")){
-                finalQuery += " AND ";
-            }
+        if(fromDate.getValue() != null && !fromDate.getValue().toString().isEmpty()){
             //If the final qeury doesn't have any statments, add WHERE 
             if (!finalQuery.contains("WHERE")) {
                 finalQuery += " WHERE ";
+            } else {
+                //If the final qeury already contains statments, add a AND 
+                finalQuery += " AND ";
             }
             
             //add the filter from TO the query
-            finalQuery += " L.dateLost > '"+fromDate.getValue().toString()+"' ;";
+            finalQuery += " L.dateLost > '"+fromDate.getValue().toString()+"' ";
         }
         
         //check if there is a filter based on TO date.
-        if(toDate.getValue() != null || !toDate.getValue().toString().isEmpty()){
-            //get the final query without the last semicolin to extend it
-            finalQuery = finalQuery.substring(0,finalQuery.lastIndexOf(";"));
-            
-            //If the final qeury already contains statments, add a AND 
-            if (finalQuery.contains("OR")){
-                finalQuery += " AND ";
-            }
+        if(toDate.getValue() != null && !toDate.getValue().toString().isEmpty()){
             //If the final qeury doesn't have any statments, add WHERE 
             if (!finalQuery.contains("WHERE")) {
                 finalQuery += " WHERE ";
+            } else {
+                //If the final qeury already contains statments, add a AND 
+                finalQuery += " AND ";
             }
+            //als er maar een where en geen or bevat + and 
+            //if (finalQuery.contains("WHERE") && )
             
             //add the filter from FROM the query
-            finalQuery += " L.dateLost < '"+toDate.getValue().toString()+"' ;";
+            finalQuery += " L.dateLost < '"+toDate.getValue().toString()+"' ";
         }        
-                
-        
+        //close the query     
+        finalQuery += ";";
         
         //clear the previous search result list 
         lostLuggageListSearchResults.clear();
@@ -345,10 +343,6 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
             //get the observableList from the search object and asign this to the list
             lostLuggageListSearchResults =  ServiceDataLost.loopTroughResultSet(resultSet, showMatchedLuggage);
 
-            
-            
-            
-            
             //set this list on the table
             lostTable.setItems(lostLuggageListSearchResults);
             
@@ -403,9 +397,11 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
     
     /**  
      * 
+     * 
      * @author Ahmet Aksu
      * 
-    **/
+     * 
+     */
     private void initializeOnLostRowDoubleClicked() {
         //method made by Ahmet Aksu, for making the lostTable double click'able
         lostTable.setOnMousePressed((MouseEvent event) -> {

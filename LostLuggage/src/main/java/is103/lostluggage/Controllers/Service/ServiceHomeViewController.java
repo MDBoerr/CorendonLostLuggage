@@ -1,7 +1,6 @@
 package is103.lostluggage.Controllers.Service;
 
 import com.jfoenix.controls.JFXButton;
-import com.sun.org.apache.xerces.internal.xs.StringList;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Data.ServiceDataMatch;
@@ -36,27 +35,22 @@ public class ServiceHomeViewController implements Initializable {
     public static boolean resetMatching = true; //true= refresh       -> get's alternated in program
                                                 //false= dont refresh
                                                 //for: manual matching
-    //index of language strings
-    private final int TITLE = 0, BUT_FOUND = 1, BUT_LOST = 2, BUT_MATCH = 3, BUT_INPUT = 4;
     
     @FXML private JFXButton button_found, button_lost, button_match, button_input;
     
-
-//    private String getLanguageFor(int index){
-//        return languageArray[index];
-//    }
-   private String[][] languages = settings.serviceHomeLanguage();
-    private void setRightLanguage(){
-       
-       
-       button_found.setText( settings.getLanguageFor(BUT_FOUND, languages) );
-       button_lost.setText(  settings.getLanguageFor(BUT_LOST,  languages) );
-       button_match.setText( settings.getLanguageFor(BUT_MATCH, languages) );
-       button_input.setText( settings.getLanguageFor(BUT_INPUT, languages) );
-   }
-          
-            
-            
+    
+    //index of the fields i nthe language string 2d array
+    private final int  
+            L_index_TITLE     = 0,  
+            L_index_BUT_FOUND = 1, 
+            L_index_BUT_LOST  = 2,  
+            L_index_BUT_MATCH = 3,  
+            L_index_BUT_INPUT = 4;
+    
+    //get language string array from the settings class 
+    private final String[][] languages = settings.serviceHomeLanguage();
+    
+        
             
     /**
      * This method is for getting the one and only instance of the class match 
@@ -125,7 +119,7 @@ public class ServiceHomeViewController implements Initializable {
         
         //set the view's title
         try {
-            MainViewController.getInstance().getTitle( settings.getLanguageFor(TITLE, languages) );
+            MainViewController.getInstance().getTitle( settings.getLanguageFor( L_index_TITLE, languages) );
         } catch (IOException ex) {
             Logger.getLogger(ServiceHomeViewController.class.getName()).log(Level.SEVERE, null, ex);
         }  
@@ -134,6 +128,17 @@ public class ServiceHomeViewController implements Initializable {
         setOnMatchingView(false);
     }
     
+    /**
+     * Set the right language to this view
+     */
+    private void setRightLanguage(){
+        //set the texts of the buttons to the right field of the array
+        //this data is gotten from the settings class
+        button_found.setText( settings.getLanguageFor( L_index_BUT_FOUND, languages) );
+        button_lost.setText(  settings.getLanguageFor( L_index_BUT_LOST,  languages) );
+        button_match.setText( settings.getLanguageFor( L_index_BUT_MATCH, languages) );
+        button_input.setText( settings.getLanguageFor( L_index_BUT_INPUT, languages) );
+   }
     
     /*-------------------------------------/
     /*            switch views            */
