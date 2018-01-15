@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane prefHeight="579.0" prefWidth="949.0" style="-fx-background-color: #868e96#868e96 #868e96#868e96;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Manager.ManagerReportViewController">
+<GridPane prefHeight="579.0" prefWidth="949.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Manager.ManagerReportViewController">
     <columnConstraints>
       <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -37,7 +37,7 @@
         </LineChart>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <children>
-            <JFXButton onAction="#fifteen" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="2015" textFill="WHITE">
+            <JFXButton buttonType="RAISED" onAction="#fifteen" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="2015" textFill="WHITE">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -55,7 +55,7 @@
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
          <children>
-            <JFXButton onAction="#sevteen" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="2017" textFill="WHITE">
+            <JFXButton buttonType="RAISED" onAction="#sevteen" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="2017" textFill="WHITE">
                <HBox.margin>
                   <Insets top="5.0" />
                </HBox.margin>
@@ -64,7 +64,7 @@
       </HBox>
       <HBox prefHeight="38.0" prefWidth="566.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
          <children>
-            <JFXButton fx:id="six" onAction="#sixteen" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="2016" textFill="WHITE">
+            <JFXButton fx:id="six" buttonType="RAISED" onAction="#sixteen" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="2016" textFill="WHITE">
                <HBox.margin>
                   <Insets top="5.0" />
                </HBox.margin>
@@ -76,7 +76,7 @@
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
          <children>
-            <JFXButton onAction="#eighteen" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="2018" textFill="WHITE">
+            <JFXButton buttonType="RAISED" onAction="#eighteen" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="2018" textFill="WHITE">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
