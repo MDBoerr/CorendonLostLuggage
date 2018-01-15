@@ -167,6 +167,7 @@ public class AdminAddUserViewController implements Initializable {
 
         //Set which view was previous
         MainViewController.previousView = "/Views/Admin/HomeUserView.fxml";
+        MainApp.currentView = "/Views/Admin/AdminAddUserView.fxml";
     }
 
     @FXML

@@ -19,12 +19,12 @@
          <children>
               <TableView fx:id="tableView" prefHeight="482.0" prefWidth="786.0">
                   <columns>
-                      <TableColumn fx:id="idColumn" prefWidth="79.0" text="%adminTableColumnId" />
-                      <TableColumn fx:id="lastNameColumn" prefWidth="147.0" text="%adminTableColumnLastname" />
-                      <TableColumn fx:id="firstNameColumn" prefWidth="167.0" text="%adminTableColumnFirstname" />
-                  <TableColumn fx:id="locationColumn" prefWidth="167.0" text="%adminTableColumnLocation" />
-                      <TableColumn fx:id="roleColumn" prefWidth="135.0" text="%adminTableColumnRole" />
-                      <TableColumn fx:id="statusColumn" minWidth="8.0" prefWidth="132.0" text="%adminTableColumnStatus" />
+                      <TableColumn fx:id="idColumn" prefWidth="79.0" text="%adminId" />
+                      <TableColumn fx:id="lastNameColumn" prefWidth="147.0" text="%adminLastname" />
+                      <TableColumn fx:id="firstNameColumn" prefWidth="167.0" text="%adminFirstname" />
+                  <TableColumn fx:id="locationColumn" prefWidth="167.0" text="%adminLocation" />
+                      <TableColumn fx:id="roleColumn" prefWidth="135.0" text="%adminRole" />
+                      <TableColumn fx:id="statusColumn" minWidth="8.0" prefWidth="132.0" text="%adminStatus" />
                   </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
