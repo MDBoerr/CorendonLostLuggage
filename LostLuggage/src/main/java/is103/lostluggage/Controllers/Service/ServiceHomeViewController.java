@@ -97,6 +97,7 @@ public class ServiceHomeViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         //set switchable to prev view. (this)
         MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
+        MainApp.currentView = "/Views/Service/ServiceHomeView.fxml";
         
         //reset refreshing to auto
         resetMatching = true;

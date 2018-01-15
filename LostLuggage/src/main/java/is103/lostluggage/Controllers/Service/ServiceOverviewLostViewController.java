@@ -100,6 +100,9 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //for setting the resource bundle 
+        MainApp.currentView = "/Views/Service/ServiceOverviewLostView.fxml";
+        
         //set the view's title, and catch a possible IOException
         try {
             MainViewController.getInstance().getTitle( "Overview Lost" );
