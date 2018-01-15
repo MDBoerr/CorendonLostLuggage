@@ -2,15 +2,12 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
 
-<GridPane prefHeight="579.0" prefWidth="949.0" style="-fx-background-color: #868e96#868e96 #868e96#868e96;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Manager.ManagerHomeViewController">
+<GridPane prefHeight="579.0" prefWidth="949.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Manager.ManagerHomeViewController">
     <columnConstraints>
         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -22,40 +19,25 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Button fx:id="button" mnemonicParsing="false" onAction="#toFoundView" prefHeight="65.0" prefWidth="245.0" styleClass=".button" stylesheets="@../styles/Styles.css" text="Overzicht gevonden" GridPane.rowIndex="1">
-            <GridPane.margin>
-                <Insets right="40.0" />
-            </GridPane.margin>
-            <font>
-                <Font size="20.0" />
-            </font>
-            <effect>
-                <DropShadow />
-            </effect>
-        </Button>
-        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#reportView" prefHeight="65.0" prefWidth="245.0" styleClass=".button" stylesheets="@../styles/Styles.css" text="Rapportages" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
-            <font>
-                <Font size="20.0" />
-            </font>
-            <effect>
-                <DropShadow />
-            </effect>
-            <GridPane.margin>
-                <Insets left="40.0" />
-            </GridPane.margin>
-        </Button>
-        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toRetrievedView" prefHeight="65.0" prefWidth="245.0" styleClass=".button" stylesheets="@../styles/Styles.css" text="Overzicht terug" textAlignment="CENTER" GridPane.rowIndex="2">
-            <font>
-                <Font size="20.0" />
-            </font>
-            <effect>
-                <DropShadow />
-            </effect>
-            <GridPane.margin>
-                <Insets right="40.0" />
-            </GridPane.margin>
-        </Button>
-      <JFXButton buttonType="RAISED" onAction="#toLostView" prefHeight="70.0" prefWidth="222.0" ripplerFill="#d7d7d7" style="-fx-background-color: #f1f1f1;" text="Overview Lost Luggage" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <JFXButton buttonType="RAISED" onAction="#toLostView" prefHeight="70.0" prefWidth="222.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="Overview Lost Luggage" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="40.0" />
+         </GridPane.margin>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" onAction="#toFoundView" prefHeight="70.0" prefWidth="222.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="Overview Found Luggage" textFill="WHITE" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets right="40.0" />
+         </GridPane.margin>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" onAction="#toRetrievedView" prefHeight="70.0" prefWidth="222.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="Retrieved Luggage" textFill="WHITE" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets right="40.0" />
+         </GridPane.margin>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" onAction="#reportView" prefHeight="70.0" prefWidth="222.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="Overview Lost Luggage" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
          <GridPane.margin>
             <Insets left="40.0" />
          </GridPane.margin>
