@@ -34,7 +34,7 @@
             <Insets right="40.0" />
          </GridPane.margin>
       </JFXButton>
-      <JFXButton buttonType="RAISED" onAction="#reportView" prefHeight="70.0" prefWidth="222.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="Overview Lost Luggage" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <JFXButton buttonType="RAISED" onAction="#reportView" prefHeight="70.0" prefWidth="222.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="Reports" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>

@@ -242,7 +242,7 @@ try {
 
             resultSet = db.executeResultSetQuery("SELECT count(dateFound) as quantityfound, extract(month FROM dateFound) as months from foundluggage   WHERE extract(year from dateFound) = '2018' GROUP BY extract(month from dateFound)");
             lostSet = db.executeResultSetQuery("SELECT count(dateLost) as quantitylost, extract(month FROM dateLost) as months from lostluggage WHERE extract(year from dateLost) = '2018'  GROUP BY extract(month from dateLost)");
-            retrievedSet = db.executeResultSetQuery("SELECT count(delivery) as quantityretrieved, extract(month FROM dateMatched) as months from matched   WHERE extract(year from dateMatched) = '2018' GROUP BY extract(month from dateMatched)");
+            retrievedSet = db.executeResultSetQuery("SELECT count(delivery) as quantityretrieved, matched.delivery as delivery, extract(month FROM dateMatched) as months from matched   WHERE extract(year from dateMatched) = '2018' GROUP BY extract(month from dateMatched)");
 
             while (resultSet.next()) {
                 int countfound = resultSet.getInt("quantityfound");
@@ -264,7 +264,7 @@ try {
             }
 
             while (retrievedSet.next()) {
-                String delivercheck = resultSet.getString("matched.delivery");
+                String delivercheck = resultSet.getString("delivery");
                 if (!"".equals(delivercheck)) {
                     int month = retrievedSet.getInt("months");
                     int countmatched = retrievedSet.getInt("quantityretrieved");
@@ -291,40 +291,40 @@ try {
 
         switch (month) {
             case 1:
-                mon = "januari";
+                mon = "Jan";
                 break;
             case 2:
-                mon = "februari";
+                mon = "Feb";
                 break;
             case 3:
-                mon = "maart";
+                mon = "Mar";
                 break;
             case 4:
-                mon = "april";
+                mon = "Apr";
                 break;
             case 5:
                 mon = "Mei";
                 break;
             case 6:
-                mon = "juni";
+                mon = "Jun";
                 break;
             case 7:
-                mon = "juli";
+                mon = "Jul";
                 break;
             case 8:
-                mon = "augustus";
+                mon = "Aug";
                 break;
             case 9:
-                mon = "september";
+                mon = "Sep";
                 break;
             case 10:
-                mon = "oktober";
+                mon = "Okt";
                 break;
             case 11:
-                mon = "november";
+                mon = "Nov";
                 break;
             case 12:
-                mon = "december";
+                mon = "Dec";
 
         }
         return mon;

@@ -175,26 +175,26 @@ public class ManagerRetrievedViewController implements Initializable {
         });
 
     }
-//
-//    public void updateFormInfo(ActionEvent event) throws SQLException {
-//
-//        String customer = retrievedTable.getSelectionModel().getSelectedItem().getCustomer();
-//        int lostkoffer = retrievedTable.getSelectionModel().getSelectedItem().getKoffer();
-//        String deliverer = retrievedTable.getSelectionModel().getSelectedItem().getDeliverer();
-//        String email = emailid.getText();
-//        String adres = adresid.getText();
-//        String kofferid = Integer.toString(lostkoffer);
-//
-//        if (koffernr.equals(kofferid)) {
-//            int updateInfo = DB.executeUpdateQuery("UPDATE passenger "
-//                    + "                                   JOIN lostluggage ON lostluggage.passengerId = passenger.passengerId  "
-//                    + "                                             JOIN matched on lostluggage.registrationNr = matched.lostluggage  "
-//                    + "                                                     SET passenger.name = '" + customer + "', passenger.email = '" + email + "', passenger.address = '" + adres + "', matched.delivery = '" + deliverer + "' "
-//                    + "                                                     WHERE lostluggage.registrationNr = '" + kofferid + "'");
-//        } else {
-//            System.out.println("nothing updated");
-//        }
-//    }
+
+    public void updateFormInfo(ActionEvent event) throws SQLException {
+
+        String customer = customerid.getText();
+        String lostkoffer = lostluggageid.getText();
+        String deliverer = deivererid.getText();
+        String email = emailid.getText();
+        String adres = adresid.getText();
+        
+
+        if (lostluggageid.equals(koffernr)) {
+            int updateInfo = DB.executeUpdateQuery("UPDATE passenger "
+                    + "                                   JOIN lostluggage ON lostluggage.passengerId = passenger.passengerId  "
+                    + "                                             JOIN matched on lostluggage.registrationNr = matched.lostluggage  "
+                    + "                                                     SET passenger.name = '" + customer + "', passenger.email = '" + email + "', passenger.address = '" + adres + "', matched.delivery = '" + deliverer + "' "
+                    + "                                                     WHERE lostluggage.registrationNr = '" + lostkoffer + "'");
+        } else {
+            System.out.println("nothing updated");
+        }
+    }
 
     public ObservableList<RetrievedLuggage> getRetrievedLuggage() {
 
