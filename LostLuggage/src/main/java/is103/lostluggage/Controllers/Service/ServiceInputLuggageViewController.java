@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -39,7 +40,7 @@ public class ServiceInputLuggageViewController implements Initializable {
             secondColorJFXComboBox, locationJFXComboBox, airportJFXComboBox, destinationJFXComboBox;
     
     //Hashmap containing all the comboboxes
-    private Map<String, JFXComboBox> comboBoxes = new HashMap<>();
+    private Map<String, JFXComboBox> comboBoxes = new LinkedHashMap<>();
     
     @FXML
     private GridPane mainGridPane,travellerInfoGridPane, luggageInfoGridPane ;
@@ -59,13 +60,13 @@ public class ServiceInputLuggageViewController implements Initializable {
             characterJFXTextField, sizeJFXTextField, weightJFXTextField;
     
     //Hashmap containing all the text fields
-    private Map<String, JFXTextField> textFields = new HashMap<>();
+    private Map<String, JFXTextField> textFields = new LinkedHashMap<>();
     
     //Form object
     private Form form;
     
     //HashMap that contains all the form values
-    private Map<String, String> formValues = new HashMap<>();
+    private Map<String, String> formValues = new LinkedHashMap<>();
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -370,8 +371,8 @@ public class ServiceInputLuggageViewController implements Initializable {
             String fileName = file.getAbsolutePath();
             
             formValues.put("Form Type: ", form.getType());
-            formValues.put("Registration number:", "SELECT QUERY FROM DATABASE FORM CAN ONLY BE PRINTED AFTER FORM HAS BEEN SAVED TO DB");
-            formValues.put("Employee: ", "FIRST NAME LASTNAME QUERY FROM DATABASE BY EMPLOYEE ID");
+            formValues.put("Registration number:", "Random");
+            formValues.put("Employee: ", MainApp.currentUser.getFirstName()+ " " + MainApp.currentUser.getLastName());
             formValues.put("Time: ", timeJFXTimePicker.getValue().toString());
             formValues.put("Date: ", dateJFXDatePicker.getValue().toString());
             formValues.put("Airport: ", airportJFXComboBox.getValue().toString());
@@ -379,6 +380,7 @@ public class ServiceInputLuggageViewController implements Initializable {
             //If its lost then passenger info goes in first
             if(form.getType().equals("Lost")){
                 
+                formValues.put("newline", "Passenger Information");
                 formValues.put("Name: ", textFields.get("name").getText());
                 formValues.put("Address: ", textFields.get("address").getText());
                 formValues.put("Place of residence: ", textFields.get("place").getText());
@@ -388,6 +390,7 @@ public class ServiceInputLuggageViewController implements Initializable {
                 formValues.put("E-mail: ", textFields.get("email").getText());
 
                 
+                formValues.put("newline", "Luggage Information");
                 formValues.put("Labelnumber: ", checkTextField(textFields.get("labelnumber")));
                 formValues.put("Flight: ", checkComboBox(comboBoxes.get("flight")));
                 formValues.put("Destination: ", checkComboBox(comboBoxes.get("destination")));
@@ -401,7 +404,7 @@ public class ServiceInputLuggageViewController implements Initializable {
                 
             }else{
                 
-                
+                formValues.put("newline", "Luggage Information");
                 formValues.put("Labelnumber: ", checkTextField(textFields.get("labelnumber")));
                 formValues.put("Flight: ", checkComboBox(comboBoxes.get("flight")));
                 formValues.put("Destination: ", checkComboBox(comboBoxes.get("destination")));
@@ -414,6 +417,7 @@ public class ServiceInputLuggageViewController implements Initializable {
                 formValues.put("Character: ", checkTextField(textFields.get("character")));
                 formValues.put("Location: ", checkComboBox(comboBoxes.get("location")));
                 
+                formValues.put("newline", "Passenger Information");
                 formValues.put("Name: ", textFields.get("name").getText());
                 formValues.put("Address: ", textFields.get("address").getText());
                 formValues.put("Place of residence: ", textFields.get("place").getText());
