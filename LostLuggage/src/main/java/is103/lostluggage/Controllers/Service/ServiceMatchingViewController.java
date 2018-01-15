@@ -196,7 +196,8 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
                   Initialize   Service Matching View Controller
     --------------------------------------------------------------------------*/
     /**
-     * In the initialize will the matching view started with the right content
+     * Initializes the controller class that adds all the needed functionality,
+     * to the: ServiceMatchingView.FXML view.
      * 
      * The following setups will be started:
      * - Set the back button 
@@ -210,9 +211,8 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
      * //Reset manual matching
      * - Set the on matching view to true
      * 
-     * Initializes the controller class.
-     * @param url
-     * @param rb
+     * @param url location  used to resolve relative paths for the root object
+     * @param rb resources   used to localize the root object
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {

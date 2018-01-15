@@ -64,6 +64,9 @@ public class ServiceInputLuggageViewController implements Initializable {
     //Form object
     private Form form;
     
+    //HashMap that contains all the form values
+    private Map<String, String> formValues = new HashMap<>();
+    
   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -97,7 +100,6 @@ public class ServiceInputLuggageViewController implements Initializable {
             //Set default value for the type of form combobox
             missingFoundComboBox.setValue("Lost");
             this.form.setType("Lost");
-            
             
         } catch (SQLException ex) {
             Logger.getLogger(ServiceInputLuggageViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -220,9 +222,6 @@ public class ServiceInputLuggageViewController implements Initializable {
         return appropriate;
     }
     
-        
-
-    
     @FXML
     //Method that will add the form to the database
     public void submitForm(ActionEvent event){
@@ -233,6 +232,7 @@ public class ServiceInputLuggageViewController implements Initializable {
             System.out.println("form not filled in properly");
             return;
         }
+        
         
         //General information
         String formtype = missingFoundComboBox.getValue().toString();
@@ -307,7 +307,7 @@ public class ServiceInputLuggageViewController implements Initializable {
                 String addFoundLuggageQuery = "INSERT INTO foundluggage VALUES(NULL, '"+date+"','"+time+"', '"+labelnumber+"', (SELECT luggageTypeId FROM luggagetype WHERE english ='"+type+"'), "
                         + "'"+brand+"'"
                         + ", (SELECT ralCode FROM color WHERE english = '"+color+"'), (SELECT ralCode FROM COLOR WHERE english = '"+secondColor+"'), '"+size+"', '"+weight+"', '"+characteristics+"', "
-                        + "'"+flight+"', (SELECT locationId FROM location WHERE english ='"+location+"'), 'aa', '"+passengerId+"', NULL, (SELECT IATACode FROM destination WHERE airport =  '"+airport+"'), NULL )";
+                        + "'"+flight+"', (SELECT locationId FROM location WHERE english ='"+location+"'), 'AK1', '"+passengerId+"', NULL, (SELECT IATACode FROM destination WHERE airport =  '"+airport+"'), NULL, NULL )";
 
                 //execute the missing luggage query
                 int affectedRowsLuggageQuery = MainApp.getDatabase().executeUpdateQuery(addFoundLuggageQuery);
@@ -318,7 +318,7 @@ public class ServiceInputLuggageViewController implements Initializable {
             String addFoundLuggageQuery = "INSERT INTO foundluggage VALUES(NULL, '"+date+"','"+time+"', '"+labelnumber+"', (SELECT luggageTypeId FROM luggagetype WHERE english ='"+type+"'), "
                     + "'"+brand+"'"
                     + ", (SELECT ralCode FROM color WHERE english = '"+color+"'), (SELECT ralCode FROM COLOR WHERE english = '"+secondColor+"'), '"+size+"', '"+weight+"', '"+characteristics+"', "
-                    + "'"+flight+"', (SELECT locationId FROM location WHERE english ='"+location+"'), 'aa', NULL, NULL, (SELECT IATACode FROM destination WHERE airport =  '"+airport+"'), NULL  )";
+                    + "'"+flight+"', (SELECT locationId FROM location WHERE english ='"+location+"'), 'AK1', NULL, NULL, (SELECT IATACode FROM destination WHERE airport =  '"+airport+"'), NULL, NULL  )";
             
             //execute the missing luggage query
             int affectedRowsLuggageQuery = MainApp.getDatabase().executeUpdateQuery(addFoundLuggageQuery);
@@ -369,15 +369,72 @@ public class ServiceInputLuggageViewController implements Initializable {
             
             //get the location to store the file
             String fileName = file.getAbsolutePath();
-            String type = "Found";
-
-            ArrayList<String> formText = new ArrayList();
-            String[] strings = {"43434", "ak", "2018-01-01", "13:44", "Schiphol", "aas33", "CAIO4", "Suitcase", "Nike", "Blue", "Pink", "30x30x30", "5", "Blue stars",
-                "Toilet", "A. Baars", "Dares 44", "Amsterdam", "3887QW", "The Netherlands", "0684883", "abaars@gmail.com"};
             
-            formText.addAll(Arrays.asList(strings));
+            formValues.put("Form Type: ", form.getType());
+            formValues.put("Registration number:", "SELECT QUERY FROM DATABASE FORM CAN ONLY BE PRINTED AFTER FORM HAS BEEN SAVED TO DB");
+            formValues.put("Employee: ", "FIRST NAME LASTNAME QUERY FROM DATABASE BY EMPLOYEE ID");
+            formValues.put("Time: ", timeJFXTimePicker.getValue().toString());
+            formValues.put("Date: ", dateJFXDatePicker.getValue().toString());
+            formValues.put("Airport: ", airportJFXComboBox.getValue().toString());
+                
+            //If its lost then passenger info goes in first
+            if(form.getType().equals("Lost")){
+                
+                formValues.put("Name: ", textFields.get("name").getText());
+                formValues.put("Address: ", textFields.get("address").getText());
+                formValues.put("Place of residence: ", textFields.get("place").getText());
+                formValues.put("Postalcode: ", textFields.get("postalcode").getText());
+                formValues.put("Country: ", textFields.get("country").getText());
+                formValues.put("Phone: ", textFields.get("phone").getText());
+                formValues.put("E-mail: ", textFields.get("email").getText());
 
-           PdfDocument Pdf = new PdfDocument(type, formText, fileName);
+                
+                formValues.put("Labelnumber: ", checkTextField(textFields.get("labelnumber")));
+                formValues.put("Flight: ", checkComboBox(comboBoxes.get("flight")));
+                formValues.put("Destination: ", checkComboBox(comboBoxes.get("destination")));
+                formValues.put("Type: ", checkComboBox(comboBoxes.get("type")));
+                formValues.put("Brand: ", checkTextField(textFields.get("brand")));
+                formValues.put("Color: ", checkComboBox(comboBoxes.get("color")));
+                formValues.put("Second color: ", checkComboBox(comboBoxes.get("secondcolor")));
+                formValues.put("Dimensions: ", checkTextField(textFields.get("size")));
+                formValues.put("Weight: ", checkTextField(textFields.get("weight")));
+                formValues.put("Character: ", checkTextField(textFields.get("character")));
+                
+            }else{
+                
+                
+                formValues.put("Labelnumber: ", checkTextField(textFields.get("labelnumber")));
+                formValues.put("Flight: ", checkComboBox(comboBoxes.get("flight")));
+                formValues.put("Destination: ", checkComboBox(comboBoxes.get("destination")));
+                formValues.put("Type: ", checkComboBox(comboBoxes.get("type")));
+                formValues.put("Brand: ", checkTextField(textFields.get("brand")));
+                formValues.put("Color: ", checkComboBox(comboBoxes.get("color")));
+                formValues.put("Second color: ", checkComboBox(comboBoxes.get("secondcolor")));
+                formValues.put("Dimensions: ", checkTextField(textFields.get("size")));
+                formValues.put("Weight: ", checkTextField(textFields.get("weight")));
+                formValues.put("Character: ", checkTextField(textFields.get("character")));
+                formValues.put("Location: ", checkComboBox(comboBoxes.get("location")));
+                
+                formValues.put("Name: ", textFields.get("name").getText());
+                formValues.put("Address: ", textFields.get("address").getText());
+                formValues.put("Place of residence: ", textFields.get("place").getText());
+                formValues.put("Postalcode: ", textFields.get("postalcode").getText());
+                formValues.put("Country: ", textFields.get("country").getText());
+                formValues.put("Phone: ", textFields.get("phone").getText());
+                formValues.put("E-mail: ", textFields.get("email").getText());
+
+                
+            }
+            
+            //New pdf document with filebath in constructor
+            PdfDocument Pdf = new PdfDocument(fileName);
+            
+            //set the values for the pdf
+            Pdf.setPdfValues(formValues);
+            
+            //Save the pdf
+            Pdf.savePDF();
+            
         }else{
             System.out.println("Setting a location has been cancelled");
         }
@@ -440,4 +497,28 @@ public class ServiceInputLuggageViewController implements Initializable {
             locationJFXComboBox.setVisible(false);     
         }
     }
+    
+    
+    //Method to check whether a combobox has been filled
+    public String checkComboBox(JFXComboBox comboBox){
+        if(comboBox.getValue() != null && !comboBox.getValue().toString().isEmpty()){
+            return comboBox.getValue().toString();
+        }else{
+            return "";
+        }
+    }
+    
+    //Method to check whether the textfield has been filled
+    public String checkTextField(JFXTextField textField){
+        if(textField.getText() != null && !textField.getText().isEmpty()){
+              return textField.getText();
+        }else{
+            return "";
+        }
+    }
+    
+    
+
+
+
 }

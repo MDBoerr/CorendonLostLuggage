@@ -103,11 +103,9 @@ public class OverviewUserController implements Initializable {
         ObservableList<User> users = FXCollections.observableArrayList();
 
         try {
-            MyJDBC db = MainApp.getDatabase();
-
             ResultSet resultSet;
 
-            resultSet = db.executeResultSetQuery("SELECT employeeId, firstname, lastname, location, status, role FROM employee");
+            resultSet = DB.executeResultSetQuery("SELECT employeeId, firstname, lastname, location, status, role FROM employee");
 
             while (resultSet.next()) {
                 String id = resultSet.getString("employeeId");

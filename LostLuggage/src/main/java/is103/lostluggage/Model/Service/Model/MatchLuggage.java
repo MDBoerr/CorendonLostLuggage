@@ -1,7 +1,9 @@
 package is103.lostluggage.Model.Service.Model;
 
 /**
- *
+ * This class is for structuring the way a MatchedLuggage objects is.
+ * The fields are for a part equal to the data on the database.
+ * 
  * @author Thijs Zijdel - 500782165
  */
 public class MatchLuggage {
