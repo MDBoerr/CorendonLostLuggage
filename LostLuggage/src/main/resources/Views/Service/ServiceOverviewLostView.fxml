@@ -51,12 +51,12 @@
          </columns>
       </TableView>
       <FlowPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4CAF50#4CAF50 #4CAF50#4CAF50;" GridPane.columnSpan="4" GridPane.rowSpan="2" />
-      <JFXButton buttonType="RAISED" onAction="#switchToMatching" prefHeight="27.0" prefWidth="115.0" ripplerFill="#0d47a1" style="-fx-background-color: red;" text="Find Matches &gt;" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+      <JFXButton fx:id="button_match" buttonType="RAISED" onAction="#switchToMatching" prefHeight="27.0" prefWidth="115.0" ripplerFill="#0d47a1" style="-fx-background-color: red;" text="Find Matches &gt;" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
          <GridPane.margin>
             <Insets left="15.0" />
          </GridPane.margin>
       </JFXButton>
-      <JFXButton buttonType="RAISED" onAction="#switchToInput" prefHeight="27.0" prefWidth="115.0" ripplerFill="#1c53a4" style="-fx-background-color: #4189fc#4189fc;" text="Add Luggage +" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+      <JFXButton fx:id="button_input" buttonType="RAISED" onAction="#switchToInput" prefHeight="27.0" prefWidth="134.0" ripplerFill="#1c53a4" style="-fx-background-color: #4189fc#4189fc;" text="Input Luggage +" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
          <GridPane.margin>
             <Insets right="15.0" />
          </GridPane.margin>
@@ -71,6 +71,6 @@
             <Insets left="25.0" right="150.0" />
          </GridPane.margin>
       </JFXTextField>
-      <JFXToggleButton onAction="#showOnlyMatchedLuggage" text="Matched Luggage" toggleColor="#1c53a4" toggleLineColor="#4189fc" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
+      <JFXToggleButton fx:id="matchedLuggageToggle" onAction="#showOnlyMatchedLuggage" text="Matched Luggage" toggleColor="#1c53a4" toggleLineColor="#4189fc" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
     </children>
 </GridPane>
