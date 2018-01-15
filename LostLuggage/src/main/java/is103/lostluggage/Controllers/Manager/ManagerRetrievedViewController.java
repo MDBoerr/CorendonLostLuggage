@@ -6,11 +6,16 @@ import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
+import is103.lostluggage.Model.PdfDocument;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import static java.sql.JDBCType.NULL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -71,6 +76,9 @@ public class ManagerRetrievedViewController implements Initializable {
     private JFXTextField dateid;
     @FXML
     private JFXTextField lostluggageid;
+    
+    //Hashmap containing all the text fields
+    private Map<String, String> formValues = new LinkedHashMap<>();
 
     private String header = "Retrieved lugagge";
     //conection to the db
@@ -175,7 +183,7 @@ public class ManagerRetrievedViewController implements Initializable {
         });
 
     }
-
+    @FXML
     public void updateFormInfo(ActionEvent event) throws SQLException {
 
         String customer = customerid.getText();
@@ -193,6 +201,45 @@ public class ManagerRetrievedViewController implements Initializable {
                     + "                                                     WHERE lostluggage.registrationNr = '" + lostkoffer + "'");
         } else {
             System.out.println("nothing updated");
+        }
+    }
+    
+    @FXML
+    public void exportPdf(ActionEvent event) throws SQLException, IOException {
+
+         //Fileobject
+        File file = MainApp.selectFileToSave("*.pdf");
+        
+        //If fileobject has been initialized
+        if(file != null){
+        String customer = customerid.getText();
+        String lostkoffer = lostluggageid.getText();
+        String deliverer = deivererid.getText();
+        String email = emailid.getText();
+        String adres = adresid.getText();
+        String treated = employeeservice.getText();
+        String date = dateid.getText();
+        String formid = formtextid.getText();
+        
+        
+        formValues.put("Registration ID: ", formid);
+        formValues.put("Registration date: ", date);
+        formValues.put("Employee name: ", treated);
+        formValues.put("Customer name: ", customer);
+        formValues.put("Lost luggage registration ID: ", lostkoffer);       
+        formValues.put("Customer address: ", adres);
+        formValues.put("Customer email: ", email);
+        formValues.put("Deliverer: ", deliverer);
+            //get the location to store the file
+            String fileName = file.getAbsolutePath();
+            //New pdf document with filebath in constructor
+            PdfDocument Pdf = new PdfDocument(fileName);
+            
+            //set the values for the pdf
+            Pdf.setPdfValues(formValues);
+            
+            //Save the pdf
+            Pdf.savePDF();
         }
     }
 

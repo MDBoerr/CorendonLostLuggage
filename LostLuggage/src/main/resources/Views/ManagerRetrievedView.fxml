@@ -81,12 +81,12 @@
             <RowConstraints minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <JFXButton fx:id="exportform" prefHeight="26.0" prefWidth="249.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="Export to PDF" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="10">
+            <JFXButton fx:id="exportform" buttonType="RAISED" onAction="#exportPdf" prefHeight="26.0" prefWidth="249.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="Export to PDF" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="10">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
             </JFXButton>
-            <JFXTextField fx:id="formtextid" focusColor="#4dadf7" promptText="Last name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <JFXTextField fx:id="formtextid" focusColor="#4dadf7" onAction="#exportPdf" promptText="Last name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
@@ -174,7 +174,7 @@
                   <Insets top="10.0" />
                </padding>
             </JFXTextField>
-            <JFXButton fx:id="updateform" onAction="#updateFormInfo" prefHeight="26.0" prefWidth="249.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="Update information" textFill="WHITE" GridPane.rowIndex="10">
+            <JFXButton fx:id="updateform" buttonType="RAISED" onAction="#updateFormInfo" prefHeight="26.0" prefWidth="249.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="Update information" textFill="WHITE" GridPane.rowIndex="10">
                <GridPane.margin>
                   <Insets left="40.0" />
                </GridPane.margin>
