@@ -1,5 +1,7 @@
 package is103.lostluggage.Controllers.Service;
 
+import com.jfoenix.controls.JFXButton;
+import com.sun.org.apache.xerces.internal.xs.StringList;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Data.ServiceDataMatch;
@@ -33,7 +35,44 @@ public class ServiceHomeViewController implements Initializable {
     public static boolean resetMatching = true; //true= refresh       -> get's alternated in program
                                                 //false= dont refresh
                                                 //for: manual matching
-
+    //index of language strings
+    private final int TITLE = 0, BUT_FOUND = 1, BUT_LOST = 2, BUT_MATCH = 3, BUT_INPUT = 4;
+    private final int AMOUNT_OF_LANGUAGE_FIELDS = 4;
+    
+    private final String[] languageArray = new String[AMOUNT_OF_LANGUAGE_FIELDS+1];
+    @FXML private JFXButton button_found, button_lost, button_match, button_input;
+    
+    private void initializeLanguageStrings(){
+        if(MainApp.getLanguage().equals("dutch")) {
+            //set al the data for the getLanguageFor string array
+            languageArray[TITLE]     = "Service home pagina";
+            languageArray[BUT_FOUND] = "Gevonden bagage overzicht";
+            languageArray[BUT_LOST]  = "Verloren bagage overzicht";
+            languageArray[BUT_MATCH] = "Overeenkomende Bagage >";
+            languageArray[BUT_INPUT] = "Bagage invoeren +";
+        } else if (MainApp.getLanguage().equals("english")) {
+            languageArray[TITLE]     = "Service Home";
+            languageArray[BUT_FOUND] = "Overview Found Luggage";
+            languageArray[BUT_LOST]  = "Overview Lost Luggage";
+            languageArray[BUT_MATCH] = "Luggage Matching >";
+            languageArray[BUT_INPUT] = "Input Luggage +";
+        }
+    }
+    private String getLanguageFor(int index){
+        return languageArray[index];
+    }
+   
+    private void setRightLanguage(){
+       initializeLanguageStrings();
+       button_found.setText(getLanguageFor(BUT_FOUND));
+       button_lost.setText( getLanguageFor(BUT_LOST ));
+       button_match.setText(getLanguageFor(BUT_MATCH));
+       button_input.setText(getLanguageFor(BUT_INPUT));
+   }
+          
+            
+            
+            
     /**
      * This method is for getting the one and only instance of the class match 
      * 
@@ -81,10 +120,6 @@ public class ServiceHomeViewController implements Initializable {
         return ServiceHomeViewController.potentialMatchesReSet;
     }
 
-    //view title
-    private final String TITLE = "Service Home";
-   
-    
     /**
      * Initializes the controller class that adds all the needed functionality,
      * to the: ServiceHomeView.FXML view.
@@ -94,6 +129,9 @@ public class ServiceHomeViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //set language
+        setRightLanguage();
+        
         //set switchable to prev view. (this)
         MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
         
@@ -102,7 +140,7 @@ public class ServiceHomeViewController implements Initializable {
         
         //set the view's title
         try {
-            MainViewController.getInstance().getTitle(TITLE);
+            MainViewController.getInstance().getTitle(getLanguageFor(TITLE));
         } catch (IOException ex) {
             Logger.getLogger(ServiceHomeViewController.class.getName()).log(Level.SEVERE, null, ex);
         }  
