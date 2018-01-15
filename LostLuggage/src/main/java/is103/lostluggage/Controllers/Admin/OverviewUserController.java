@@ -26,6 +26,7 @@ import javafx.scene.Node;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.TableRow;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -127,7 +128,7 @@ public class OverviewUserController implements Initializable {
     }
 
     @FXML
-    private void searchUsers(ActionEvent event) throws SQLException {
+    private void searchUsers(KeyEvent event) throws SQLException {
 
         ObservableList<User> users = FXCollections.observableArrayList();
         String searchInput = searchTextField.getText();
