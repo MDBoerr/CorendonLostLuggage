@@ -45,7 +45,7 @@ public class HomeUserViewController implements Initializable {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        MainViewController.previousView = "/fxml/SelectUserRoleView.fxml";
+        //MainViewController.previousView = "";
 
     }
 
@@ -62,6 +62,15 @@ public class HomeUserViewController implements Initializable {
 
         MainApp.switchView("/Views/Admin/AdminAddUserView.fxml");
 
+    }
+    
+    
+    //Go to the extra data window
+    @FXML
+    protected void viewAddExtraDataWindow(ActionEvent event) throws IOException {
+        AdminAddUserViewController.edit = false;
+
+        MainApp.switchView("/Views/Admin/ExtraData.fxml");
     }
 
 }

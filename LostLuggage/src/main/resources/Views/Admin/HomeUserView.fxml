@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane prefHeight="579.0" prefWidth="949.0" style="-fx-background-color: fffff;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Admin.HomeUserViewController">
+<GridPane prefHeight="579.0" prefWidth="949.0" style="-fx-background-color: fffff;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Admin.HomeUserViewController">
     <columnConstraints>
         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -36,5 +36,13 @@
                 <Font size="20.0" />
             </font>
         </JFXButton>
+      <JFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#viewAddExtraDataWindow" prefHeight="65.0" prefWidth="245.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3#2196F3;" styleClass=".button" text="Add Extra Options" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="40.0" />
+         </GridPane.margin>
+      </JFXButton>
     </children>
 </GridPane>

@@ -122,6 +122,9 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //for setting the resource bundle 
+        MainApp.currentView = "/Views/Service/ServiceEditFoundLuggageView.fxml";
+         
         //try to set the page title
         try {
             MainViewController.getInstance().getTitle(TITLE);

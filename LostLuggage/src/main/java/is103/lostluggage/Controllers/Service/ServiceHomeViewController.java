@@ -35,9 +35,6 @@ public class ServiceHomeViewController implements Initializable {
     public static boolean resetMatching = true; //true= refresh       -> get's alternated in program
                                                 //false= dont refresh
                                                 //for: manual matching
-    
-    @FXML private JFXButton button_found, button_lost, button_match, button_input;
-      
             
     /**
      * This method is for getting the one and only instance of the class match 

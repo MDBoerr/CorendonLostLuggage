@@ -42,33 +42,33 @@
         </rowConstraints>
          <children>
             <FlowPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4189fc;" GridPane.columnSpan="6" />
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Found Luggage Details" GridPane.columnSpan="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="%serviceFoundDetailsTitel" GridPane.columnSpan="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
             </Text>
-            <JFXTextField fx:id="registrationNr" disable="true" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Registration Nr" style="-fx-prompt-text-fill: #282828#282828;" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="type" editable="false" focusColor="BLACK" labelFloat="true" promptText="Type" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="brand" editable="false" focusColor="BLACK" labelFloat="true" promptText="Brand" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="mainColor" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Color" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.valignment="BOTTOM" />
-            <JFXTextArea fx:id="signatures" editable="false" focusColor="#b1b1b1" labelFloat="true" prefHeight="115.0" prefWidth="282.0" promptText="Signatures" style="-fx-prompt-text-fill: #b1b1b1#b1b1b1;" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="9" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+            <JFXTextField fx:id="registrationNr" disable="true" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="%serviceFieldregNr" style="-fx-prompt-text-fill: #282828#282828;" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+            <JFXTextField fx:id="type" editable="false" focusColor="BLACK" labelFloat="true" promptText="%serviceFieldType" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
+            <JFXTextField fx:id="brand" editable="false" focusColor="BLACK" labelFloat="true" promptText="%serviceFieldBrand" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
+            <JFXTextField fx:id="mainColor" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="%serviceFieldColor" style="-fx-prompt-text-fill: #b1b1b1;" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.valignment="BOTTOM" />
+            <JFXTextArea fx:id="signatures" editable="false" focusColor="#b1b1b1" labelFloat="true" prefHeight="115.0" prefWidth="282.0" promptText="%serviceFieldChar" style="-fx-prompt-text-fill: #b1b1b1#b1b1b1;" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="9" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets bottom="10.0" top="25.0" />
                </GridPane.margin></JFXTextArea>
-            <JFXTextField fx:id="secondColor" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Color" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="luggageTag" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Luggage Tag" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="size" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Size" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="weight" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Weight" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="8" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="passangerId" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Passenger ID" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="passangerName" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Passenger Name" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="address" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Address" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="place" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Place" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="postalCode" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Postal Code" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="5" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="country" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Country" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="email" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Email" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="phone" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Phone" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="8" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="locationFound" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Location Found" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="9" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="flight" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Flight" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />
+            <JFXTextField fx:id="secondColor" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="%serviceFieldColor" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
+            <JFXTextField fx:id="luggageTag" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="%serviceFieldTag" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+            <JFXTextField fx:id="size" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="%serviceFieldSize" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
+            <JFXTextField fx:id="weight" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="%serviceFieldWeight" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="8" GridPane.valignment="BOTTOM" />
+            <JFXTextField fx:id="passangerId" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="%serviceFieldPassId" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+            <JFXTextField fx:id="passangerName" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="%serviceFieldPassName" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+            <JFXTextField fx:id="address" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="%serviceFieldPassAdd" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
+            <JFXTextField fx:id="place" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="%serviceFieldPassPlace" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
+            <JFXTextField fx:id="postalCode" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="%serviceFieldPassPostal" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="5" GridPane.valignment="BOTTOM" />
+            <JFXTextField fx:id="country" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="%serviceFieldPassCountry" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
+            <JFXTextField fx:id="email" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="%serviceFieldPassEmail" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
+            <JFXTextField fx:id="phone" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="%serviceFieldPassPhone" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="8" GridPane.valignment="BOTTOM" />
+            <JFXTextField fx:id="locationFound" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="%serviceFieldLocationFound" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="9" GridPane.valignment="BOTTOM" />
+            <JFXTextField fx:id="flight" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="%serviceFieldFlight" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="2" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />
             <GridPane prefHeight="27.0" prefWidth="446.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="12">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="160.0" prefWidth="100.0" />
@@ -93,13 +93,13 @@
                   <RowConstraints />
               </rowConstraints>
                <children>
-                  <JFXButton fx:id="manualMatchingButton" buttonType="RAISED" minWidth="124.0" onAction="#manualMatching" prefHeight="27.0" prefWidth="124.0" ripplerFill="#62b565" style="-fx-background-color: #5fc965#5fc965;" text="Manual matching" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <JFXButton fx:id="manualMatchingButton" buttonType="RAISED" minWidth="124.0" onAction="#manualMatching" prefHeight="27.0" prefWidth="124.0" ripplerFill="#62b565" style="-fx-background-color: #5fc965#5fc965;" text="%serviceButtonManualMatching" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                   <JFXButton fx:id="editLuggageButton" onAction="#openEditView" prefHeight="27.0" prefWidth="78.0" ripplerFill="#dddddd" style="-fx-background-color: #b8b8b8#b8b8b8;" text="Edit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <JFXButton fx:id="viewPotentialsButton" buttonType="RAISED" minWidth="135.0" onAction="#viewPotentials" prefHeight="17.0" prefWidth="124.0" ripplerFill="#e8ab28" style="-fx-background-color: #fbc756#fbc756;" text="Potential Matches" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <JFXButton fx:id="viewPotentialsButton" buttonType="RAISED" minWidth="135.0" onAction="#viewPotentials" prefHeight="17.0" prefWidth="124.0" ripplerFill="#e8ab28" style="-fx-background-color: #fbc756#fbc756;" text="%serviceButtonViewPotentials" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                </children>
             </GridPane>
-            <JFXTextField fx:id="dateFound" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Date Found" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />
-            <JFXTextField fx:id="timeFound" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="Time Found" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />
+            <JFXTextField fx:id="dateFound" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="%serviceFieldDateFound" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />
+            <JFXTextField fx:id="timeFound" editable="false" focusColor="#b1b1b1" labelFloat="true" promptText="%serviceFieldTimeFound" style="-fx-prompt-text-fill: #b1b1b1" unFocusColor="#d7d7d7" GridPane.columnIndex="4" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />
          </children>
       </GridPane>
    </children>

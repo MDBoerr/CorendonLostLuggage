@@ -1,5 +1,6 @@
 package is103.lostluggage.Controllers.Service;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
@@ -17,6 +18,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -39,13 +41,16 @@ public class ServiceInputLuggageViewController implements Initializable {
             secondColorJFXComboBox, locationJFXComboBox, airportJFXComboBox, destinationJFXComboBox;
     
     //Hashmap containing all the comboboxes
-    private Map<String, JFXComboBox> comboBoxes = new HashMap<>();
+    private Map<String, JFXComboBox> comboBoxes = new LinkedHashMap<>();
     
     @FXML
     private GridPane mainGridPane,travellerInfoGridPane, luggageInfoGridPane ;
         
     @FXML
     private Label passengerInformationLbl;
+    
+    @FXML
+    private JFXButton exportPDFBtn;
     
     @FXML
     private JFXDatePicker dateJFXDatePicker;
@@ -59,13 +64,13 @@ public class ServiceInputLuggageViewController implements Initializable {
             characterJFXTextField, sizeJFXTextField, weightJFXTextField;
     
     //Hashmap containing all the text fields
-    private Map<String, JFXTextField> textFields = new HashMap<>();
+    private Map<String, JFXTextField> textFields = new LinkedHashMap<>();
     
     //Form object
     private Form form;
     
     //HashMap that contains all the form values
-    private Map<String, String> formValues = new HashMap<>();
+    private Map<String, String> formValues = new LinkedHashMap<>();
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -177,7 +182,7 @@ public class ServiceInputLuggageViewController implements Initializable {
             JFXComboBox value = entry.getValue();
             
             //first check for the comboboxes that have to be selected in both forms
-            if(key.equals("color") || key.equals("type") || key.equals("airport")){
+            if(key.equals("color") || key.equals("type") || key.equals("airport") || key.equals("flight")){
             
                 if(value.getValue() == null || value.getValue().toString().isEmpty()){
                     value.setStyle("-fx-background-color: #f47142");
@@ -310,6 +315,8 @@ public class ServiceInputLuggageViewController implements Initializable {
 
                 //execute the missing luggage query
                 int affectedRowsLuggageQuery = MainApp.getDatabase().executeUpdateQuery(addFoundLuggageQuery);
+                
+                this.exportPDFBtn.setDisable(false);
 
             }else{
             
@@ -321,6 +328,8 @@ public class ServiceInputLuggageViewController implements Initializable {
             
             //execute the missing luggage query
             int affectedRowsLuggageQuery = MainApp.getDatabase().executeUpdateQuery(addFoundLuggageQuery);
+            
+            this.exportPDFBtn.setDisable(false);
             }
             
         }else{
@@ -347,12 +356,14 @@ public class ServiceInputLuggageViewController implements Initializable {
 
             //execute the missing luggage query
             int affectedRowsLuggageQuery = MainApp.getDatabase().executeUpdateQuery(addMissingLuggageQuery);
+            
+            this.exportPDFBtn.setDisable(false);
         }
     }
     
     //Method to export the current form to pdf
     @FXML
-    public void exportPDF() throws IOException{
+    public void exportPDF() throws IOException, SQLException{
         
         //Check if all the fields have been filled in properly
         if(checkFields() == false){
@@ -370,8 +381,8 @@ public class ServiceInputLuggageViewController implements Initializable {
             String fileName = file.getAbsolutePath();
             
             formValues.put("Form Type: ", form.getType());
-            formValues.put("Registration number:", "SELECT QUERY FROM DATABASE FORM CAN ONLY BE PRINTED AFTER FORM HAS BEEN SAVED TO DB");
-            formValues.put("Employee: ", "FIRST NAME LASTNAME QUERY FROM DATABASE BY EMPLOYEE ID");
+            formValues.put("Registration number:", form.getLastId());
+            formValues.put("Employee: ", MainApp.currentUser.getFirstName()+ " " + MainApp.currentUser.getLastName());
             formValues.put("Time: ", timeJFXTimePicker.getValue().toString());
             formValues.put("Date: ", dateJFXDatePicker.getValue().toString());
             formValues.put("Airport: ", airportJFXComboBox.getValue().toString());
@@ -379,6 +390,7 @@ public class ServiceInputLuggageViewController implements Initializable {
             //If its lost then passenger info goes in first
             if(form.getType().equals("Lost")){
                 
+                formValues.put("passengerinfoline", "Passenger Information");
                 formValues.put("Name: ", textFields.get("name").getText());
                 formValues.put("Address: ", textFields.get("address").getText());
                 formValues.put("Place of residence: ", textFields.get("place").getText());
@@ -388,6 +400,7 @@ public class ServiceInputLuggageViewController implements Initializable {
                 formValues.put("E-mail: ", textFields.get("email").getText());
 
                 
+                formValues.put("luggageinfoline", "Luggage Information");
                 formValues.put("Labelnumber: ", checkTextField(textFields.get("labelnumber")));
                 formValues.put("Flight: ", checkComboBox(comboBoxes.get("flight")));
                 formValues.put("Destination: ", checkComboBox(comboBoxes.get("destination")));
@@ -401,7 +414,7 @@ public class ServiceInputLuggageViewController implements Initializable {
                 
             }else{
                 
-                
+                formValues.put("luggageinfoline", "Luggage Information");
                 formValues.put("Labelnumber: ", checkTextField(textFields.get("labelnumber")));
                 formValues.put("Flight: ", checkComboBox(comboBoxes.get("flight")));
                 formValues.put("Destination: ", checkComboBox(comboBoxes.get("destination")));
@@ -414,6 +427,7 @@ public class ServiceInputLuggageViewController implements Initializable {
                 formValues.put("Character: ", checkTextField(textFields.get("character")));
                 formValues.put("Location: ", checkComboBox(comboBoxes.get("location")));
                 
+                formValues.put("passengerinfoline", "Passenger Information");
                 formValues.put("Name: ", textFields.get("name").getText());
                 formValues.put("Address: ", textFields.get("address").getText());
                 formValues.put("Place of residence: ", textFields.get("place").getText());

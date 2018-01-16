@@ -49,8 +49,29 @@ public class Form {
         return formOptions;
     }
     
+    
+    //get the last registrationNr
+    public String getLastId() throws SQLException{
+        
+        String table;
+        
+        //determine the table
+        if(this.getType().equals("Lost")){
+            table = "lostluggage";
+        }else{
+            table = "foundluggage";
+        }
+        
+        ResultSet result = MainApp.getDatabase().executeResultSetQuery("SELECT registrationNr FROM " + table + " ORDER BY registrationNr DESC LIMIT 1");
+      
+        //Nog aanpassen.. int is overbodig
+        int lastId =  Integer.parseInt(resultSetToArrayList(result, "registrationNr").get(0));
+        
+        return Integer.toString(lastId);
+    }
+    
     //Method to convert resultset to arraylist
-    private ArrayList resultSetToArrayList(ResultSet result, String column) throws SQLException{
+    private ArrayList<String> resultSetToArrayList(ResultSet result, String column) throws SQLException{
 
         //The ArrayList that will contain all the values of the resultSet
         ArrayList<String> resultArrayList = new ArrayList<>();

@@ -8,6 +8,7 @@ package is103.lostluggage.Model;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,7 +39,7 @@ public class PdfDocument {
     private PDPageContentStream contentStream;
     
     //HashMap containing the form information
-    private Map<String, String> pdfValues = new HashMap<>();
+    private Map<String, String> pdfValues = new LinkedHashMap<>();
 
     //Name of the PDF
     private String filename = "";
@@ -82,10 +83,19 @@ public class PdfDocument {
 
             String key = entry.getKey();
             String value = entry.getValue();
+            
+            //if key equals new line we have to set an additional new line
+            if(value.equals("Passenger Information") || value.equals("Luggage Information")){
+                contentStream.newLine();
+                contentStream.showText(value);
+                contentStream.newLine();
+                
+            }else{
 
-            contentStream.showText(key + value);
+                contentStream.showText(key + value);
 
-            contentStream.newLine();
+                contentStream.newLine();
+            }
         }
 
         //End the text
@@ -104,4 +114,6 @@ public class PdfDocument {
             Logger.getLogger(PdfDocument.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+   
 }
