@@ -202,6 +202,15 @@ public class ServiceInputLuggageViewController implements Initializable {
                     value.setStyle(null);
                 }
             }
+            
+            if(form.getType().equals("Found") && key.equals("flight")){
+                if(value.getValue() == null || value.getValue().toString().isEmpty()){
+                    value.setStyle("-fx-background-color: #f47142");
+                    appropriate =  false;
+                }else{
+                    value.setStyle(null);
+                }
+            }
         }
         
         //loop through the textfields
