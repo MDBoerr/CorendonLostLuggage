@@ -1,12 +1,16 @@
 package is103.lostluggage.Model.Service.Data;
 
 import is103.lostluggage.Controllers.Service.ServiceMatchingViewController;
+import is103.lostluggage.MainApp;
+import static is103.lostluggage.MainApp.language;
 import is103.lostluggage.Model.Service.Instance.Details.FoundLuggageDetailsInstance;
 import is103.lostluggage.Model.Service.Instance.Details.LostLuggageDetailsInstance;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
 import is103.lostluggage.Model.Service.Model.LostLuggage;
 import is103.lostluggage.Model.Service.Model.MatchLuggage;
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
@@ -130,8 +134,18 @@ public class ServiceMoreDetails {
     public void popUpDetails(Stage stage, String viewLink, String type) throws IOException { 
         try { 
             //get popup fxml resource   
-            Parent popup = FXMLLoader.load(getClass().getResource(viewLink));
+            Parent popup;
+            //Parent popup = FXMLLoader.load(getClass().getResource(viewLink));
+            if (language.equals("dutch")) {
+                ResourceBundle bundle = ResourceBundle.getBundle("resources.Bundle", new Locale("nl"));
+                popup = FXMLLoader.load(MainApp.class.getResource(viewLink), bundle);
+            } else if (language.equals("english")){
+                ResourceBundle bundle = ResourceBundle.getBundle("resources.Bundle");
+                popup = FXMLLoader.load(MainApp.class.getResource(viewLink), bundle);
 
+            } else {
+                popup = FXMLLoader.load(getClass().getResource(viewLink));     
+            }
             //set the right scene (popup) to the given stage
             stage.setScene(new Scene(popup));
 
