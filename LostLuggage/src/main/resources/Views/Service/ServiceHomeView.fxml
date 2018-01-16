@@ -51,11 +51,6 @@
          <font>
             <Font name="System Bold" size="20.0" />
          </font></JFXButton>
-      <JFXButton onAction="#logOut" prefHeight="38.0" prefWidth="98.0" ripplerFill="#6b6b6b" style="-fx-background-color: #d5d5d5;" text="&lt; LOG OUT" textFill="#4d4d4d" GridPane.halignment="LEFT" GridPane.rowIndex="3">
-         <GridPane.margin>
-            <Insets left="25.0" />
-         </GridPane.margin>
-      </JFXButton>
       <Label fx:id="timeDisplay" alignment="CENTER" prefHeight="39.0" prefWidth="105.0" GridPane.columnIndex="1" GridPane.halignment="CENTER">
          <font>
             <Font size="33.0" />

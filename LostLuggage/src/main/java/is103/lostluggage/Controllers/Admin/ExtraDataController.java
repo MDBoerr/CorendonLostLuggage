@@ -42,7 +42,7 @@ public class ExtraDataController implements Initializable {
         // TODO
         
         //Define the previous view
-        MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
+        MainViewController.previousView = "/Views/Admin/HomeUserView.fxml";
         
         //set the title of the view, default form to be displayed is Missing
         changeTitle("Add Extra Data");
