@@ -168,7 +168,7 @@ public class AdminAddUserViewController implements Initializable {
                 MainViewController.getInstance().getTitle(headerDutch);
             } else {
                 MainViewController.getInstance().getTitle(header);
-
+                
             }
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
@@ -191,35 +191,6 @@ public class AdminAddUserViewController implements Initializable {
         userId = employeeIdField.getText();
 
         int returnValue = DB.executePasswordUpdateQuery(userId, location);
-        
-        
-        //
-        
-        ///
-        ///
-        
-        
-        
-        ///
-        
-        
-        
-        ///
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        ///
 
         if (returnValue != -1) {
             String header = "Succesful";
