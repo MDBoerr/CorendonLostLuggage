@@ -107,7 +107,7 @@ public class ManagerRetrievedViewController implements Initializable {
 
         header = "Retrieved lugagge";
         headerDutch = "Teruggebrachte bagage";
-        
+        stackPane.setVisible(false);
 
         try {
             if (MainApp.language.equals("dutch")) {

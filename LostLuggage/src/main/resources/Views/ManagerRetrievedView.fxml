@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -88,16 +89,16 @@
             <RowConstraints minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <JFXButton fx:id="exportform" buttonType="RAISED" onAction="#exportPdf" prefHeight="26.0" prefWidth="249.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="Export to PDF" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="10">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </JFXButton>
             <JFXTextField fx:id="formtextid" focusColor="#4dadf7" onAction="#exportPdf" promptText="Form ID" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
             </JFXTextField>
+            <JFXButton fx:id="exportform" buttonType="RAISED" onAction="#exportPdf" prefHeight="26.0" prefWidth="249.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="Export to PDF" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="10">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </JFXButton>
             <JFXTextField fx:id="customerid" focusColor="#4dadf7" prefHeight="25.0" prefWidth="199.0" promptText="Customer name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets top="10.0" />
@@ -214,5 +215,6 @@
                 <TableColumn fx:id="Deliverer" prefWidth="127.19998168945312" text="Bezorger" />
             </columns>
         </TableView>
+      <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" />
     </children>
 </GridPane>
