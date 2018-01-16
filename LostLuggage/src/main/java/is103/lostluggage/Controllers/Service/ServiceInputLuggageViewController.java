@@ -182,7 +182,7 @@ public class ServiceInputLuggageViewController implements Initializable {
             JFXComboBox value = entry.getValue();
             
             //first check for the comboboxes that have to be selected in both forms
-            if(key.equals("color") || key.equals("type") || key.equals("airport")){
+            if(key.equals("color") || key.equals("type") || key.equals("airport") || key.equals("flight")){
             
                 if(value.getValue() == null || value.getValue().toString().isEmpty()){
                     value.setStyle("-fx-background-color: #f47142");
@@ -195,15 +195,6 @@ public class ServiceInputLuggageViewController implements Initializable {
             //check the comboboxes for the lost form, in this case only the destination is an additional combobox
             //where an option has to be selected
             if(form.getType().equals("Lost") && key.equals("destination")){
-                if(value.getValue() == null || value.getValue().toString().isEmpty()){
-                    value.setStyle("-fx-background-color: #f47142");
-                    appropriate =  false;
-                }else{
-                    value.setStyle(null);
-                }
-            }
-            
-            if(form.getType().equals("Found") && key.equals("flight")){
                 if(value.getValue() == null || value.getValue().toString().isEmpty()){
                     value.setStyle("-fx-background-color: #f47142");
                     appropriate =  false;
