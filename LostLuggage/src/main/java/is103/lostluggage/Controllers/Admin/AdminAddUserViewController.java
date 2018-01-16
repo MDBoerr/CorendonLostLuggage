@@ -17,6 +17,7 @@ import is103.lostluggage.Model.User;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.UUID;
@@ -168,7 +169,7 @@ public class AdminAddUserViewController implements Initializable {
                 MainViewController.getInstance().getTitle(headerDutch);
             } else {
                 MainViewController.getInstance().getTitle(header);
-                
+
             }
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
@@ -379,7 +380,7 @@ public class AdminAddUserViewController implements Initializable {
             //System.out.println(UUID.randomUUID());
         } //All fields are valid, there are no errors
         else {
-
+            String employeeId = employeeIdField.getText();
             if (edit != false) {
                 String id = selectedUser.getId();
                 String roleString = role.toString();
@@ -389,12 +390,12 @@ public class AdminAddUserViewController implements Initializable {
             } else {
 
                 //Temporary id
-                String id = UUID.randomUUID().toString().substring(0, 8);
+                //String id = UUID.randomUUID().toString().substring(0, 8);
                 String roleString = role.toString();
                 String statusString = status.toString();
                 String password = location;
 
-                String query = String.format("INSERT INTO employee VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')", id, firstname, lastname, password, location, statusString, roleString);
+                String query = String.format("INSERT INTO employee VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')", employeeId, firstname, lastname, password, roleString, location, statusString);
 
                 int result = DB.executeUpdateQuery(query);
                 System.out.println(" This is the result:  " + result);
@@ -456,36 +457,52 @@ public class AdminAddUserViewController implements Initializable {
     //This method is still in progress (not yet implemented)
     //function to generate the employeeid by using the first letter of the firstname
     //and the first letter of the surname
-    public void generateEmployeeId() {
+    @FXML
+    private void generateEmployeeId() throws SQLException {
 
-        //initialy the employee id field is empty
-        String employeeId = "";
+        if (edit != false) {
+        } else {
+            //initialy the employee id field is empty
+            String employeeId = "";
+            int count = 0;
 
-        //array of characters in the employeeId
-        char[] employeeIdChars = new char[2];
+            //array of characters in the employeeId
+            char[] employeeIdChars = new char[2];
 
-        //Check whether the input string is empty or not
-        if (!firstnameField.getText().isEmpty()) {
+            //Check whether the input string is empty or not
+            if (!firstnameField.getText().isEmpty()) {
+                employeeIdChars[0] = firstnameField.getText().charAt(0);
+                employeeId = String.valueOf(employeeIdChars).toUpperCase();
+                employeeIdField.setText(employeeId);
 
-            //If its not empty, then the first letter of the string will be the first
-            //letter of the employeeId
-            employeeIdChars[0] = firstnameField.getText().charAt(0);
+                if (!firstnameField.getText().isEmpty() && !lastnameField.getText().isEmpty()) {
+
+                    //If its not empty, then the first letter of the string will be the first
+                    //letter of the employeeId
+                    employeeId = null;
+                    employeeIdChars[0] = firstnameField.getText().charAt(0);
+                    employeeIdChars[1] = lastnameField.getText().charAt(0);
+                    employeeId = String.valueOf(employeeIdChars).toUpperCase();
+
+                    String query = "SELECT COUNT(*) count FROM employee WHERE employeeId LIKE 'input%'";
+                    query = query.replace("input", employeeId);
+
+                    ResultSet resultSet = DB.executeResultSetQuery(query);
+                    while (resultSet.next()) {
+                        count = resultSet.getInt("count");
+                        System.out.println("This is the count before: " + count);
+                        count++;
+
+                    }
+
+                    System.out.println("This is the count after: " + count);
+
+                    //It is impossible to delete users so it isnt necessary to check 
+                    //if the id is already used
+                    employeeIdField.setText(employeeId + count);
+                }
+            }
         }
 
-        if (!lastnameField.getText().isEmpty()) {
-
-            employeeIdChars[1] = lastnameField.getText().charAt(0);
-        }
-
-        //employeeId in string lowercase
-        employeeId = String.valueOf(employeeIdChars).toLowerCase();
-
-        //Set the employeeId in the employeeId Field
-        employeeIdField.setText(employeeId);
-
-        //check if the field contains characters, if it check in the database
-        //whether the employeeId already exists, if it does add a number to the id
-        //check how many ak's exist.. forexample ak, ak1, ak2 so make sure the id in this field
-        //will be ak3
     }
 }
