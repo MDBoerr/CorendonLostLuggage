@@ -1,5 +1,8 @@
 package is103.lostluggage.Controllers.Manager;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
 
@@ -35,6 +38,11 @@ import javafx.scene.control.TableView;
 
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 /**
  * FXML Controller class
@@ -77,22 +85,43 @@ public class ManagerRetrievedViewController implements Initializable {
     @FXML
     private JFXTextField lostluggageid;
 
+    @FXML
+    private StackPane stackPane;
+
+    private final JFXDialogLayout DIALOG_LAYOUT = new JFXDialogLayout();
+
+    private final TextFlow MESSAGE_FLOW = new TextFlow();
+
+    private String alert, alertHeader, headerColor, buttonText;
+
     //Hashmap containing all the text fields
     private Map<String, String> formValues = new LinkedHashMap<>();
 
-    private String header = "Retrieved lugagge";
+    private String header;
+    private String headerDutch;
     //conection to the db
     public final MyJDBC DB = MainApp.getDatabase();
 
     @Override
-
     public void initialize(URL url, ResourceBundle rb) {
 
+        header = "Retrieved lugagge";
+        headerDutch = "Teruggebrachte bagage";
+        
+
         try {
-            MainViewController.getInstance().getTitle(header);
+            if (MainApp.language.equals("dutch")) {
+                MainViewController.getInstance().getTitle(headerDutch);
+            } else {
+                MainViewController.getInstance().getTitle(header);
+
+            }
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        //Set which view was previous 
+        MainApp.currentView = "/Views/Admin/ManagerRetrievedView.fxml";
 
         //To Previous Scene
         MainViewController.previousView = "/Views/ManagerHomeView.fxml";
@@ -120,6 +149,9 @@ public class ManagerRetrievedViewController implements Initializable {
         retrievedTable.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+
+                String header = "Retrieved lugagge";
+                String headerDutch = "Teruggebrachte bagage";
 
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
 
@@ -212,8 +244,19 @@ public class ManagerRetrievedViewController implements Initializable {
                     + "                                             JOIN matched on lostluggage.registrationNr = matched.lostluggage  "
                     + "                                                     SET passenger.name = '" + customer + "', passenger.email = '" + email + "', passenger.address = '" + adres + "', matched.delivery = '" + deliverer + "' "
                     + "                                                     WHERE lostluggage.registrationNr = '" + lostkoffer + "'");
+
+            alertHeader = "Updated!";
+            headerColor = "#f03e3e";
+            alert = "The delivered luggage is updated";
+            buttonText = "Ok";
+            showAlertMessage();
+
         } else {
-            System.out.println("nothing updated");
+            alertHeader = "Something went wrong!";
+            headerColor = "#f03e3e";
+            alert = "Please select a row before updating details";
+            buttonText = "Try again";
+            showAlertMessage();
         }
     }
 
@@ -265,16 +308,43 @@ public class ManagerRetrievedViewController implements Initializable {
         }
     }
 
+    private void showAlertMessage() {
+        stackPane.setVisible(true);
+        MESSAGE_FLOW.getChildren().clear();
+
+        //Customize header
+        Text header = new Text(alertHeader);
+        header.setFont(new Font("System", 18));
+        header.setFill(Paint.valueOf(headerColor));
+
+        JFXButton hideMessageButton = new JFXButton(buttonText);
+        //Customize button
+        hideMessageButton.setStyle("-fx-background-color: #4dadf7");
+        hideMessageButton.setTextFill(Paint.valueOf("#FFFFFF"));
+        hideMessageButton.setRipplerFill(Paint.valueOf("#FFFFFF"));
+        hideMessageButton.setButtonType(JFXButton.ButtonType.RAISED);
+
+        MESSAGE_FLOW.getChildren().add(new Text(alert));
+        DIALOG_LAYOUT.setHeading(header);
+        DIALOG_LAYOUT.setBody(MESSAGE_FLOW);
+        DIALOG_LAYOUT.setActions(hideMessageButton);
+        JFXDialog alertView = new JFXDialog(stackPane, DIALOG_LAYOUT, JFXDialog.DialogTransition.CENTER);
+        alertView.setOverlayClose(false);
+        hideMessageButton.setOnAction(e -> {
+            alertView.close();
+            stackPane.setVisible(false);
+        });
+
+        alertView.show();
+    }
+
     public ObservableList<RetrievedLuggage> getRetrievedLuggage() {
 
         ObservableList<RetrievedLuggage> retrievedList = FXCollections.observableArrayList();
 
         try {
-            MyJDBC db = MainApp.getDatabase();
 
-            ResultSet resultSet;
-
-            resultSet = db.executeResultSetQuery("SELECT delivery, dateMatched, employee.firstname, matched.matchedId, matched.lostluggage, passenger.name  FROM matched "
+            ResultSet resultSet = DB.executeResultSetQuery("SELECT delivery, dateMatched, employee.firstname, matched.matchedId, matched.lostluggage, passenger.name  FROM matched "
                     + "                                 INNER JOIN employee ON matched.employeeId = employee.employeeId "
                     + "                                     INNER JOIN foundluggage ON matched.foundluggage = foundluggage.registrationNr "
                     + "                                             INNER JOIN lostluggage on matched.lostluggage = lostluggage.registrationNr"

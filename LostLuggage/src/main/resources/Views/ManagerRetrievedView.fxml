@@ -93,17 +93,17 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </JFXButton>
-            <JFXTextField fx:id="formtextid" focusColor="#4dadf7" onAction="#exportPdf" promptText="Last name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <JFXTextField fx:id="formtextid" focusColor="#4dadf7" onAction="#exportPdf" promptText="Form ID" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
             </JFXTextField>
-            <JFXTextField fx:id="customerid" focusColor="#4dadf7" prefHeight="25.0" prefWidth="199.0" promptText="Last name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <JFXTextField fx:id="customerid" focusColor="#4dadf7" prefHeight="25.0" prefWidth="199.0" promptText="Customer name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
             </JFXTextField>
-            <JFXTextField fx:id="deivererid" focusColor="#4dadf7" promptText="Last name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <JFXTextField fx:id="deivererid" focusColor="#4dadf7" promptText="Deliverer" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
@@ -158,12 +158,12 @@
                   <Insets top="10.0" />
                </GridPane.margin>
             </Text>
-            <JFXTextField fx:id="adresid" focusColor="#4dadf7" promptText="Last name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="6">
+            <JFXTextField fx:id="adresid" focusColor="#4dadf7" promptText="Deliver address" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="6">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
             </JFXTextField>
-            <JFXTextField fx:id="dateid" focusColor="#4dadf7" layoutX="135.0" layoutY="120.0" promptText="Last name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="5">
+            <JFXTextField fx:id="dateid" focusColor="#4dadf7" layoutX="135.0" layoutY="120.0" promptText="Retrieved date" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
@@ -176,7 +176,7 @@
                   <Insets top="10.0" />
                </GridPane.margin>
             </Text>
-            <JFXTextField fx:id="employeeservice" focusColor="#4dadf7" promptText="Last name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="7">
+            <JFXTextField fx:id="employeeservice" focusColor="#4dadf7" promptText="Employee name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="7">
                <padding>
                   <Insets top="10.0" />
                </padding>
@@ -191,7 +191,7 @@
                   <Font size="17.0" />
                </font>
             </Text>
-            <JFXTextField fx:id="lostluggageid" focusColor="#4dadf7" promptText="Last name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="8">
+            <JFXTextField fx:id="lostluggageid" focusColor="#4dadf7" promptText="Lost luggage ID" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="8">
                <padding>
                   <Insets top="10.0" />
                </padding>
