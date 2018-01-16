@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 public class ManagerHomeViewController implements Initializable {
 private String header = "Overview manager home";
 private String headerDutch = "Overzicht manager home";
+
     /**
      * Initializes the controller class.
      */ 
@@ -38,7 +39,7 @@ private String headerDutch = "Overzicht manager home";
         }
 
         //Set which view was previous 
-        MainApp.currentView = "/Views/Admin/ManagerHomeView.fxml";
+        MainApp.currentView = "/Views/ManagerHomeView.fxml";
         
       
     }

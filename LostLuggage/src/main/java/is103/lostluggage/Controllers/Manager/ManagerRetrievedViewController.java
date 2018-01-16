@@ -121,7 +121,7 @@ public class ManagerRetrievedViewController implements Initializable {
         }
 
         //Set which view was previous 
-        MainApp.currentView = "/Views/Admin/ManagerRetrievedView.fxml";
+        MainApp.currentView = "/Views/ManagerRetrievedView.fxml";
 
         //To Previous Scene
         MainViewController.previousView = "/Views/ManagerHomeView.fxml";
@@ -149,10 +149,6 @@ public class ManagerRetrievedViewController implements Initializable {
         retrievedTable.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-
-                String header = "Retrieved lugagge";
-                String headerDutch = "Teruggebrachte bagage";
-
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
 
                     Node node = ((Node) event.getTarget()).getParent();
@@ -208,7 +204,7 @@ public class ManagerRetrievedViewController implements Initializable {
                                 emailid.setText(passmail);
                                 emailid.setEditable(true);
                             } else {
-                                emailid.clear();
+                                emailid.setText("youremail@domainname.something");
                                 emailid.setEditable(true);
                             }
 
@@ -238,7 +234,7 @@ public class ManagerRetrievedViewController implements Initializable {
         String adres = adresid.getText();
         String id = this.formtextid.getText();
 
-        if (!id.equals("Select a row")) {
+        if (!id.isEmpty()) {
             int updateInfo = DB.executeUpdateQuery("UPDATE passenger "
                     + "                                   JOIN lostluggage ON lostluggage.passengerId = passenger.passengerId  "
                     + "                                             JOIN matched on lostluggage.registrationNr = matched.lostluggage  "
@@ -262,21 +258,33 @@ public class ManagerRetrievedViewController implements Initializable {
 
     @FXML
     public void refreshTable(ActionEvent event) throws SQLException, IOException {
+         String id = this.formtextid.getText();
+        if (!id.isEmpty()) {
+            
         getRetrievedLuggage().removeAll(getRetrievedLuggage());
         while (retrievedTable.getRowFactory() != null) {
             getRetrievedLuggage().addAll();
 
         }
         retrievedTable.setItems(getRetrievedLuggage());
+        }else{
+            alertHeader = "There is nothing to update";
+            headerColor = "#f03e3e";
+            alert = "Please update retrieved luggage before refreshing";
+            buttonText = "Close";
+            showAlertMessage();
+        }
     }
 
     @FXML
     public void exportPdf(ActionEvent event) throws SQLException, IOException {
-
+String id = this.formtextid.getText();
+        if (!id.isEmpty()) {
         //Fileobject
         File file = MainApp.selectFileToSave("*.pdf");
 
         //If fileobject has been initialized
+        
         if (file != null) {
             String customer = customerid.getText();
             String lostkoffer = lostluggageid.getText();
@@ -306,7 +314,13 @@ public class ManagerRetrievedViewController implements Initializable {
             //Save the pdf
             Pdf.savePDF();
         }
-    }
+        }else {
+            alertHeader = "Something went wrong!";
+            headerColor = "#f03e3e";
+            alert = "Please select a row before exporting details";
+            buttonText = "Try again";
+            showAlertMessage();
+    }}
 
     private void showAlertMessage() {
         stackPane.setVisible(true);
