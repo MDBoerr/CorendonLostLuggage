@@ -73,7 +73,6 @@ public class SettingsViewController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        userLabel.setText("Change Password");
 
         changePasswordButton.setOnAction(e -> {
             try {
