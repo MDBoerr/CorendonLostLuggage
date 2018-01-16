@@ -37,6 +37,7 @@ import javafx.scene.input.MouseEvent;
 public class OverviewUserController implements Initializable {
 
     private String header = "Overview User";
+    private String headerDutch = "Overzicht Gebruikers";
 
     private final MyJDBC DB = MainApp.getDatabase();
 
@@ -78,7 +79,12 @@ public class OverviewUserController implements Initializable {
         //Error in creating database User
         //MyJDBC.createLostLuggageDatabase("LostLuggage");
         try {
-            MainViewController.getInstance().getTitle(header);
+            if (MainApp.language.equals("dutch")) {
+                MainViewController.getInstance().getTitle(headerDutch);
+            } else {
+                MainViewController.getInstance().getTitle(header);
+
+            }
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }

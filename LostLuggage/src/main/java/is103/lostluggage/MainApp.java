@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -37,32 +38,29 @@ public class MainApp extends Application {
     final private static String DB_NAME = "CorendonLostLuggage";
 
     public static String language = "english";
-    
+
     public static String currentView;
 
     public static User currentUser = null;
 
     public static Stage mainStage;
-
+    
     @Override
     public void start(Stage stage) throws Exception {
 
         //Method to set the db property
         setDatabase();
-        //db.executeUpdateQuery("RENAME TABLE missingluggage TO lostluggage;");
-
+                
         //set root
         root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
+        Scene mainScene = new Scene(root);
 
-        //switchView("/fxml/SelectUserRoleView.fxml");
         checkLoggedInStatus(currentUser);
 
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/Styles.css");
-        //scene.getStylesheets().add("/styles/MaterialDesign.css");
+        mainScene.getStylesheets().add("/styles/Styles.css");
 
         stage.setTitle("Corendon Lost Luggage");
-        stage.setScene(scene);
+        stage.setScene(mainScene);
 
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         stage.setX(primaryScreenBounds.getMinX());

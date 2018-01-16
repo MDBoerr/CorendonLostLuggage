@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 /**
  * MainView Controller class
@@ -30,7 +31,7 @@ public class MainViewController implements Initializable {
     }
 
     @FXML
-    private Button backButton;
+    private JFXButton backButton;
 
     @FXML
     private JFXButton englishButton, dutchButton;
@@ -47,13 +48,14 @@ public class MainViewController implements Initializable {
     private Label title;
 
     @FXML
-    private JFXButton settingsButton;
+    private JFXButton settingsButton, logoutButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Image logo = new Image("Images/Logo.png");
         logoView.setImage(logo);
         topHBox.toFront();
+        settingsButton.setGraphic(new ImageView("Images/settings.png"));
 
         instance = this;
 
@@ -61,6 +63,8 @@ public class MainViewController implements Initializable {
             MainApp.language = "english";
             System.out.println("Language changed to " + MainApp.language);
             try {
+                backButton.setText("< Back");
+                settingsButton.setText("Settings");
                 MainApp.switchView(MainApp.currentView);
             } catch (IOException ex) {
                 Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -72,6 +76,8 @@ public class MainViewController implements Initializable {
             MainApp.language = "dutch";
             System.out.println("Language changed to " + MainApp.language);
             try {
+                backButton.setText("< Terug");
+                settingsButton.setText("Instellingen");
                 MainApp.switchView(MainApp.currentView);
             } catch (IOException ex) {
                 Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -83,6 +89,14 @@ public class MainViewController implements Initializable {
     //Get instance
     public static MainViewController getInstance() {
         return instance;
+    }
+
+    @FXML
+    private void logout(ActionEvent event) throws IOException {
+
+        MainApp.currentUser = null;
+
+        MainApp.switchView("/Views/Admin/LogInView.fxml");
     }
 
     /**
