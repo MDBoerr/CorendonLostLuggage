@@ -151,10 +151,4 @@ public class LogInViewController implements Initializable {
         alertView.show();
     }
 
-    //Deze mag pas weg als iedereen kan inloggen..
-    @FXML
-    protected void switchViews(ActionEvent event) throws IOException {
-        MainApp.switchView("/fxml/SelectUserRoleView.fxml");
-    }
-
 }

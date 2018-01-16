@@ -113,6 +113,8 @@ public class AdminAddUserViewController implements Initializable {
     //Title of the view
     private String header;
 
+    private String headerDutch;
+
     public static boolean edit = false;
 
     public static User selectedUser;
@@ -141,6 +143,7 @@ public class AdminAddUserViewController implements Initializable {
 
         if (edit != false) {
             header = "Edit User";
+            headerDutch = "Wijzig Gebruiker";
             addUserBtn.setText("Edit");
             addUserBtn.setStyle("-fx-background-color: #51cf66; ");
             firstnameField.setText(selectedUser.getFirstName());
@@ -156,17 +159,24 @@ public class AdminAddUserViewController implements Initializable {
         } else {
             resetPasswordButton.setVisible(false);
             header = "Add User";
+            headerDutch = "Voeg Gebruiker Toe ";
 
         }
         //Set Header
         try {
-            MainViewController.getInstance().getTitle(header);
+            if (MainApp.language.equals("dutch")) {
+                MainViewController.getInstance().getTitle(headerDutch);
+            } else {
+                MainViewController.getInstance().getTitle(header);
+
+            }
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         //Set which view was previous
         MainViewController.previousView = "/Views/Admin/HomeUserView.fxml";
+        MainApp.currentView = "/Views/Admin/AdminAddUserView.fxml";
     }
 
     @FXML

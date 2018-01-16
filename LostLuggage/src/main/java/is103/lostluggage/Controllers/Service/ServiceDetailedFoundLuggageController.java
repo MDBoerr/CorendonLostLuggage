@@ -57,9 +57,6 @@ public class ServiceDetailedFoundLuggageController implements Initializable, Fou
     @FXML private JFXTextField locationFound;
     @FXML private JFXTextField flight;
     
-    //get the main application's language
-    private final String LANGUAGE = MainApp.getLanguage();  
-    
     //create a potentialmatche list 
     public ObservableList<MatchLuggage> potentialMatchesList = FXCollections.observableArrayList(); 
     
@@ -76,7 +73,8 @@ public class ServiceDetailedFoundLuggageController implements Initializable, Fou
         try {
             setFoundFields(getManualFoundLuggageResultSet());
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceDetailedFoundLuggageController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceDetailedFoundLuggageController.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
         
   
@@ -120,10 +118,10 @@ public class ServiceDetailedFoundLuggageController implements Initializable, Fou
             String getTimeFound =          resultSet.getString("F.timeFound");
 
             String getLuggageTag =         resultSet.getString("F.luggageTag");
-            String getLuggageType =        resultSet.getString("T."+LANGUAGE+"");
+            String getLuggageType =        resultSet.getString("T."+MainApp.getLanguage()+"");
             String getBrand =              resultSet.getString("F.brand");
-            String getMainColor =          resultSet.getString("c1."+LANGUAGE+"");
-            String getSecondColor =        resultSet.getString("c2."+LANGUAGE+"");
+            String getMainColor =          resultSet.getString("c1."+MainApp.getLanguage()+"");
+            String getSecondColor =        resultSet.getString("c2."+MainApp.getLanguage()+"");
             String getSize =               resultSet.getString("F.size");
             String getWeight =             resultSet.getString("F.weight");   
             String getOtherCharacteristics=resultSet.getString("F.otherCharacteristics");
@@ -139,7 +137,7 @@ public class ServiceDetailedFoundLuggageController implements Initializable, Fou
             String getPhone =              resultSet.getString("P.phone");
 
             String getFlight =             resultSet.getString("F.arrivedWithFlight"); 
-            String getLocationFound =      resultSet.getString("L."+LANGUAGE+"");
+            String getLocationFound =      resultSet.getString("L."+MainApp.getLanguage()+"");
 
         //set the fields with the right data    
         registrationNr.setText( Integer.toString(getRegistrationNr) );  

@@ -1,8 +1,10 @@
 package is103.lostluggage.Controllers.Service;
 
+import com.jfoenix.controls.JFXButton;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Data.ServiceDataMatch;
+import is103.lostluggage.Model.settings;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,7 +35,10 @@ public class ServiceHomeViewController implements Initializable {
     public static boolean resetMatching = true; //true= refresh       -> get's alternated in program
                                                 //false= dont refresh
                                                 //for: manual matching
-
+    
+    @FXML private JFXButton button_found, button_lost, button_match, button_input;
+      
+            
     /**
      * This method is for getting the one and only instance of the class match 
      * 
@@ -81,10 +86,6 @@ public class ServiceHomeViewController implements Initializable {
         return ServiceHomeViewController.potentialMatchesReSet;
     }
 
-    //view title
-    private final String TITLE = "Service Home";
-   
-    
     /**
      * Initializes the controller class that adds all the needed functionality,
      * to the: ServiceHomeView.FXML view.
@@ -96,13 +97,14 @@ public class ServiceHomeViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         //set switchable to prev view. (this)
         MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
+        MainApp.currentView = "/Views/Service/ServiceHomeView.fxml";
         
         //reset refreshing to auto
         resetMatching = true;
         
         //set the view's title
         try {
-            MainViewController.getInstance().getTitle(TITLE);
+            MainViewController.getInstance().getTitle( "Service Home" );
         } catch (IOException ex) {
             Logger.getLogger(ServiceHomeViewController.class.getName()).log(Level.SEVERE, null, ex);
         }  
@@ -111,6 +113,17 @@ public class ServiceHomeViewController implements Initializable {
         setOnMatchingView(false);
     }
     
+//    /**
+//     * Set the right language to this view
+//     */
+//    private void setRightLanguage(){
+//        //set the texts of the buttons to the right field of the array
+//        //this data is gotten from the settings class
+//        button_found.setText( settings.getLanguageFor( L_index_BUT_FOUND, languages) );
+//        button_lost.setText(  settings.getLanguageFor( L_index_BUT_LOST,  languages) );
+//        button_match.setText( settings.getLanguageFor( L_index_BUT_MATCH, languages) );
+//        button_input.setText( settings.getLanguageFor( L_index_BUT_INPUT, languages) );
+//   }
     
     /*-------------------------------------/
     /*            switch views            */

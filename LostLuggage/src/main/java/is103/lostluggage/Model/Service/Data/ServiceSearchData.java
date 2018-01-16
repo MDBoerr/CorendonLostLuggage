@@ -22,6 +22,8 @@ public class ServiceSearchData {
     //connection to database
     private static final MyJDBC DB = MainApp.getDatabase();      
     
+    private final int ZERO_CARACTERS = 0;
+    
     /**  
      * This method is for converting/ reading the passed resultSet to a list 
      * 
@@ -34,7 +36,8 @@ public class ServiceSearchData {
             dataList = new ServiceDataFound();
             return dataList.getObservableList(resultSet);
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceOverviewFoundViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceOverviewFoundViewController.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -51,7 +54,8 @@ public class ServiceSearchData {
             dataList = new ServiceDataLost();
             return dataList.getObservableList(resultSet);
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceOverviewFoundViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceOverviewFoundViewController.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -94,121 +98,67 @@ public class ServiceSearchData {
         if (!search.contains(";") && !search.contains("`") 
             && !search.contains("'") && !search.contains(")")
             && !search.contains("]") && !search.contains("(")
-            && !search.contains("%") && !search.contains("&")   ){
+            && !search.contains("%") && !search.contains("&")
+            && !search.contains("*") && !search.contains("!") 
+            && search.trim().length() > 0) {
             //no harmfull caracters in the search so:
-            //switch over the filter (value)
-            switch (value) {
-                case "all fields":
-                    //needs to be searched on all fields so:
-                    //add to the query the normal fields (/columns)
-                    query += "registrationNr LIKE '%replace%' OR "
-                        + " luggageTag LIKE '%replace%' OR "
-                        + " brand LIKE '%replace%' OR "
-                        + " mainColor LIKE '%replace%' OR "
-                        + " otherCharacteristics LIKE '%replace%' OR ";
-                    //add the color search part            
-                    query += generateColorStatement(search);
-                    //add the passenger search part
-                    query += generatePassengerStatement(search);
+            
+            //switch over the filter (value) for getting the query
+            query = switchOverFilter(query, value, search, luggageType);
+            
+                //if there isn't a statement (OR) set
+            if (!query.contains("OR")){
+                //query = query.substring(0,(query.indexOf("WHERE")));
+                //add a random statement
+                query += "mainColor LIKE '%99999%'";
+            } else {
+                //get te substring to the last OR
+                query = query.substring(0,query.lastIndexOf("OR"));
+            }
+            //close the query
+            query += ") ;";
 
-                    if ("foundluggage".equals(luggageType)){
-                        query += generateLocationStatement(search);
-                    }
-                    break;
-                case "registrationnr":
-                    query += "registrationNr LIKE '%replace%' OR ";
-                    break;
-                case "luggagetag":
-                    query += "luggageTag LIKE '%replace%' OR ";
-                    break;    
-                case "brand":
-                    query += "brand LIKE '%replace%' OR";
-                    break;
-                case "color":
-                    //generate the color query
-                    query += generateColorStatement(search);
+            //set the right tablename on the query
+            query = query.replaceAll("tablename", luggageType.toLowerCase());
 
-                    break;
-                case "characteristics":
-                    query += "otherCharacteristics LIKE '%replace%' OR ";
-                    break;
-                case "weight":
-                    query += "weight LIKE '%replace%' OR ";
-                    break;
-                case "date":
-                        //if there wasnt a type set (null) use normal
-                        if (null == luggageType.toLowerCase()){
-                            query = "date LIKE '%replace%' OR "
-                                    + " time LIKE '%replace%' OR ";
-                        //else switch    
-                        } else switch (luggageType.toLowerCase()) {
-                            case "foundluggage":
-                                query += "dateFound LIKE '%replace%' OR "
-                                        + " timeFound LIKE '%replace%' OR ";
-                                break;
-                            case "lostluggage":
-                                query += "dateLost LIKE '%replace%' OR "
-                                        + " timeLost LIKE '%replace%' OR ";
-                                break;
-                            default: //if there was a type set, but not right/ specific
-                                query = "date LIKE '%replace%' OR "
-                                        + " time LIKE '%replace%' OR ";
-                                break;
-                        }
-                    break;
-                case "passenger":
-                    //generate the passenger query
-                    query += generatePassengerStatement(search);
-
-                    break;
-                case "location":
-                    //generate the location query
-                    query += generateLocationStatement(search);
-
-                    break;
-                default:
-                    //default basic where statement
-                    query += "registrationNr LIKE '%replace%' OR "
-                        + " luggageTag LIKE '%replace%' OR "
-                        + " brand LIKE '%replace%' OR "
-                        + " mainColor LIKE '%replace%' OR "
-                        + " otherCharacteristics LIKE '%replace%' OR ";
+            //replace' -> with the right search input
+            finalQuery = query.replaceAll("replace", search); 
+        
+        } else { //the users inputted search value can be harmfull
+            
+            //check if it was just empty
+            if (search.trim().length() <= ZERO_CARACTERS){
+                //search was empty 
+                System.out.println("Nothing searched for.");
+            } else {
+                //harmfull characters used in the search
+                System.out.println("Harmfull caracters in the search used");
             }
             
-            //if there isn't a statement (OR) set
-        if (!query.contains("OR")){
-            //query = query.substring(0,(query.indexOf("WHERE")));
-            //add a random statement
-            query += "mainColor LIKE '%99999%'";
-        } else {
-            //get te substring to the last OR
-            query = query.substring(0,query.lastIndexOf("OR"));
-        }
-        //close the query
-        query += ") ;";
-        
-        //set the right tablename on the query
-        query = query.replaceAll("tablename", luggageType.toLowerCase());
-        
-        //replace' -> with the right search input
-        finalQuery = query.replaceAll("replace", search); 
-        
-        } else {
-            //harmfull chars.
-            System.out.println("Harmfull caracters in the search used");
-            //use the normal detailed query's without searching 
-            if ("foundluggage".equals(luggageType)){
-                //if this is true than use de detailed query from ServiceDataFound
-                finalQuery = ServiceDataFound.DETAILED_QUERY+" ;";
-            } else if ("lostluggage".equals(luggageType)){
-                //else if this is true than use de detailed query from ServiceDataLost
-                finalQuery = ServiceDataLost.DETAILED_QUERY+" ;";
-            } else {
-                //else get data from lost luggage
-                finalQuery = "SELECT * FROM lostluggage";
+            //backup for when there isn't a luggage type given.
+            if (null == luggageType){
+                luggageType = "foundluggage";
+                System.out.println("No luggage type defined.");
+            } 
+            
+            //switch over the right luggage type to define the full query
+            //because of a wrong user search input
+            switch (luggageType) {
+                case "foundluggage":
+                    //if this is true than use de detailed query from ServiceDataFound
+                    finalQuery = ServiceDataFound.DETAILED_QUERY+" ;";
+                    break;
+                case "lostluggage":
+                    //else if this is true than use de detailed query from ServiceDataLost
+                    finalQuery = ServiceDataLost.DETAILED_QUERY+" ;";
+                    break;
+                default:
+                    //else get data from <type> tabel
+                    finalQuery = "SELECT * FROM "+luggageType;
+                    break;
             }
         }
-        
+        //return the final created query
         return finalQuery;
     }
 
@@ -346,5 +296,100 @@ public class ServiceSearchData {
         }
 
         return generatedStatement;
+    }
+
+    /**
+     * This method is for splitting the getSearchQuery apart.
+     * This is done by moving the switch part of the function to here.
+     * Note: for this reason are all the already given parameters needed.
+     * 
+     * @param query        were the first part is already defined
+     * @param value        of the column filter value.
+     * @param search       (users s.) for creating the color and passenger query
+     * @param luggageType  found luggage or lost luggage
+     * @return created Q:  the query that is created in this method
+     * @throws SQLException for getting the color, passenger and location query
+     */
+    private String switchOverFilter(String query, String value, String search, String luggageType) throws SQLException{
+        //switch over the given filter value
+        switch (value) {
+            case "all fields":
+                //needs to be searched on all fields so:
+                //add to the query the normal fields (/columns)
+                query += "registrationNr LIKE '%replace%' OR "
+                    + " luggageTag LIKE '%replace%' OR "
+                    + " brand LIKE '%replace%' OR "
+                    + " mainColor LIKE '%replace%' OR "
+                    + " otherCharacteristics LIKE '%replace%' OR ";
+                //add the color search part            
+                query += generateColorStatement(search);
+                //add the passenger search part
+                query += generatePassengerStatement(search);
+
+                if ("foundluggage".equals(luggageType)){
+                    query += generateLocationStatement(search);
+                }
+                break;
+            case "registrationnr":
+                query += "registrationNr LIKE '%replace%' OR ";
+                break;
+            case "luggagetag":
+                query += "luggageTag LIKE '%replace%' OR ";
+                break;    
+            case "brand":
+                query += "brand LIKE '%replace%' OR";
+                break;
+            case "color":
+                //generate the color query
+                query += generateColorStatement(search);
+
+                break;
+            case "characteristics":
+                query += "otherCharacteristics LIKE '%replace%' OR ";
+                break;
+            case "weight":
+                query += "weight LIKE '%replace%' OR ";
+                break;
+            case "date":
+                    //if there wasnt a type set (null) use normal
+                    if (null == luggageType.toLowerCase()){
+                        query = "date LIKE '%replace%' OR "
+                                + " time LIKE '%replace%' OR ";
+                    //else switch    
+                    } else switch (luggageType.toLowerCase()) {
+                        case "foundluggage":
+                            query += "dateFound LIKE '%replace%' OR "
+                                    + " timeFound LIKE '%replace%' OR ";
+                            break;
+                        case "lostluggage":
+                            query += "dateLost LIKE '%replace%' OR "
+                                    + " timeLost LIKE '%replace%' OR ";
+                            break;
+                        default: //if there was a type set, but not right/ specific
+                            query = "date LIKE '%replace%' OR "
+                                    + " time LIKE '%replace%' OR ";
+                            break;
+                    }
+                break;
+            case "passenger":
+                //generate the passenger query
+                query += generatePassengerStatement(search);
+
+                break;
+            case "location":
+                //generate the location query
+                query += generateLocationStatement(search);
+
+                break;
+            default:
+                //default basic where statement
+                query += "registrationNr LIKE '%replace%' OR "
+                    + " luggageTag LIKE '%replace%' OR "
+                    + " brand LIKE '%replace%' OR "
+                    + " mainColor LIKE '%replace%' OR "
+                    + " otherCharacteristics LIKE '%replace%' OR ";
+        }
+        //return the created query
+        return query;
     }
 }

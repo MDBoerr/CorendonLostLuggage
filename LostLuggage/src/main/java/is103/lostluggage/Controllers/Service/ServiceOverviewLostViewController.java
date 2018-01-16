@@ -1,7 +1,9 @@
 package is103.lostluggage.Controllers.Service;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import is103.lostluggage.Model.Service.Model.LostLuggage;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
 import is103.lostluggage.Controllers.MainViewController;
@@ -12,6 +14,7 @@ import is103.lostluggage.Model.Service.Data.ServiceMoreDetails;
 import is103.lostluggage.Model.Service.Data.ServiceSearchData;
 import is103.lostluggage.Model.Service.Interface.LostLuggageTable;
 import is103.lostluggage.Model.Service.Interface.Search;
+import is103.lostluggage.Model.settings;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -37,9 +40,6 @@ import javafx.stage.Stage;
  * @author Thijs Zijdel - 500782165
  */
 public class ServiceOverviewLostViewController implements Initializable, LostLuggageTable, Search {
-
-    //view title
-    private final String TITLE = "Overview Lost Luggage";
     
     //stage for more details when double clicking on a table item
     private final Stage POPUP_STAGE_LOST = new Stage();  
@@ -87,6 +87,9 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
     @FXML private TableColumn<LostLuggage, String>  lostEmployeeId;
     @FXML private TableColumn<LostLuggage, Integer> lostMatchedId;
    
+    @FXML private JFXButton button_input, button_match;
+    @FXML private JFXToggleButton matchedLuggageToggle;
+    
     
     /**
      * Initializes the controller class that adds all the needed functionality,
@@ -97,9 +100,12 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //for setting the resource bundle 
+        MainApp.currentView = "/Views/Service/ServiceOverviewLostView.fxml";
+        
         //set the view's title, and catch a possible IOException
         try {
-            MainViewController.getInstance().getTitle(TITLE);
+            MainViewController.getInstance().getTitle( "Overview Lost" );
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
