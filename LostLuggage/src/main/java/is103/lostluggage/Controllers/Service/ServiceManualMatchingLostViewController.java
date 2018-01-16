@@ -23,8 +23,6 @@ import javafx.fxml.Initializable;
  */
 public class ServiceManualMatchingLostViewController implements Initializable, LostLuggageFields {
     
-    //getting the main language for the application
-    private final String LANGUAGE = MainApp.getLanguage();
     
     @FXML private JFXTextField registrationNr;
     @FXML private JFXTextField luggageTag;
@@ -62,7 +60,8 @@ public class ServiceManualMatchingLostViewController implements Initializable, L
         try {
             setLostFields(getManualLostLuggageResultSet());
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceDetailedFoundLuggageController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceDetailedFoundLuggageController.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
         
     }  
@@ -102,10 +101,10 @@ public class ServiceManualMatchingLostViewController implements Initializable, L
             String getTimeLost =           resultSet.getString("F.timeLost");
 
             String getLuggageTag =         resultSet.getString("F.luggageTag");
-            String getLuggageType =        resultSet.getString("T."+LANGUAGE+"");
+            String getLuggageType =        resultSet.getString("T."+MainApp.getLanguage()+"");
             String getBrand =              resultSet.getString("F.brand");
-            String getMainColor =          resultSet.getString("c1."+LANGUAGE+"");
-            String getSecondColor =        resultSet.getString("c2."+LANGUAGE+"");
+            String getMainColor =          resultSet.getString("c1."+MainApp.getLanguage()+"");
+            String getSecondColor =        resultSet.getString("c2."+MainApp.getLanguage()+"");
             String getSize =               resultSet.getString("F.size");
             String getWeight =             resultSet.getString("F.weight");   
             String getOtherCharacteristics=resultSet.getString("F.otherCharacteristics");

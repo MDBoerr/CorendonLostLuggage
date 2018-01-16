@@ -22,9 +22,6 @@ import javafx.fxml.Initializable;
  */
 public class ServiceManualMatchingFoundController implements Initializable, FoundLuggageFields {
     
-    //getting the main language of the application
-    private final String LANGUAGE = MainApp.getLanguage();
-    
     @FXML private JFXTextField registrationNr;
     @FXML private JFXTextField luggageTag;
     @FXML private JFXTextField type;
@@ -104,10 +101,10 @@ public class ServiceManualMatchingFoundController implements Initializable, Foun
             String getTimeFound =          resultSet.getString("F.timeFound");
 
             String getLuggageTag =         resultSet.getString("F.luggageTag");
-            String getLuggageType =        resultSet.getString("T."+LANGUAGE);
+            String getLuggageType =        resultSet.getString("T."+MainApp.getLanguage());
             String getBrand =              resultSet.getString("F.brand");
-            String getMainColor =          resultSet.getString("c1."+LANGUAGE);
-            String getSecondColor =        resultSet.getString("c2."+LANGUAGE);
+            String getMainColor =          resultSet.getString("c1."+MainApp.getLanguage());
+            String getSecondColor =        resultSet.getString("c2."+MainApp.getLanguage());
             String getSize =               resultSet.getString("F.size");
             String getWeight =             resultSet.getString("F.weight");   
             String getOtherCharacteristics=resultSet.getString("F.otherCharacteristics");
@@ -122,7 +119,7 @@ public class ServiceManualMatchingFoundController implements Initializable, Foun
             String getPhone =              resultSet.getString("P.phone");
 
             String getFlight =             resultSet.getString("F.arrivedWithFlight"); 
-            String getLocationFound =      resultSet.getString("L."+LANGUAGE);
+            String getLocationFound =      resultSet.getString("L."+MainApp.getLanguage());
         
         //set all the fields with the right data
         registrationNr.setText( Integer.toString(getRegistrationNr) );  

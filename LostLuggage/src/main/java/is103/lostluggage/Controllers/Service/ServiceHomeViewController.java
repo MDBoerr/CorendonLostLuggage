@@ -37,20 +37,7 @@ public class ServiceHomeViewController implements Initializable {
                                                 //for: manual matching
     
     @FXML private JFXButton button_found, button_lost, button_match, button_input;
-    
-    
-    //index of the fields i nthe language string 2d array
-    private final int  
-            L_index_TITLE     = 0,  
-            L_index_BUT_FOUND = 1, 
-            L_index_BUT_LOST  = 2,  
-            L_index_BUT_MATCH = 3,  
-            L_index_BUT_INPUT = 4;
-    
-    //get language string array from the settings class 
-    private final String[][] languages = settings.serviceHomeLanguage();
-    
-        
+      
             
     /**
      * This method is for getting the one and only instance of the class match 
@@ -108,18 +95,16 @@ public class ServiceHomeViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //set language
-        setRightLanguage();
-        
         //set switchable to prev view. (this)
         MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
+        MainApp.currentView = "/Views/Service/ServiceHomeView.fxml";
         
         //reset refreshing to auto
         resetMatching = true;
         
         //set the view's title
         try {
-            MainViewController.getInstance().getTitle( settings.getLanguageFor( L_index_TITLE, languages) );
+            MainViewController.getInstance().getTitle( "Service Home" );
         } catch (IOException ex) {
             Logger.getLogger(ServiceHomeViewController.class.getName()).log(Level.SEVERE, null, ex);
         }  
@@ -128,17 +113,17 @@ public class ServiceHomeViewController implements Initializable {
         setOnMatchingView(false);
     }
     
-    /**
-     * Set the right language to this view
-     */
-    private void setRightLanguage(){
-        //set the texts of the buttons to the right field of the array
-        //this data is gotten from the settings class
-        button_found.setText( settings.getLanguageFor( L_index_BUT_FOUND, languages) );
-        button_lost.setText(  settings.getLanguageFor( L_index_BUT_LOST,  languages) );
-        button_match.setText( settings.getLanguageFor( L_index_BUT_MATCH, languages) );
-        button_input.setText( settings.getLanguageFor( L_index_BUT_INPUT, languages) );
-   }
+//    /**
+//     * Set the right language to this view
+//     */
+//    private void setRightLanguage(){
+//        //set the texts of the buttons to the right field of the array
+//        //this data is gotten from the settings class
+//        button_found.setText( settings.getLanguageFor( L_index_BUT_FOUND, languages) );
+//        button_lost.setText(  settings.getLanguageFor( L_index_BUT_LOST,  languages) );
+//        button_match.setText( settings.getLanguageFor( L_index_BUT_MATCH, languages) );
+//        button_input.setText( settings.getLanguageFor( L_index_BUT_INPUT, languages) );
+//   }
     
     /*-------------------------------------/
     /*            switch views            */

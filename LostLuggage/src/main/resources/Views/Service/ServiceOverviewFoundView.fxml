@@ -33,45 +33,45 @@
     <children>
       <TableView fx:id="foundLuggageTable" onMouseClicked="#foundRowClicked" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="4">
          <columns>
-            <TableColumn fx:id="foundRegistrationNr" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="ID" />
-            <TableColumn fx:id="foundDateFound" minWidth="80.0" prefWidth="100.0" text="Date Found" />
-            <TableColumn fx:id="foundTimeFound" minWidth="75.0" prefWidth="90.0" text="Time" />
-            <TableColumn fx:id="foundLuggageTag" minWidth="100.0" prefWidth="120.0" text="Tag" />
-            <TableColumn fx:id="foundLuggageType" minWidth="50.0" prefWidth="50.0" text="Type" />
-            <TableColumn fx:id="foundBrand" minWidth="100.0" prefWidth="125.0" text="Brand" />
-            <TableColumn fx:id="foundMainColor" minWidth="100.0" prefWidth="125.0" text="Color" />
-            <TableColumn fx:id="foundSecondColor" minWidth="100.0" prefWidth="125.0" text="Secondcolor" />
-            <TableColumn fx:id="foundSize" minWidth="125.0" prefWidth="150.0" text="Size" />
-            <TableColumn fx:id="foundWeight" minWidth="50.0" prefWidth="65.0" text="Weight" />
-            <TableColumn fx:id="foundOtherCharacteristics" minWidth="100.0" prefWidth="125.0" text="Characteristics" />
-            <TableColumn fx:id="foundPassengerId" minWidth="63.0" prefWidth="63.0" text="Passenger" />
-            <TableColumn fx:id="foundArrivedWithFlight" minWidth="50.0" prefWidth="84.0" text="Flight" />
-            <TableColumn fx:id="foundLocationFound" minWidth="60.0" prefWidth="119.0" text="Location" />
-            <TableColumn fx:id="foundEmployeeId" minWidth="60.0" prefWidth="119.0" text="Employee" />
-            <TableColumn fx:id="foundMatchedId" minWidth="60.0" prefWidth="119.0" text="Match ID" />
+            <TableColumn fx:id="foundRegistrationNr" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="%colFoundId" />
+            <TableColumn fx:id="foundDateFound" minWidth="80.0" prefWidth="100.0" text="%colFoundDate" />
+            <TableColumn fx:id="foundTimeFound" minWidth="75.0" prefWidth="90.0" text="%colFoundTime" />
+            <TableColumn fx:id="foundLuggageTag" minWidth="100.0" prefWidth="120.0" text="%colFoundTime" />
+            <TableColumn fx:id="foundLuggageType" minWidth="50.0" prefWidth="50.0" text="%colFoundType" />
+            <TableColumn fx:id="foundBrand" minWidth="100.0" prefWidth="125.0" text="%colFoundBrand" />
+            <TableColumn fx:id="foundMainColor" minWidth="100.0" prefWidth="125.0" text="%colFoundColor" />
+            <TableColumn fx:id="foundSecondColor" minWidth="100.0" prefWidth="125.0" text="%colFoundSecondColor" />
+            <TableColumn fx:id="foundSize" minWidth="125.0" prefWidth="150.0" text="%colFoundSize" />
+            <TableColumn fx:id="foundWeight" minWidth="50.0" prefWidth="65.0" text="%colFoundWeight" />
+            <TableColumn fx:id="foundOtherCharacteristics" minWidth="100.0" prefWidth="125.0" text="%colFoundChar" />
+            <TableColumn fx:id="foundPassengerId" minWidth="63.0" prefWidth="63.0" text="%colFoundPassId" />
+            <TableColumn fx:id="foundArrivedWithFlight" minWidth="50.0" prefWidth="84.0" text="%colFoundFlight" />
+            <TableColumn fx:id="foundLocationFound" minWidth="60.0" prefWidth="119.0" text="%colFoundLocation" />
+            <TableColumn fx:id="foundEmployeeId" minWidth="60.0" prefWidth="119.0" text="%colFoundEmployee" />
+            <TableColumn fx:id="foundMatchedId" minWidth="60.0" prefWidth="119.0" text="%colFoundMatchId" />
          </columns>
       </TableView>
       <FlowPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4189fc #4189fc;" GridPane.columnSpan="4" GridPane.rowSpan="2" />
-      <JFXButton buttonType="RAISED" onAction="#switchToMatching" prefHeight="27.0" prefWidth="115.0" ripplerFill="#0d47a1" style="-fx-background-color: red;" text="Find Matches &gt;" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+      <JFXButton buttonType="RAISED" onAction="#switchToMatching" prefHeight="27.0" prefWidth="115.0" ripplerFill="#0d47a1" style="-fx-background-color: red;" text="%serviceButtonFindMatch" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
          <GridPane.margin>
             <Insets left="15.0" />
          </GridPane.margin>
       </JFXButton>
-      <JFXButton buttonType="RAISED" onAction="#switchToInput" prefHeight="27.0" prefWidth="115.0" ripplerFill="#1b5e20" style="-fx-background-color: #4CAF50#4CAF50;" text="Add Luggage +" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+      <JFXButton buttonType="RAISED" onAction="#switchToInput" prefHeight="27.0" prefWidth="115.0" ripplerFill="#1b5e20" style="-fx-background-color: #4CAF50#4CAF50;" text="%serviceInputLuggage" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
          <GridPane.margin>
             <Insets right="15.0" />
          </GridPane.margin>
       </JFXButton>
-      <JFXComboBox fx:id="searchTypeComboBox" focusColor="WHITE" labelFloat="true" maxWidth="125.0" minWidth="100.0" onAction="#search" promptText="Filter" unFocusColor="WHITE">
+      <JFXComboBox fx:id="searchTypeComboBox" focusColor="WHITE" labelFloat="true" maxWidth="125.0" minWidth="100.0" onAction="#search" promptText="%searchFilterPrompt" unFocusColor="WHITE">
          <padding>
             <Insets right="10.0" />
          </padding>
       </JFXComboBox>
-      <JFXTextField fx:id="searchField" focusColor="WHITE" labelFloat="true" onAction="#search" onInputMethodTextChanged="#search" onKeyReleased="#search" prefHeight="27.0" prefWidth="260.0" promptText="Search for luggage" unFocusColor="WHITE">
+      <JFXTextField fx:id="searchField" focusColor="WHITE" labelFloat="true" onAction="#search" onInputMethodTextChanged="#search" onKeyReleased="#search" prefHeight="27.0" prefWidth="260.0" promptText="%searchInputPrompt" unFocusColor="WHITE">
          <GridPane.margin>
             <Insets left="25.0" right="150.0" />
          </GridPane.margin>
       </JFXTextField>
-      <JFXToggleButton onAction="#showOnlyMatchedLuggage" text="Matched Luggage" toggleColor="#1b5e20" toggleLineColor="#4caf50" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
+      <JFXToggleButton onAction="#showOnlyMatchedLuggage" text="%matchedLuggageToggle" toggleColor="#1b5e20" toggleLineColor="#4caf50" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
     </children>
 </GridPane>
