@@ -222,7 +222,7 @@
       </HBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
          <children>
-            <JFXButton buttonType="RAISED" onAction="#submitForm" prefHeight="62.0" prefWidth="127.0" style="-fx-background-color: #2ecc71;" text="Save">
+            <JFXButton buttonType="RAISED" onAction="#submitForm" prefHeight="63.0" prefWidth="130.0" style="-fx-background-color: #2ecc71;" text="Save">
                <font>
                   <Font size="16.0" />
                </font>
