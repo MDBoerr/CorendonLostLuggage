@@ -59,9 +59,7 @@ public class ServiceDetailedLostLuggageViewController implements Initializable, 
     //create a potentialmatches list 
     public ObservableList<MatchLuggage> potentialMatchesList 
             = FXCollections.observableArrayList(); 
-    
-    //getting the main language of the application
-    private final String LANGUAGE = MainApp.getLanguage();  
+     
 
     
     /**
@@ -77,7 +75,8 @@ public class ServiceDetailedLostLuggageViewController implements Initializable, 
         try {
             setLostFields(getManualLostLuggageResultSet());
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceDetailedFoundLuggageController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceDetailedFoundLuggageController.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
   
     }   
@@ -119,10 +118,10 @@ public class ServiceDetailedLostLuggageViewController implements Initializable, 
             String getTimeLost =          resultSet.getString("F.timeLost");
 
             String getLuggageTag =         resultSet.getString("F.luggageTag");
-            String getLuggageType =        resultSet.getString("T."+LANGUAGE+"");
+            String getLuggageType =        resultSet.getString("T."+MainApp.getLanguage()+"");
             String getBrand =              resultSet.getString("F.brand");
-            String getMainColor =          resultSet.getString("c1."+LANGUAGE+"");
-            String getSecondColor =        resultSet.getString("c2."+LANGUAGE+"");
+            String getMainColor =          resultSet.getString("c1."+MainApp.getLanguage()+"");
+            String getSecondColor =        resultSet.getString("c2."+MainApp.getLanguage()+"");
             String getSize =               resultSet.getString("F.size");
             String getWeight =                resultSet.getString("F.weight");   
             String getOtherCharacteristics=resultSet.getString("F.otherCharacteristics");

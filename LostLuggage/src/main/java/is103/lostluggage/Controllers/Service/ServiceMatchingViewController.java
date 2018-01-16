@@ -216,6 +216,9 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //for setting the resource bundle 
+        MainApp.currentView = "/Views/Service/ServiceMatchingView.fxml";
+         
         //switch to prev view.
         MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
         

@@ -33,25 +33,25 @@
     <children>
        <TableView fx:id="lostLuggageTable" onMouseClicked="#lostRowClicked" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="4">
          <columns>
-            <TableColumn fx:id="lostRegistrationNr" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="%colFoundId" />
-            <TableColumn fx:id="DateLost" minWidth="80.0" prefWidth="100.0" text="%colFoundDate" />
-            <TableColumn fx:id="TimeLost" minWidth="75.0" prefWidth="90.0" text="%colFoundTime" />
-            <TableColumn fx:id="lostLuggageTag" minWidth="100.0" prefWidth="120.0" text="%colFoundTag" />
-            <TableColumn fx:id="lostLuggageType" minWidth="50.0" prefWidth="50.0" text="%colFoundType" />
-            <TableColumn fx:id="lostBrand" minWidth="100.0" prefWidth="125.0" text="%colFoundBrand" />
-            <TableColumn fx:id="lostMainColor" minWidth="100.0" prefWidth="125.0" text="%colFoundColor" />
-            <TableColumn fx:id="lostSecondColor" minWidth="100.0" prefWidth="125.0" text="%colFoundSecondColor" />
-            <TableColumn fx:id="lostSize" minWidth="125.0" prefWidth="150.0" text="%colFoundSize" />
-            <TableColumn fx:id="lostWeight" minWidth="50.0" prefWidth="65.0" text="%colFoundWeight" />
-            <TableColumn fx:id="lostOtherCharacteristics" minWidth="100.0" prefWidth="125.0" text="%colFoundChar" />
-            <TableColumn fx:id="lostPassengerId" minWidth="63.0" prefWidth="63.0" text="%colFoundPassId" />
-            <TableColumn fx:id="lostFlight" minWidth="50.0" prefWidth="84.0" text="%colFoundFlight" />
-            <TableColumn fx:id="lostEmployeeId" minWidth="50.0" prefWidth="84.0" text="%colFoundEmployee" />
-            <TableColumn fx:id="lostMatchedId" minWidth="50.0" prefWidth="84.0" text="%colFoundMatchId" />
+            <TableColumn fx:id="lostRegistrationNr" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="%colLostId" />
+            <TableColumn fx:id="DateLost" minWidth="80.0" prefWidth="100.0" text="%colLostDate" />
+            <TableColumn fx:id="TimeLost" minWidth="75.0" prefWidth="90.0" text="%colLostTime" />
+            <TableColumn fx:id="lostLuggageTag" minWidth="100.0" prefWidth="120.0" text="%colLostTag" />
+            <TableColumn fx:id="lostLuggageType" minWidth="50.0" prefWidth="50.0" text="%colLostType" />
+            <TableColumn fx:id="lostBrand" minWidth="100.0" prefWidth="125.0" text="%colLostBrand" />
+            <TableColumn fx:id="lostMainColor" minWidth="100.0" prefWidth="125.0" text="%colLostColor" />
+            <TableColumn fx:id="lostSecondColor" minWidth="100.0" prefWidth="125.0" text="%colLostSecondColor" />
+            <TableColumn fx:id="lostSize" minWidth="125.0" prefWidth="150.0" text="%colLostSize" />
+            <TableColumn fx:id="lostWeight" minWidth="50.0" prefWidth="65.0" text="%colLostWeight" />
+            <TableColumn fx:id="lostOtherCharacteristics" minWidth="100.0" prefWidth="125.0" text="%colLostChar" />
+            <TableColumn fx:id="lostPassengerId" minWidth="63.0" prefWidth="63.0" text="%colLostPassId" />
+            <TableColumn fx:id="lostFlight" minWidth="50.0" prefWidth="84.0" text="%colLostFlight" />
+            <TableColumn fx:id="lostEmployeeId" minWidth="50.0" prefWidth="84.0" text="%colLostEmployee" />
+            <TableColumn fx:id="lostMatchedId" minWidth="50.0" prefWidth="84.0" text="%colLostMatchId" />
          </columns>
       </TableView>
       <FlowPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4CAF50#4CAF50 #4CAF50#4CAF50;" GridPane.columnSpan="4" GridPane.rowSpan="2" />
-      <JFXButton fx:id="button_match" buttonType="RAISED" onAction="#switchToMatching" prefHeight="27.0" prefWidth="115.0" ripplerFill="#0d47a1" style="-fx-background-color: red;" text="Find Matches &gt;" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+      <JFXButton fx:id="button_match" buttonType="RAISED" onAction="#switchToMatching" prefHeight="27.0" prefWidth="115.0" ripplerFill="#0d47a1" style="-fx-background-color: red;" text="%serviceButtonFindMatch" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
          <GridPane.margin>
             <Insets left="15.0" />
          </GridPane.margin>

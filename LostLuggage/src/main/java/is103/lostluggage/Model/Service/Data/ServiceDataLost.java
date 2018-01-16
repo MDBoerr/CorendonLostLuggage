@@ -22,8 +22,6 @@ public final class ServiceDataLost {
     //connection to database
     private static final MyJDBC DB = MainApp.getDatabase();
     
-    //getting the main language
-    private static final String LANGUAGE = MainApp.getLanguage();
     
     //detailed query that is used on multiple places
     public static final String DETAILED_QUERY =
@@ -34,8 +32,8 @@ public final class ServiceDataLost {
             "COALESCE(NULLIF(L.luggageTag,''), 'unknown') as `luggageTag`,  " +
             "COALESCE(NULLIF(L.luggageType,''), 'unknown') as `luggageType`, " +
             "COALESCE(NULLIF(L.brand,''), 'unknown') as `brand`," +
-            "COALESCE(NULLIF(C1."+LANGUAGE+",''), 'unknown') as `mainColor`,  " +
-            "COALESCE(NULLIF(C2."+LANGUAGE+",''), 'none') as `secondColor`," +
+            "COALESCE(NULLIF(C1."+MainApp.getLanguage()+",''), 'unknown') as `mainColor`,  " +
+            "COALESCE(NULLIF(C2."+MainApp.getLanguage()+",''), 'none') as `secondColor`," +
             "COALESCE(NULLIF(L.size,''), 'unknown')	as `size`,  " +
             "COALESCE(NULLIF(L.weight,''), 'unknown') as `weight`," +
             "COALESCE(NULLIF(L.otherCharacteristics,''), 'none') as `otherCharacteristics`," +
@@ -110,15 +108,16 @@ public final class ServiceDataLost {
      * @return resultSet           for the given id
      */ 
     public ResultSet getAllDetailsLost(String id) throws SQLException{
+        String language = MainApp.getLanguage();
         return DB.executeResultSetQuery("SELECT " +
             "COALESCE(NULLIF(F.registrationNr,''), 'none') as `F.registrationNr`," +
             "COALESCE(NULLIF(F.dateLost,''), 'unknown') as `F.dateLost`, " +
             "COALESCE(NULLIF(F.timeLost,''), 'unknown') as `F.timeLost`, " +
             "COALESCE(NULLIF(F.luggageTag,''), 'unknown') as `F.luggageTag`,  " +
-            "COALESCE(NULLIF(T."+LANGUAGE+",''), 'unknown') as `T."+LANGUAGE+"`, " +
+            "COALESCE(NULLIF(T."+language+",''), 'unknown') as `T."+language+"`, " +
             "COALESCE(NULLIF(F.brand,''), 'unknown') as `F.brand`," +
-            "COALESCE(NULLIF(C1."+LANGUAGE+",''), 'unknown') as `C1."+LANGUAGE+"`,  " +
-            "COALESCE(NULLIF(C2."+LANGUAGE+",''), 'none') as `C2."+LANGUAGE+"`," +
+            "COALESCE(NULLIF(C1."+language+",''), 'unknown') as `C1."+language+"`,  " +
+            "COALESCE(NULLIF(C2."+language+",''), 'none') as `C2."+language+"`," +
             "COALESCE(NULLIF(F.size,''), 'unknown')	as `F.size`,  " +
             "COALESCE(NULLIF(F.weight,''), 'unknown') as `F.weight`," +
             "COALESCE(NULLIF(F.otherCharacteristics,''), 'none') as `F.otherCharacteristics`," +
