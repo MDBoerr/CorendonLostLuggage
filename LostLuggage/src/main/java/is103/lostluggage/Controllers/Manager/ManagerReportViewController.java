@@ -147,15 +147,13 @@ try {
             }
 
             while (retrievedSet.next()) {
-                String delivercheck = resultSet.getString("matched.delivery");
-                if (!"".equals(delivercheck)) {
                     int month = retrievedSet.getInt("months");
                     int countmatched = retrievedSet.getInt("quantityretrieved");
 
                     cases(month);
 
                     seriesmatched.getData().add(new XYChart.Data<>(mon, countmatched));
-                }
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
@@ -205,15 +203,13 @@ try {
             }
 
             while (retrievedSet.next()) {
-                String delivercheck = resultSet.getString("matched.delivery");
-                if (!"".equals(delivercheck)) {
                     int month = retrievedSet.getInt("months");
                     int countmatched = retrievedSet.getInt("quantityretrieved");
 
                     cases(month);
 
                     seriesmatched.getData().add(new XYChart.Data<>(mon, countmatched));
-                }
+                
             }
 
         } catch (SQLException ex) {
@@ -263,16 +259,14 @@ try {
                 serieslost.getData().add(new XYChart.Data<>(mon, countlost));
             }
 
-            while (retrievedSet.next()) {
-                String delivercheck = resultSet.getString("delivery");
-                if (!"".equals(delivercheck)) {
+            while (retrievedSet.next())  {
                     int month = retrievedSet.getInt("months");
                     int countmatched = retrievedSet.getInt("quantityretrieved");
 
                     cases(month);
 
                     seriesmatched.getData().add(new XYChart.Data<>(mon, countmatched));
-                }
+                
             }
 
         } catch (SQLException ex) {

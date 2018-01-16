@@ -43,7 +43,14 @@
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="392.0" />
-            <HBox prefHeight="100.0" prefWidth="392.0" />
+            <HBox prefHeight="100.0" prefWidth="392.0">
+               <children>
+                  <JFXButton fx:id="updateform1" buttonType="RAISED" onAction="#refreshTable" prefHeight="26.0" prefWidth="123.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="Refresh table" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets top="50.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children></HBox>
             <HBox prefHeight="100.0" prefWidth="314.0">
                <children>
                   <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" prefHeight="30.0" prefWidth="299.0" text="Treated bagage" textFill="WHITE">
