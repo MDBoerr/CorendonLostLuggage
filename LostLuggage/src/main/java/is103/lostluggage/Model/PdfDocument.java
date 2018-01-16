@@ -85,13 +85,17 @@ public class PdfDocument {
             String value = entry.getValue();
             
             //if key equals new line we have to set an additional new line
-            if(key.equals("newline")){
+            if(value.equals("Passenger Information") || value.equals("Luggage Information")){
+                contentStream.newLine();
+                contentStream.showText(value);
+                contentStream.newLine();
+                
+            }else{
+
+                contentStream.showText(key + value);
+
                 contentStream.newLine();
             }
-
-            contentStream.showText(key + value);
-
-            contentStream.newLine();
         }
 
         //End the text

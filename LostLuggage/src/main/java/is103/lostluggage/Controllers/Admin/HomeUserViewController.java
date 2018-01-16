@@ -63,5 +63,14 @@ public class HomeUserViewController implements Initializable {
         MainApp.switchView("/Views/Admin/AdminAddUserView.fxml");
 
     }
+    
+    
+    //Go to the extra data window
+    @FXML
+    protected void viewAddExtraDataWindow(ActionEvent event) throws IOException {
+        AdminAddUserViewController.edit = false;
+
+        MainApp.switchView("/Views/Admin/ExtraData.fxml");
+    }
 
 }
