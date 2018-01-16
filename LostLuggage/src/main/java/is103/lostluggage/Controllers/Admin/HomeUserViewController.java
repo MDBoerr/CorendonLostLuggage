@@ -45,7 +45,7 @@ public class HomeUserViewController implements Initializable {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        MainViewController.previousView = "/fxml/SelectUserRoleView.fxml";
+        //MainViewController.previousView = "";
 
     }
 
