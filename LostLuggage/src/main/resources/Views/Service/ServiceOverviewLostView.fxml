@@ -33,44 +33,44 @@
     <children>
        <TableView fx:id="lostLuggageTable" onMouseClicked="#lostRowClicked" prefHeight="328.0" prefWidth="1178.0" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="4">
          <columns>
-            <TableColumn fx:id="lostRegistrationNr" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="ID" />
-            <TableColumn fx:id="DateLost" minWidth="80.0" prefWidth="100.0" text="Date Lost" />
-            <TableColumn fx:id="TimeLost" minWidth="75.0" prefWidth="90.0" text="Time" />
-            <TableColumn fx:id="lostLuggageTag" minWidth="100.0" prefWidth="120.0" text="Tag" />
-            <TableColumn fx:id="lostLuggageType" minWidth="50.0" prefWidth="50.0" text="Type" />
-            <TableColumn fx:id="lostBrand" minWidth="100.0" prefWidth="125.0" text="Brand" />
-            <TableColumn fx:id="lostMainColor" minWidth="100.0" prefWidth="125.0" text="Color" />
-            <TableColumn fx:id="lostSecondColor" minWidth="100.0" prefWidth="125.0" text="Secondcolor" />
-            <TableColumn fx:id="lostSize" minWidth="125.0" prefWidth="150.0" text="Size" />
-            <TableColumn fx:id="lostWeight" minWidth="50.0" prefWidth="65.0" text="Weight" />
-            <TableColumn fx:id="lostOtherCharacteristics" minWidth="100.0" prefWidth="125.0" text="Characteristics" />
-            <TableColumn fx:id="lostPassengerId" minWidth="63.0" prefWidth="63.0" text="Passenger" />
-            <TableColumn fx:id="lostFlight" minWidth="50.0" prefWidth="84.0" text="Flight" />
-            <TableColumn fx:id="lostEmployeeId" minWidth="50.0" prefWidth="84.0" text="Employee" />
-            <TableColumn fx:id="lostMatchedId" minWidth="50.0" prefWidth="84.0" text="Match ID" />
+            <TableColumn fx:id="lostRegistrationNr" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="%colLostId" />
+            <TableColumn fx:id="DateLost" minWidth="80.0" prefWidth="100.0" text="%colLostDate" />
+            <TableColumn fx:id="TimeLost" minWidth="75.0" prefWidth="90.0" text="%colLostTime" />
+            <TableColumn fx:id="lostLuggageTag" minWidth="100.0" prefWidth="120.0" text="%colLostTag" />
+            <TableColumn fx:id="lostLuggageType" minWidth="50.0" prefWidth="50.0" text="%colLostType" />
+            <TableColumn fx:id="lostBrand" minWidth="100.0" prefWidth="125.0" text="%colLostBrand" />
+            <TableColumn fx:id="lostMainColor" minWidth="100.0" prefWidth="125.0" text="%colLostColor" />
+            <TableColumn fx:id="lostSecondColor" minWidth="100.0" prefWidth="125.0" text="%colLostSecondColor" />
+            <TableColumn fx:id="lostSize" minWidth="125.0" prefWidth="150.0" text="%colLostSize" />
+            <TableColumn fx:id="lostWeight" minWidth="50.0" prefWidth="65.0" text="%colLostWeight" />
+            <TableColumn fx:id="lostOtherCharacteristics" minWidth="100.0" prefWidth="125.0" text="%colLostChar" />
+            <TableColumn fx:id="lostPassengerId" minWidth="63.0" prefWidth="63.0" text="%colLostPassId" />
+            <TableColumn fx:id="lostFlight" minWidth="50.0" prefWidth="84.0" text="%colLostFlight" />
+            <TableColumn fx:id="lostEmployeeId" minWidth="50.0" prefWidth="84.0" text="%colLostEmployee" />
+            <TableColumn fx:id="lostMatchedId" minWidth="50.0" prefWidth="84.0" text="%colLostMatchId" />
          </columns>
       </TableView>
       <FlowPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4CAF50#4CAF50 #4CAF50#4CAF50;" GridPane.columnSpan="4" GridPane.rowSpan="2" />
-      <JFXButton buttonType="RAISED" onAction="#switchToMatching" prefHeight="27.0" prefWidth="115.0" ripplerFill="#0d47a1" style="-fx-background-color: red;" text="Find Matches &gt;" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+      <JFXButton fx:id="button_match" buttonType="RAISED" onAction="#switchToMatching" prefHeight="27.0" prefWidth="115.0" ripplerFill="#0d47a1" style="-fx-background-color: red;" text="%serviceButtonFindMatch" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
          <GridPane.margin>
             <Insets left="15.0" />
          </GridPane.margin>
       </JFXButton>
-      <JFXButton buttonType="RAISED" onAction="#switchToInput" prefHeight="27.0" prefWidth="115.0" ripplerFill="#1c53a4" style="-fx-background-color: #4189fc#4189fc;" text="Add Luggage +" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+      <JFXButton fx:id="button_input" buttonType="RAISED" onAction="#switchToInput" prefHeight="27.0" prefWidth="134.0" ripplerFill="#1c53a4" style="-fx-background-color: #4189fc#4189fc;" text="%serviceInputLuggage" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
          <GridPane.margin>
             <Insets right="15.0" />
          </GridPane.margin>
       </JFXButton>
-      <JFXComboBox fx:id="searchTypeComboBox" focusColor="WHITE" labelFloat="true" maxWidth="125.0" minWidth="100.0" onAction="#search" promptText="Filter" unFocusColor="WHITE">
+      <JFXComboBox fx:id="searchTypeComboBox" focusColor="WHITE" labelFloat="true" maxWidth="125.0" minWidth="100.0" onAction="#search" promptText="%searchFilterPrompt" unFocusColor="WHITE">
          <padding>
             <Insets right="10.0" />
          </padding>
       </JFXComboBox>
-      <JFXTextField fx:id="searchField" focusColor="WHITE" labelFloat="true" onAction="#search" onInputMethodTextChanged="#search" onKeyReleased="#search" prefHeight="27.0" prefWidth="260.0" promptText="Search for luggage" unFocusColor="WHITE">
+      <JFXTextField fx:id="searchField" focusColor="WHITE" labelFloat="true" onAction="#search" onInputMethodTextChanged="#search" onKeyReleased="#search" prefHeight="27.0" prefWidth="260.0" promptText="%searchInputPrompt" unFocusColor="WHITE">
          <GridPane.margin>
             <Insets left="25.0" right="150.0" />
          </GridPane.margin>
       </JFXTextField>
-      <JFXToggleButton onAction="#showOnlyMatchedLuggage" text="Matched Luggage" toggleColor="#1c53a4" toggleLineColor="#4189fc" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
+      <JFXToggleButton fx:id="matchedLuggageToggle" onAction="#showOnlyMatchedLuggage" text="%matchedLuggageToggle" toggleColor="#1c53a4" toggleLineColor="#4189fc" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
     </children>
 </GridPane>

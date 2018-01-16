@@ -1,16 +1,24 @@
 package is103.lostluggage.Controllers.Manager;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
 
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
+import is103.lostluggage.Model.PdfDocument;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import static java.sql.JDBCType.NULL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +38,11 @@ import javafx.scene.control.TableView;
 
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 /**
  * FXML Controller class
@@ -72,20 +85,44 @@ public class ManagerRetrievedViewController implements Initializable {
     @FXML
     private JFXTextField lostluggageid;
 
-    private String header = "Retrieved lugagge";
+    @FXML
+    private StackPane stackPane;
+
+    private final JFXDialogLayout DIALOG_LAYOUT = new JFXDialogLayout();
+
+    private final TextFlow MESSAGE_FLOW = new TextFlow();
+
+    private String alert, alertHeader, headerColor, buttonText;
+
+    //Hashmap containing all the text fields
+    private Map<String, String> formValues = new LinkedHashMap<>();
+
+    private String header;
+    private String headerDutch;
     //conection to the db
     public final MyJDBC DB = MainApp.getDatabase();
 
     @Override
-
     public void initialize(URL url, ResourceBundle rb) {
 
+        header = "Retrieved lugagge";
+        headerDutch = "Teruggebrachte bagage";
+        stackPane.setVisible(false);
+
         try {
-            MainViewController.getInstance().getTitle(header);
+            if (MainApp.language.equals("dutch")) {
+                MainViewController.getInstance().getTitle(headerDutch);
+            } else {
+                MainViewController.getInstance().getTitle(header);
+
+            }
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
+        //Set which view was previous 
+        MainApp.currentView = "/Views/Admin/ManagerRetrievedView.fxml";
+
         //To Previous Scene
         MainViewController.previousView = "/Views/ManagerHomeView.fxml";
 
@@ -97,9 +134,24 @@ public class ManagerRetrievedViewController implements Initializable {
         Deliverer.setCellValueFactory(new PropertyValueFactory<>("Deliverer"));
         retrievedTable.setItems(getRetrievedLuggage());
 
+        formtextid.setEditable(false);
+
+        lostluggageid.setEditable(false);
+        customerid.setEditable(false);
+        deivererid.setEditable(false);
+        emailid.setEditable(false);
+        adresid.setEditable(false);
+
+        employeeservice.setEditable(false);
+
+        dateid.setEditable(false);
+
         retrievedTable.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+
+                String header = "Retrieved lugagge";
+                String headerDutch = "Teruggebrachte bagage";
 
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
 
@@ -128,20 +180,17 @@ public class ManagerRetrievedViewController implements Initializable {
 
                     // set the values of tableview in textfield
                     formtextid.setText(formidString);
-                    formtextid.setEditable(false);
 
                     lostluggageid.setText(lostluggagenr);
-                    lostluggageid.setEditable(false);
 
                     customerid.setText(customer);
-
+                    customerid.setEditable(true);
                     deivererid.setText(deliver);
+                    deivererid.setEditable(true);
 
                     employeeservice.setText(employee);
-                    employeeservice.setEditable(false);
 
                     dateid.setText(date);
-                    dateid.setEditable(false);
 
                     try {
                         //search mail and adress where registrationnr is the same
@@ -157,11 +206,14 @@ public class ManagerRetrievedViewController implements Initializable {
                             if (!NULL.equals("passenger.email") || !"".equals("passenger.email")) {
                                 String passmail = resultSetPassenger.getString("passenger.email");
                                 emailid.setText(passmail);
+                                emailid.setEditable(true);
                             } else {
                                 emailid.clear();
+                                emailid.setEditable(true);
                             }
 
                             adresid.setText(passadres);
+                            adresid.setEditable(true);
                         }
 
                     } catch (SQLException ex) {
@@ -176,6 +228,7 @@ public class ManagerRetrievedViewController implements Initializable {
 
     }
 
+    @FXML
     public void updateFormInfo(ActionEvent event) throws SQLException {
 
         String customer = customerid.getText();
@@ -183,17 +236,106 @@ public class ManagerRetrievedViewController implements Initializable {
         String deliverer = deivererid.getText();
         String email = emailid.getText();
         String adres = adresid.getText();
-        
+        String id = this.formtextid.getText();
 
-        if (lostluggageid.equals(koffernr)) {
+        if (!id.equals("Select a row")) {
             int updateInfo = DB.executeUpdateQuery("UPDATE passenger "
                     + "                                   JOIN lostluggage ON lostluggage.passengerId = passenger.passengerId  "
                     + "                                             JOIN matched on lostluggage.registrationNr = matched.lostluggage  "
                     + "                                                     SET passenger.name = '" + customer + "', passenger.email = '" + email + "', passenger.address = '" + adres + "', matched.delivery = '" + deliverer + "' "
                     + "                                                     WHERE lostluggage.registrationNr = '" + lostkoffer + "'");
+
+            alertHeader = "Updated!";
+            headerColor = "#f03e3e";
+            alert = "The delivered luggage is updated";
+            buttonText = "Ok";
+            showAlertMessage();
+
         } else {
-            System.out.println("nothing updated");
+            alertHeader = "Something went wrong!";
+            headerColor = "#f03e3e";
+            alert = "Please select a row before updating details";
+            buttonText = "Try again";
+            showAlertMessage();
         }
+    }
+
+    @FXML
+    public void refreshTable(ActionEvent event) throws SQLException, IOException {
+        getRetrievedLuggage().removeAll(getRetrievedLuggage());
+        while (retrievedTable.getRowFactory() != null) {
+            getRetrievedLuggage().addAll();
+
+        }
+        retrievedTable.setItems(getRetrievedLuggage());
+    }
+
+    @FXML
+    public void exportPdf(ActionEvent event) throws SQLException, IOException {
+
+        //Fileobject
+        File file = MainApp.selectFileToSave("*.pdf");
+
+        //If fileobject has been initialized
+        if (file != null) {
+            String customer = customerid.getText();
+            String lostkoffer = lostluggageid.getText();
+            String deliverer = deivererid.getText();
+            String email = emailid.getText();
+            String adres = adresid.getText();
+            String treated = employeeservice.getText();
+            String date = dateid.getText();
+            String formid = formtextid.getText();
+
+            formValues.put("Registration ID: ", formid);
+            formValues.put("Registration date: ", date);
+            formValues.put("Employee name: ", treated);
+            formValues.put("Customer name: ", customer);
+            formValues.put("Lost luggage registration ID: ", lostkoffer);
+            formValues.put("Customer address: ", adres);
+            formValues.put("Customer email: ", email);
+            formValues.put("Deliverer: ", deliverer);
+            //get the location to store the file
+            String fileName = file.getAbsolutePath();
+            //New pdf document with filebath in constructor
+            PdfDocument Pdf = new PdfDocument(fileName);
+
+            //set the values for the pdf
+            Pdf.setPdfValues(formValues);
+
+            //Save the pdf
+            Pdf.savePDF();
+        }
+    }
+
+    private void showAlertMessage() {
+        stackPane.setVisible(true);
+        MESSAGE_FLOW.getChildren().clear();
+
+        //Customize header
+        Text header = new Text(alertHeader);
+        header.setFont(new Font("System", 18));
+        header.setFill(Paint.valueOf(headerColor));
+
+        JFXButton hideMessageButton = new JFXButton(buttonText);
+        //Customize button
+        hideMessageButton.setStyle("-fx-background-color: #4dadf7");
+        hideMessageButton.setTextFill(Paint.valueOf("#FFFFFF"));
+        hideMessageButton.setRipplerFill(Paint.valueOf("#FFFFFF"));
+        hideMessageButton.setButtonType(JFXButton.ButtonType.RAISED);
+
+        MESSAGE_FLOW.getChildren().add(new Text(alert));
+        DIALOG_LAYOUT.setHeading(header);
+        DIALOG_LAYOUT.setBody(MESSAGE_FLOW);
+        DIALOG_LAYOUT.setActions(hideMessageButton);
+        JFXDialog alertView = new JFXDialog(stackPane, DIALOG_LAYOUT, JFXDialog.DialogTransition.CENTER);
+        alertView.setOverlayClose(false);
+        hideMessageButton.setOnAction(e -> {
+            alertView.close();
+            stackPane.setVisible(false);
+        });
+
+        alertView.show();
     }
 
     public ObservableList<RetrievedLuggage> getRetrievedLuggage() {
@@ -201,14 +343,12 @@ public class ManagerRetrievedViewController implements Initializable {
         ObservableList<RetrievedLuggage> retrievedList = FXCollections.observableArrayList();
 
         try {
-            MyJDBC db = MainApp.getDatabase();
 
-            ResultSet resultSet;
-
-            resultSet = db.executeResultSetQuery("SELECT delivery, dateMatched, employee.firstname, matched.matchedId, matched.lostluggage, passenger.name  FROM matched "
+            ResultSet resultSet = DB.executeResultSetQuery("SELECT delivery, dateMatched, employee.firstname, matched.matchedId, matched.lostluggage, passenger.name  FROM matched "
                     + "                                 INNER JOIN employee ON matched.employeeId = employee.employeeId "
                     + "                                     INNER JOIN foundluggage ON matched.foundluggage = foundluggage.registrationNr "
-                    + "                                         INNER JOIN passenger ON foundluggage.passengerId = passenger.passengerId");
+                    + "                                             INNER JOIN lostluggage on matched.lostluggage = lostluggage.registrationNr"
+                    + "                                         INNER JOIN passenger ON lostluggage.passengerId = passenger.passengerId WHERE matched.matchedId");
 
             while (resultSet.next()) {
                 String delivercheck = resultSet.getString("matched.delivery");

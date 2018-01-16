@@ -1,36 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <GridPane prefHeight="586.0" prefWidth="1179.0" style="-fx-background-color: fff;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is103.lostluggage.Controllers.Manager.ManagerFoundViewController">
     <columnConstraints>
-        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="777.9694519042969" minWidth="10.0" prefWidth="430.33331298828125" />
-        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="957.3544311523438" minWidth="10.0" prefWidth="748.6666870117188" />
-      <ColumnConstraints />
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="777.9694519042969" minWidth="250.0" prefWidth="430.33331298828125" />
+      <ColumnConstraints maxWidth="959.0" minWidth="75.0" prefWidth="296.0" />
+        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="957.3544311523438" minWidth="200.0" prefWidth="325.0" />
+      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="148.65740966796875" minHeight="10.0" prefHeight="81.10185241699219" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="100.0" minHeight="60.0" prefHeight="75.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="15.0" valignment="CENTER" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="403.0" minHeight="10.0" prefHeight="403.0" valignment="CENTER" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="316.0810241699219" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="33.31011962890625" minHeight="100.0" prefHeight="9.034820556640625" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="33.31011962890625" minHeight="100.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <TableView fx:id="foundLuggage" prefHeight="401.0" prefWidth="729.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowSpan="3">
+      <FlowPane prefHeight="100.0" prefWidth="616.0" style="-fx-background-color: #4d4d4d;" GridPane.columnSpan="4" GridPane.rowSpan="2">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="571.0">
+               <children>
+                  <JFXTextField fx:id="searchField" focusColor="#434343" labelFloat="true" onAction="#search" onInputMethodTextChanged="#search" onKeyReleased="#search" prefHeight="27.0" prefWidth="260.0" promptText="Search for luggage" style="-fx-text-fill: #434343; -fx-prompt-text-fill: #434343#434343; -fx-background-color: #bfbfbf#bfbfbf #bfbfbf#bfbfbf;" unFocusColor="#141414">
+                     <HBox.margin>
+                        <Insets left="25.0" top="20.0" />
+                     </HBox.margin>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets top="25.0" />
+                     </padding>
+                  </JFXTextField>
+                  <JFXComboBox fx:id="searchTypeComboBox" focusColor="#434343" labelFloat="true" minWidth="100.0" onAction="#search" promptText="Filter" style="-fx-prompt-text-fill: #434343#434343; -fx-text-fill: #434343#434343; -fx-background-color: #bfbfbf#bfbfbf #bfbfbf#bfbfbf;" unFocusColor="#141414">
+                     <HBox.margin>
+                        <Insets top="20.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets top="15.0" />
+                     </padding>
+                  </JFXComboBox>
+               </children>
+            </HBox>
+         </children>
+      </FlowPane>
+      <JFXToggleButton onAction="#showOnlyMatchedLuggage" prefHeight="51.0" prefWidth="212.0" style="-fx-text-fill: #fff;" text="Matched Luggage" toggleColor="#1c53a4" toggleLineColor="#4189fc" GridPane.columnIndex="1" />
+      <VBox minWidth="120.0" prefWidth="120.0" GridPane.columnIndex="3">
+         <children>
+            <Label fx:id="results" alignment="BOTTOM_CENTER" contentDisplay="CENTER" minHeight="37.0" minWidth="100.0" prefHeight="37.0" prefWidth="120.0" text="00000" textFill="WHITE">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <HBox alignment="TOP_RIGHT" minWidth="100.0" prefHeight="13.0" prefWidth="120.0">
+               <children>
+                  <Label alignment="TOP_RIGHT" contentDisplay="TOP" minHeight="20.0" minWidth="30.0" prefHeight="20.0" prefWidth="30.0" text="/ " textFill="#939393">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="total" alignment="TOP_LEFT" contentDisplay="TOP" minHeight="25.0" minWidth="30.0" prefHeight="71.0" prefWidth="78.0" text="000000" textFill="#939393">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Label alignment="TOP_CENTER" contentDisplay="TOP" minHeight="19.0" minWidth="100.0" prefHeight="39.0" prefWidth="118.0" text="results" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Label>
+         </children>
+      </VBox>
+      <FlowPane alignment="CENTER" prefHeight="89.0" prefWidth="319.0" style="-fx-background-color: #999;" GridPane.columnIndex="2" GridPane.rowSpan="2">
+         <children>
+            <HBox alignment="CENTER" minWidth="200.0" prefHeight="46.0" prefWidth="299.0">
+               <children>
+                  <JFXDatePicker fx:id="fromDate" defaultColor="WHITE" minWidth="100.0" onAction="#search" onKeyReleased="#search" prefWidth="150.0" promptText="From" showWeekNumbers="true" style="-fx-text-fill: #fff; -fx-prompt-text-fill: #fff;" />
+                  <JFXDatePicker fx:id="toDate" defaultColor="WHITE" minWidth="100.0" onAction="#search" onKeyReleased="#search" prefWidth="150.0" promptText="To" showWeekNumbers="true" style="-fx-text-fill: #fff; -fx-prompt-text-fill: #fff;" />
+               </children>
+               <FlowPane.margin>
+                  <Insets bottom="20.0" />
+               </FlowPane.margin>
+            </HBox>
+         </children>
+      </FlowPane>
+        <TableView fx:id="foundLuggage" prefHeight="401.0" prefWidth="729.0" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="4">
             <columns>
                 <TableColumn fx:id="managerFoundRegistrationNr" maxWidth="2000.0" prefWidth="30.0" text="ID" />
                 <TableColumn fx:id="found_dateFound" prefWidth="76.0" resizable="false" text="dateFound" />
@@ -53,135 +128,8 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
          <GridPane.margin>
-            <Insets top="85.0" />
+            <Insets />
          </GridPane.margin>
         </TableView>
-      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
-         <children>
-            <VBox minWidth="150.0" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Separator opacity="0.0" prefHeight="8.0" prefWidth="237.0" />
-                  <Separator opacity="0.0" prefHeight="14.0" prefWidth="237.0" />
-                  <Separator opacity="0.0" prefHeight="8.0" prefWidth="237.0" />
-               </children>
-            </VBox>
-            <Separator opacity="0.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="75.0" />
-         </children>
-      </HBox>
-      <JFXDatePicker GridPane.columnIndex="1">
-         <GridPane.margin>
-            <Insets right="400.0" top="37.0" />
-         </GridPane.margin>
-      </JFXDatePicker>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pick two dates for an overview" wrappingWidth="223.47003173828125" GridPane.columnIndex="1">
-         <GridPane.margin>
-            <Insets bottom="40.0" right="260.0" />
-         </GridPane.margin>
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <JFXDatePicker GridPane.columnIndex="1">
-         <GridPane.margin>
-            <Insets right="200.0" top="37.0" />
-         </GridPane.margin>
-      </JFXDatePicker>
-      <GridPane GridPane.rowIndex="1">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <JFXButton prefHeight="35.0" prefWidth="75.0" ripplerFill="WHITE" style="-fx-background-color: #4dadf7#4dadf7 #4dadf7#4dadf7;" text="Edit" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <JFXTextField fx:id="lastnameField" focusColor="#4dadf7" promptText="Last name" text="0234" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </JFXTextField>
-            <JFXTextField fx:id="lastnameField2" focusColor="#4dadf7" prefHeight="25.0" prefWidth="199.0" promptText="Last name" text="Arthur Krom" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </JFXTextField>
-            <JFXTextField fx:id="lastnameField3" focusColor="#4dadf7" promptText="l" text="0" GridPane.columnIndex="1">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </JFXTextField>
-            <JFXTextField fx:id="lastnameField4" focusColor="#4dadf7" promptText="Last name" text="DHL" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </JFXTextField>
-            <JFXTextField fx:id="lastnameField5" focusColor="#4dadf7" promptText="Last name" text="Poek93ligthart@hotmail.com" GridPane.columnIndex="1" GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </JFXTextField>
-            <JFXDatePicker prefHeight="28.0" prefWidth="245.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID" textAlignment="RIGHT" wrappingWidth="167.03643226623535">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Formulier-ID" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="1">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="5">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Customer" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="2">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="4">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Deliverer" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="3">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Address" textAlignment="RIGHT" wrappingWidth="167.03643226623535" GridPane.rowIndex="6">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Text>
-            <JFXTextField fx:id="lastnameField51" focusColor="#4dadf7" promptText="Last name" text="Amsterdam, Netherlands" GridPane.columnIndex="1" GridPane.rowIndex="6">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </JFXTextField>
-         </children>
-      </GridPane>
-      <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <JFXTextField fx:id="searchField" labelFloat="true" onAction="#search" onInputMethodTextChanged="#search" onKeyReleased="#search" prefHeight="27.0" prefWidth="260.0" promptText="Search for luggage">
-               <HBox.margin>
-                  <Insets top="25.0" />
-               </HBox.margin></JFXTextField>
-            <JFXComboBox fx:id="searchTypeComboBox" onAction="#search">
-               <HBox.margin>
-                  <Insets top="25.0" />
-               </HBox.margin></JFXComboBox>
-         </children>
-      </HBox>
     </children>
 </GridPane>

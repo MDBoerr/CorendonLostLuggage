@@ -19,19 +19,28 @@ import javafx.fxml.Initializable;
  */
 public class ManagerHomeViewController implements Initializable {
 private String header = "Overview manager home";
+private String headerDutch = "Overzicht manager home";
     /**
      * Initializes the controller class.
      */ 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        
-               try {
-            MainViewController.getInstance().getTitle(header);
+                try {
+            if (MainApp.language.equals("dutch")) {
+                MainViewController.getInstance().getTitle(headerDutch);
+            } else {
+                MainViewController.getInstance().getTitle(header);
+
+            }
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //To Previous Scene
-        MainViewController.previousView = "/fxml/SelectUserRoleView.fxml";
+
+        //Set which view was previous 
+        MainApp.currentView = "/Views/Admin/ManagerHomeView.fxml";
+        
+      
     }
     //switch between screens from managerhome to others
 

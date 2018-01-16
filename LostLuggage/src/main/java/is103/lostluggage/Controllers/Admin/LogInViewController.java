@@ -35,7 +35,8 @@ import javafx.scene.text.TextFlow;
  */
 public class LogInViewController implements Initializable {
 
-    private String header = "Log In";
+    private final String header = "Log In";
+    private final String headerDutch = "Inloggen";
 
     @FXML
     private JFXButton logInButton;
@@ -63,7 +64,12 @@ public class LogInViewController implements Initializable {
         stackPane.setVisible(false);
 
         try {
-            MainViewController.getInstance().getTitle(header);
+            if (MainApp.language.equals("dutch")) {
+                MainViewController.getInstance().getTitle(headerDutch);
+            } else {
+                MainViewController.getInstance().getTitle(header);
+
+            }
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -81,6 +87,7 @@ public class LogInViewController implements Initializable {
             idTextField.clear();
             passwordField.clear();
         });
+        MainApp.currentView ="/Views/Admin/LogInView.fxml";
 
     }
 
@@ -149,12 +156,6 @@ public class LogInViewController implements Initializable {
         });
 
         alertView.show();
-    }
-
-    //Deze mag pas weg als iedereen kan inloggen..
-    @FXML
-    protected void switchViews(ActionEvent event) throws IOException {
-        MainApp.switchView("/fxml/SelectUserRoleView.fxml");
     }
 
 }

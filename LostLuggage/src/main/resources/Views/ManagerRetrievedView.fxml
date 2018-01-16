@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -43,7 +44,14 @@
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="392.0" />
-            <HBox prefHeight="100.0" prefWidth="392.0" />
+            <HBox prefHeight="100.0" prefWidth="392.0">
+               <children>
+                  <JFXButton fx:id="updateform1" buttonType="RAISED" onAction="#refreshTable" prefHeight="26.0" prefWidth="123.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="Refresh table" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets top="50.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children></HBox>
             <HBox prefHeight="100.0" prefWidth="314.0">
                <children>
                   <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" prefHeight="30.0" prefWidth="299.0" text="Treated bagage" textFill="WHITE">
@@ -81,22 +89,22 @@
             <RowConstraints minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <JFXButton fx:id="exportform" prefHeight="26.0" prefWidth="249.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="Export to PDF" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="10">
+            <JFXTextField fx:id="formtextid" focusColor="#4dadf7" onAction="#exportPdf" promptText="Form ID" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXButton fx:id="exportform" buttonType="RAISED" onAction="#exportPdf" prefHeight="26.0" prefWidth="249.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="Export to PDF" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="10">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
             </JFXButton>
-            <JFXTextField fx:id="formtextid" focusColor="#4dadf7" promptText="Last name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </JFXTextField>
-            <JFXTextField fx:id="customerid" focusColor="#4dadf7" prefHeight="25.0" prefWidth="199.0" promptText="Last name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <JFXTextField fx:id="customerid" focusColor="#4dadf7" prefHeight="25.0" prefWidth="199.0" promptText="Customer name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
             </JFXTextField>
-            <JFXTextField fx:id="deivererid" focusColor="#4dadf7" promptText="Last name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <JFXTextField fx:id="deivererid" focusColor="#4dadf7" promptText="Deliverer" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
@@ -151,12 +159,12 @@
                   <Insets top="10.0" />
                </GridPane.margin>
             </Text>
-            <JFXTextField fx:id="adresid" focusColor="#4dadf7" promptText="Last name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="6">
+            <JFXTextField fx:id="adresid" focusColor="#4dadf7" promptText="Deliver address" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="6">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
             </JFXTextField>
-            <JFXTextField fx:id="dateid" focusColor="#4dadf7" layoutX="135.0" layoutY="120.0" promptText="Last name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="5">
+            <JFXTextField fx:id="dateid" focusColor="#4dadf7" layoutX="135.0" layoutY="120.0" promptText="Retrieved date" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
@@ -169,12 +177,12 @@
                   <Insets top="10.0" />
                </GridPane.margin>
             </Text>
-            <JFXTextField fx:id="employeeservice" focusColor="#4dadf7" promptText="Last name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="7">
+            <JFXTextField fx:id="employeeservice" focusColor="#4dadf7" promptText="Employee name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="7">
                <padding>
                   <Insets top="10.0" />
                </padding>
             </JFXTextField>
-            <JFXButton fx:id="updateform" onAction="#updateFormInfo" prefHeight="26.0" prefWidth="249.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="Update information" textFill="WHITE" GridPane.rowIndex="10">
+            <JFXButton fx:id="updateform" buttonType="RAISED" onAction="#updateFormInfo" prefHeight="26.0" prefWidth="249.0" ripplerFill="#ab2020" style="-fx-background-color: #dd3c3c#dd3c3c #dd3c3c#dd3c3c;" text="Update information" textFill="WHITE" GridPane.rowIndex="10">
                <GridPane.margin>
                   <Insets left="40.0" />
                </GridPane.margin>
@@ -184,7 +192,7 @@
                   <Font size="17.0" />
                </font>
             </Text>
-            <JFXTextField fx:id="lostluggageid" focusColor="#4dadf7" promptText="Last name" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="8">
+            <JFXTextField fx:id="lostluggageid" focusColor="#4dadf7" promptText="Lost luggage ID" text="Select a row" GridPane.columnIndex="2" GridPane.rowIndex="8">
                <padding>
                   <Insets top="10.0" />
                </padding>
@@ -207,5 +215,6 @@
                 <TableColumn fx:id="Deliverer" prefWidth="127.19998168945312" text="Bezorger" />
             </columns>
         </TableView>
+      <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" />
     </children>
 </GridPane>

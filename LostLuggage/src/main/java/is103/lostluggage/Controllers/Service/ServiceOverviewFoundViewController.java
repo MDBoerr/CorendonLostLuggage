@@ -102,6 +102,9 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //for setting the resource bundle 
+        MainApp.currentView = "/Views/Service/ServiceOverviewFoundView.fxml";
+         
         //set the view's title, and catch a possible IOException
         try {
             MainViewController.getInstance().getTitle(TITLE);

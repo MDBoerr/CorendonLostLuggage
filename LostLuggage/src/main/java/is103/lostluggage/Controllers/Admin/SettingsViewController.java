@@ -54,6 +54,7 @@ public class SettingsViewController implements Initializable {
     private String alert, alertHeader, headerColor, buttonText;
 
     private final String header = "Settings";
+    private final String headerDutch = "Instellingen";
 
     private final MyJDBC DB = MainApp.getDatabase();
 
@@ -63,11 +64,15 @@ public class SettingsViewController implements Initializable {
         stackPane.setVisible(false);
         //Set Header
         try {
-            MainViewController.getInstance().getTitle(header);
+            if (MainApp.language.equals("dutch")) {
+                MainViewController.getInstance().getTitle(headerDutch);
+            } else {
+                MainViewController.getInstance().getTitle(header);
+
+            }
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        userLabel.setText("Change Password");
 
         changePasswordButton.setOnAction(e -> {
             try {
@@ -89,6 +94,7 @@ public class SettingsViewController implements Initializable {
             MainViewController.previousView = "/Views/ManagerHomeView.fxml";
 
         }
+        MainApp.currentView = "/Views/Admin/SettingsView.fxml";
 
     }
 
@@ -123,7 +129,7 @@ public class SettingsViewController implements Initializable {
                     if (returnValue >= 1) {
                         alertHeader = "Succeful!";
                         headerColor = "#495057";
-                        alert = "\nyour password has been updated!";
+                        alert = "\nYour password has been updated!";
                         buttonText = "Ok";
                         showAlertMessage();
                     } else {

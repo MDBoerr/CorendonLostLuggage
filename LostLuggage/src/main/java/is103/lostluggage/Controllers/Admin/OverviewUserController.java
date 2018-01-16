@@ -26,6 +26,7 @@ import javafx.scene.Node;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.TableRow;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -36,6 +37,7 @@ import javafx.scene.input.MouseEvent;
 public class OverviewUserController implements Initializable {
 
     private String header = "Overview User";
+    private String headerDutch = "Overzicht Gebruikers";
 
     private final MyJDBC DB = MainApp.getDatabase();
 
@@ -77,7 +79,12 @@ public class OverviewUserController implements Initializable {
         //Error in creating database User
         //MyJDBC.createLostLuggageDatabase("LostLuggage");
         try {
-            MainViewController.getInstance().getTitle(header);
+            if (MainApp.language.equals("dutch")) {
+                MainViewController.getInstance().getTitle(headerDutch);
+            } else {
+                MainViewController.getInstance().getTitle(header);
+
+            }
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -95,6 +102,7 @@ public class OverviewUserController implements Initializable {
 
         //To Previous Scene
         MainViewController.previousView = "/Views/Admin/HomeUserView.fxml";
+        MainApp.currentView = "/Views/Admin/UserScene.fxml";
 
     }
 
@@ -127,7 +135,7 @@ public class OverviewUserController implements Initializable {
     }
 
     @FXML
-    private void searchUsers(ActionEvent event) throws SQLException {
+    private void searchUsers(KeyEvent event) throws SQLException {
 
         ObservableList<User> users = FXCollections.observableArrayList();
         String searchInput = searchTextField.getText();

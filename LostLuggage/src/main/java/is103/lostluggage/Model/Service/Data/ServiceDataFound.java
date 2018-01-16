@@ -23,9 +23,6 @@ public final class ServiceDataFound {
     //connection to database
     private static final MyJDBC DB = MainApp.getDatabase();
     
-    //getting the main language
-    private final static String LANGUAGE = MainApp.getLanguage();
-    
     //detailed query that is used on multiple places
     public static final String DETAILED_QUERY = 
             "SELECT "+
@@ -35,13 +32,13 @@ public final class ServiceDataFound {
             "COALESCE(NULLIF(F.luggageTag,''), '') as luggageTag, "+
             "COALESCE(NULLIF(F.luggageType,''), '') as luggageType, "+
             "COALESCE(NULLIF(F.brand,''), ' ') as brand, " +
-            "COALESCE(NULLIF(C1."+LANGUAGE+",''), '') as mainColor,  " +
-            "COALESCE(NULLIF(C2."+LANGUAGE+",''), '') as secondColor, " +
+            "COALESCE(NULLIF(C1."+MainApp.getLanguage()+",''), '') as mainColor,  " +
+            "COALESCE(NULLIF(C2."+MainApp.getLanguage()+",''), '') as secondColor, " +
             "COALESCE(NULLIF(F.size,''), ' ') as size, "+
             "COALESCE(NULLIF(F.weight,''), '') as weight, "+
             "COALESCE(NULLIF(F.otherCharacteristics,''), '') as otherCharacteristics, "+
             "COALESCE(NULLIF(F.arrivedWithFlight,''), '') as arrivedWithFlight," +
-            "COALESCE(NULLIF(L."+LANGUAGE+" ,''), 'unknown') AS locationFound, " +
+            "COALESCE(NULLIF(L."+MainApp.getLanguage()+" ,''), 'unknown') AS locationFound, " +
             "COALESCE(NULLIF(F.employeeId,''), '') as employeeId, "+
             "COALESCE(NULLIF(F.matchedId,''), '') as matchedId, "+
             "COALESCE(NULLIF(F.passengerId,''), '') as passengerId " +     
@@ -113,20 +110,21 @@ public final class ServiceDataFound {
      * @return resultSet           for the given id
      */ 
     public ResultSet getAllDetailsFound(String id) throws SQLException{
+        String language = MainApp.getLanguage();
         return DB.executeResultSetQuery("SELECT " +
             "COALESCE(NULLIF(F.registrationNr,''), 0) as `F.registrationNr`," +
             "COALESCE(NULLIF(F.dateFound,''), 'unknown') as `F.dateFound`, " +
             "COALESCE(NULLIF(F.timeFound,''), 'unknown') as `F.timeFound`, " +
             "COALESCE(NULLIF(F.luggageTag,''), 'unknown') as `F.luggageTag`,  " +
-            "COALESCE(NULLIF(T."+LANGUAGE+",''), 'unknown') as `T."+LANGUAGE+"`, " +
+            "COALESCE(NULLIF(T."+language+",''), 'unknown') as `T."+language+"`, " +
             "COALESCE(NULLIF(F.brand,''), 'unknown') as `F.brand`," +
-            "COALESCE(NULLIF(C1."+LANGUAGE+",''), 0) as `C1."+LANGUAGE+"`,  " +
-            "COALESCE(NULLIF(C2."+LANGUAGE+",''), 0) as `C2."+LANGUAGE+"`," +
+            "COALESCE(NULLIF(C1."+language+",''), 0) as `C1."+language+"`,  " +
+            "COALESCE(NULLIF(C2."+language+",''), 0) as `C2."+language+"`," +
             "COALESCE(NULLIF(F.size,''), 'unknown')	as `F.size`,  " +
             "COALESCE(NULLIF(F.weight,''), 'unknown') as `F.weight`," +
             "COALESCE(NULLIF(F.otherCharacteristics,''), 'none') as `F.otherCharacteristics`," +
             "COALESCE(NULLIF(F.arrivedWithFlight,''), 'unknown') as `F.arrivedWithFlight`," +
-            "COALESCE(NULLIF(L."+LANGUAGE+" ,''), 'unknown') as `L."+LANGUAGE+"`," +
+            "COALESCE(NULLIF(L."+language+" ,''), 'unknown') as `L."+language+"`," +
             "COALESCE(NULLIF(F.passengerId,''), 0) as `F.passengerId`," +
             "COALESCE(NULLIF(P.name,''), 'unknown')  as `P.name`," +
             "COALESCE(NULLIF(P.address,''), 'unknown') as `P.address`," +
