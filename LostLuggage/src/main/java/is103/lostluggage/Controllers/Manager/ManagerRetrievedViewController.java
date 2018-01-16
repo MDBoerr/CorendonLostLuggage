@@ -76,7 +76,7 @@ public class ManagerRetrievedViewController implements Initializable {
     private JFXTextField dateid;
     @FXML
     private JFXTextField lostluggageid;
-    
+
     //Hashmap containing all the text fields
     private Map<String, String> formValues = new LinkedHashMap<>();
 
@@ -93,7 +93,7 @@ public class ManagerRetrievedViewController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         //To Previous Scene
         MainViewController.previousView = "/Views/ManagerHomeView.fxml";
 
@@ -104,6 +104,18 @@ public class ManagerRetrievedViewController implements Initializable {
         Employee.setCellValueFactory(new PropertyValueFactory<>("Employee"));
         Deliverer.setCellValueFactory(new PropertyValueFactory<>("Deliverer"));
         retrievedTable.setItems(getRetrievedLuggage());
+
+        formtextid.setEditable(false);
+
+        lostluggageid.setEditable(false);
+        customerid.setEditable(false);
+        deivererid.setEditable(false);
+        emailid.setEditable(false);
+        adresid.setEditable(false);
+
+        employeeservice.setEditable(false);
+
+        dateid.setEditable(false);
 
         retrievedTable.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -136,20 +148,17 @@ public class ManagerRetrievedViewController implements Initializable {
 
                     // set the values of tableview in textfield
                     formtextid.setText(formidString);
-                    formtextid.setEditable(false);
 
                     lostluggageid.setText(lostluggagenr);
-                    lostluggageid.setEditable(false);
 
                     customerid.setText(customer);
-
+                    customerid.setEditable(true);
                     deivererid.setText(deliver);
+                    deivererid.setEditable(true);
 
                     employeeservice.setText(employee);
-                    employeeservice.setEditable(false);
 
                     dateid.setText(date);
-                    dateid.setEditable(false);
 
                     try {
                         //search mail and adress where registrationnr is the same
@@ -165,11 +174,14 @@ public class ManagerRetrievedViewController implements Initializable {
                             if (!NULL.equals("passenger.email") || !"".equals("passenger.email")) {
                                 String passmail = resultSetPassenger.getString("passenger.email");
                                 emailid.setText(passmail);
+                                emailid.setEditable(true);
                             } else {
                                 emailid.clear();
+                                emailid.setEditable(true);
                             }
 
                             adresid.setText(passadres);
+                            adresid.setEditable(true);
                         }
 
                     } catch (SQLException ex) {
@@ -183,6 +195,7 @@ public class ManagerRetrievedViewController implements Initializable {
         });
 
     }
+
     @FXML
     public void updateFormInfo(ActionEvent event) throws SQLException {
 
@@ -191,9 +204,9 @@ public class ManagerRetrievedViewController implements Initializable {
         String deliverer = deivererid.getText();
         String email = emailid.getText();
         String adres = adresid.getText();
-        
+        String id = this.formtextid.getText();
 
-        if (lostluggageid.equals(koffernr)) {
+        if (!id.equals("Select a row")) {
             int updateInfo = DB.executeUpdateQuery("UPDATE passenger "
                     + "                                   JOIN lostluggage ON lostluggage.passengerId = passenger.passengerId  "
                     + "                                             JOIN matched on lostluggage.registrationNr = matched.lostluggage  "
@@ -203,41 +216,50 @@ public class ManagerRetrievedViewController implements Initializable {
             System.out.println("nothing updated");
         }
     }
-    
+
+    @FXML
+    public void refreshTable(ActionEvent event) throws SQLException, IOException {
+        getRetrievedLuggage().removeAll(getRetrievedLuggage());
+        while (retrievedTable.getRowFactory() != null) {
+            getRetrievedLuggage().addAll();
+
+        }
+        retrievedTable.setItems(getRetrievedLuggage());
+    }
+
     @FXML
     public void exportPdf(ActionEvent event) throws SQLException, IOException {
 
-         //Fileobject
+        //Fileobject
         File file = MainApp.selectFileToSave("*.pdf");
-        
+
         //If fileobject has been initialized
-        if(file != null){
-        String customer = customerid.getText();
-        String lostkoffer = lostluggageid.getText();
-        String deliverer = deivererid.getText();
-        String email = emailid.getText();
-        String adres = adresid.getText();
-        String treated = employeeservice.getText();
-        String date = dateid.getText();
-        String formid = formtextid.getText();
-        
-        
-        formValues.put("Registration ID: ", formid);
-        formValues.put("Registration date: ", date);
-        formValues.put("Employee name: ", treated);
-        formValues.put("Customer name: ", customer);
-        formValues.put("Lost luggage registration ID: ", lostkoffer);       
-        formValues.put("Customer address: ", adres);
-        formValues.put("Customer email: ", email);
-        formValues.put("Deliverer: ", deliverer);
+        if (file != null) {
+            String customer = customerid.getText();
+            String lostkoffer = lostluggageid.getText();
+            String deliverer = deivererid.getText();
+            String email = emailid.getText();
+            String adres = adresid.getText();
+            String treated = employeeservice.getText();
+            String date = dateid.getText();
+            String formid = formtextid.getText();
+
+            formValues.put("Registration ID: ", formid);
+            formValues.put("Registration date: ", date);
+            formValues.put("Employee name: ", treated);
+            formValues.put("Customer name: ", customer);
+            formValues.put("Lost luggage registration ID: ", lostkoffer);
+            formValues.put("Customer address: ", adres);
+            formValues.put("Customer email: ", email);
+            formValues.put("Deliverer: ", deliverer);
             //get the location to store the file
             String fileName = file.getAbsolutePath();
             //New pdf document with filebath in constructor
             PdfDocument Pdf = new PdfDocument(fileName);
-            
+
             //set the values for the pdf
             Pdf.setPdfValues(formValues);
-            
+
             //Save the pdf
             Pdf.savePDF();
         }
@@ -255,7 +277,8 @@ public class ManagerRetrievedViewController implements Initializable {
             resultSet = db.executeResultSetQuery("SELECT delivery, dateMatched, employee.firstname, matched.matchedId, matched.lostluggage, passenger.name  FROM matched "
                     + "                                 INNER JOIN employee ON matched.employeeId = employee.employeeId "
                     + "                                     INNER JOIN foundluggage ON matched.foundluggage = foundluggage.registrationNr "
-                    + "                                         INNER JOIN passenger ON foundluggage.passengerId = passenger.passengerId");
+                    + "                                             INNER JOIN lostluggage on matched.lostluggage = lostluggage.registrationNr"
+                    + "                                         INNER JOIN passenger ON lostluggage.passengerId = passenger.passengerId WHERE matched.matchedId");
 
             while (resultSet.next()) {
                 String delivercheck = resultSet.getString("matched.delivery");
