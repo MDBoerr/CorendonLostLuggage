@@ -165,9 +165,13 @@ public class ServiceDataMatch {
                                         ObservableList<LostLuggage> lostList, 
                                         ObservableList<FoundLuggage> foundList, 
                                         int minPercentage){
+        //clear the previous lists
         potentialMatchesList.clear();
         this.potentialMatchesList.clear();
+        
+        //loop trough all the items in the lost list
         lostList.forEach((lost)-> {
+            //and compare them to all the items of the found list
             foundList.forEach((found) -> {
                 
                     //set match id and percentage on zero.
@@ -193,11 +197,9 @@ public class ServiceDataMatch {
                     if (checkField(lost.getFlight(), found.getFlight()) ) {
                         matchingPercentage += 10;
                     }
-//                    if (Integer.parseInt(lost.getWeight()) != 0 && Integer.parseInt(found.getWeight()) != 0){
-//                        if ( ((lost.getWeight()/found.getWeight())-1)*100 < 50 ){
-//                            matchingPercentage += 10;
-//                        }
-//                    }
+                    if (checkField(lost.getWeight(), found.getWeight()) ){                       
+                        matchingPercentage += 10;
+                    }
                     if (checkField(lost.getSize(), found.getSize()) ) {
                             matchingPercentage += 10;
                     }
@@ -208,8 +210,8 @@ public class ServiceDataMatch {
                             System.out.println("Same: luggage tag");
                         }
                     }
-
-                    if (matchingPercentage>minPercentage){
+                    //check if the match percentage is higher than the minimum
+                    if (matchingPercentage>=minPercentage){
                         this.potentialMatchesList.add(new MatchLuggage(
                             found.getRegistrationNr(), 
                             lost.getRegistrationNr(), 

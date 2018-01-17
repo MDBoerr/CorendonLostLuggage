@@ -310,11 +310,6 @@ public class ServiceDetailedMatchLuggageViewController implements Initializable 
         closeStage();
     }
     
-    @FXML 
-    public void viewDetails(){
-        //this is already the detailed view..
-    }
-    
     /**  
      * Close the current stage by getting the window of a fields scene's
      * And casting this to a stage, and close this stage
