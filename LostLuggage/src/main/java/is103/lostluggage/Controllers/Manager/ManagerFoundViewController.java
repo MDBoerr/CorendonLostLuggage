@@ -4,12 +4,10 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import is103.lostluggage.Controllers.Admin.OverviewUserController;
-import is103.lostluggage.Controllers.Admin.HomeUserViewController;
 import is103.lostluggage.Controllers.MainViewController;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.MainApp;
 import is103.lostluggage.Model.Service.Model.FoundLuggage;
-//import is103.lostluggage.Controllers.Service.Luggage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -19,10 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
@@ -30,12 +25,9 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
-import static is103.lostluggage.MainApp.getDatabase;
 import is103.lostluggage.Model.Service.Data.ServiceDataFound;
 import is103.lostluggage.Model.Service.Data.ServiceGetDataFromDB;
 import is103.lostluggage.Model.Service.Data.ServiceSearchData;
-import is103.lostluggage.Model.Service.Interface.FoundLuggageFields;
 import is103.lostluggage.Model.Service.Interface.FoundLuggageTable;
 import is103.lostluggage.Model.Service.Interface.Search;
 import javafx.scene.control.Label;
@@ -49,6 +41,7 @@ import javafx.scene.control.Label;
 public class ManagerFoundViewController implements Initializable, FoundLuggageTable, Search {
     //view title
     private final String TITLE = "Overview Found Luggage";
+    private final String TITLE_DUTCH = "Overzicht gevonden bagage";
     
     //list of luggages for the lostTable
     public static ObservableList<FoundLuggage> foundLuggageList;
@@ -124,9 +117,14 @@ public class ManagerFoundViewController implements Initializable, FoundLuggageTa
         
         //set view title
          try {
-            MainViewController.getInstance().getTitle(TITLE);
+            if (MainApp.language.equals("dutch")) {
+                MainViewController.getInstance().getTitle(TITLE_DUTCH);
+            } else {
+                MainViewController.getInstance().getTitle(TITLE);
+            }
         } catch (IOException ex) {
-            Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OverviewUserController.class.getName())
+                    .log(Level.SEVERE, null, ex);
         } 
         
         //initialize the filter (for columns/fields) combo box with data
@@ -447,7 +445,7 @@ public class ManagerFoundViewController implements Initializable, FoundLuggageTa
 
     /**
      * This method is for clearing (resetting) the date picker filters
-     * Note; i didn't had enough time to also configure this with the searching.
+     * Note; i didn't had enough time to also configure this with showing only the matched luggage
      */
     private void resetDatePickerFilter() {
         toDate.setValue(null);

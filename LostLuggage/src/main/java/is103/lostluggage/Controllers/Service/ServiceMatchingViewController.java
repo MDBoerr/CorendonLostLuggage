@@ -54,6 +54,7 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
      
     //view title
     private final String TITLE = "Matching";
+    private final String TITLE_DUTCH = "Overeenkomend";
     
     //popup stage
     private final Stage POPUP_STAGE_FOUND = new Stage();   
@@ -223,8 +224,15 @@ public class ServiceMatchingViewController implements Initializable, FoundLuggag
         MainViewController.previousView = "/Views/Service/ServiceHomeView.fxml";
         
         //try to set the titel above the view
-        try {MainViewController.getInstance().getTitle(TITLE);} catch (IOException ex) {
-            Logger.getLogger(ServiceMatchingViewController.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            if (MainApp.language.equals("dutch")) {
+                MainViewController.getInstance().getTitle(TITLE_DUTCH);
+            } else {
+                MainViewController.getInstance().getTitle(TITLE);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ServiceMatchingViewController.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
         
         //initialize instance

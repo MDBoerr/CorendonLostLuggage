@@ -46,7 +46,6 @@
             <TableColumn fx:id="lostOtherCharacteristics" minWidth="100.0" prefWidth="125.0" text="%colLostChar" />
             <TableColumn fx:id="lostPassengerId" minWidth="63.0" prefWidth="63.0" text="%colLostPassId" />
             <TableColumn fx:id="lostFlight" minWidth="50.0" prefWidth="84.0" text="%colLostFlight" />
-            <TableColumn fx:id="lostEmployeeId" minWidth="50.0" prefWidth="84.0" text="%colLostEmployee" />
             <TableColumn fx:id="lostMatchedId" minWidth="50.0" prefWidth="84.0" text="%colLostMatchId" />
          </columns>
       </TableView>

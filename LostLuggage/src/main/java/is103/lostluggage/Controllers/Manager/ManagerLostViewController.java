@@ -43,6 +43,7 @@ import javafx.scene.control.Label;
 public class ManagerLostViewController implements Initializable, LostLuggageTable, Search {
     //view title
     private final String TITLE = "Overview Lost Luggage";
+    private final String TITLE_DUTCH = "Overzicht verloren bagage";
     
     //list of luggages for the lostTable
     public static ObservableList<LostLuggage> lostLuggageList;
@@ -117,7 +118,11 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
         
         //set view title
          try {
-            MainViewController.getInstance().getTitle(TITLE);
+            if (MainApp.language.equals("dutch")) {
+                MainViewController.getInstance().getTitle(TITLE_DUTCH);
+            } else {
+                MainViewController.getInstance().getTitle(TITLE);
+            }
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         } 
@@ -437,7 +442,7 @@ public class ManagerLostViewController implements Initializable, LostLuggageTabl
     
     /**
      * This method is for clearing (resetting) the date picker filters
-     * Note; i didn't had enough time to also configure this with the searching.
+     * Note; i didn't had enough time to also configure this with showing only the matched luggage
      */
     private void resetDatePickerFilter() {
         toDate.setValue(null);
