@@ -46,6 +46,7 @@ public class HomeUserViewController implements Initializable {
         }
 
         //MainViewController.previousView = "";
+        MainApp.currentView = "/Views/Admin/HomeUserView.fxml";
 
     }
 
