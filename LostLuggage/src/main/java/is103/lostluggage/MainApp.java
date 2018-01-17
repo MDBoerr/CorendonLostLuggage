@@ -3,9 +3,11 @@ package is103.lostluggage;
 import is103.lostluggage.Database.MyJDBC;
 import is103.lostluggage.Model.User;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.event.EventType;
@@ -33,9 +35,6 @@ public class MainApp extends Application {
 
     //Database instance
     private static MyJDBC DB;
-
-    //Name of the database  
-    final private static String DB_NAME = "CorendonLostLuggage";
 
     public static String language = "english";
 
@@ -119,11 +118,20 @@ public class MainApp extends Application {
     }
 
     //set the database instance
-    public static void setDatabase() {
+    public static void setDatabase() throws FileNotFoundException {
 
-        MyJDBC db = new MyJDBC(MainApp.DB_NAME);
+        //config file
+        File file = new File("src/main/resources/config");
+        
+        //Scanner object
+        Scanner input = new Scanner(file);
+        
+        String dbname = input.next();
+        String user = input.next();
+        String password = input.next();
 
-        MainApp.DB = db;
+        //init db
+        MainApp.DB = new MyJDBC(dbname, user, password);
     }
 
     //method to connect to the database
