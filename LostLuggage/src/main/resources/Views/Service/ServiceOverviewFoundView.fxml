@@ -47,7 +47,6 @@
             <TableColumn fx:id="foundPassengerId" minWidth="63.0" prefWidth="63.0" text="%colFoundPassId" />
             <TableColumn fx:id="foundArrivedWithFlight" minWidth="50.0" prefWidth="84.0" text="%colFoundFlight" />
             <TableColumn fx:id="foundLocationFound" minWidth="60.0" prefWidth="119.0" text="%colFoundLocation" />
-            <TableColumn fx:id="foundEmployeeId" minWidth="60.0" prefWidth="119.0" text="%colFoundEmployee" />
             <TableColumn fx:id="foundMatchedId" minWidth="60.0" prefWidth="119.0" text="%colFoundMatchId" />
          </columns>
       </TableView>

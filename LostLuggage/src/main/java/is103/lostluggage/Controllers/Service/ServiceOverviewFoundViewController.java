@@ -90,7 +90,6 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
     
     @FXML private TableColumn<FoundLuggage, String>  foundArrivedWithFlight;
     @FXML private TableColumn<FoundLuggage, Integer> foundLocationFound;
-    @FXML private TableColumn<FoundLuggage, String>  foundEmployeeId;
     @FXML private TableColumn<FoundLuggage, Integer> foundMatchedId;
 
     
@@ -267,7 +266,6 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
         
         foundArrivedWithFlight.setCellValueFactory(    new PropertyValueFactory<>("arrivedWithFlight"));
         foundLocationFound.setCellValueFactory(        new PropertyValueFactory<>("locationFound"));
-        foundEmployeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
         foundMatchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId"));
 
         //set place holder text when there are no results
