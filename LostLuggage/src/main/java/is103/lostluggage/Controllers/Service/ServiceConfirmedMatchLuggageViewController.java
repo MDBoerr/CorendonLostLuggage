@@ -111,6 +111,7 @@ public class ServiceConfirmedMatchLuggageViewController implements
     
     //page title 
     private final String TITLE = "Matched luggage";
+     private final String TITLE_DUTCH = "Overeenkomende bagage";
     
     //conection to the main database
     private final MyJDBC DB = MainApp.getDatabase();
@@ -133,7 +134,11 @@ public class ServiceConfirmedMatchLuggageViewController implements
     public void initialize(URL url, ResourceBundle rb) {
         //Try to set the title of the page
         try {
-            MainViewController.getInstance().getTitle(TITLE);
+            if (MainApp.language.equals("dutch")) {
+                MainViewController.getInstance().getTitle(TITLE_DUTCH);
+            } else {
+                MainViewController.getInstance().getTitle(TITLE);
+            }
         } catch (IOException ex) {
             Logger.getLogger(ServiceMatchingViewController.class.getName())
                     .log(Level.SEVERE, null, ex);

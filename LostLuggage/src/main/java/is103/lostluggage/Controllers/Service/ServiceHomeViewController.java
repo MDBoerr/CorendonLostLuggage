@@ -35,7 +35,10 @@ public class ServiceHomeViewController implements Initializable {
     public static boolean resetMatching = true; //true= refresh       -> get's alternated in program
                                                 //false= dont refresh
                                                 //for: manual matching
-            
+    
+    //page title
+    private final String TITLE_DUTCH = "Service hoofd pagina ";
+    private final String TITLE = "Servivce home";
     /**
      * This method is for getting the one and only instance of the class match 
      * 
@@ -101,7 +104,11 @@ public class ServiceHomeViewController implements Initializable {
         
         //set the view's title
         try {
-            MainViewController.getInstance().getTitle( "Service Home" );
+            if (MainApp.language.equals("dutch")) {
+                MainViewController.getInstance().getTitle(TITLE_DUTCH);
+            } else {
+                MainViewController.getInstance().getTitle(TITLE);
+            }
         } catch (IOException ex) {
             Logger.getLogger(ServiceHomeViewController.class.getName()).log(Level.SEVERE, null, ex);
         }  

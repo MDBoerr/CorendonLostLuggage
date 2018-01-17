@@ -36,7 +36,7 @@
             <TableColumn fx:id="foundRegistrationNr" maxWidth="2000.0" minWidth="40.0" prefWidth="40.0" text="%colFoundId" />
             <TableColumn fx:id="foundDateFound" minWidth="80.0" prefWidth="100.0" text="%colFoundDate" />
             <TableColumn fx:id="foundTimeFound" minWidth="75.0" prefWidth="90.0" text="%colFoundTime" />
-            <TableColumn fx:id="foundLuggageTag" minWidth="100.0" prefWidth="120.0" text="%colFoundTime" />
+            <TableColumn fx:id="foundLuggageTag" minWidth="100.0" prefWidth="120.0" text="%colFoundTag" />
             <TableColumn fx:id="foundLuggageType" minWidth="50.0" prefWidth="50.0" text="%colFoundType" />
             <TableColumn fx:id="foundBrand" minWidth="100.0" prefWidth="125.0" text="%colFoundBrand" />
             <TableColumn fx:id="foundMainColor" minWidth="100.0" prefWidth="125.0" text="%colFoundColor" />

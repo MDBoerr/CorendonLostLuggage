@@ -40,6 +40,9 @@ import javafx.stage.Stage;
  * @author Thijs Zijdel - 500782165
  */
 public class ServiceOverviewLostViewController implements Initializable, LostLuggageTable, Search {
+    //page title
+    private final String TITLE = "Overview Lost Luggage";
+    private final String TITLE_DUTCH = "Overzicht verloren bagage";
     
     //stage for more details when double clicking on a table item
     private final Stage POPUP_STAGE_LOST = new Stage();  
@@ -105,7 +108,11 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
         
         //set the view's title, and catch a possible IOException
         try {
-            MainViewController.getInstance().getTitle( "Overview Lost" );
+            if (MainApp.language.equals("dutch")) {
+                MainViewController.getInstance().getTitle(TITLE_DUTCH);
+            } else {
+                MainViewController.getInstance().getTitle(TITLE);
+            }
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
