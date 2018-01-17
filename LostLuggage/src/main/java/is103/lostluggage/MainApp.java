@@ -48,7 +48,7 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
 
         //Method to set the db property
-        setDatabase();
+        setDatabase("corendonlostluggage", "root", "admin");
                 
         //set root
         root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
@@ -118,17 +118,17 @@ public class MainApp extends Application {
     }
 
     //set the database instance
-    public static void setDatabase() throws FileNotFoundException {
+    public static void setDatabase(String dbname, String user, String password) throws FileNotFoundException {
 
-        //config file
-        File file = new File("src/main/resources/config");
-        
-        //Scanner object
-        Scanner input = new Scanner(file);
-        
-        String dbname = input.next();
-        String user = input.next();
-        String password = input.next();
+//        //config file
+//        File file = new File("src/main/resources/config");
+//        
+//        //Scanner object
+//        Scanner input = new Scanner(file);
+//        
+//        String dbname = input.next();
+//        String user = input.next();
+//        String password = input.next();
 
         //init db
         MainApp.DB = new MyJDBC(dbname, user, password);
