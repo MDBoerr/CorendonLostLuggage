@@ -53,6 +53,8 @@ public class ExtraDataController implements Initializable {
         //set the title of the view, default form to be displayed is Missing
         changeTitle("Add Extra Data");
         
+        MainApp.currentView = "/Views/Admin/ExtraData.fxml";
+        
     }    
     
     

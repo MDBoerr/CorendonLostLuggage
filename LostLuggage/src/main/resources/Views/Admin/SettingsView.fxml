@@ -42,9 +42,9 @@
                 <children>
                     <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
                         <children>
-                            <JFXButton fx:id="cancelButton" prefHeight="35.0" prefWidth="75.0" style="-fx-background-color: #adb5bd#adb5bd;" text="Cancel" textFill="WHITE" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="15.0" />
+                            <JFXButton fx:id="cancelButton" prefHeight="35.0" prefWidth="75.0" style="-fx-background-color: #adb5bd#adb5bd;" text="%adminCancel" textFill="WHITE" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="15.0" />
                             <Separator orientation="VERTICAL" prefHeight="63.0" prefWidth="35.0" visible="false" />
-                            <JFXButton fx:id="changePasswordButton" prefHeight="35.0" prefWidth="140.0" ripplerFill="WHITE" style="-fx-background-color: #4dadf7#4dadf7 #4dadf7#4dadf7;" text="Change Password" textFill="WHITE" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="15.0" />
+                            <JFXButton fx:id="changePasswordButton" prefHeight="35.0" prefWidth="140.0" ripplerFill="WHITE" style="-fx-background-color: #4dadf7#4dadf7 #4dadf7#4dadf7;" text="%adminChangePassword" textFill="WHITE" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="15.0" />
                         </children>
                     </AnchorPane>
                <JFXPasswordField fx:id="oldPasswordField" focusColor="#4dadf7" labelFloat="true" promptText="%adminCurrentPassword" GridPane.rowIndex="2" />
