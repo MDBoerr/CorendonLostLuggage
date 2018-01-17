@@ -204,7 +204,7 @@ public class ManagerRetrievedViewController implements Initializable {
                                 emailid.setText(passmail);
                                 emailid.setEditable(true);
                             } else {
-                                emailid.setText("youremail@domainname.something");
+                                emailid.clear();
                                 emailid.setEditable(true);
                             }
 
@@ -258,16 +258,16 @@ public class ManagerRetrievedViewController implements Initializable {
 
     @FXML
     public void refreshTable(ActionEvent event) throws SQLException, IOException {
-         String id = this.formtextid.getText();
+        String id = this.formtextid.getText();
         if (!id.isEmpty()) {
-            
-        getRetrievedLuggage().removeAll(getRetrievedLuggage());
-        while (retrievedTable.getRowFactory() != null) {
-            getRetrievedLuggage().addAll();
 
-        }
-        retrievedTable.setItems(getRetrievedLuggage());
-        }else{
+            getRetrievedLuggage().removeAll(getRetrievedLuggage());
+            while (retrievedTable.getRowFactory() != null) {
+                getRetrievedLuggage().addAll();
+
+            }
+            retrievedTable.setItems(getRetrievedLuggage());
+        } else {
             alertHeader = "There is nothing to update";
             headerColor = "#f03e3e";
             alert = "Please update retrieved luggage before refreshing";
@@ -278,49 +278,72 @@ public class ManagerRetrievedViewController implements Initializable {
 
     @FXML
     public void exportPdf(ActionEvent event) throws SQLException, IOException {
-String id = this.formtextid.getText();
+        String id = this.formtextid.getText();
         if (!id.isEmpty()) {
-        //Fileobject
-        File file = MainApp.selectFileToSave("*.pdf");
+            //Fileobject
+            File file = MainApp.selectFileToSave("*.pdf");
 
-        //If fileobject has been initialized
-        
-        if (file != null) {
-            String customer = customerid.getText();
-            String lostkoffer = lostluggageid.getText();
-            String deliverer = deivererid.getText();
-            String email = emailid.getText();
-            String adres = adresid.getText();
-            String treated = employeeservice.getText();
-            String date = dateid.getText();
-            String formid = formtextid.getText();
+            //If fileobject has been initialized
+            if (file != null) {
+                String customer = customerid.getText();
+                String lostkoffer = lostluggageid.getText();
+                String deliverer = deivererid.getText();
 
-            formValues.put("Registration ID: ", formid);
-            formValues.put("Registration date: ", date);
-            formValues.put("Employee name: ", treated);
-            formValues.put("Customer name: ", customer);
-            formValues.put("Lost luggage registration ID: ", lostkoffer);
-            formValues.put("Customer address: ", adres);
-            formValues.put("Customer email: ", email);
-            formValues.put("Deliverer: ", deliverer);
-            //get the location to store the file
-            String fileName = file.getAbsolutePath();
-            //New pdf document with filebath in constructor
-            PdfDocument Pdf = new PdfDocument(fileName);
+                String email = "";
+                String adres = "";
 
-            //set the values for the pdf
-            Pdf.setPdfValues(formValues);
+                if (emailid.getText() != null && !emailid.getText().isEmpty()) {
+                    email = emailid.getText();
+                } else {
 
-            //Save the pdf
-            Pdf.savePDF();
-        }
-        }else {
+                    alertHeader = "Email is empty";
+                    headerColor = "#f03e3e";
+                    alert = "please put and email in";
+                    buttonText = "Oke";
+                    showAlertMessage();
+                }
+
+                if (adresid.getText() != null && !adresid.getText().isEmpty()) {
+                    email = adresid.getText();
+                } else {
+                    alertHeader = "Address is empty";
+                    headerColor = "#f03e3e";
+                    alert = "please put and address in";
+                    buttonText = "Oke";
+                    showAlertMessage();
+                }
+
+                String treated = employeeservice.getText();
+                String date = dateid.getText();
+                String formid = formtextid.getText();
+
+                formValues.put("Registration ID: ", formid);
+                formValues.put("Registration date: ", date);
+                formValues.put("Employee name: ", treated);
+                formValues.put("Customer name: ", customer);
+                formValues.put("Lost luggage registration ID: ", lostkoffer);
+                formValues.put("Customer address: ", adres);
+                formValues.put("Customer email: ", email);
+                formValues.put("Deliverer: ", deliverer);
+                //get the location to store the file
+                String fileName = file.getAbsolutePath();
+                //New pdf document with filebath in constructor
+                PdfDocument Pdf = new PdfDocument(fileName);
+
+                //set the values for the pdf
+                Pdf.setPdfValues(formValues);
+
+                //Save the pdf
+                Pdf.savePDF();
+            }
+        } else {
             alertHeader = "Something went wrong!";
             headerColor = "#f03e3e";
             alert = "Please select a row before exporting details";
             buttonText = "Try again";
             showAlertMessage();
-    }}
+        }
+    }
 
     private void showAlertMessage() {
         stackPane.setVisible(true);
