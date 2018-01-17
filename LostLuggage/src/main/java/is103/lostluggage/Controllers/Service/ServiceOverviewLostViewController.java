@@ -14,7 +14,6 @@ import is103.lostluggage.Model.Service.Data.ServiceMoreDetails;
 import is103.lostluggage.Model.Service.Data.ServiceSearchData;
 import is103.lostluggage.Model.Service.Interface.LostLuggageTable;
 import is103.lostluggage.Model.Service.Interface.Search;
-import is103.lostluggage.Model.settings;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -87,7 +86,6 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
     @FXML private TableColumn<LostLuggage, Integer> lostPassengerId;
     
     @FXML private TableColumn<LostLuggage, String>  lostFlight;
-    @FXML private TableColumn<LostLuggage, String>  lostEmployeeId;
     @FXML private TableColumn<LostLuggage, Integer> lostMatchedId;
    
     @FXML private JFXButton button_input, button_match;
@@ -269,7 +267,6 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
         lostPassengerId.setCellValueFactory(          new PropertyValueFactory<>("passengerId"));
         
         lostFlight.setCellValueFactory(               new PropertyValueFactory<>("flight"));
-        lostEmployeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
         lostMatchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId"));
          
         //set place holder text when there are no results
