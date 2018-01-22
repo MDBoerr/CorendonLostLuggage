@@ -33,8 +33,10 @@ public class Form {
         
         //Make an arraylist that contains the two form types
         ArrayList<String> formtypes = new ArrayList<>();
+        
         formtypes.add("Found"); 
         formtypes.add("Lost");
+
         
         //Add a new item to the map, key is color as the value will contain an ArrayList of strings that contain the names of the colors
         //Select queries so prepared statement not necessary

@@ -14,24 +14,15 @@ import java.util.Enumeration;
  */
 public class MyJDBC {
     //Part 1
-//    private static final String DB_DEFAULT_DATABASE = "sys";
-//    private static final String DB_DEFAULT_SERVER_URL = "localhost:3306";
-//    private static final String DB_DEFAULT_ACCOUNT = "root";
-//    private static final String DB_DEFAULT_PASSWORD = "root";
-//
-//    private final static String DB_DRIVER_URL = "com.mysql.jdbc.Driver";
-//    private final static String DB_DRIVER_PREFIX = "jdbc:mysql://";
-//    private final static String DB_DRIVER_PARAMETERS = "?useSSL=false";
-    
-    private static final String DB_DEFAULT_DATABASE = "team3corendon";
-    private static final String DB_DEFAULT_SERVER_URL = "54.37.228.40:3306";
-    private static final String DB_DEFAULT_ACCOUNT = "is103t3";
-    private static final String DB_DEFAULT_PASSWORD = "corendon1";
+    private static final String DB_DEFAULT_DATABASE = "sys";
+    private static final String DB_DEFAULT_SERVER_URL = "localhost:3306";
+    private static final String DB_DEFAULT_ACCOUNT = "root";
+    private static final String DB_DEFAULT_PASSWORD = "root";
 
     private final static String DB_DRIVER_URL = "com.mysql.jdbc.Driver";
     private final static String DB_DRIVER_PREFIX = "jdbc:mysql://";
     private final static String DB_DRIVER_PARAMETERS = "?useSSL=false";
-
+    
     private Connection connection = null;
 
     // set for verbose logging of all queries

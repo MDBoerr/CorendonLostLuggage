@@ -44,6 +44,7 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
      * View title
      **/
     private final String TITLE = "Overview Found Luggage";
+    private final String TITLE_DUTCH = "Overzicht gevonden bagage";
     
     //stage for more details when double clicking on a table item
     private final Stage POPUP_STAGE_FOUND = new Stage(); 
@@ -89,7 +90,6 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
     
     @FXML private TableColumn<FoundLuggage, String>  foundArrivedWithFlight;
     @FXML private TableColumn<FoundLuggage, Integer> foundLocationFound;
-    @FXML private TableColumn<FoundLuggage, String>  foundEmployeeId;
     @FXML private TableColumn<FoundLuggage, Integer> foundMatchedId;
 
     
@@ -107,7 +107,11 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
          
         //set the view's title, and catch a possible IOException
         try {
-            MainViewController.getInstance().getTitle(TITLE);
+            if (MainApp.language.equals("dutch")) {
+                MainViewController.getInstance().getTitle(TITLE_DUTCH);
+            } else {
+                MainViewController.getInstance().getTitle(TITLE);
+            }
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         } 
@@ -262,7 +266,6 @@ public class ServiceOverviewFoundViewController implements Initializable, FoundL
         
         foundArrivedWithFlight.setCellValueFactory(    new PropertyValueFactory<>("arrivedWithFlight"));
         foundLocationFound.setCellValueFactory(        new PropertyValueFactory<>("locationFound"));
-        foundEmployeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
         foundMatchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId"));
 
         //set place holder text when there are no results

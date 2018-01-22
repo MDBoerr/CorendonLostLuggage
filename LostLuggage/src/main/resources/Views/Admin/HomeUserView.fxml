@@ -20,7 +20,7 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <JFXButton fx:id="button" buttonType="RAISED" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="65.0" prefWidth="245.0" ripplerFill="WHITE" style="-fx-background-color: #F44336#F44336;" styleClass=".button" text="Overview Users" textFill="WHITE" GridPane.rowIndex="1">
+        <JFXButton fx:id="button" buttonType="RAISED" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="65.0" prefWidth="245.0" ripplerFill="WHITE" style="-fx-background-color: #F44336#F44336;" styleClass=".button" text="%adminOverview" textFill="WHITE" GridPane.rowIndex="1">
             <GridPane.margin>
                 <Insets right="40.0" />
             </GridPane.margin>
@@ -28,7 +28,7 @@
                 <Font size="20.0" />
             </font>
         </JFXButton>
-        <JFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#viewAddUserWindow" prefHeight="65.0" prefWidth="245.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3#2196F3;" styleClass=".button" text="Add User" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <JFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#viewAddUserWindow" prefHeight="65.0" prefWidth="245.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3#2196F3;" styleClass=".button" text="%adminAddUser" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <GridPane.margin>
                 <Insets left="40.0" />
             </GridPane.margin>
@@ -36,7 +36,7 @@
                 <Font size="20.0" />
             </font>
         </JFXButton>
-      <JFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#viewAddExtraDataWindow" prefHeight="65.0" prefWidth="245.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3#2196F3;" styleClass=".button" text="Add Extra Options" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <JFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#viewAddExtraDataWindow" prefHeight="65.0" prefWidth="245.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3#2196F3;" styleClass=".button" text="%adminAddExtra" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <font>
             <Font size="20.0" />
          </font>

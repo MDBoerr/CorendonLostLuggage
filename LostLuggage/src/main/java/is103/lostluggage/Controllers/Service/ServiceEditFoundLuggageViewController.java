@@ -82,6 +82,7 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
     
      //view title
     private final String TITLE = "Edit Found Luggage";
+    private final String TITLE_DUTCH ="Pas gevonden bagage aan";
     
     //alert message content (changes)
     private String changedFields = "";
@@ -127,7 +128,11 @@ public class ServiceEditFoundLuggageViewController implements Initializable, Fou
          
         //try to set the page title
         try {
-            MainViewController.getInstance().getTitle(TITLE);
+            if (MainApp.language.equals("dutch")) {
+                MainViewController.getInstance().getTitle(TITLE_DUTCH);
+            } else {
+                MainViewController.getInstance().getTitle(TITLE);
+            }
         } catch (IOException ex) {
             Logger.getLogger(ServiceHomeViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

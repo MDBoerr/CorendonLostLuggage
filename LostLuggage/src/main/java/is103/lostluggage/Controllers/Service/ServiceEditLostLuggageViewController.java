@@ -78,7 +78,8 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
     
     
     //view title
-    private final String title = "Edit Lost Luggage";
+    private final String TITLE = "Edit Lost Luggage";
+    private final String TITLE_DUTCH = "Pas verloren bagage aan";
     
     //alert message content (changes)
     private String changedFields = "";
@@ -128,7 +129,11 @@ public class ServiceEditLostLuggageViewController implements Initializable, Lost
          
         //set the view title
         try {
-            MainViewController.getInstance().getTitle(title);
+            if (MainApp.language.equals("dutch")) {
+                MainViewController.getInstance().getTitle(TITLE_DUTCH);
+            } else {
+                MainViewController.getInstance().getTitle(TITLE);
+            }
         } catch (IOException ex) {
             Logger.getLogger(ServiceHomeViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

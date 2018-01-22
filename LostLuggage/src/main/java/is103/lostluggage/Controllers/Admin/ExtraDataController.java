@@ -13,11 +13,14 @@ import is103.lostluggage.Controllers.Service.ServiceInputLuggageViewController;
 import is103.lostluggage.MainApp;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 
 /**
  * FXML Controller class
@@ -33,6 +36,9 @@ public class ExtraDataController implements Initializable {
     @FXML
     private JFXCheckBox daylightsavingCB;
     
+    @FXML
+    private Label msgLbl;
+    
     
     /**
      * Initializes the controller class.
@@ -46,6 +52,8 @@ public class ExtraDataController implements Initializable {
         
         //set the title of the view, default form to be displayed is Missing
         changeTitle("Add Extra Data");
+        
+        MainApp.currentView = "/Views/Admin/ExtraData.fxml";
         
     }    
     
@@ -61,7 +69,7 @@ public class ExtraDataController implements Initializable {
     
     
     @FXML
-    public void addAirport(){
+    public void addAirport() throws SQLException{
         
         //Get the values from the fields
         String IATACode, Airport, Country, TimeZone, DaylightSaving;
@@ -77,9 +85,20 @@ public class ExtraDataController implements Initializable {
             DaylightSaving = "0";
         }
         
-
-        int asdq = MainApp.getDatabase().executeUpdateQuery("INSERT into destination (IATACode, airport, country, timeZone, daylightSaving) "
+        //Check if IATACode exists
+       ResultSet result = MainApp.getDatabase().executeResultSetQuery("SELECT IATACode FROM destination WHERE IATACode = '"+IATACode+"' ");
+        
+       if (!result.next() ) {
+            int asdq = MainApp.getDatabase().executeUpdateQuery("INSERT into destination (IATACode, airport, country, timeZone, daylightSaving) "
                 + "VALUES ('"+IATACode+"', '"+Airport+"', '"+Country+"', '"+TimeZone+"', '"+DaylightSaving+"')");
+        
+            msgLbl.setText(Airport + " Has been added");
+       }else{
+           msgLbl.setText("This IATACode is already registerred");
+       }
+        
+
+
         
     }
     

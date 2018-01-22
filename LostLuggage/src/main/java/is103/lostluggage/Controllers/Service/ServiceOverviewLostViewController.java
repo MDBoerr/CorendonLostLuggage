@@ -14,7 +14,6 @@ import is103.lostluggage.Model.Service.Data.ServiceMoreDetails;
 import is103.lostluggage.Model.Service.Data.ServiceSearchData;
 import is103.lostluggage.Model.Service.Interface.LostLuggageTable;
 import is103.lostluggage.Model.Service.Interface.Search;
-import is103.lostluggage.Model.settings;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -40,6 +39,9 @@ import javafx.stage.Stage;
  * @author Thijs Zijdel - 500782165
  */
 public class ServiceOverviewLostViewController implements Initializable, LostLuggageTable, Search {
+    //page title
+    private final String TITLE = "Overview Lost Luggage";
+    private final String TITLE_DUTCH = "Overzicht verloren bagage";
     
     //stage for more details when double clicking on a table item
     private final Stage POPUP_STAGE_LOST = new Stage();  
@@ -84,7 +86,6 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
     @FXML private TableColumn<LostLuggage, Integer> lostPassengerId;
     
     @FXML private TableColumn<LostLuggage, String>  lostFlight;
-    @FXML private TableColumn<LostLuggage, String>  lostEmployeeId;
     @FXML private TableColumn<LostLuggage, Integer> lostMatchedId;
    
     @FXML private JFXButton button_input, button_match;
@@ -105,7 +106,11 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
         
         //set the view's title, and catch a possible IOException
         try {
-            MainViewController.getInstance().getTitle( "Overview Lost" );
+            if (MainApp.language.equals("dutch")) {
+                MainViewController.getInstance().getTitle(TITLE_DUTCH);
+            } else {
+                MainViewController.getInstance().getTitle(TITLE);
+            }
         } catch (IOException ex) {
             Logger.getLogger(OverviewUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -262,7 +267,6 @@ public class ServiceOverviewLostViewController implements Initializable, LostLug
         lostPassengerId.setCellValueFactory(          new PropertyValueFactory<>("passengerId"));
         
         lostFlight.setCellValueFactory(               new PropertyValueFactory<>("flight"));
-        lostEmployeeId.setCellValueFactory(           new PropertyValueFactory<>("employeeId"));
         lostMatchedId.setCellValueFactory(            new PropertyValueFactory<>("matchedId"));
          
         //set place holder text when there are no results
