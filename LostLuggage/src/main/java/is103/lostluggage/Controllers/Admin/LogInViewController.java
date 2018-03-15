@@ -156,6 +156,15 @@ public class LogInViewController implements Initializable {
         });
 
         alertView.show();
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
 
 }
